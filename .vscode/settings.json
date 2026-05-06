@@ -1,0 +1,13 @@
+{
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/.venv": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/coverage": true
+    }
+}

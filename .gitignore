@@ -1,0 +1,63 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+env/.env
+env/credentials.json
+env/token.json
+*.pem
+*.key
+*.p12
+*.crt
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+vendor/
+__pycache__/
+*.pyc
+
+# Build and cache outputs
+dist/
+build/
+out/
+coverage/
+.next/
+.nuxt/
+.cache/
+.turbo/
+.pytest_cache/
+.mypy_cache/
+
+# Generated and temporary files
+env/tmp/
+env/logs/
+tmp/
+temp/
+logs/
+*.log
+*.generated.*
+*.min.js
+*.map
+
+# Large/binary assets commonly unsuitable for template commits
+# Copied projects may intentionally relax these rules for production assets.
+*.zip
+*.tar
+*.gz
+*.7z
+*.mp4
+*.mov
+*.exr
+*.dpx
+*.psd
+*.blend
+*.usd
+*.usdc
+
+# IDE/system
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*.log

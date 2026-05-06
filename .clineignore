@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+vendor/
+__pycache__/
+
+# Build outputs and caches
+dist/
+build/
+out/
+coverage/
+.next/
+.nuxt/
+.cache/
+.turbo/
+.pytest_cache/
+.mypy_cache/
+
+# Generated files
+*.generated.*
+*.min.js
+*.map
+generated/
+gen/
+
+# Logs and temporary files
+*.log
+logs/
+tmp/
+temp/
+env/tmp/
+env/logs/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+env/.env
+env/credentials.json
+env/token.json
+*.pem
+*.key
+*.p12
+*.crt
+
+# Large/binary assets
+*.zip
+*.tar
+*.gz
+*.7z
+*.mp4
+*.mov
+*.exr
+*.dpx
+*.psd
+*.blend
+*.usd
+*.usdc
+
+# IDE/system
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*.log

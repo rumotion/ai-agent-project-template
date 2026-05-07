@@ -49,11 +49,18 @@ scripts/
 
 Do not start by writing app code manually. First let the agent initialize project context.
 
-Run validation:
+Run fast bootstrap first:
 
 ```bash
-python scripts/check-template.py
+python scripts/init-fast.py
 ```
+
+This command:
+
+1. runs `python scripts/check-template.py --fast`, and
+2. prints a short FAST_INIT prompt to paste into a new agent context window.
+
+Use full validation (`python scripts/check-template.py`) when you need deep/publish checks.
 
 ## 3. Add starting resources, if you have them
 
@@ -88,46 +95,26 @@ Configure your agent/model path:
 The template works regardless of provider. Provider choice affects billing/auth, not the template structure.
 Keep provider credentials in your IDE, OS keychain, shell environment, or local `.env` files that are ignored by Git. Do not commit real keys or tokens.
 
-## 5. Start with the low-context initialization prompt
+## 5. Start with the FAST_INIT prompt
 
-Use this prompt first:
+The easiest path is to run:
 
-```text
-Read AGENTS.md and memory-bank/startup.md only.
-
-I am starting a new project from this template.
-
-Project idea:
-[describe the app, website, tool, or service you want]
-
-Please inspect the empty/new repository, ask me any critical questions, then propose:
-1. recommended stack,
-2. initial folder structure,
-3. setup commands,
-4. first implementation plan,
-5. Memory Bank updates needed.
-
-Do not install dependencies or create files yet. Plan first.
+```bash
+python scripts/init-fast.py
 ```
 
-Example:
+Then copy the printed prompt into a new context window.
+
+If you want to paste manually, use:
 
 ```text
-Read AGENTS.md and memory-bank/startup.md only.
-
-I am starting a new project from this template.
-
-Project idea:
-A portfolio website for a 3D motion designer with a homepage, project gallery, about page, contact form, and CMS-ready project data.
-
-Please inspect the empty/new repository, ask me any critical questions, then propose:
-1. recommended stack,
-2. initial folder structure,
-3. setup commands,
-4. first implementation plan,
-5. Memory Bank updates needed.
-
-Do not install dependencies or create files yet. Plan first.
+FAST_INIT + TOKEN_SAVER.
+Follow AGENTS.md initialization modes exactly.
+Use minimal turns and minimal narration.
+Update only allowed Memory Bank files.
+Keep unknowns as TBD.
+Ask only critical questions before any escalation.
+Return a short final summary.
 ```
 
 ## 6. Choose the stack
@@ -201,7 +188,10 @@ python scripts/check-template.py
 For each feature, use this pattern:
 
 ```text
-Read AGENTS.md and memory-bank/startup.md only.
+FAST_INIT + TOKEN_SAVER.
+
+Follow AGENTS.md initialization modes exactly.
+Use minimal turns and minimal narration.
 
 Task:
 [describe the feature or bug]
@@ -228,7 +218,7 @@ Task: Add a contact form UI. Do not connect backend/email yet.
 Most tasks should start with:
 
 ```text
-Read AGENTS.md and memory-bank/startup.md only.
+FAST_INIT + TOKEN_SAVER.
 ```
 
 This keeps context small. The agent should load deeper files only when needed.

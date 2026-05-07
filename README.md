@@ -8,6 +8,23 @@ A copyable starter template for projects developed with Cline, Google Antigravit
 
 The default startup path is intentionally tiny: read `AGENTS.md`, then `memory-bank/startup.md`, then lazy-load only task-relevant context.
 
+## Quick start (new users)
+
+After cloning or creating from template:
+
+1. Run:
+
+   ```bash
+   python scripts/init-fast.py
+   ```
+
+2. Copy the printed prompt into a **new agent context window**.
+3. For deep/publish validation later, run:
+
+   ```bash
+   python scripts/check-template.py
+   ```
+
 ## Included systems
 
 - Canonical model-agnostic instructions: `AGENTS.md`
@@ -42,10 +59,25 @@ For GitHub template, clone, ZIP download, and advanced pull/merge workflows, see
 3. Ask your agent:
 
    ```text
-   Initialize this project from the master agent template. Read AGENTS.md and memory-bank/startup.md first. Inspect the repository, fill Memory Bank files with accurate facts, keep unknowns as TBD, and propose project-specific rules, skills, workflows, or ignore patterns only if useful.
+   FAST_INIT + TOKEN_SAVER.
+   Follow AGENTS.md initialization modes exactly.
+   Use minimal turns and minimal narration.
+   Update only allowed Memory Bank files.
+   Keep unknowns as TBD.
+   Ask only critical questions before any escalation.
+   Return a short final summary.
    ```
 
 4. Start work from a focused branch or task prompt.
+
+Need full template inspection later? Run a separate prompt:
+
+```text
+DEEP_AUDIT.
+
+Inspect docs, workflows, skills, scripts, and validation paths as needed.
+Run broader checks and propose focused improvements.
+```
 
 ## Use from GitHub
 
@@ -54,6 +86,12 @@ Recommended public workflow:
 1. Mark this repository as a GitHub **Template repository**.
 2. Users click **Use this template** to create their own clean repository.
 3. They clone their new repository, run `python scripts/check-template.py`, then initialize project-specific Memory Bank files with their agent.
+
+Fast startup alternative (recommended for everyday initialization):
+
+```bash
+python scripts/init-fast.py
+```
 
 Direct `git clone` also works, but it keeps the template Git history and `origin` remote until the user changes it. Pulling this template into an existing project is advanced and should be done selectively after committing current work.
 
@@ -72,10 +110,17 @@ Use `docs/file-organization.md` for the full guide.
 Run:
 
 ```bash
+python scripts/init-fast.py
+python scripts/check-template.py --fast
 python scripts/check-template.py
 ```
 
-The validator checks required template files, confirms adapter files reference `AGENTS.md`, enforces startup/context size budgets, checks required ignore patterns, and scans template text for common public-repository secret hygiene issues.
+- `scripts/init-fast.py`: runs fast validation and prints a short copy/paste FAST_INIT agent prompt.
+- The printed prompt includes `TOKEN_SAVER` to request minimal turns and concise output.
+- `--fast`: lightweight startup/integration checks for FAST_INIT workflows.
+- (no flag): full template validation including repository-wide secret hygiene scanning.
+
+The full validator checks required template files, confirms adapter files reference `AGENTS.md`, enforces startup/context size budgets, checks required ignore patterns, and scans template text for common public-repository secret hygiene issues.
 
 Before publishing a copy publicly:
 
@@ -87,3 +132,7 @@ Before publishing a copy publicly:
 ## Master prompt
 
 Use `docs/antigravity-master-prompt.md` for the detailed Google Antigravity/Cline/ChatGPT Team initialization prompt.
+
+## Continuous improvement
+
+Use `docs/template-improvement-brief.md` as a handoff file for another LLM or reviewer to analyze this template, compare it with current agent-tooling best practices, and propose future improvements.

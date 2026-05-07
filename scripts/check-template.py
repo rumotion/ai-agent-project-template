@@ -5,6 +5,7 @@ This script intentionally uses only the Python standard library so it can run in
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 import re
 import sys
@@ -49,6 +50,18 @@ REQUIRED_FILES = [
     "assets/.gitkeep",
     "assets/images/.gitkeep",
     "assets/data/.gitkeep",
+]
+
+FAST_REQUIRED_FILES = [
+    "AGENTS.md",
+    "GEMINI.md",
+    "CLAUDE.md",
+    "README.md",
+    ".gitignore",
+    ".clineignore",
+    ".env.example",
+    "memory-bank/startup.md",
+    "memory-bank/00-index.md",
 ]
 
 ADAPTER_FILES = [
@@ -197,11 +210,26 @@ def check_gitignore() -> list[str]:
     return [pattern for pattern in REQUIRED_GITIGNORE_PATTERNS if pattern not in patterns]
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Validate AI-agent project template structure.")
+    parser.add_argument(
+        "--fast",
+        action="store_true",
+        help="Run a lightweight validation for FAST_INIT workflows.",
+    )
+    return parser.parse_args()
+
+
 def main() -> int:
-    missing = [path for path in REQUIRED_FILES if not (ROOT / path).is_file()]
+    args = parse_args()
+    fast_mode = args.fast
+
+    required_files = FAST_REQUIRED_FILES if fast_mode else REQUIRED_FILES
+
+    missing = [path for path in required_files if not (ROOT / path).is_file()]
     bad_adapters = []
     oversized = []
-    sensitive_findings = scan_sensitive_content()
+    sensitive_findings = [] if fast_mode else scan_sensitive_content()
     missing_gitignore_patterns = check_gitignore()
 
     for path in ADAPTER_FILES:
@@ -239,10 +267,20 @@ def main() -> int:
                 print(f"  - {pattern}")
         return 1
 
-    print("Template validation passed.")
-    print(f"Checked {len(REQUIRED_FILES)} required files and {len(ADAPTER_FILES)} adapters.")
+    if fast_mode:
+        print("Template FAST validation passed.")
+        print("Mode: --fast (lightweight startup/integration checks)")
+    else:
+        print("Template validation passed.")
+        print("Mode: full")
+
+    print(f"Checked {len(required_files)} required files and {len(ADAPTER_FILES)} adapters.")
     print(f"Checked {len(CONTEXT_BUDGETS)} startup/context budgets.")
-    print("Checked public-template secret hygiene and .gitignore safety patterns.")
+    if fast_mode:
+        print("Checked .gitignore safety patterns.")
+        print("Skipped repository-wide secret hygiene scan in fast mode.")
+    else:
+        print("Checked public-template secret hygiene and .gitignore safety patterns.")
     return 0
 
 

@@ -2,23 +2,26 @@
 
 ## Name
 
-AI Agent Project Template
+newProject (initialized from AI Agent Project Template)
 
 ## Purpose
 
-Copyable starter for multi-agent, multi-model development with one canonical instruction file and a low-context Memory Bank.
+Initialize this repository from the master AI-agent template, then evolve into a project-specific codebase once requirements are provided.
 
 ## Users
 
-Developers using Cline, Google Antigravity, Gemini, Claude, ChatGPT/Codex-style agents, OpenRouter, or VS Code-compatible tools.
+- Primary (current phase): maintainers/agents running low-context initialization.
+- Future: `TBD`.
 
 ## Success
 
-- `AGENTS.md` stays canonical and small.
-- Startup reads only `AGENTS.md` + `memory-bank/startup.md` by default.
-- Deeper docs, workflows, skills, and Memory Bank files are lazy-loaded.
-- `python scripts/check-template.py` passes.
+- Memory Bank reflects verified repository facts (with unknowns explicitly marked `TBD`).
+- `AGENTS.md` remains canonical and startup context remains low.
+- The repository is ready for project-specific planning without conflicting template assumptions.
 
 ## Constraints
 
-No secrets, generated artifacts, dependencies, or project-specific stack assumptions in the base template.
+- Do not invent product/domain details before they are provided.
+- Keep unknown project-specific details as `TBD` until clarified.
+- Read boundaries for initialization must follow `FAST_INIT` in `AGENTS.md`.
+- No stack-specific assumptions unless explicitly verified.

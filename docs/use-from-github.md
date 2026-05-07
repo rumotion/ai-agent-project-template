@@ -10,14 +10,16 @@ If the repository is marked as a GitHub Template repository:
 2. Click **Use this template**.
 3. Create a new repository under your own account or organization.
 4. Clone your new repository locally.
-5. Run validation:
+5. Run fast bootstrap:
 
    ```bash
-   python scripts/check-template.py
+   python scripts/init-fast.py
    ```
 
+   This runs `check-template.py --fast` and prints a short prompt for a new agent context window.
+
 6. Open the folder in VS Code, Google Antigravity, Cline, or another compatible IDE.
-7. Ask your agent to initialize the copied project using `AGENTS.md` and `memory-bank/startup.md`.
+7. Paste the printed FAST_INIT prompt into a new context window.
 
 This is the cleanest path because the new project gets its own repository without inheriting the template repository's Git history.
 
@@ -28,7 +30,7 @@ Use this when you want a local copy of the template itself or want to branch fro
 ```bash
 git clone https://github.com/<owner>/<repo>.git my-new-project
 cd my-new-project
-python scripts/check-template.py
+python scripts/init-fast.py
 ```
 
 After cloning, decide whether this folder should remain connected to the template repository:
@@ -52,7 +54,7 @@ After extracting:
 ```bash
 cd my-new-project
 git init
-python scripts/check-template.py
+python scripts/init-fast.py
 ```
 
 Then create your first commit only after reviewing the files and initializing project-specific context.
@@ -85,24 +87,16 @@ After using **Use this template**, cloning, or downloading ZIP, the folder is re
 2. You open the folder in your IDE.
 3. You give the agent a project idea and ask it to initialize the Memory Bank.
 
-Start with this prompt:
+Start with this prompt (also printed by `python scripts/init-fast.py`):
 
 ```text
-Read AGENTS.md and memory-bank/startup.md only.
-
-I created this project from the public AI Agent Project Template.
-
-Project idea:
-[describe the app, website, tool, or service]
-
-Please inspect the repository, ask critical questions, then propose:
-1. recommended stack,
-2. initial folder structure,
-3. setup commands,
-4. first implementation plan,
-5. Memory Bank updates needed.
-
-Do not install dependencies or create app files yet. Plan first.
+FAST_INIT + TOKEN_SAVER.
+Follow AGENTS.md initialization modes exactly.
+Use minimal turns and minimal narration.
+Update only allowed Memory Bank files.
+Keep unknowns as TBD.
+Ask only critical questions before any escalation.
+Return a short final summary.
 ```
 
 ## Publishing this template
@@ -110,6 +104,7 @@ Do not install dependencies or create app files yet. Plan first.
 For maintainers publishing this template:
 
 1. Run `python scripts/check-template.py`.
-2. Confirm no secrets, private files, or unintended `.git/` history are included.
-3. Push to a public GitHub repository.
-4. In GitHub repository settings, enable **Template repository** so users can create clean copies.
+2. Optionally run `python scripts/check-template.py --fast` during routine maintenance checks.
+3. Confirm no secrets, private files, or unintended `.git/` history are included.
+4. Push to a public GitHub repository.
+5. In GitHub repository settings, enable **Template repository** so users can create clean copies.

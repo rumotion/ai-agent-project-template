@@ -2,22 +2,23 @@
 
 ## Done
 
-- Modern model-agnostic template structure created.
-- Legacy `ops/`, `resources`, and committed `env/` model removed.
-- Dedicated Antigravity/Cline initialization prompt added.
-- Public-template validation now includes secret hygiene and `.gitignore` safety checks.
-- Docs now clarify public GitHub publishing and VS Code OpenAI/Codex-style plus Google Antigravity usage.
-- Added file organization guidance plus `references/` and `assets/` placeholder folders.
-- Added GitHub usage guidance for template repositories, cloning, ZIP download, and advanced merge/pull workflows.
+- Completed FAST_INIT + TOKEN_SAVER refresh using allowed files only.
+- Verified no FAST_INIT stack-detection files are present.
+- Added balanced initialization modes (`FAST_INIT`, `DEEP_AUDIT`) to `AGENTS.md`.
+- Added optional `python scripts/check-template.py --fast` mode.
+- Added one-command bootstrap helper: `python scripts/init-fast.py`.
+- Added `workflows/init-lite.md` and aligned README/scripts docs.
 
 ## Current
 
-- Verifying template validation after GitHub usage guidance updates.
+- Template baseline is prepared for low-token multi-agent initialization; project-specific product/domain details remain `TBD`.
 
 ## Next
 
-- Run `python scripts/check-template.py` before publishing.
+- Run fast/full validation checks before push if requested.
+- Keep memory entries concise and generic for fresh template copies.
+- Push updated template to GitHub.
 
 ## Blockers
 
-None known.
+None.

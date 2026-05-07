@@ -21,9 +21,12 @@ The template uses a layered AI-agent architecture with `AGENTS.md` as the canoni
 
 Agents read `AGENTS.md`, then `memory-bank/00-index.md`, then relevant Memory Bank/source/docs files. After meaningful work, agents update concise Memory Bank entries and summarize verification.
 
+Initialization now follows a two-mode flow: start in `FAST_INIT` for low-token, high-signal setup and escalate to `DEEP_AUDIT` only when required facts are unavailable or the user requests full inspection.
+
 ## Important patterns
 
 - Canonical instruction file plus thin adapters.
+- Dual initialization modes (`FAST_INIT` default, `DEEP_AUDIT` explicit) to balance token cost and robustness.
 - Memory Bank as operational context, not a diary.
 - Keep raw references in `references/`; summarize durable facts in `memory-bank/`.
 - Keep project source assets in `assets/`; move runtime assets to stack-specific folders such as `public/` or `src/assets/` only after a stack is chosen.

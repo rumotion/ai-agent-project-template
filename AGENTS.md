@@ -11,6 +11,33 @@ This is the single source of truth for AI agents in this repo. Adapters (`GEMINI
 
 Most context should be reserved for the actual project, not template instructions.
 
+## Initialization modes
+
+Use these explicit modes when users ask to initialize a copied project.
+
+### FAST_INIT (default)
+
+Goal: low-token initialization with verified basics only.
+
+- Read only: `AGENTS.md`, `memory-bank/startup.md`, `memory-bank/00-index.md`, `README.md`, and stack-detection files (`package.json`, `pyproject.toml`, `requirements.txt`, `go.mod`, `Cargo.toml`, `tsconfig.json`, `vite.config.*`, `next.config.*`) when present.
+- Do not read by default: `docs/`, `workflows/`, `.cline/skills/`, `.agents/skills/`, `references/`, `assets/`, `.mcp/`, or validator scripts.
+- Update only: `memory-bank/startup.md`, `memory-bank/projectbrief.md`, `memory-bank/activeContext.md`, `memory-bank/progress.md`, `memory-bank/techContext.md`.
+- Keep unknowns as `TBD`.
+- Do not run full-repo audits unless requested.
+- Prefer concise execution: minimize tool turns and keep final summaries short.
+
+### DEEP_AUDIT (explicit request only)
+
+Use when the user asks for full template review, publishing readiness, architecture audit, or broad cleanup.
+
+- Read deeper docs/workflows/skills/scripts as needed.
+- Run broader checks/validation when relevant.
+- Document findings and propose focused changes.
+
+### Escalation rule
+
+Start in `FAST_INIT`. Escalate only when required facts cannot be verified from allowed files, or when the user explicitly asks for deeper inspection.
+
 ## Core rules
 
 - Do not invent facts. If unknown, write `TBD` or ask.
@@ -18,6 +45,7 @@ Most context should be reserved for the actual project, not template instruction
 - Ask before destructive commands, dependency installs, migrations, production-impacting actions, or broad refactors.
 - Prefer small, reviewable changes that match existing style.
 - Keep Memory Bank updates concise and operational.
+- Do not re-read files already read in the current task unless they changed or the user asks.
 
 ## Engineering behavior
 

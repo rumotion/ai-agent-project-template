@@ -1,9 +1,11 @@
 # Startup Context
 
-Project: AI Agent Project Template.
+Project: newProject (copied from AI Agent Project Template).
 
-Goal: copyable, low-context starter for Cline, Google Antigravity, Gemini, Claude, ChatGPT/Codex-style agents, OpenRouter, and VS Code-compatible tooling.
+Goal: maintain a low-context, canonical-agent setup with `FAST_INIT` default and `DEEP_AUDIT` escalation.
 
-Current focus: keep startup context minimal; lazy-load detailed memory, docs, workflows, and skills only when relevant.
+Current focus: FAST_INIT baseline refreshed from allowed files only; no stack manifest detected.
 
-Next: initialize copied projects by filling Memory Bank files with real project facts; keep unknowns as `TBD`.
+Next:
+- Keep unknown project-specific requirements as `TBD` until user provides them.
+- Escalate to `DEEP_AUDIT` only on explicit request or if required facts cannot be obtained from FAST_INIT-allowed files.

@@ -2,18 +2,19 @@
 
 ## Current focus
 
-Public GitHub readiness and multi-agent compatibility.
+FAST_INIT + TOKEN_SAVER initialization pass. Keep context minimal, use `AGENTS.md` as canonical instructions, and avoid deeper docs/workflows/scripts unless explicitly escalated.
 
 ## Recent changes
 
-- `AGENTS.md` was shortened into a compact startup router.
-- `memory-bank/startup.md` is the default tiny memory file.
-- Detailed guidance remains available through lazy-loaded docs, workflows, and skills.
-- Public publishing guidance now covers secret hygiene, ignored credentials, and `.git/` history/remotes.
-- VS Code OpenAI/Codex-style and Google Antigravity usage are documented without requiring provider credentials in the repo.
-- File organization guidance now distinguishes `references/` for reference-only material from `assets/` for source project assets.
-- GitHub usage guidance now covers template repositories, direct clone, ZIP download, and careful pull/merge into existing projects.
+- Refreshed FAST_INIT Memory Bank context from allowed files only (`AGENTS.md`, `memory-bank/startup.md`, `memory-bank/00-index.md`, `README.md`, and stack-file detection).
+- Verified no stack manifest/config file is present among FAST_INIT detection targets.
+- Added explicit initialization modes in `AGENTS.md`: `FAST_INIT` (default) and `DEEP_AUDIT` (explicit).
+- Added optional `python scripts/check-template.py --fast` for lightweight startup validation.
+- Added `python scripts/init-fast.py` helper for fresh context windows.
+- Added `workflows/init-lite.md` for consistent FAST_INIT behavior.
 
 ## Next step
 
-Run `python scripts/check-template.py` before publishing or copying the template publicly.
+1. Keep template memory concise and generic for fresh project copies.
+2. Keep unknown product/domain details as `TBD`.
+3. Escalate to `DEEP_AUDIT` only if explicitly requested or FAST_INIT-allowed files are insufficient.

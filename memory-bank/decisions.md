@@ -2,6 +2,54 @@
 
 Record important project decisions here.
 
+### 2026-05-07 — Adopt balanced initialization model (FAST_INIT default, DEEP_AUDIT explicit)
+
+Status: Accepted
+
+Context: Initialization on copied projects consumed excessive tokens when agents interpreted broad prompts as permission for deep repository inspection.
+
+Decision: Add explicit initialization modes in `AGENTS.md`, make `FAST_INIT` the default for low-token initialization, define strict read/update boundaries, and reserve `DEEP_AUDIT` for explicit full-review requests or verified escalation needs.
+
+Consequences: Multi-agent support remains intact while default initialization becomes significantly cheaper and more predictable. Deep inspection remains available when required.
+
+Related files: `AGENTS.md`, `README.md`, `workflows/init-lite.md`, `memory-bank/model-routing.md`, `memory-bank/startup.md`, `memory-bank/systemPatterns.md`
+
+### 2026-05-07 — Add optional fast validator mode for FAST_INIT workflows
+
+Status: Accepted
+
+Context: Full template validation is valuable for publish readiness but heavier than needed during routine low-token initialization workflows.
+
+Decision: Add `--fast` mode to `scripts/check-template.py` that validates core startup/integration requirements, adapter pointers, context budgets, and required `.gitignore` patterns while skipping repository-wide secret hygiene scanning.
+
+Consequences: Maintainers can run cheap validation during FAST_INIT-style work, while preserving full validation for release/publication checks.
+
+Related files: `scripts/check-template.py`, `README.md`, `memory-bank/techContext.md`, `memory-bank/progress.md`, `memory-bank/activeContext.md`
+
+### 2026-05-07 — Add one-command FAST_INIT bootstrap helper
+
+Status: Accepted
+
+Context: Even with improved policies, users still needed to run a command and manually copy a longer initialization prompt.
+
+Decision: Add `scripts/init-fast.py` to run `check-template.py --fast` and print a concise ready-to-paste FAST_INIT prompt for new context windows.
+
+Consequences: Fresh-start initialization is faster and easier, reducing user friction and accidental prompt drift.
+
+Related files: `scripts/init-fast.py`, `README.md`, `scripts/README.md`, `memory-bank/techContext.md`, `memory-bank/progress.md`, `memory-bank/activeContext.md`
+
+### 2026-05-07 — Initialize copied repository as template baseline before product specialization
+
+Status: Accepted
+
+Context: This repository was initialized from the master AI Agent Project Template and required Memory Bank grounding with accurate current facts.
+
+Decision: Treat the current repository state as a template-baseline project (not yet product-specialized), update Memory Bank files with verified template facts, and keep unknown product-specific details as `TBD` until requirements are provided.
+
+Consequences: Agents can work immediately with accurate operational context while avoiding invented product assumptions; next planning step must define actual product scope and stack.
+
+Related files: `memory-bank/projectbrief.md`, `memory-bank/productContext.md`, `memory-bank/activeContext.md`, `memory-bank/progress.md`
+
 ### 2026-05-06 — Optimize startup context with lazy loading
 
 Status: Accepted

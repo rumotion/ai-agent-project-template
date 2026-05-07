@@ -2,12 +2,12 @@
 
 ## Stack
 
-- Language: Markdown plus Python for validation
-- Runtime: Python 3 for `scripts/check-template.py`
-- Framework: None
-- Package manager: None required
-- Database: None
-- Test framework: Validator script only
+- Language: Markdown (docs/config) and Python (validation scripts)
+- Runtime: Python (`python` command available; exact version `TBD`)
+- Framework: `TBD` (no app framework detected in FAST_INIT pass)
+- Package manager: `TBD` (no FAST_INIT stack manifest/config detected)
+- Database: `TBD`
+- Test framework: `TBD` (template uses validator scripts; project tests not defined)
 - Deployment: Copyable repository template
 
 ## Commands
@@ -15,20 +15,26 @@
 ### Install
 
 ```bash
-No install step required.
+TBD per copied project.
 ```
 
 ### Run
 
 ```bash
-No runtime app is included in the base template.
+TBD per copied project.
 ```
 
 ### Test
 
 ```bash
+python scripts/init-fast.py
+python scripts/check-template.py --fast
 python scripts/check-template.py
 ```
+
+- `scripts/init-fast.py`: one-command FAST_INIT bootstrap helper (fast validation + short prompt output).
+- `--fast`: lightweight startup/integration checks aligned with FAST_INIT.
+- (no flag): full template validation including repository-wide secret hygiene scanning.
 
 ### Lint
 
@@ -48,7 +54,11 @@ See `.env.example`.
 
 ## Tooling notes
 
-The validator uses only Python standard library modules. It checks required files, adapter references, startup/context budgets, public-template secret hygiene, and required `.gitignore` safety patterns.
+Initialization behavior is policy-driven through `AGENTS.md` (`FAST_INIT` default, `DEEP_AUDIT` explicit).
+
+Use `scripts/init-fast.py` for fresh-context bootstrap prompts and `check-template.py --fast` for lightweight validation.
+
+FAST_INIT stack detection found no `package.json`, `pyproject.toml`, `requirements.txt`, `go.mod`, `Cargo.toml`, `tsconfig.json`, `vite.config.*`, or `next.config.*` files.
 
 ## Dependency rules
 

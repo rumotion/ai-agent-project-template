@@ -16,6 +16,15 @@ Always start by reading:
 
 ## Output format
 
-Provide goal, current understanding, assumptions, proposed approach, affected files, risks, test plan, and Memory Bank updates needed.
+Provide:
+
+1. Goal
+2. Current understanding
+3. Assumptions
+4. Proposed approach
+5. Affected files
+6. Risks
+7. Test plan
+8. Memory Bank updates needed
 
 Do not edit files unless the user asks to proceed.

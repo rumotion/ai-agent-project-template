@@ -1,138 +1,176 @@
 # AI Agent Project Template
 
-A copyable starter template for projects developed with Cline, Google Antigravity, Gemini, Claude, ChatGPT/Codex-style agents, OpenRouter-backed models, and VS Code-compatible AI tooling.
+A copyable starter for building software with AI agents. One canonical instruction file, multi-model handoff, and a single-command bootstrap that costs roughly **1,344 tokens** to initialize.
 
-## Design principle
+Works with Claude Code / Claude Teams, ChatGPT Teams / Codex, Gemini Ultra (Google Antigravity), Cline, OpenRouter-backed models, Cursor, and Copilot — sharing the same project memory across all of them.
 
-`AGENTS.md` is the single canonical instruction file. Every adapter file points back to it so different models share one source of truth.
+## At a glance
 
-The default startup path is intentionally tiny: read `AGENTS.md`, then `memory-bank/startup.md`, then lazy-load only task-relevant context.
+| | |
+|---|---|
+| FAST_INIT bootstrap cost | ~1,344 tokens (4 files, 5,378 chars) |
+| AI tool adapters | 7 (Claude, Gemini, Codex, Cline, Cursor, Copilot, Antigravity) |
+| Memory Bank files | 12 (lazy-loaded) |
+| Reusable skills | 5 |
+| Reusable workflows | 6 |
+| Drift protection | SHA-256 hash check across mirrors |
+| Validator dependencies | 0 (Python stdlib only) |
+| First command after clone | `python scripts/init-fast.py` |
 
-## Quick start (new users)
+Numbers reproduced by `python scripts/check-template.py --benchmark`.
 
-After cloning or creating from template:
+## Why this template
 
-1. Run:
+**One source of truth, many models.**
+`AGENTS.md` is canonical. Every tool-specific file is a thin pointer to it. Switch from Claude to Gemini to ChatGPT mid-project without re-explaining anything.
 
-   ```bash
-   python scripts/init-fast.py
-   ```
+**Continuity across model switches.**
+`memory-bank/handoff.md` is a single rolling pointer for "where we left off". Any model writes it on pause, any model reads it on resume — so Claude can finish what Gemini started.
 
-2. Copy the printed prompt into a **new agent context window**.
-3. For deep/publish validation later, run:
+**Minimal startup tokens.**
+The default startup path is four small files. Everything else lazy-loads only when the task needs it. Agents stop burning tokens crawling docs they don't need.
 
-   ```bash
-   python scripts/check-template.py
-   ```
+**No tool lock-in, no installs.**
+The validator runs on Python stdlib alone. No Node, no global packages, no MCP server required for the template itself.
 
-## Included systems
+**Drift-proof by construction.**
+Tool-specific mirrors of workflows and skills are SHA-256 hashed against the canonical copy. The validator fails if anyone forgets to sync.
 
-- Canonical model-agnostic instructions: `AGENTS.md`
-- Tool adapters: `GEMINI.md`, `CLAUDE.md`, `.clinerules/`, `.agents/`
-- Durable context: `memory-bank/`
-- Low-context startup memory: `memory-bank/startup.md`
-- Reusable procedures: `workflows/`
-- Agent skills: `.cline/skills/`, `.agents/skills/`
-- Documentation stubs: `docs/`
-- Deterministic scripts: `scripts/`
-- MCP placeholder config: `.mcp/`
-- Reference/project asset folders: `references/` and `assets/`
+## Where the savings come from
 
-## Tool compatibility
+Most agent setups spend the first 5,000–80,000 tokens "reading the project". This template publishes a deliberately small, agent-shaped startup path:
 
-- Google Antigravity: start from `AGENTS.md`, then use `.agents/` rules, workflows, and skills only when relevant.
-- VS Code OpenAI/Codex-style extensions: use the official extension/sign-in or API-key flow where supported, and point the agent at `AGENTS.md` as the canonical project instruction file.
-- Cline, Gemini, Claude, and OpenRouter-backed tools: use their normal provider auth outside the repo; keep credentials in local environment settings, never in committed files.
+| File | Tokens (approx) |
+|---|---|
+| `AGENTS.md` | 870 |
+| `memory-bank/startup.md` | 150 |
+| `memory-bank/00-index.md` | 217 |
+| `memory-bank/handoff.md` | 106 |
+| **Total FAST_INIT** | **~1,344** |
 
-## New project flow
+Three design choices keep that number small:
 
-For a beginner-friendly walkthrough, see `docs/start-new-project.md`.
-For GitHub template, clone, ZIP download, and advanced pull/merge workflows, see `docs/use-from-github.md`.
+1. **A small canonical instruction file.** No repeated rules across tool-specific files; adapters are one-line pointers.
+2. **A routing index, not a knowledge dump.** `00-index.md` tells the agent which Memory Bank file to load *for the current task*, instead of preloading them all.
+3. **A handoff pointer, not a session log.** `handoff.md` is volatile and overwritten — never an append-only history.
 
-1. Create a project from this template by using GitHub **Use this template**, cloning the repo, downloading ZIP, or copying the folder locally.
-2. Initialize Git if desired:
+Time savings stack on top: switch tools without re-explaining the project, because every model reads the same Memory Bank.
 
-   ```bash
-   git init
-   ```
+## Quick start
 
-3. Ask your agent:
-
-   ```text
-   FAST_INIT + TOKEN_SAVER.
-   Follow AGENTS.md initialization modes exactly.
-   Use minimal turns and minimal narration.
-   Update only allowed Memory Bank files.
-   Keep unknowns as TBD.
-   Ask only critical questions before any escalation.
-   Return a short final summary.
-   ```
-
-4. Start work from a focused branch or task prompt.
-
-Need full template inspection later? Run a separate prompt:
-
-```text
-DEEP_AUDIT.
-
-Inspect docs, workflows, skills, scripts, and validation paths as needed.
-Run broader checks and propose focused improvements.
-```
-
-## Use from GitHub
-
-Recommended public workflow:
-
-1. Mark this repository as a GitHub **Template repository**.
-2. Users click **Use this template** to create their own clean repository.
-3. They clone their new repository, run `python scripts/check-template.py`, then initialize project-specific Memory Bank files with their agent.
-
-Fast startup alternative (recommended for everyday initialization):
+After cloning, downloading the ZIP, or using GitHub's **Use this template**:
 
 ```bash
 python scripts/init-fast.py
 ```
 
-Direct `git clone` also works, but it keeps the template Git history and `origin` remote until the user changes it. Pulling this template into an existing project is advanced and should be done selectively after committing current work.
+That one command:
 
-## Where to put project files
+1. validates the template (lightweight check),
+2. prints the token cost of the startup path,
+3. prints the FAST_INIT prompt to paste into a fresh agent context window.
 
-Use `docs/file-organization.md` for the full guide.
+Open the project in your IDE, paste the prompt, and the agent initializes Memory Bank from your project's actual state — keeping unknowns as `TBD` instead of inventing them.
 
-- Put research PDFs, text notes, briefs, transcripts, and reference-only images in `references/`.
-- Put source project assets such as images and content data in `assets/`.
-- Put runtime website/app files in the stack's standard folder, usually `public/` or `src/assets/`, after that stack exists.
-- Put durable project facts and decisions in `memory-bank/`, not as raw reference dumps.
-- Keep secrets, private files, and large generated outputs out of Git unless intentionally approved.
+A first session typically looks like:
+
+```text
+$ python scripts/init-fast.py
+== FAST_INIT bootstrap ==
+Template FAST validation passed.
+FAST_INIT startup-path size:
+  - AGENTS.md: 3482 chars (~870 tokens)
+  - memory-bank/startup.md: 601 chars (~150 tokens)
+  - memory-bank/00-index.md: 871 chars (~217 tokens)
+  - memory-bank/handoff.md: 424 chars (~106 tokens)
+  Total: 5378 chars (~1344 tokens)
+
+Validation succeeded.
+
+Paste this into a new agent context window:
+---
+FAST_INIT + TOKEN_SAVER.
+Follow AGENTS.md initialization modes exactly.
+Use minimal turns and minimal narration.
+Update only allowed Memory Bank files.
+If resuming, also read memory-bank/handoff.md.
+Keep unknowns as TBD.
+Ask only critical questions before any escalation.
+Return a short final summary.
+---
+```
+
+## Multi-model continuity
+
+You can drive the same project with several models in sequence or in parallel. Default routing:
+
+| Role | Default model | Why |
+|---|---|---|
+| Planning, broad reads | Gemini Ultra (Antigravity) | ~1M context |
+| Implementation | Cline / Codex / ChatGPT | Tight tool loops |
+| Review and refactor | Claude (Teams or Code) | Reasoning + prompt cache |
+| Fast utility | OpenRouter free models | Cheap; often <32K context — FAST_INIT essential |
+
+Each model reads `memory-bank/handoff.md` on resume and updates it on pause. Cache-stable files (listed in `memory-bank/model-routing.md`) stay byte-stable so Claude prompt-cache hits stay warm across sessions.
+
+## What's inside
+
+- `AGENTS.md` — canonical instruction file for every model.
+- `memory-bank/` — durable, lazy-loaded project context (12 files, indexed in `00-index.md`).
+  - `handoff.md` — rolling cross-model session pointer.
+  - `model-routing.md` — per-model context budgets, cache-stable file list, routing defaults.
+- `workflows/` — six reusable procedures (plan, implement, debug, refactor, update memory, handoff).
+- `.cline/skills/`, `.agents/skills/` — five reusable skills (planner, Karpathy engineer, reviewer, test strategist, docs/memory maintainer).
+- `scripts/check-template.py` — stdlib-only validator with `--fast`, `--benchmark`, and full mode.
+- `scripts/init-fast.py` — one-command bootstrap.
+- Adapters: `CLAUDE.md`, `GEMINI.md`, `.clinerules/`, `.agents/`, `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, `.codex/AGENTS.md`.
+- `.mcp/mcp_config.example.json` — example MCP servers (GitHub, filesystem, fetch, git).
+- `references/`, `assets/` — reference material and project asset folders.
+
+## Documentation map
+
+- [`docs/start-new-project.md`](docs/start-new-project.md) — beginner walkthrough from clone to first feature.
+- [`docs/use-from-github.md`](docs/use-from-github.md) — GitHub template, clone, ZIP, and advanced pull-into-existing-project flows.
+- [`docs/setup.md`](docs/setup.md) — one-page local setup.
+- [`docs/file-organization.md`](docs/file-organization.md) — where to put research, assets, and runtime files.
+- [`docs/agent-skill-ecosystem.md`](docs/agent-skill-ecosystem.md) — when and how to add skills or plugins.
+- [`docs/antigravity-master-prompt.md`](docs/antigravity-master-prompt.md) — long-form initialization prompt.
+- [`docs/prompts.md`](docs/prompts.md) — reusable prompts for common operations.
+- [`docs/architecture.md`](docs/architecture.md) — placeholder for project-specific architecture.
+- [`docs/template-improvement-brief.md`](docs/template-improvement-brief.md) — handoff brief for reviewers proposing template improvements.
 
 ## Validation
 
-Run:
-
 ```bash
-python scripts/init-fast.py
-python scripts/check-template.py --fast
-python scripts/check-template.py
+python scripts/init-fast.py                    # bootstrap (validate + benchmark + prompt)
+python scripts/check-template.py --fast        # lightweight check
+python scripts/check-template.py               # full check (secrets, drift, all required files)
+python scripts/check-template.py --benchmark   # token cost report only
 ```
 
-- `scripts/init-fast.py`: runs fast validation and prints a short copy/paste FAST_INIT agent prompt.
-- The printed prompt includes `TOKEN_SAVER` to request minimal turns and concise output.
-- `--fast`: lightweight startup/integration checks for FAST_INIT workflows.
-- (no flag): full template validation including repository-wide secret hygiene scanning.
+Full validation enforces: 42 required files, 7 adapters all referencing `AGENTS.md`, 13 startup/context size budgets, public-template secret hygiene, `.gitignore` safety patterns, and SHA-256 drift between canonical and mirrored workflows/skills.
 
-The full validator checks required template files, confirms adapter files reference `AGENTS.md`, enforces startup/context size budgets, checks required ignore patterns, and scans template text for common public-repository secret hygiene issues.
+## Where to put your files
 
-Before publishing a copy publicly:
+See [`docs/file-organization.md`](docs/file-organization.md) for the full guide.
 
-1. Run `python scripts/check-template.py`.
-2. Confirm `.env` and local credential files are not tracked.
-3. Do not copy another project's `.git/` directory unless you intentionally want its history and remotes.
-4. Keep real provider API keys, OAuth tokens, MCP credentials, and deployment secrets outside the repository.
+- Research PDFs, briefs, transcripts, reference-only images → `references/`
+- Source project assets (images, content data) → `assets/`
+- Runtime website/app files → stack-specific folder (usually `public/` or `src/assets/`) once a stack is chosen
+- Durable project facts → `memory-bank/`
+- Secrets, real keys, credentials → never committed (use local `.env`, OS keychain, IDE settings)
 
-## Master prompt
+## Publishing your copy
 
-Use `docs/antigravity-master-prompt.md` for the detailed Google Antigravity/Cline/ChatGPT Team initialization prompt.
+1. Run `python scripts/check-template.py` and confirm it passes.
+2. Confirm no `.env`, credential files, or unintended `.git/` history are committed.
+3. Add a `LICENSE` file that matches your intent (MIT, Apache-2.0, etc.) — not included by default so you can choose.
+4. In GitHub repository settings, enable **Template repository** so others can create clean copies via **Use this template**.
 
-## Continuous improvement
+## Contributing
 
-Use `docs/template-improvement-brief.md` as a handoff file for another LLM or reviewer to analyze this template, compare it with current agent-tooling best practices, and propose future improvements.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Keep changes small and reviewable. Run `python scripts/check-template.py` before opening a PR.
+
+## License
+
+This template ships without a license so you can pick the one that matches your project. Add a `LICENSE` file before publishing.

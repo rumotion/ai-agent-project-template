@@ -5,4 +5,5 @@
 3. Update only relevant Memory Bank files.
 4. Keep entries concise.
 5. Do not duplicate information.
-6. Summarize what changed.
+6. (Optional, useful when several models share the project) End the touched file with `_Last touched: YYYY-MM-DD by <model>_` so provenance is visible.
+7. Summarize what changed.

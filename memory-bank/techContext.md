@@ -30,11 +30,13 @@ TBD per copied project.
 python scripts/init-fast.py
 python scripts/check-template.py --fast
 python scripts/check-template.py
+python scripts/check-template.py --benchmark
 ```
 
-- `scripts/init-fast.py`: one-command FAST_INIT bootstrap helper (fast validation + short prompt output).
+- `scripts/init-fast.py`: one-command FAST_INIT bootstrap (fast validation + token benchmark + short prompt).
 - `--fast`: lightweight startup/integration checks aligned with FAST_INIT.
-- (no flag): full template validation including repository-wide secret hygiene scanning.
+- (no flag): full template validation including secret hygiene and mirror-drift check.
+- `--benchmark`: prints FAST_INIT startup-path char and approximate token cost (chars/4).
 
 ### Lint
 

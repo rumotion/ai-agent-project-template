@@ -2,6 +2,66 @@
 
 Record important project decisions here.
 
+### 2026-05-09 — Add cross-model continuity layer
+
+Status: Accepted
+
+Context: User runs Gemini Ultra (Antigravity), Claude Teams, ChatGPT Teams, and OpenRouter free models on the same project. The Memory Bank had no contract for handing off mid-task between models.
+
+Decision: Add `memory-bank/handoff.md` as a single rolling handoff pointer with a fixed schema, plus `workflows/handoff.md` for write/read procedure. AGENTS.md startup path includes handoff as step 3. FAST_INIT update list includes `handoff.md`.
+
+Consequences: Any model can resume work from another model's stopping point in one extra small read. `handoff.md` is volatile; durable knowledge still lives in `activeContext.md`/`progress.md`.
+
+Related files: `AGENTS.md`, `memory-bank/handoff.md`, `memory-bank/00-index.md`, `memory-bank/startup.md`, `workflows/handoff.md`
+
+### 2026-05-09 — Add per-model context budgets and cache-stable file list
+
+Status: Accepted
+
+Context: One global FAST_INIT was too coarse for the mix of large-context (Gemini 1M), cache-friendly (Claude 200K), small-context (OpenRouter free), and turn-sensitive (ChatGPT 128K) models.
+
+Decision: Rewrite `memory-bank/model-routing.md` with per-model budgets/tactics, a cache-stable file list (so Claude prompt-cache hits stay warm), Antigravity sub-agent notes, and concrete current defaults.
+
+Consequences: Each model can be used near-optimally without changing the template. Avoids editing cache-stable files casually.
+
+Related files: `memory-bank/model-routing.md`
+
+### 2026-05-09 — Add Copilot, Cursor, and Codex adapters
+
+Status: Accepted
+
+Context: AGENTS.md is the canonical file across the OpenAI/Cursor agents standard, but additional ecosystems benefit from explicit one-line pointer files.
+
+Decision: Add `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, and `.codex/AGENTS.md` as thin adapters. Validator enforces all adapters reference `AGENTS.md`.
+
+Consequences: Copilot, Cursor, and Codex CLI/sub-agents pick up canonical rules natively. No new dependencies.
+
+Related files: `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, `.codex/AGENTS.md`, `scripts/check-template.py`
+
+### 2026-05-09 — Enforce zero drift between mirrored workflows and skills
+
+Status: Accepted
+
+Context: `workflows/`, `.clinerules/workflows/`, and `.agents/workflows/` had drifted in places. Same risk for skills.
+
+Decision: Use `workflows/` as canonical for workflows and `.cline/skills/` as canonical for skills. Synced all mirrors. Validator computes SHA-256 hashes and fails on any drift in full-mode.
+
+Consequences: Tool-specific paths preserved; drift impossible without test failure.
+
+Related files: `scripts/check-template.py`, `workflows/`, `.clinerules/workflows/`, `.agents/workflows/`, `.cline/skills/`, `.agents/skills/`
+
+### 2026-05-09 — Add token benchmark to validator and bootstrap
+
+Status: Accepted
+
+Context: The improvement brief asked for a measurable startup-path size metric. Users need a single command to see "what does FAST_INIT cost me" in chars/tokens.
+
+Decision: Add `python scripts/check-template.py --benchmark` and include benchmark output in `scripts/init-fast.py`. Uses chars/4 heuristic.
+
+Consequences: Token cost visible in 1 command without external libraries. Heuristic is approximate but stable across runs and models.
+
+Related files: `scripts/check-template.py`, `scripts/init-fast.py`
+
 ### 2026-05-07 — Adopt balanced initialization model (FAST_INIT default, DEEP_AUDIT explicit)
 
 Status: Accepted

@@ -5,6 +5,18 @@ description: Designs test strategy for new features, bug fixes, refactors, and r
 
 # Test Strategist Skill
 
-Read `AGENTS.md`, `memory-bank/techContext.md`, and `docs/testing.md` if it exists.
+Read:
 
-Produce test scope, unit tests, integration tests, E2E/manual checks, regression risks, minimal verification path, and full verification path.
+1. `AGENTS.md`
+2. `memory-bank/techContext.md`
+3. `docs/testing.md` if it exists
+
+## Produce
+
+- Test scope
+- Unit tests
+- Integration tests
+- E2E/manual checks
+- Regression risks
+- Minimal verification path
+- Full verification path

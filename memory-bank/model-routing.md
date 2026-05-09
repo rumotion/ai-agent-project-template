@@ -1,38 +1,70 @@
 # Model Routing
 
-This file documents how agent tools/models should be selected with minimal overhead.
+Cross-model usage map. Read only when choosing or switching providers. Keep concise.
 
-## Preferred agent tools
+## Tools and auth
 
-| Tool | Use for | Auth/billing |
+| Tool | Use for | Auth |
 |---|---|---|
-| Cline | Main local coding agent | API key, OpenRouter, or supported provider |
-| Codex/OpenAI IDE-style agents | ChatGPT-subscription or API-backed coding tasks where supported | ChatGPT account or API key |
-| Google Antigravity | Gemini/agent-first workspace tasks | Google/Antigravity account and supported models |
-| Claude-compatible tools | Claude-native coding tasks | Claude-supported auth/API |
-| OpenRouter | Multi-model routing | OpenRouter API key |
+| Google Antigravity (Gemini Ultra) | Workspace-native agent, planning, broad reads | Google account |
+| Claude Code / Claude Teams | Reasoning-heavy reviews, refactors, docs | Claude account or Anthropic API |
+| ChatGPT Teams / Codex | Implementation, fast iteration | ChatGPT sign-in or OpenAI API |
+| Cline | Local IDE coding agent | OpenRouter / direct provider key |
+| OpenRouter | Multi-model fallback, free-tier exploration | OpenRouter API key |
+| Cursor / Copilot | Inline edits, completions | Native sign-in |
 
-## Role routing (balanced default)
+## Per-model context budgets and tactics
 
-| Role | Preferred path | Fallback path |
+| Model | Approx context | Tactic |
 |---|---|---|
-| Initialization/planning | Google Antigravity (Gemini) or Codex-style planner | Cline with cost-efficient model |
-| Implementation | Cline or Codex/OpenAI IDE-style | OpenRouter-backed coding model |
-| Review/refactor | Claude-compatible or Codex-style reviewer | Cline with higher-quality reasoning model |
-| Fast utility tasks | Cline with fast/cheap model | Any available low-cost model via OpenRouter |
+| Gemini Ultra (Antigravity) | ~1M | Eager reads OK; still prefer FAST_INIT to keep responses tight |
+| Claude (Teams / Code) | ~200K + prompt cache | Keep `AGENTS.md`, `memory-bank/startup.md`, `memory-bank/00-index.md` byte-stable for cache hits |
+| ChatGPT Teams / Codex | ~128K | Minimize tool turns; concise narration |
+| OpenRouter free models | often 8K–32K | FAST_INIT mandatory; never escalate to DEEP_AUDIT |
+
+## Cache-stable files (do not bytewise-edit casually)
+
+These should change rarely so Claude prompt cache hits stay warm:
+
+- `AGENTS.md`
+- `memory-bank/startup.md`
+- `memory-bank/00-index.md`
+- All adapter files (`CLAUDE.md`, `GEMINI.md`, `.clinerules/00-master.md`, `.agents/rules/00-master.md`, `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, `.codex/AGENTS.md`)
+
+Volatile files (safe to update often): `memory-bank/handoff.md`, `memory-bank/activeContext.md`, `memory-bank/progress.md`.
+
+## Role routing (default)
+
+| Role | Preferred | Fallback |
+|---|---|---|
+| Initialization / planning | Gemini (Antigravity) | Claude |
+| Implementation | ChatGPT / Codex or Cline | OpenRouter coding model |
+| Review / refactor | Claude | Gemini |
+| Fast utility | OpenRouter cheap model | Cline w/ small model |
+| Long-context analysis | Gemini Ultra | Claude |
+
+## Cross-model handoff
+
+Single rolling file: `memory-bank/handoff.md`. Workflow: `workflows/handoff.md`.
+
+## Antigravity sub-agent notes
+
+- Antigravity's Codex sub-agent reads root `AGENTS.md` natively; no separate adapter needed beyond `.codex/AGENTS.md`.
+- Use `.agents/rules/`, `.agents/skills/`, `.agents/workflows/` for Antigravity-specific behavior.
+- Switch between Antigravity native and external CLIs by updating `handoff.md` first.
 
 ## Rules
 
 - Do not assume consumer subscriptions can be used inside every third-party extension.
 - Prefer official sign-in paths where available.
-- Prefer OpenRouter or direct API keys for Cline if subscription OAuth is not supported.
-- Use FAST_INIT by default for initialization; escalate to DEEP_AUDIT only when needed.
-- Record project-specific model choices here.
+- For Cline, prefer OpenRouter or direct API keys when subscription OAuth is unsupported.
+- Use FAST_INIT by default; escalate to DEEP_AUDIT only when needed.
+- Record project-specific overrides below.
 
 ## Current defaults
 
-Planning model: TBD  
-Coding model: TBD  
-Review model: TBD  
-Fast/cheap model: TBD  
-Long-context model: TBD
+- Planning model: Gemini Ultra (Antigravity)
+- Coding model: ChatGPT Teams / Codex or Cline
+- Review model: Claude (Teams or Code)
+- Fast/cheap model: OpenRouter free tier
+- Long-context model: Gemini Ultra

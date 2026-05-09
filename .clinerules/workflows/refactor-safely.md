@@ -1,7 +1,5 @@
 # Workflow: Refactor Safely
 
-Steps:
-
 1. Clarify the refactor goal and non-goals.
 2. Identify current behavior and relevant tests.
 3. Avoid behavior changes unless explicitly requested.

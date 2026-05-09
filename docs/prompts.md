@@ -49,3 +49,15 @@ Read AGENTS.md and the Memory Bank first, then plan this task:
 ```text
 Update the Memory Bank based on this task. Keep updates concise and only change relevant files.
 ```
+
+## Switch models / pause work
+
+```text
+We are pausing or switching to another model. Update memory-bank/handoff.md with: timestamp, model, branch, current task, last concrete action, next concrete step, files touched, blockers. Keep it under 30 lines. Do not append history; overwrite.
+```
+
+## Resume work
+
+```text
+Resume from where the previous session left off. Read AGENTS.md, memory-bank/startup.md, and memory-bank/handoff.md only. Verify branch and last action against git status, then continue from "Next concrete step".
+```

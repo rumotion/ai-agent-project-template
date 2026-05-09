@@ -1,6 +1,10 @@
 {
     "recommendations": [
         "saoudrizwan.claude-dev",
-        "google.geminicodeassist"
+        "google.geminicodeassist",
+        "anthropic.claude-code",
+        "openai.chatgpt",
+        "anysphere.cursor-retainer",
+        "continue.continue"
     ]
 }

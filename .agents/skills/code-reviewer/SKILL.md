@@ -7,6 +7,22 @@ description: Reviews code changes for correctness, maintainability, security, pe
 
 Read `AGENTS.md` and relevant Memory Bank files first.
 
-Review correctness, edge cases, security/privacy, performance, maintainability, architecture fit, tests, documentation, and Memory Bank updates.
+## Review checklist
 
-Output summary, blocking issues, non-blocking suggestions, tests to run, and files needing follow-up.
+1. Correctness
+2. Edge cases
+3. Security/privacy
+4. Performance
+5. Maintainability
+6. Architecture fit
+7. Tests
+8. Documentation
+9. Memory Bank updates
+
+## Output format
+
+- Summary
+- Blocking issues
+- Non-blocking suggestions
+- Tests to run
+- Files needing follow-up

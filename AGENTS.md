@@ -1,42 +1,39 @@
 # AGENTS.md — Canonical Agent Instructions
 
-This is the single source of truth for AI agents in this repo. Adapters (`GEMINI.md`, `CLAUDE.md`, `.clinerules/`, `.agents/`) must only point here and must not conflict.
+Single source of truth for all AI agents in this repo. Adapters (`GEMINI.md`, `CLAUDE.md`, `.clinerules/`, `.agents/`, `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, `.codex/AGENTS.md`) only point here.
 
 ## Startup path — keep context small
 
 1. Read this file.
 2. Read `memory-bank/startup.md`.
-3. Read `memory-bank/00-index.md` only to choose additional relevant files.
-4. Load source, docs, workflows, and skills only when the task requires them.
+3. If resuming work or switching models, also read `memory-bank/handoff.md`.
+4. Read `memory-bank/00-index.md` only to choose additional files.
+5. Load source/docs/workflows/skills only when the task requires them.
 
-Most context should be reserved for the actual project, not template instructions.
+Reserve most context for the actual project, not template instructions.
+
+## Cross-model continuity
+
+Multiple models may share this project (Gemini, Claude, ChatGPT/Codex, Cline, OpenRouter, Cursor, Copilot). `memory-bank/handoff.md` is the single rolling "where we left off" pointer — update on pause/switch, read on resume. Per-model budgets, cache-stable files, and routing live in `memory-bank/model-routing.md`.
 
 ## Initialization modes
 
-Use these explicit modes when users ask to initialize a copied project.
-
 ### FAST_INIT (default)
 
-Goal: low-token initialization with verified basics only.
+Low-token initialization with verified basics only.
 
-- Read only: `AGENTS.md`, `memory-bank/startup.md`, `memory-bank/00-index.md`, `README.md`, and stack-detection files (`package.json`, `pyproject.toml`, `requirements.txt`, `go.mod`, `Cargo.toml`, `tsconfig.json`, `vite.config.*`, `next.config.*`) when present.
-- Do not read by default: `docs/`, `workflows/`, `.cline/skills/`, `.agents/skills/`, `references/`, `assets/`, `.mcp/`, or validator scripts.
-- Update only: `memory-bank/startup.md`, `memory-bank/projectbrief.md`, `memory-bank/activeContext.md`, `memory-bank/progress.md`, `memory-bank/techContext.md`.
-- Keep unknowns as `TBD`.
-- Do not run full-repo audits unless requested.
-- Prefer concise execution: minimize tool turns and keep final summaries short.
+- Read only: `AGENTS.md`, `memory-bank/startup.md`, `memory-bank/00-index.md`, `memory-bank/handoff.md` (if resuming), and stack-detection files (`package.json`, `pyproject.toml`, `requirements.txt`, `go.mod`, `Cargo.toml`, `tsconfig.json`, `vite.config.*`, `next.config.*`) when present.
+- Do not read by default: `README.md`, `docs/`, `workflows/`, skills, `references/`, `assets/`, `.mcp/`, validator scripts.
+- Update only: `memory-bank/startup.md`, `memory-bank/handoff.md`, `memory-bank/projectbrief.md`, `memory-bank/activeContext.md`, `memory-bank/progress.md`, `memory-bank/techContext.md`.
+- Keep unknowns as `TBD`. Do not run full-repo audits. Minimize turns and narration.
 
-### DEEP_AUDIT (explicit request only)
+### DEEP_AUDIT (explicit only)
 
-Use when the user asks for full template review, publishing readiness, architecture audit, or broad cleanup.
-
-- Read deeper docs/workflows/skills/scripts as needed.
-- Run broader checks/validation when relevant.
-- Document findings and propose focused changes.
+Use when the user asks for full template review, publishing readiness, architecture audit, or broad cleanup. Read deeper docs/workflows/skills/scripts as needed; document findings; propose focused changes.
 
 ### Escalation rule
 
-Start in `FAST_INIT`. Escalate only when required facts cannot be verified from allowed files, or when the user explicitly asks for deeper inspection.
+Start in `FAST_INIT`. Escalate only when required facts cannot be verified from allowed files, or the user explicitly asks.
 
 ## Core rules
 
@@ -45,30 +42,26 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 - Ask before destructive commands, dependency installs, migrations, production-impacting actions, or broad refactors.
 - Prefer small, reviewable changes that match existing style.
 - Keep Memory Bank updates concise and operational.
-- Do not re-read files already read in the current task unless they changed or the user asks.
+- Do not re-read files already read in the current task unless they changed.
 
-## Engineering behavior
+## Engineering behavior (Karpathy defaults)
 
-Use these Karpathy-style defaults:
-
-- Think before coding: state assumptions, surface ambiguity, ask when unclear.
+- Think before coding: state assumptions; ask when unclear.
 - Simplicity first: solve only what was asked; avoid speculative abstractions.
-- Surgical changes: touch only what the task requires; do not clean unrelated code.
-- Goal-driven execution: define success criteria, verify with the smallest useful check, then iterate if needed.
+- Surgical changes: touch only what the task requires.
+- Goal-driven: define success criteria; verify with the smallest useful check.
 
 ## Workflow
 
-For implementation tasks: understand -> plan -> implement -> verify -> document. For complex or risky work, use relevant workflows in `workflows/` or tool-specific mirrors.
+Implementation tasks: understand → plan → implement → verify → document. For risky work use procedures in `workflows/`.
 
 ## Memory Bank
 
-- Start with `memory-bank/startup.md`.
-- Use `memory-bank/00-index.md` to lazy-load deeper context.
-- After meaningful work, update only relevant Memory Bank files.
+Start with `memory-bank/startup.md`; lazy-load via `memory-bank/00-index.md`; update only files whose facts changed.
 
-## More detail
+## More detail (lazy-load)
 
-- Prompt library: `docs/prompts.md`
-- Antigravity/Cline setup prompt: `docs/antigravity-master-prompt.md`
-- Optional skill/plugin guidance: `docs/agent-skill-ecosystem.md`
+- Prompts: `docs/prompts.md`
+- Antigravity/Cline master setup: `docs/antigravity-master-prompt.md`
+- Skills/plugins: `docs/agent-skill-ecosystem.md`
 - Model/provider routing: `memory-bank/model-routing.md`

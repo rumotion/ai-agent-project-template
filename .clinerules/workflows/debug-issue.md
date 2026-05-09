@@ -1,8 +1,6 @@
 # Workflow: Debug Issue
 
-Steps:
-
-1. Reproduce or understand the reported issue.
+1. Reproduce or understand the issue.
 2. Inspect relevant logs, tests, and source files.
 3. Identify the smallest likely failing boundary.
 4. Make a focused fix.

@@ -83,28 +83,32 @@ Adjust the file list for your project. Do not run broad checkout or merge comman
 
 After using **Use this template**, cloning, or downloading ZIP, the folder is ready for agent-assisted initialization when:
 
-1. `python scripts/check-template.py` passes.
+1. `python scripts/init-fast.py` passes (validation + token benchmark + prompt).
 2. You open the folder in your IDE.
-3. You give the agent a project idea and ask it to initialize the Memory Bank.
+3. You paste the printed FAST_INIT prompt into a fresh agent context window and describe your project idea.
 
-Start with this prompt (also printed by `python scripts/init-fast.py`):
+The printed prompt:
 
 ```text
 FAST_INIT + TOKEN_SAVER.
 Follow AGENTS.md initialization modes exactly.
 Use minimal turns and minimal narration.
 Update only allowed Memory Bank files.
+If resuming, also read memory-bank/handoff.md.
 Keep unknowns as TBD.
 Ask only critical questions before any escalation.
 Return a short final summary.
 ```
 
+If you switch models mid-project, update `memory-bank/handoff.md` first so the next model picks up cleanly. See `workflows/handoff.md` for the protocol.
+
 ## Publishing this template
 
 For maintainers publishing this template:
 
-1. Run `python scripts/check-template.py`.
-2. Optionally run `python scripts/check-template.py --fast` during routine maintenance checks.
+1. Run `python scripts/check-template.py` (full mode).
+2. Optionally run `python scripts/check-template.py --fast` during routine maintenance.
 3. Confirm no secrets, private files, or unintended `.git/` history are included.
-4. Push to a public GitHub repository.
-5. In GitHub repository settings, enable **Template repository** so users can create clean copies.
+4. Add a `LICENSE` file appropriate for your distribution (MIT, Apache-2.0, etc.) — not included by default.
+5. Push to a public GitHub repository.
+6. In repository settings, enable **Template repository** so users can create clean copies via **Use this template**.

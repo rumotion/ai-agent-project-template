@@ -5,6 +5,23 @@ description: Updates project documentation and Memory Bank files after meaningfu
 
 # Docs and Memory Maintainer Skill
 
-Read `AGENTS.md`, `memory-bank/00-index.md`, relevant Memory Bank files, and relevant docs in `docs/`.
+Read:
 
-Update only what changed. Prioritize `activeContext.md`, `progress.md`, `decisions.md`, `systemPatterns.md`, and `techContext.md`. Keep entries concise.
+1. `AGENTS.md`
+2. `memory-bank/00-index.md`
+3. Relevant Memory Bank files
+4. Relevant docs in `docs/`
+
+## Update policy
+
+Update only what changed.
+
+Prioritize:
+
+- `memory-bank/activeContext.md`
+- `memory-bank/progress.md`
+- `memory-bank/decisions.md`
+- `memory-bank/systemPatterns.md`
+- `memory-bank/techContext.md`
+
+Keep entries concise.

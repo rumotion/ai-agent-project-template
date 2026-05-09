@@ -1,41 +1,54 @@
 # Setup
 
-Use this file for quick local setup and verification.
+Quick local setup and verification.
 
 ## Prerequisites
 
-- Python available as `python` in your terminal
+- Python on `PATH` (`python --version`)
 - Git (recommended)
-- Your preferred coding agent/IDE (Cline, Antigravity, VS Code, etc.)
+- Your preferred coding agent / IDE: Claude Code, ChatGPT/Codex, Google Antigravity (Gemini), Cline, Cursor, Copilot, or any VS Code-compatible AI tool
 
-## Fresh template bootstrap
-
-Run:
+## One-command bootstrap
 
 ```bash
 python scripts/init-fast.py
 ```
 
-This command:
-
-1. runs `python scripts/check-template.py --fast`
-2. prints a short FAST_INIT prompt to paste into a new context window
+This runs the lightweight validator, prints the FAST_INIT token cost, and prints a short prompt to paste into a new agent context window.
 
 ## Validation modes
 
 ```bash
-python scripts/check-template.py --fast
-python scripts/check-template.py
+python scripts/check-template.py --fast        # lightweight startup/integration checks
+python scripts/check-template.py               # full validation (secrets, drift, required files)
+python scripts/check-template.py --benchmark   # FAST_INIT startup-path token cost
 ```
 
-- `--fast`: lightweight startup/integration checks
-- full (no flag): deeper template/publish validation
+| Mode | What it checks |
+|---|---|
+| `--fast` | required FAST_INIT files, adapter references, context budgets, `.gitignore` safety |
+| full (no flag) | everything in `--fast`, plus repo-wide secret hygiene and SHA-256 mirror drift |
+| `--benchmark` | character and approximate token cost of the FAST_INIT startup path |
 
 ## Environment variables
 
-Use `.env.example` as reference and keep real values out of Git.
+Use `.env.example` as the documented set of variables. Keep real values out of Git — use local `.env`, OS keychain, or your IDE's secret store.
+
+Common keys for a multi-model project:
+
+```text
+OPENROUTER_API_KEY=
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+GEMINI_API_KEY=
+```
+
+## Resuming work across models
+
+If multiple models share this project, update `memory-bank/handoff.md` on pause and read it on resume. See `workflows/handoff.md` for the protocol.
 
 ## Troubleshooting
 
-- If fast validation fails, fix reported missing files/patterns first.
-- If full validation fails on secret hygiene, remove/replace sensitive values and re-run.
+- Fast validation fails → fix listed missing files / patterns first; re-run.
+- Full validation fails on secret hygiene → remove or replace sensitive values, then re-run.
+- Mirror drift reported → resync the affected files from canonical (`workflows/`, `.cline/skills/`).

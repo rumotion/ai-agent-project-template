@@ -112,10 +112,13 @@ FAST_INIT + TOKEN_SAVER.
 Follow AGENTS.md initialization modes exactly.
 Use minimal turns and minimal narration.
 Update only allowed Memory Bank files.
+If resuming, also read memory-bank/handoff.md.
 Keep unknowns as TBD.
 Ask only critical questions before any escalation.
 Return a short final summary.
 ```
+
+**Switching models mid-project?** Update `memory-bank/handoff.md` first so the next model picks up cleanly. The protocol is in `workflows/handoff.md`.
 
 ## 6. Choose the stack
 

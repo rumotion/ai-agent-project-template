@@ -1,7 +1,5 @@
 # Workflow: Implement Task
 
-Steps:
-
 1. Confirm the goal and approved plan if one exists.
 2. Read relevant Memory Bank files.
 3. Make focused changes.

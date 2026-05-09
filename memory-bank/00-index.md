@@ -5,6 +5,7 @@ Use this file only to choose what to read next. Start with `startup.md`; lazy-lo
 | File | Use when |
 |---|---|
 | `startup.md` | Every task; tiny current snapshot |
+| `handoff.md` | Resuming work, switching models, or pausing |
 | `projectbrief.md` | Goals, users, scope, constraints |
 | `activeContext.md` | Current task/branch details |
 | `progress.md` | Done/next/known issues |

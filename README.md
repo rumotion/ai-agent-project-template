@@ -2,7 +2,7 @@
 
 A copyable starter for building software with AI agents. One canonical instruction file, multi-model handoff, and a single-command bootstrap that costs roughly **1,344 tokens** to initialize.
 
-Works with Claude Code / Claude Teams, ChatGPT Teams / Codex, Gemini Ultra (Google Antigravity), Cline, OpenRouter-backed models, Cursor, and Copilot — sharing the same project memory across all of them.
+Works with Claude Code, ChatGPT / Codex, Gemini (Google Antigravity), OpenRouter-backed models and in Cline — sharing the same project memory across all of them.
 
 <img width="1122" height="1402" alt="image" src="https://github.com/user-attachments/assets/b18e7cc3-39dd-496e-88e0-c3665bdec370" />
 

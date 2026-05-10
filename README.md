@@ -4,6 +4,9 @@ A copyable starter for building software with AI agents. One canonical instructi
 
 Works with Claude Code / Claude Teams, ChatGPT Teams / Codex, Gemini Ultra (Google Antigravity), Cline, OpenRouter-backed models, Cursor, and Copilot — sharing the same project memory across all of them.
 
+<img width="1122" height="1402" alt="image" src="https://github.com/user-attachments/assets/b18e7cc3-39dd-496e-88e0-c3665bdec370" />
+
+
 ## At a glance
 
 | | |

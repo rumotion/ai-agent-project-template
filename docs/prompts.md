@@ -61,3 +61,31 @@ We are pausing or switching to another model. Update memory-bank/handoff.md with
 ```text
 Resume from where the previous session left off. Read AGENTS.md, memory-bank/startup.md, and memory-bank/handoff.md only. Verify branch and last action against git status, then continue from "Next concrete step".
 ```
+
+## Calibrate (Continuous Self-Improvement)
+
+```text
+/calibrate
+Review this completed session to identify my preferences, repeated corrections, and style. Update the appropriate Memory Bank files or `.clinerules`/`.agents/rules/` so that future interactions are automatically aligned with these needs.
+```
+
+## Align (Clarification & Intent Mapping)
+
+```text
+/align
+Before taking any action or writing code, ask me 3-5 specific clarifying questions about my intent, constraints, and success criteria for this task. Wait for my answers before proceeding.
+```
+
+## Devil's Advocate (Critical Analysis)
+
+```text
+/devil
+Take a contrarian view on the proposed plan. Highlight flaws, security risks, scalability issues, or UX problems that I might have overlooked. Be brutally honest and avoid "yes-man" behavior.
+```
+
+## Burst (Iterative Divergence)
+
+```text
+/burst
+Generate 3 distinct, mutually exclusive approaches to solving this problem. Do not write the full implementation for any of them yet. Just present the high-level architecture and pros/cons for each so I can choose the best path.
+```

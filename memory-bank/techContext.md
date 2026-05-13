@@ -4,11 +4,11 @@
 
 - Language: Markdown (docs/config) and Python (validation scripts)
 - Runtime: Python (`python` command available; exact version `TBD`)
-- Framework: `TBD` (no app framework detected in FAST_INIT pass)
-- Package manager: `TBD` (no FAST_INIT stack manifest/config detected)
-- Database: `TBD`
-- Test framework: `TBD` (template uses validator scripts; project tests not defined)
-- Deployment: Copyable repository template
+- Framework: None (Pure template)
+- Package manager: None
+- Database: None
+- Test framework: Python validator scripts (`scripts/check-template.py`)
+- Deployment: GitHub Template
 
 ## Commands
 

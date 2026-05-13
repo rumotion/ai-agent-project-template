@@ -43,6 +43,7 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 - Prefer small, reviewable changes that match existing style.
 - Keep Memory Bank updates concise and operational.
 - Do not re-read files already read in the current task unless they changed.
+- **Proactive Tool Suggestion:** If the codebase becomes too large for standard file searches, proactively suggest using Graphify (`workflows/build-graph.md`) to map the project. If the user requires frequent styling/behavior corrections, suggest running the Calibration workflow (`workflows/calibrate.md`).
 
 ## Engineering behavior (Karpathy defaults)
 

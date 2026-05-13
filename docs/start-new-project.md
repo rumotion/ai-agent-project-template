@@ -216,6 +216,15 @@ Task: Add a project gallery page that reads project data from a local JSON file.
 Task: Add a contact form UI. Do not connect backend/email yet.
 ```
 
+## 10. Advanced: Parallelizing with Forking
+
+Since this template uses an external `memory-bank/` instead of relying on in-chat history, you can "fork" conversations to run parallel agents on the same project:
+
+1. Update `memory-bank/handoff.md` and `memory-bank/activeContext.md` in your current session.
+2. Open a *new* agent context window in your IDE or a separate terminal.
+3. Use the FAST_INIT prompt to start the new agent on a different sub-task.
+4. Because the context is centralized in the files, both agents share the same project background without needing manual synchronization.
+
 ## Key rule
 
 Most tasks should start with:

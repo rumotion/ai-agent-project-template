@@ -40,6 +40,7 @@ logs/
 *.generated.*
 *.min.js
 *.map
+graphify-out/
 
 # Large/binary assets commonly unsuitable for template commits
 # Copied projects may intentionally relax these rules for production assets.

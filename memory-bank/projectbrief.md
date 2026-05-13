@@ -2,11 +2,11 @@
 
 ## Name
 
-newProject (initialized from AI Agent Project Template)
+AI Agent Project Template
 
 ## Purpose
 
-Initialize this repository from the master AI-agent template, then evolve into a project-specific codebase once requirements are provided.
+Maintain and improve the master AI-agent template, ensuring low-context startup and multi-model continuity.
 
 ## Users
 

@@ -1,10 +1,10 @@
 # Startup Context
 
-Project: newProject (copied from AI Agent Project Template).
+Project: AI Agent Project Template.
 
-Goal: maintain a low-context, canonical-agent setup with `FAST_INIT` default and `DEEP_AUDIT` escalation.
+Goal: maintain a low-context, canonical-agent setup with `FAST_INIT` default and `DEEP_AUDIT` escalation. Continually improve the template.
 
-Current focus: Multi-model robustness pass complete on 2026-05-09. Cross-model handoff layer, per-model routing, and Copilot/Cursor/Codex adapters added. Validator and benchmark updated.
+Current focus: Initializing context to continue improving the template.
 
 If resuming work or switching models, read `memory-bank/handoff.md` next.
 

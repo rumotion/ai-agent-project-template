@@ -1,6 +1,6 @@
 # AI Agent Project Template
 
-A copyable starter for building software with AI agents. One canonical instruction file, multi-model handoff, and a single-command bootstrap that costs roughly **1,344 tokens** to initialize.
+A copyable starter for building software with AI agents. One canonical instruction file, multi-model handoff, and a single-command bootstrap that costs roughly **1,500 tokens** to initialize (under 1,400 if `handoff.md` is skipped on a fresh start).
 
 Works with Claude Code, ChatGPT / Codex, Gemini (Google Antigravity), OpenRouter-backed models and in Cline — sharing the same project memory across all of them.
 
@@ -11,11 +11,11 @@ Works with Claude Code, ChatGPT / Codex, Gemini (Google Antigravity), OpenRouter
 
 | | |
 |---|---|
-| FAST_INIT bootstrap cost | ~1,344 tokens (4 files, 5,378 chars) |
+| FAST_INIT bootstrap cost | ~1,500 tokens (4 files, ~6,000 chars) |
 | AI tool adapters | 7 (Claude, Gemini, Codex, Cline, Cursor, Copilot, Antigravity) |
-| Memory Bank files | 12 (lazy-loaded) |
+| Memory Bank files | 13 (lazy-loaded, indexed in `00-index.md`) |
 | Reusable skills | 5 |
-| Reusable workflows | 6 |
+| Reusable workflows | 9 (including Calibration and Graphify) |
 | Drift protection | SHA-256 hash check across mirrors |
 | Validator dependencies | 0 (Python stdlib only) |
 | First command after clone | `python scripts/init-fast.py` |
@@ -45,11 +45,13 @@ Most agent setups spend the first 5,000–80,000 tokens "reading the project". T
 
 | File | Tokens (approx) |
 |---|---|
-| `AGENTS.md` | 870 |
-| `memory-bank/startup.md` | 150 |
-| `memory-bank/00-index.md` | 217 |
-| `memory-bank/handoff.md` | 106 |
-| **Total FAST_INIT** | **~1,344** |
+| `AGENTS.md` | 947 |
+| `memory-bank/startup.md` | 123 |
+| `memory-bank/00-index.md` | 256 |
+| `memory-bank/handoff.md` | ~190 (volatile; ~135 on a fresh template) |
+| **Total FAST_INIT** | **~1,500** |
+
+Run `python scripts/check-template.py --benchmark` to see the exact current cost.
 
 Three design choices keep that number small:
 
@@ -82,15 +84,38 @@ $ python scripts/init-fast.py
 == FAST_INIT bootstrap ==
 Template FAST validation passed.
 FAST_INIT startup-path size:
-  - AGENTS.md: 3482 chars (~870 tokens)
-  - memory-bank/startup.md: 601 chars (~150 tokens)
-  - memory-bank/00-index.md: 871 chars (~217 tokens)
-  - memory-bank/handoff.md: 424 chars (~106 tokens)
-  Total: 5378 chars (~1344 tokens)
+  - AGENTS.md: 3790 chars (~947 tokens)
+  - memory-bank/startup.md: 495 chars (~123 tokens)
+  - memory-bank/00-index.md: 1027 chars (~256 tokens)
+  - memory-bank/handoff.md: 767 chars (~191 tokens)
+  Total: 6079 chars (~1519 tokens)
 
 Validation succeeded.
 
+============================================================
+WELCOME TO THE AI AGENT PROJECT TEMPLATE
+============================================================
+What this template gives you out of the box:
+ * One canonical instruction file (AGENTS.md) read by every model
+   (Claude, Gemini, ChatGPT/Codex, Cline, Cursor, Copilot,
+   Antigravity) - no per-tool rewrites.
+ * Shared Memory Bank for cross-session and cross-model continuity
+   (handoff.md lets one model pick up where another left off).
+ * FAST_INIT bootstrap (~1.3-1.5K tokens) so agents skip the usual
+   5K-80K token "read the whole repo" warm-up.
+ * Drift-proof mirrors of workflows and skills (SHA-256 checked).
+ * Zero-dependency validator (Python stdlib only).
+ * Reusable workflows + skills (plan, implement, debug, refactor,
+   handoff, calibrate, build-graph) ready to lazy-load when needed.
+ * Proactive power-ups: agents will suggest Graphify, Calibration,
+   or steering prompts (/align, /devil, /burst) as your project
+   grows. See docs/toolbox.md for the full list.
+
+Next: paste the prompt below into a fresh agent context window.
+============================================================
+
 Paste this into a new agent context window:
+
 ---
 FAST_INIT + TOKEN_SAVER.
 Follow AGENTS.md initialization modes exactly.
@@ -116,14 +141,24 @@ You can drive the same project with several models in sequence or in parallel. D
 
 Each model reads `memory-bank/handoff.md` on resume and updates it on pause. Cache-stable files (listed in `memory-bank/model-routing.md`) stay byte-stable so Claude prompt-cache hits stay warm across sessions.
 
+## 🧰 Power Tools & Toolbox (Optional)
+
+As your project grows, this template scales with you. We keep these out of the fast-path so you aren't forced to use them, but you can activate them at any time:
+
+- **Graphify (Knowledge Graphs):** When grepping fails in large codebases, run `uv tool install graphifyy && graphify .` to build a structural graph of your code. Your agents will automatically read the resulting `GRAPH_REPORT.md`. (See `workflows/build-graph.md`).
+- **Advanced Steering Prompts:** Take control of your AI with commands like `/align` (force clarification), `/devil` (red-teaming), and `/calibrate` (auto-tune memory rules). (See `docs/prompts.md`).
+- **Parallel Agent Forking:** Open a new terminal, run `init-fast.py`, and have multiple agents working on different features simultaneously. (See `docs/start-new-project.md`).
+
+For a full list of integrations, see `docs/toolbox.md`.
+
 ## What's inside
 
 - `AGENTS.md` — canonical instruction file for every model.
-- `memory-bank/` — durable, lazy-loaded project context (12 files, indexed in `00-index.md`).
+- `memory-bank/` — durable, lazy-loaded project context (13 files, indexed in `00-index.md`).
   - `handoff.md` — rolling cross-model session pointer.
   - `model-routing.md` — per-model context budgets, cache-stable file list, routing defaults.
-- `workflows/` — six reusable procedures (plan, implement, debug, refactor, update memory, handoff).
-- `.cline/skills/`, `.agents/skills/` — five reusable skills (planner, Karpathy engineer, reviewer, test strategist, docs/memory maintainer).
+- `workflows/` — reusable procedures (plan, implement, debug, refactor, update memory, handoff, build graph, calibrate).
+- `.cline/skills/`, `.agents/skills/` — five reusable skills (planner, Karpathy engineer, reviewer, test strategist, docs/memory maintainer), plus third-party integration recommendations (e.g. Graphify).
 - `scripts/check-template.py` — stdlib-only validator with `--fast`, `--benchmark`, and full mode.
 - `scripts/init-fast.py` — one-command bootstrap.
 - Adapters: `CLAUDE.md`, `GEMINI.md`, `.clinerules/`, `.agents/`, `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, `.codex/AGENTS.md`.

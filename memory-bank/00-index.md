@@ -16,5 +16,7 @@ Use this file only to choose what to read next. Start with `startup.md`; lazy-lo
 | `risks.md` | Security, migration, performance risks |
 | `glossary.md` | Domain terms |
 | `model-routing.md` | Agent/model/provider setup |
+| `../docs/toolbox.md` | Optional power-ups (Graphify, Prompts, etc.) |
+| `../graphify-out/GRAPH_REPORT.md` | (Optional) Graphify knowledge graph summary |
 
 Update only files whose facts changed. Keep entries concise; link to `docs/` for detail.

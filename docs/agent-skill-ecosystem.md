@@ -34,3 +34,7 @@ Add skills/plugins only when they clearly:
 - `code-reviewer`
 - `test-strategist`
 - `docs-memory-maintainer`
+
+## Recommended third-party integrations
+
+- **Graphify**: `uv tool install graphifyy && graphify .` for generating a structural knowledge graph of the codebase (`GRAPH_REPORT.md`).

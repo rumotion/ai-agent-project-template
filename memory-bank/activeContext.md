@@ -2,7 +2,7 @@
 
 ## Current focus
 
-Multi-model robustness pass complete (2026-05-09). Cross-model continuity, per-model routing, additional adapters (Copilot, Cursor, Codex), MCP parity, validator drift-check, and token benchmark are in place.
+Full initialization started to continue improving the template. Multi-model robustness pass is complete.
 
 ## DEEP_AUDIT findings (2026-05-09)
 

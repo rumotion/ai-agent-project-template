@@ -30,3 +30,9 @@ Read Section 10 of `docs/start-new-project.md`.
 **What it does:** Uses IDE lifecycle hooks to passively log agent actions (zero tokens), then runs an offline batch script overnight to update the Memory Bank.
 **How to activate:**
 *Status: Proposal Phase.* See `docs/proposals/hook-memory-integration.md` for architecture tracking as IDE hooks standardize.
+
+## 5. Context Hygiene Cheatsheet
+**Why use it:** Sessions feel slow, expensive, or the agent starts "acting dumb" — usually a context problem, not a model problem.
+**What it does:** Operational checklist for auditing token usage, filtering tool output, using `/compact`/`/btw`/`/rewind`/`/fork`, preserving prompt-cache hits, tuning reasoning effort, and disabling optimizations during incidents.
+**How to activate:**
+Read `docs/context-hygiene.md` only when you hit a symptom. Not part of FAST_INIT.

@@ -17,6 +17,7 @@ Use this file only to choose what to read next. Start with `startup.md`; lazy-lo
 | `glossary.md` | Domain terms |
 | `model-routing.md` | Agent/model/provider setup |
 | `../docs/toolbox.md` | Optional power-ups (Graphify, Prompts, etc.) |
+| `../docs/context-hygiene.md` | Slow/expensive/"dumb" session — audit, filter, compact, cache rules |
 | `../graphify-out/GRAPH_REPORT.md` | (Optional) Graphify knowledge graph summary |
 
 Update only files whose facts changed. Keep entries concise; link to `docs/` for detail.

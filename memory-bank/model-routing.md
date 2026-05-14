@@ -33,6 +33,30 @@ These should change rarely so Claude prompt cache hits stay warm:
 
 Volatile files (safe to update often): `memory-bank/handoff.md`, `memory-bank/activeContext.md`, `memory-bank/progress.md`.
 
+## Cache ordering rule (stable prefix, dynamic tail)
+
+Prompt caching works top-down and breaks at the first changed byte. Order request material from most stable to most dynamic:
+
+1. System rules (`AGENTS.md`, adapters) — most stable.
+2. Tool schemas — stable.
+3. Memory-bank routing (`startup.md`, `00-index.md`) — mostly stable.
+4. Current task, conversation history, fresh tool output — most dynamic.
+
+Anti-patterns: timestamps near the top, mid-session edits to the system prompt, casual rewrites of cache-stable files. Put dynamic facts (date, git status, mode switch) in user/system-reminder messages, not in the cached prefix. TTL is ~5 minutes; idle conversations cool fast.
+
+## Reasoning effort defaults
+
+Match thinking budget to task class — "high" on everything wastes time and tokens.
+
+| Task class | Effort |
+|---|---|
+| Rename, typo, single-file unit test, small UI tweak | Low / Standard |
+| Bug fix with known repro | Standard |
+| Refactor across <10 files | Standard / High |
+| Architecture design, ghost-bug investigation, security review | High / Deep |
+
+Set per-model knobs (Claude `thinking`, OpenAI `reasoning_effort`, Gemini equivalents) accordingly. See `docs/context-hygiene.md` for the full hygiene cheatsheet.
+
 ## Role routing (default)
 
 | Role | Preferred | Fallback |

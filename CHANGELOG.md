@@ -15,6 +15,49 @@ For the release process, see [`docs/releasing.md`](docs/releasing.md).
 
 _Nothing yet._
 
+## v0.4.0 — 2026-05-14 — Context-hygiene cheatsheet + cache/reasoning rules
+
+Operational pass aimed at the most common late-session failure mode: an
+agent that started fast but now feels slow, expensive, or "dumb." Adds a
+lazy-loaded reference distilled from the May-2026 community
+context-management guide and reconciled with current Claude Code release
+notes (`/btw` shipped in v2.1.72 on 2026-03-10, 5-minute prompt cache
+TTL, workspace-scoped cache isolation since Feb 2026, the
+system-reminder pattern for dynamic content).
+
+### Added
+
+- **[`docs/context-hygiene.md`](docs/context-hygiene.md)**: optional
+  operational cheatsheet covering context audit (`/context`, `/usage`,
+  `wc -w`, log-bomb hunt), tool-output filtering, phase hygiene
+  (`/compact`, `/btw`, `/rewind`, `/fork`), prompt-cache ordering rule
+  with anti-patterns, reasoning-effort defaults, MCP discipline,
+  cheap-worker / subagent split, when NOT to optimize (incidents /
+  security review / new architecture), a symptom→fix troubleshooting
+  table, and a quick decision tree. Read only on demand — not part of
+  FAST_INIT.
+
+### Changed
+
+- **[`memory-bank/model-routing.md`](memory-bank/model-routing.md)**:
+  new "Cache ordering rule" section (stable prefix → dynamic tail; named
+  anti-patterns; 5-minute TTL note) and a "Reasoning effort defaults"
+  table mapping task class to thinking budget for Claude, OpenAI
+  `reasoning_effort`, and Gemini equivalents.
+- **[`memory-bank/00-index.md`](memory-bank/00-index.md)**: pointer row
+  to `docs/context-hygiene.md` so agents discover it when relevant.
+- **[`docs/toolbox.md`](docs/toolbox.md)**: entry 5 cataloguing the
+  cheatsheet alongside Graphify, steering prompts, parallel forking,
+  and the Dream Phase proposal.
+
+### Unchanged (intentional)
+
+- `AGENTS.md` and the other cache-stable files (`CLAUDE.md`,
+  `GEMINI.md`, `memory-bank/startup.md`, adapter files) stay byte-stable
+  so Claude prompt-cache hits keep warming across sessions.
+- FAST_INIT read budget unchanged; none of the new material loads by
+  default.
+
 ## v0.3.0 — 2026-05-13 — Polished landing page + release workflow
 
 Public-facing pass: the GitHub repo page now reads as a real product landing

@@ -9,7 +9,7 @@
 [![Bootstrap cost](https://img.shields.io/badge/FAST__INIT-%7E1.5K%20tokens-success)](#where-the-savings-come-from)
 [![License](https://img.shields.io/badge/license-pick%20your%20own-lightgrey)](#license)
 
-<img width="1122" height="1402" alt="AI Agent Project Template overview" src="https://github.com/user-attachments/assets/b18e7cc3-39dd-496e-88e0-c3665bdec370" />
+<img width="1672" height="941" alt="image" src="https://github.com/user-attachments/assets/0d6e7a40-ec62-4efb-b799-785172ac1054" />
 
 ---
 

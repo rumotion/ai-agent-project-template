@@ -15,6 +15,14 @@ For the release process, see [`docs/releasing.md`](docs/releasing.md).
 
 _Nothing yet._
 
+## v0.5.0 — 2026-05-16 — Agentic Memory & Skill Chaining
+
+### Added
+- **`memory-bank/userPreferences.md`**: Introduced a Tier-0 memory layer specifically for tracking user communication style, workflow habits, and formatting quirks, separating user identity from project memory. Added pointer to `00-index.md`.
+
+### Changed
+- **`docs/agent-skill-ecosystem.md`**: Explicitly documented "Skill Chaining & Progressive Disclosure", instructing agents to chain modular, atomic skills (e.g., `project-planner` -> `karpathy-engineer`) rather than using monolithic mega-skills.
+
 ## v0.4.0 — 2026-05-14 — Context-hygiene cheatsheet + cache/reasoning rules
 
 Operational pass aimed at the most common late-session failure mode: an

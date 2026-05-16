@@ -14,6 +14,7 @@ Add skills/plugins only when they clearly:
 ## Useful patterns
 
 - **Skill creator/factory:** turn repeatable SOPs into small auditable skills.
+- **Skill Chaining & Progressive Disclosure:** Break workflows into atomic skills. Chain them sequentially (e.g., `project-planner` -> `karpathy-engineer` -> `code-reviewer`) and only load the specific skill context needed for the current step to minimize context bloat.
 - **Senior-dev workflow:** plan, test, implement, review, and verify instead of rushing code.
 - **Clean context execution:** use subagents or isolated contexts for broad research/risky work when supported.
 - **Review gates:** run local review for normal changes and stronger review for auth, payments, migrations, security, or large refactors.

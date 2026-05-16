@@ -12,6 +12,7 @@ Use this file only to choose what to read next. Start with `startup.md`; lazy-lo
 | `systemPatterns.md` | Architecture, modules, boundaries |
 | `techContext.md` | Stack, commands, tooling |
 | `productContext.md` | Product/UX/domain requirements |
+| `userPreferences.md` | User communication style, habits, and workflow quirks |
 | `decisions.md` | Important decisions and rationale |
 | `risks.md` | Security, migration, performance risks |
 | `glossary.md` | Domain terms |

@@ -2,7 +2,7 @@
 
 ## Current focus
 
-Full initialization started to continue improving the template. Multi-model robustness pass is complete.
+Cataloged 24 third-party tools, plugins, skills, and MCP configurations as optional integrations. Added references and configuration stubs.
 
 ## DEEP_AUDIT findings (2026-05-09)
 
@@ -40,6 +40,6 @@ Gaps / candidate improvements (not yet applied):
 
 ## Next step
 
-1. Run `python scripts/init-fast.py` in a fresh clone to confirm token cost.
-2. Use `handoff.md` for every model switch.
+1. Run template validator `python scripts/check-template.py` to ensure zero-drift and formatting alignment.
+2. Resume normal template development or deployment.
 3. Fill `memory-bank/projectbrief.md` once a real product/stack is chosen.

@@ -18,6 +18,39 @@
         "git": {
             "command": "npx",
             "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "${WORKSPACE_ROOT}"]
+        },
+        "perplexity": {
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-perplexity"],
+            "env": {
+                "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}"
+            }
+        },
+        "agent-browser": {
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-playwright"]
+        },
+        "slack": {
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-slack"],
+            "env": {
+                "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+                "SLACK_SIGNING_SECRET": "${SLACK_SIGNING_SECRET}"
+            }
+        },
+        "notion": {
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-notion"],
+            "env": {
+                "NOTION_API_KEY": "${NOTION_API_KEY}"
+            }
+        },
+        "zapier": {
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-zapier"],
+            "env": {
+                "ZAPIER_API_KEY": "${ZAPIER_API_KEY}"
+            }
         }
     }
 }

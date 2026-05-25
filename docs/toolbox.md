@@ -35,4 +35,11 @@ Read Section 10 of `docs/start-new-project.md`.
 **Why use it:** Sessions feel slow, expensive, or the agent starts "acting dumb" — usually a context problem, not a model problem.
 **What it does:** Operational checklist for auditing token usage, filtering tool output, using `/compact`/`/btw`/`/rewind`/`/fork`, preserving prompt-cache hits, tuning reasoning effort, and disabling optimizations during incidents.
 **How to activate:**
-Read `docs/context-hygiene.md` only when you hit a symptom. Not part of FAST_INIT.
+Read [context-hygiene.md](file:///c:/AI/_code/_projectTemplate/docs/context-hygiene.md) only when you hit a symptom. Not part of FAST_INIT.
+
+## 6. Third-Party Integrations & MCP Servers
+**Why use it:** When your agent needs specific domain expertise (legal, finance), general productivity extensions (gstack, superpowers), or live app connections (slack, notion, perplexity).
+**What it does:** Lists 24 curated third-party plugins, specialized skills, and MCP configurations.
+**How to activate:**
+Read [third-party-integrations.md](file:///c:/AI/_code/_projectTemplate/docs/third-party-integrations.md) to explore the catalog and find installation commands/configurations.
+

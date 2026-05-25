@@ -2,33 +2,30 @@
 
 Cross-model session handoff. Update when pausing, switching models, or finishing a meaningful step. Keep under 30 lines.
 
-- Last touched: 2026-05-14
-- Last model: Claude Sonnet 4.6 (1M)
+- Last touched: 2026-05-25
+- Last model: Gemini 3.5 Flash (High)
 - Branch: main
-- Status: ready_for_release
+- Status: active
 
 ## Current task
 
-Added context-hygiene cheatsheet derived from May-2026 guide + recent Claude Code release notes. Template still ready for publishing.
+Integrated third-party integrations catalog (24 tools) and config templates.
 
 ## Last concrete action
 
-Created `docs/context-hygiene.md`; added cache-ordering rule and reasoning-effort table to `model-routing.md`; pointer rows in `00-index.md` and `toolbox.md`. `AGENTS.md` unchanged (cache-stable).
+Created `docs/third-party-integrations.md`; updated `docs/toolbox.md`, `.mcp/mcp_config.example.json`, and `memory-bank/00-index.md`.
 
 ## Next concrete step
 
-Run `python scripts/check-template.py` if publishing; otherwise resume normal work.
+Run `python scripts/check-template.py` to verify template integrity.
 
 ## Files touched this session
 
-- docs/context-hygiene.md (new)
-- memory-bank/{00-index.md, model-routing.md, handoff.md}
+- docs/third-party-integrations.md (new)
+- .mcp/mcp_config.example.json
 - docs/toolbox.md
+- memory-bank/{00-index.md, activeContext.md, handoff.md}
 
 ## Open questions / blockers
 
 - None.
-
-## Notes for next model
-
-Run `python scripts/init-fast.py` once on the target platform before publishing.

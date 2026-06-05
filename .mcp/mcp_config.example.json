@@ -1,56 +1,52 @@
 {
+    "_comment": "Example MCP server configuration. Copy the servers you need into the client config: .mcp.json (project root, read by Claude Code / Codex / Cursor / Cline) or .vscode/mcp.json (VS Code, note: that file uses the 'servers' key, not 'mcpServers'). Never commit real tokens; use ${ENV_VAR} placeholders and set them in your shell or a local .env. Spec reference: MCP 2025-11-25.",
+
     "mcpServers": {
+        "filesystem": {
+            "_note": "Official. Args after the package are the allowed directories.",
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-filesystem", "${WORKSPACE_ROOT}"]
+        },
+        "git": {
+            "_note": "Official. Python server — use uvx (preferred) or pip install mcp-server-git.",
+            "command": "uvx",
+            "args": ["mcp-server-git", "--repository", "${WORKSPACE_ROOT}"]
+        },
+        "memory": {
+            "_note": "Official. Persistent knowledge-graph memory across sessions. Optional cross-session store that complements memory-bank/.",
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-memory"],
+            "env": {
+                "MEMORY_FILE_PATH": "${WORKSPACE_ROOT}/.mcp/memory.json"
+            }
+        },
+        "fetch": {
+            "_note": "Official. Fetches a URL and converts HTML to Markdown for the model.",
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-fetch"]
+        },
+        "sequential-thinking": {
+            "_note": "Official. Structured multi-step reasoning tool for hard problems.",
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-sequentialthinking"]
+        },
         "github": {
+            "_note": "Official integration. Issues, PRs, code search. Needs a PAT.",
             "command": "npx",
             "args": ["-y", "@modelcontextprotocol/server-github"],
             "env": {
                 "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
             }
         },
-        "filesystem": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-filesystem", "${WORKSPACE_ROOT}"]
+
+        "_remote_example": {
+            "_note": "Remote (Streamable HTTP) servers replace the deprecated HTTP+SSE transport. Use a URL + type:http. The client runs the OAuth browser flow on first connect — no token needs to live in this file. Example shape only; remove the leading underscore from the key to enable.",
+            "url": "https://mcp.example.com/mcp",
+            "type": "http"
         },
-        "fetch": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-fetch"]
-        },
-        "git": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "${WORKSPACE_ROOT}"]
-        },
-        "perplexity": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-perplexity"],
-            "env": {
-                "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}"
-            }
-        },
-        "agent-browser": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-playwright"]
-        },
-        "slack": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-slack"],
-            "env": {
-                "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
-                "SLACK_SIGNING_SECRET": "${SLACK_SIGNING_SECRET}"
-            }
-        },
-        "notion": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-notion"],
-            "env": {
-                "NOTION_API_KEY": "${NOTION_API_KEY}"
-            }
-        },
-        "zapier": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-zapier"],
-            "env": {
-                "ZAPIER_API_KEY": "${ZAPIER_API_KEY}"
-            }
+
+        "_community_examples": {
+            "_note": "Browser automation, search, comms, and docs servers exist as community/company packages (Playwright, Brave Search, Tavily, Slack, Notion, Perplexity, etc.) — package names and scopes vary and are NOT under @modelcontextprotocol. Verify the exact package on npm/PyPI before use. See docs/third-party-integrations.md."
         }
     }
 }

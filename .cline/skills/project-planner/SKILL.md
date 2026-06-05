@@ -28,3 +28,5 @@ Provide:
 8. Memory Bank updates needed
 
 Do not edit files unless the user asks to proceed.
+
+Chains to: `karpathy-engineer` once the plan is approved. See `docs/agent-skill-ecosystem.md`.

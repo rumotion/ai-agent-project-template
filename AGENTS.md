@@ -52,6 +52,14 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 - Surgical changes: touch only what the task requires.
 - Goal-driven: define success criteria; verify with the smallest useful check.
 
+## Agentic execution
+
+- Batch independent tool calls in parallel; never serialize independent reads.
+- Bound each task (~5 / 15 / 30 tool calls for simple / standard / complex). Halt with a summary instead of looping.
+- Classify errors before retrying: transient → backoff; logic → revise; capability → escalate (`model-routing.md`). On exhausting retries, log a one-line lesson to `memory-bank/risks.md`.
+- On finishing a unit of work, write a phase-completion summary to `memory-bank/activeContext.md` and update `handoff.md`.
+- Detail: `docs/agent-loop.md`.
+
 ## Workflow
 
 Implementation tasks: understand → plan → implement → verify → document. For risky work use procedures in `workflows/`.
@@ -62,7 +70,9 @@ Start with `memory-bank/startup.md`; lazy-load via `memory-bank/00-index.md`; up
 
 ## More detail (lazy-load)
 
+- Agent execution loop (budgets, errors, phase summary): `docs/agent-loop.md`
 - Prompts: `docs/prompts.md`
 - Antigravity/Cline master setup: `docs/antigravity-master-prompt.md`
 - Skills/plugins: `docs/agent-skill-ecosystem.md`
+- Hooks (Claude Code automation): `docs/hooks.md`
 - Model/provider routing: `memory-bank/model-routing.md`

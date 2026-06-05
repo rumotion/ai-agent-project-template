@@ -27,9 +27,9 @@ Read Section 10 of `docs/start-new-project.md`.
 
 ## 4. Offline Memory Consolidation (The "Dream Phase")
 **Why use it:** Your project is massive and manual updates to the `memory-bank` are eating up active coding tokens.
-**What it does:** Uses IDE lifecycle hooks to passively log agent actions (zero tokens), then runs an offline batch script overnight to update the Memory Bank.
+**What it does:** Uses IDE/agent lifecycle hooks to passively log agent actions (zero tokens), then runs an offline batch step to fold the log into the Memory Bank.
 **How to activate:**
-*Status: Proposal Phase.* See `docs/proposals/hook-memory-integration.md` for architecture tracking as IDE hooks standardize.
+A working example ships now — see [`hooks.md`](file:///c:/AI/_code/_projectTemplate/docs/hooks.md): a `PostToolUse` hook (`.claude/settings.json` + `.claude/hooks/log-writes.py`) appends file changes to `.agent-logs/`. The deeper cross-IDE architecture is tracked in `docs/proposals/hook-memory-integration.md` as hooks standardize across tools.
 
 ## 5. Context Hygiene Cheatsheet
 **Why use it:** Sessions feel slow, expensive, or the agent starts "acting dumb" — usually a context problem, not a model problem.

@@ -42,6 +42,11 @@ logs/
 *.map
 graphify-out/
 
+# Agent runtime artifacts
+.agent-logs/
+.claude/settings.local.json
+.mcp/memory.json
+
 # Large/binary assets commonly unsuitable for template commits
 # Copied projects may intentionally relax these rules for production assets.
 *.zip

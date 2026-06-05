@@ -38,6 +38,16 @@ Patterns:
 - Git: `git log --oneline -n 10`, not full log.
 - Build: most build tools accept `--quiet` or equivalent.
 
+## 3b. Batch independent tool calls
+
+Modern models (Claude, Gemini, OpenAI) can run multiple tool calls from one response in parallel. When the next steps don't depend on each other, issue them together instead of one per turn.
+
+- Reading 5 files in parallel costs the same wall-clock time as reading 1, and one fewer round-trip per saved turn.
+- Safe to batch: independent reads, independent searches, independent status checks.
+- Never batch: a write with a read of the same file, or two writes that can conflict.
+
+See `docs/agent-loop.md` for turn/tool-call budgets and the error-and-retry taxonomy that bound a runaway loop.
+
 ## 4. Phase hygiene — close finished work
 
 When a task is done, the agent doesn't need 50 messages of failed attempts in its head.

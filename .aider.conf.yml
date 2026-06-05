@@ -1,0 +1,7 @@
+# Aider configuration. https://aider.chat/docs/config/aider_conf.html
+# Load the canonical instruction files as read-only context on every run so
+# Aider shares the same rules as the other agents.
+read:
+  - AGENTS.md
+  - CONVENTIONS.md
+  - memory-bank/startup.md

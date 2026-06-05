@@ -2,7 +2,20 @@
 
 ## Current focus
 
-Cataloged 24 third-party tools, plugins, skills, and MCP configurations as optional integrations. Added references and configuration stubs.
+Shipped v0.6.0 universal-agent improvements (MCP modernization, new adapters, agent-execution loop, hooks, new workflows). Template validates clean.
+
+## Phase summary: v0.6.0 universal agent features — 2026-06-05
+
+- Outcome: COMPLETE
+- Key decisions:
+  - Added only verified / tool-agnostic features; deliberately omitted LOW-confidence Claude Code commands (e.g. `/goal`, `/ultracode`) per "do not invent facts".
+  - Detail in lazy-loaded `docs/agent-loop.md`; only a tight summary in always-on `AGENTS.md` (budget raised 4,000 → 4,700).
+  - Activatable configs (`.claude/`, `.mcp.json`, `.aider.conf.yml`) ship but are NOT validator-required, so users can opt out.
+- Files modified: AGENTS.md, model-routing.md, handoff.md, context-hygiene.md, toolbox.md, mcp config + README, check-template.py, README.md, CHANGELOG.md, VERSION, all 10 SKILL.md mirrors, init-fast.py; new: `.windsurfrules`, `CONVENTIONS.md`, `.aider.conf.yml`, `.mcp.json`, `.vscode/mcp.json`, `.claude/settings.json`, `.claude/hooks/log-writes.py`, `docs/agent-loop.md`, `docs/hooks.md`, `memory-bank/reminders.md`, `workflows/critic-review.md`, `workflows/autonomous-agent.md`.
+- Also added (infra wave): CI (`.github/workflows/validate.yml`, Linux+Windows), `.github/PULL_REQUEST_TEMPLATE.md` + issue templates, `.editorconfig`, `.claude/commands/` (`/handoff`, `/save-context`, `/start-task`), `docs/per-tool-setup.md`, expanded `.env.example`.
+- Validator: 50 required files, 9 adapters, 15 budgets — full pass on Python 3.13.
+- Open items: none blocking. Optional future: MCP memory-server as a scaling path for large `memory-bank/`.
+- Next: commit when the user is ready (branch off main first).
 
 ## DEEP_AUDIT findings (2026-05-09)
 

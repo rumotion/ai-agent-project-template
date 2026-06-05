@@ -20,3 +20,5 @@ Read:
 - Regression risks
 - Minimal verification path
 - Full verification path
+
+Pairs with: `karpathy-engineer` (implement) and `code-reviewer` (verify).

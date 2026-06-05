@@ -15,3 +15,5 @@ Principles:
 4. Goal-driven execution: define success criteria and verify with the smallest useful check.
 
 If a change grows beyond the task, stop and explain the tradeoff.
+
+Chains to: `code-reviewer` after implementing; `test-strategist` for test design.

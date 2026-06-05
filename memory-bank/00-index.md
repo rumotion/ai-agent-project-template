@@ -6,6 +6,7 @@ Use this file only to choose what to read next. Start with `startup.md`; lazy-lo
 |---|---|
 | `startup.md` | Every task; tiny current snapshot |
 | `handoff.md` | Resuming work, switching models, or pausing |
+| `reminders.md` | New phase / pre-deploy / model switch (prospective memory) |
 | `projectbrief.md` | Goals, users, scope, constraints |
 | `activeContext.md` | Current task/branch details |
 | `progress.md` | Done/next/known issues |
@@ -17,6 +18,8 @@ Use this file only to choose what to read next. Start with `startup.md`; lazy-lo
 | `risks.md` | Security, migration, performance risks |
 | `glossary.md` | Domain terms |
 | `model-routing.md` | Agent/model/provider setup |
+| `../docs/agent-loop.md` | Execution rules: budgets, errors, phase summary |
+| `../docs/hooks.md` | Claude Code hooks for memory automation |
 | `../docs/toolbox.md` | Optional power-ups (Graphify, Prompts, etc.) |
 | `../docs/context-hygiene.md` | Slow/expensive/"dumb" session — audit, filter, compact, cache rules |
 | `../docs/third-party-integrations.md` | Optional third-party plugins, skills, and MCP configurations |

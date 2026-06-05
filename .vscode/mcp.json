@@ -1,0 +1,20 @@
+{
+    "_comment": "VS Code MCP config. Note VS Code uses the 'servers' key (not 'mcpServers') and a per-server 'type'. Mirror of the project's .mcp.json starter set; add more from .mcp/mcp_config.example.json as needed.",
+    "servers": {
+        "filesystem": {
+            "type": "stdio",
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-filesystem", "${workspaceFolder}"]
+        },
+        "git": {
+            "type": "stdio",
+            "command": "uvx",
+            "args": ["mcp-server-git", "--repository", "${workspaceFolder}"]
+        },
+        "memory": {
+            "type": "stdio",
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-memory"]
+        }
+    }
+}

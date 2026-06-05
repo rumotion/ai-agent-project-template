@@ -26,3 +26,5 @@ Read `AGENTS.md` and relevant Memory Bank files first.
 - Non-blocking suggestions
 - Tests to run
 - Files needing follow-up
+
+Chains to: `docs-memory-maintainer` to record outcomes and update the Memory Bank. For high-risk artifacts, use `workflows/critic-review.md`.

@@ -44,6 +44,7 @@ graphify-out/
 
 # Agent runtime artifacts
 .agent-logs/
+.agent-benchmarks/
 .claude/settings.local.json
 .mcp/memory.json
 

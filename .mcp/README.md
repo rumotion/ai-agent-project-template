@@ -1,29 +1,54 @@
 # MCP Configuration
 
-This project may use [MCP](https://modelcontextprotocol.io) servers to give agents live external context and tools.
+This directory documents a logical set of
+[Model Context Protocol](https://modelcontextprotocol.io) servers. It is not a
+configuration location that clients load automatically.
 
-## Where config lives
+## Native project configuration
 
-| Client | Config file | Top-level key |
+| Client | Project file | Server key |
 |---|---|---|
-| Claude Code / Codex / Cursor / Cline | `.mcp.json` (project root) | `mcpServers` |
-| VS Code | `.vscode/mcp.json` | `servers` (note: per-server `type`) |
-| Claude Desktop | `claude_desktop_config.json` (OS app-data dir) | `mcpServers` |
+| Gemini CLI | `.gemini/settings.json` (example: `.gemini/settings.example.json`) | `mcpServers` |
+| OpenAI Codex | `.codex/config.toml` (example: `.codex/config.example.toml`) | `[mcp_servers.<name>]` |
+| Claude Code | Root `.mcp.json` | `mcpServers` |
+| VS Code | `.vscode/mcp.json` | `servers` |
 
-`.mcp.json` at the repo root is the de-facto multi-client standard. Start there; copy extra servers from [`mcp_config.example.json`](mcp_config.example.json).
+The root `.mcp.json` currently activates the starter set for Claude Code. Inactive native example files are provided for Gemini ([`.gemini/settings.example.json`](../.gemini/settings.example.json)) and Codex ([`.codex/config.example.toml`](../.codex/config.example.toml)). Translate the same server intent into each client's native schema; do not copy JSON fields blindly between clients.
 
-## Transports (spec 2025-11-25)
+See [`../docs/agent-compatibility.md`](../docs/agent-compatibility.md) for the
+last-verified compatibility matrix and official client sources.
 
-- **stdio** — client spawns the server as a local subprocess. Preferred for local tools (filesystem, git, memory). Secrets via the `env` block.
-- **Streamable HTTP** — remote servers, given as `{ "url": "...", "type": "http" }`. The client runs an OAuth browser flow on first connect, so no token needs to live in the config file. This replaces the deprecated HTTP+SSE transport.
+## Transports
 
-## Conventions
+- **stdio**: the client starts a local subprocess. Use it for local filesystem,
+  git, and memory tools.
+- **Streamable HTTP**: the client connects to a remote MCP endpoint. URL,
+  headers, OAuth, and transport field names are client-specific.
+- **SSE**: legacy transport retained by some clients. Prefer Streamable HTTP
+  for new remote integrations when both client and server support it.
 
-- TypeScript/JS servers run via `npx -y <package>`. Python servers run via `uvx <package>` (preferred over `pip`).
-- Never hardcode secrets. Use `${ENV_VAR}` placeholders and set them in your shell or a local `.env`.
-- Only the official `@modelcontextprotocol/server-*` packages are guaranteed to exist under that scope (filesystem, git, memory, fetch, sequentialthinking, time, everything). Search/browser/comms servers are community or company packages — verify the package name before use.
-- Treat MCP servers like phone apps: connect what you use this session, disconnect the rest. Every connected server adds tool schemas to every request (see [`../docs/context-hygiene.md`](../docs/context-hygiene.md) §7).
+## Safe activation
 
-Do not connect MCP servers that expose secrets or sensitive production data without explicit approval.
+- Review every command, package, URL, requested permission, and data scope
+  before enabling a server.
+- `npx -y` and `uvx` may download and execute packages. Pin versions where
+  reproducibility matters.
+- Never hardcode secrets. Use the environment-variable syntax supported by the
+  target client.
+- Activate only the servers needed for the current work. Connected tools add
+  capability, attack surface, and context overhead.
+- Do not expose secrets or sensitive production data without explicit
+  approval.
 
-For the curated catalog of third-party servers, see [`../docs/third-party-integrations.md`](../docs/third-party-integrations.md).
+The examples in [`mcp_config.example.json`](mcp_config.example.json) are a
+catalog to adapt, not a drop-in configuration for every client. Verify package
+names and current upstream instructions before use.
+
+Official client guides:
+
+- [Gemini CLI MCP](https://geminicli.com/docs/tools/mcp-server/)
+- [Codex MCP](https://developers.openai.com/codex/extend/mcp)
+- [Claude Code MCP](https://code.claude.com/docs/en/mcp)
+
+For optional third-party integrations, see
+[`../docs/third-party-integrations.md`](../docs/third-party-integrations.md).

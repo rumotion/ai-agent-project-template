@@ -15,6 +15,39 @@ For the release process, see [`docs/releasing.md`](docs/releasing.md).
 
 _Nothing yet._
 
+## v0.7.0 — 2026-07-23 — Cross-agent compatibility, delegation, and context benchmarks
+
+### Added
+
+- MIT license for clear reuse and redistribution terms.
+- One canonical read-only reviewer role with minimal native Gemini, Codex, and
+  Claude adapters and structural parity checks.
+- A deterministic five-scenario context benchmark with JSON output, sanitized
+  manual usage comparison, a 10% evidence gate, and Python 3.9 self-tests.
+- Dated provider-memory bridge and protocol-watch guidance plus optional
+  performance experiment recipes; no compressor, proxy, or protocol runtime is
+  installed or activated.
+- Portable subagent contract (`docs/subagent-contract.md`) and `delegation-coordinator` skill across 3 discovery trees.
+- Workflows for pre-edit verification (`pre-edit-check.md`), spec-driven development (`spec-driven-development.md`), and evidence-grounded self-evaluation (`self-evaluate.md`) across 3 workflow trees.
+- Shared zero-dependency hook library in `scripts/hooks/` (`log-writes.py`, `guard-sensitive-paths.py`, `verify-fixtures.py`), redacted client event fixtures, and `.codex/hooks.example.json`.
+- Inactive native MCP example configurations `.gemini/settings.example.json` and `.codex/config.example.toml`.
+- Gemini/Codex/Claude compatibility truth table and `--compat` validator mode.
+- Five Claude skill mirrors, with three-tree SHA-256 drift protection.
+- Python 3.9/current CI coverage on both Windows and Linux.
+
+### Changed
+
+- `.agents/skills/` is now the canonical Agent Skills source; `.claude/skills/`
+  and `.cline/skills/` are discovery mirrors.
+- Primary Gemini, Claude, and Codex adapters are exact one-line imports/pointers.
+- MCP documentation now uses each client's native project configuration path.
+- Validator enforces minimal skill schema and a hard 7,600-character aggregate
+  FAST_INIT ceiling.
+- Full/compatibility validation now checks the reviewer contract, advanced
+  guidance metadata, required benchmark scenarios, and benchmark self-test.
+- Optional integrations now include explicit install state, evidence, confidence,
+  and portability caveats.
+
 ## v0.6.0 — 2026-06-05 — Universal agent features: MCP, hooks, execution loop
 
 Tool-agnostic modernization pass. Adds verified MCP 2025-11-25 conventions, two

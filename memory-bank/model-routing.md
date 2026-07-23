@@ -79,8 +79,8 @@ Set per-model knobs (Claude `thinking`, OpenAI `reasoning_effort`, Gemini equiva
 | Role | Preferred | Fallback |
 |---|---|---|
 | Initialization / planning | Gemini (Antigravity) | Claude |
-| Implementation | ChatGPT / Codex or Cline | OpenRouter coding model |
-| Review / refactor | Claude | Gemini |
+| Routine implementation | Gemini 3.6 Flash High | ChatGPT / Codex or Cline |
+| Architecture / review / fixes | ChatGPT / Codex or Claude | Gemini 3.6 Flash High |
 | Fast utility | OpenRouter cheap model | Cline w/ small model |
 | Long-context analysis | Gemini Ultra | Claude |
 
@@ -101,6 +101,10 @@ Keep escalation explicit in `handoff.md` so the next session knows why the tier 
 
 Single rolling file: `memory-bank/handoff.md` (structured YAML header + prose). Workflow: `workflows/handoff.md`.
 
+Provider-native recall is optional and advisory; it never outranks checked-in
+state, tests, or the Memory Bank. See `docs/context-memory-bridges.md` for the
+authority order and current Gemini/Codex/Claude controls.
+
 ## Antigravity sub-agent notes
 
 - Antigravity's Codex sub-agent reads root `AGENTS.md` natively; no separate adapter needed beyond `.codex/AGENTS.md`.
@@ -118,7 +122,7 @@ Single rolling file: `memory-bank/handoff.md` (structured YAML header + prose). 
 ## Current defaults
 
 - Planning model: Gemini Ultra (Antigravity)
-- Coding model: ChatGPT Teams / Codex or Cline
-- Review model: Claude (Teams or Code)
+- Routine coding model: Gemini 3.6 Flash High
+- Architecture & review model: ChatGPT Teams / Codex or Claude
 - Fast/cheap model: OpenRouter free tier
 - Long-context model: Gemini Ultra

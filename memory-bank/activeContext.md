@@ -2,7 +2,55 @@
 
 ## Current focus
 
-Shipped v0.6.0 universal-agent improvements (MCP modernization, new adapters, agent-execution loop, hooks, new workflows). Template validates clean.
+Release `v0.7.0` packages the completed cross-agent Phase 1–3 upgrades under
+the MIT license. Native reviewer behavior pilots remain optional and pending;
+no compressor, proxy, memory sync, or protocol runtime was activated.
+
+## Phase summary: Phase 3 Advanced Optional Features — 2026-07-23
+
+- Outcome: IMPLEMENTED_AND_CODE_REVIEWED
+- Added one canonical read-only reviewer contract with minimal Gemini, Codex,
+  and Claude native adapters; validator checks markers, paths, formats, and
+  declared restrictions without claiming runtime parity.
+- Added a five-scenario, stdlib-only context benchmark with JSON output,
+  sanitized paired-usage records, correctness/privacy gates, and self-tests.
+- Added provider-memory authority guidance, a dated MCP/Agent Skills/ACP/A2A
+  watch, and optional performance experiment recipes.
+- Kept all Phase 3 material lazy-loaded and all integrations disabled.
+- Verification: compile, benchmark self-test/text/JSON, hook fixtures, fast,
+  compatibility, full, startup benchmark, bootstrap, and diff checks pass.
+- Current validator: 103 required files, 9 adapters, 15 budgets; FAST_INIT is
+  7,196 chars (~1,799 tokens).
+
+## Phase summary: Phase 2 Core Enhancements — 2026-07-23
+
+- Outcome: REVIEWED_AND_CORRECTED
+- P2.0: Preflight verified baseline diff (24 files changed); model routing updated for Gemini-first implementation & Codex review; user preferences recorded.
+- P2.1: Portable subagent contract (`docs/subagent-contract.md`) and `delegation-coordinator` skill created and mirrored across `.agents/skills`, `.claude/skills`, and `.cline/skills`.
+- P2.2: Pre-edit check (`workflows/pre-edit-check.md`), spec-driven development (`workflows/spec-driven-development.md`), and self-evaluation (`workflows/self-evaluate.md`) workflows created and mirrored across `workflows/`, `.agents/workflows/`, and `.clinerules/workflows/`. Reusable risk entry schema added to `memory-bank/risks.md`.
+- P2.3: Shared stdlib hook library now uses verified Claude, Gemini, and Codex
+  event/denial schemas, explicit client routing, redacted native fixtures, and
+  behavior assertions confined to an OS temporary directory.
+- P2.4: Inactive native MCP examples created (`.gemini/settings.example.json`, `.codex/config.example.toml`); documentation and validator updated for stdlib JSON and TOML validation.
+- P2.5: Validator enforces 92 required files, 9 adapters, 6 skills across 3
+  trees, 9 workflows across 3 trees, hook behavior/adapter checks, native MCP
+  examples, mirror hashes, and machine-local file-URI hygiene.
+- Codex corrections: replaced obsolete Gemini/Codex hook shapes, made the
+  fixture harness assert records and denials, restored Python 3.9 syntax,
+  removed machine-local links, and aligned cross-agent docs/configs.
+- Verification: fast, compatibility, full, benchmark, fixture, Python
+  3.9-grammar, negative validator, mirror, bootstrap, and diff checks pass.
+
+## Phase summary: cross-agent compatibility quick wins — 2026-07-23
+
+- Outcome: COMPLETE
+- Normalized Gemini/Claude imports and the Codex pointer while preserving root `AGENTS.md` as the sole instruction source.
+- Made `.agents/skills` canonical; added five byte-identical `.claude/skills` mirrors and retained `.cline/skills` mirrors.
+- Added the compatibility truth table and corrected client-specific MCP guidance for Gemini, Codex, and Claude.
+- Validator now enforces exact primary adapters, minimal skill schema, three-tree SHA-256 parity, and the 7,600-character FAST_INIT ceiling; CI covers Python 3.9/current on Windows/Linux.
+- Cleaned optional-integration claims and added evidence/confidence labels.
+- Verification: fast, full, compatibility, bootstrap, negative fixtures, compile, and diff checks pass; FAST_INIT is 7,381 chars (~1,845 tokens).
+- Native smoke status: Codex CLI 0.142.0 and Claude Code 2.1.116 are installed; Gemini CLI is unavailable. No paid model sessions were launched.
 
 ## Phase summary: v0.6.0 universal agent features — 2026-06-05
 
@@ -53,6 +101,6 @@ Gaps / candidate improvements (not yet applied):
 
 ## Next step
 
-1. Run template validator `python scripts/check-template.py` to ensure zero-drift and formatting alignment.
-2. Resume normal template development or deployment.
-3. Fill `memory-bank/projectbrief.md` once a real product/stack is chosen.
+1. Start new product repositories through GitHub **Use this template**.
+2. Optionally run the frozen-diff reviewer pilot in installed Gemini, Codex,
+   and Claude clients and record behavioral evidence.

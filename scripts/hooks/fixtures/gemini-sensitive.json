@@ -1,0 +1,12 @@
+{
+  "session_id": "test-session-gemini-456",
+  "transcript_path": "<redacted-transcript-path>",
+  "cwd": ".",
+  "hook_event_name": "BeforeTool",
+  "timestamp": "2026-07-23T00:00:00Z",
+  "tool_name": "write_file",
+  "tool_input": {
+    "file_path": "credentials.json",
+    "content": "<redacted>"
+  }
+}

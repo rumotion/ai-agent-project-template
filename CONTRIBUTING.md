@@ -47,4 +47,4 @@ A passing full run is the bar for merge.
 
 ## License
 
-This repository ships without a license file so consumers can pick. Maintainers can add a `LICENSE` if/when the project chooses one.
+Contributions are accepted under the repository's [MIT License](LICENSE).

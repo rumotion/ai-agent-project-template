@@ -1,45 +1,126 @@
 # The Toolbox: Optional Power-Ups
 
-This template is designed to be as minimal as possible on day one. We enforce a strict "Zero Dependency" rule for the core template. 
+The base template has a zero-dependency core. This toolbox lists optional,
+on-demand capabilities for projects that outgrow the defaults. External tools
+are **not installed, configured, or validated by default**; built-in workflows
+remain dormant until explicitly invoked.
 
-However, as your project scales, you may hit context limits, require tighter AI steering, or need advanced memory management. This toolbox catalogs optional power-ups you can activate when needed.
+For third-party entries, apply the evidence, compatibility, permission, and
+rollback checks in [third-party-integrations.md](third-party-integrations.md).
 
-## 1. Graphify (Codebase Knowledge Graph)
-**Why use it:** When your codebase has hundreds of files, relying on standard "grep" searches or agent file-reading consumes massive amounts of tokens and leads to AI hallucinations.
-**What it does:** Builds a structural map of your code (functions, schemas, dependencies).
-**How to activate:**
-Read `workflows/build-graph.md`.
-```bash
-uv tool install graphifyy && graphify .
-```
+## 1. Graphify (codebase knowledge graph)
 
-## 2. Advanced Steering Prompts
-**Why use it:** AI agents often suffer from "yes-man" behavior or rush into coding before fully understanding constraints.
-**What it does:** Provides slash-commands (`/align`, `/devil`, `/burst`, `/calibrate`) to instantly force the agent to clarify intent, take contrarian views, or self-reflect.
-**How to activate:**
-Read `docs/prompts.md` and use the prompts directly in your chat.
+**Default state:** Not installed; opt-in only.
 
-## 3. Parallel Agent Forking
-**Why use it:** You want one AI to build the frontend while another AI builds the backend, simultaneously.
-**What it does:** Uses the external `memory-bank` to sync context across parallel sessions without them stepping on each other's toes.
-**How to activate:**
-Read Section 10 of `docs/start-new-project.md`.
+**Why use it:** A structural code map may reduce repeated broad searches in a
+large repository.
 
-## 4. Offline Memory Consolidation (The "Dream Phase")
-**Why use it:** Your project is massive and manual updates to the `memory-bank` are eating up active coding tokens.
-**What it does:** Uses IDE/agent lifecycle hooks to passively log agent actions (zero tokens), then runs an offline batch step to fold the log into the Memory Bank.
-**How to activate:**
-A working example ships now — see [`hooks.md`](file:///c:/AI/_code/_projectTemplate/docs/hooks.md): a `PostToolUse` hook (`.claude/settings.json` + `.claude/hooks/log-writes.py`) appends file changes to `.agent-logs/`. The deeper cross-IDE architecture is tracked in `docs/proposals/hook-memory-integration.md` as hooks standardize across tools.
+**What it does:** Builds a map of functions, schemas, and dependencies. Results
+still require source verification.
 
-## 5. Context Hygiene Cheatsheet
-**Why use it:** Sessions feel slow, expensive, or the agent starts "acting dumb" — usually a context problem, not a model problem.
-**What it does:** Operational checklist for auditing token usage, filtering tool output, using `/compact`/`/btw`/`/rewind`/`/fork`, preserving prompt-cache hits, tuning reasoning effort, and disabling optimizations during incidents.
-**How to activate:**
-Read [context-hygiene.md](file:///c:/AI/_code/_projectTemplate/docs/context-hygiene.md) only when you hit a symptom. Not part of FAST_INIT.
+**How to evaluate:** Review [the Graphify workflow](../workflows/build-graph.md),
+verify the current upstream package and install command, then test it in a
+disposable environment. Installation adds a third-party dependency and is not
+part of template validation.
 
-## 6. Third-Party Integrations & MCP Servers
-**Why use it:** When your agent needs specific domain expertise (legal, finance), general productivity extensions (gstack, superpowers), or live app connections (slack, notion, perplexity).
-**What it does:** Lists 24 curated third-party plugins, specialized skills, and MCP configurations.
-**How to activate:**
-Read [third-party-integrations.md](file:///c:/AI/_code/_projectTemplate/docs/third-party-integrations.md) to explore the catalog and find installation commands/configurations.
+## 2. Advanced steering prompts
 
+**Default state:** Shipped as documentation; invoked only on demand.
+
+**Why use it:** A focused prompt can help clarify intent, challenge assumptions,
+or recalibrate repeated styling and behavior corrections.
+
+**What it does:** Provides reusable prompts such as `/align`, `/devil`,
+`/burst`, and `/calibrate`. Slash-command availability is client-specific; copy
+the prompt text directly when a client does not support that command surface.
+
+**How to activate:** Read [prompts.md](prompts.md) and use only the relevant
+prompt.
+
+## 3. Parallel agent work
+
+**Default state:** No background agents or external sessions are started.
+
+**Why use it:** Independent, bounded frontend, backend, research, or review work
+may benefit from parallel execution.
+
+**What it does:** Uses explicit file ownership and the checked-in Memory Bank to
+coordinate sessions. Native delegation features differ across Gemini, Codex,
+and Claude, so do not assume identical availability or semantics.
+
+**How to activate:** Follow the parallel-work guidance in
+[start-new-project.md](start-new-project.md). Confirm each agent's scope before
+allowing concurrent writes.
+
+## 4. Offline memory consolidation ("dream phase")
+
+**Default state:** The documented example is optional; no cross-client hook or
+background consolidation service is enabled by the core template.
+
+**Why use it:** Large projects may benefit from consolidating metadata-only
+activity logs outside the active coding context.
+
+**What it does:** Agent lifecycle hooks can record selected write events for a
+later, reviewed Memory Bank update. Hooks and payloads are client-specific, and
+logs must not capture secrets or file contents.
+
+**How to evaluate:** See [hooks.md](hooks.md) for the current example and
+[hook-memory-integration.md](proposals/hook-memory-integration.md) for the
+experimental cross-client design. The checked-in Memory Bank remains
+authoritative.
+
+## 5. Context hygiene cheatsheet
+
+**Default state:** Shipped as documentation; loaded only when needed.
+
+**Why use it:** Slow or confused sessions often indicate excessive or stale
+context.
+
+**What it does:** Provides a checklist for tool-output filtering, prompt-cache
+stability, compaction, session branching, reasoning effort, and incident-mode
+fallbacks. Named commands vary by client.
+
+**How to activate:** Read [context-hygiene.md](context-hygiene.md) when a
+symptom appears. It is not part of FAST_INIT.
+
+## 6. Third-party integrations and MCP servers
+
+**Default state:** Every catalog item is uninstalled and unconfigured.
+
+**Why use it:** A project may need specialized domain guidance or an explicit
+connection to an external service.
+
+**What it does:** Provides discovery leads for plugins, skills, CLIs, and MCP
+servers. The catalog is not a compatibility or security allowlist.
+
+**How to evaluate:** Review
+[third-party-integrations.md](third-party-integrations.md), resolve official
+upstream documentation, verify the exact target agent, minimize permissions,
+and test with non-production data.
+
+## 7. Optional context compression experiments
+
+Neither option below is installed, enabled, required, or included in CI.
+
+- [Headroom](https://github.com/headroomlabs-ai/headroom) is an optional
+  runtime/proxy experiment. Review telemetry, privacy, failure behavior, and
+  rollback; benchmark total session cost and correctness rather than accepting
+  unqualified savings claims.
+- [Caveman](https://github.com/JuliusBrussee/caveman) is an optional
+  response-style experiment. It can remove useful qualifiers and may be
+  **net-negative on already-terse workloads**. Disable it for security work,
+  incidents, architecture decisions, and handoffs unless local tests prove it
+  safe.
+
+## 8. Protocol and native-memory watch items
+
+ACP, A2A, and provider-native memory are watch items, not core template
+features:
+
+- ACP may connect an editor to an agent.
+- A2A may connect remote agents.
+- Claude-, Gemini-, or Codex-native memory may provide local recall.
+
+They do not replace repository instructions, MCP, portable delegation, or the
+checked-in Memory Bank. Adopt them only after verifying stable support in the
+chosen clients and documenting a portable fallback.

@@ -1,0 +1,16 @@
+{
+  "session_id": "test-session-codex-123",
+  "transcript_path": null,
+  "cwd": ".",
+  "hook_event_name": "PostToolUse",
+  "model": "codex-test",
+  "turn_id": "test-turn-codex-123",
+  "tool_name": "apply_patch",
+  "tool_use_id": "test-tool-codex-123",
+  "tool_input": {
+    "command": "*** Begin Patch\n*** Update File: docs/architecture.md\n@@\n-old\n+new\n*** End Patch"
+  },
+  "tool_response": {
+    "content": "<redacted>"
+  }
+}

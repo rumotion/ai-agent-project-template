@@ -78,7 +78,7 @@ def main() -> int:
     safe_print(" * Zero-dependency validator (Python stdlib only).")
     safe_print(" * Reusable workflows + skills (plan, implement, debug, refactor,")
     safe_print("   handoff, critic-review, autonomous-agent) ready to lazy-load.")
-    safe_print(" * Modern MCP config (.mcp.json) + opt-in hooks (docs/hooks.md).")
+    safe_print(" * Client-specific MCP guidance + opt-in hooks (docs/hooks.md).")
     safe_print(" * Proactive power-ups: agents will suggest Graphify, Calibration,")
     safe_print("   or steering prompts (/align, /devil, /burst) as your project")
     safe_print("   grows. See docs/toolbox.md for the full list.")

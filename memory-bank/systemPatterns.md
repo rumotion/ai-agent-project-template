@@ -8,8 +8,9 @@ The template uses a layered AI-agent architecture with `AGENTS.md` as the canoni
 
 - `AGENTS.md`: single source of truth for all agents.
 - `memory-bank/`: durable project context.
-- `.clinerules/` and `.cline/skills/`: Cline-specific adapters and skills.
-- `.agents/`: Google Antigravity rules, workflows, and skills.
+- `.agents/skills/`: canonical portable Agent Skills source used directly by Gemini and Codex.
+- `.claude/skills/` and `.cline/skills/`: byte-identical discovery mirrors.
+- `.clinerules/` and `.agents/rules/`: thin client-specific rule adapters.
 - `workflows/`: tool-agnostic SOPs.
 - `scripts/`: local deterministic automation.
 - `docs/`: human-readable documentation.
@@ -26,6 +27,7 @@ Initialization now follows a two-mode flow: start in `FAST_INIT` for low-token, 
 ## Important patterns
 
 - Canonical instruction file plus thin adapters.
+- Canonical `.agents/skills` plus SHA-256-checked client discovery mirrors.
 - Dual initialization modes (`FAST_INIT` default, `DEEP_AUDIT` explicit) to balance token cost and robustness.
 - Memory Bank as operational context, not a diary.
 - Keep raw references in `references/`; summarize durable facts in `memory-bank/`.
@@ -33,6 +35,10 @@ Initialization now follows a two-mode flow: start in `FAST_INIT` for low-token, 
 - Prefer GitHub **Use this template** for clean new repositories; direct clone keeps template history/remotes until changed.
 - Tool-agnostic workflows mirrored into tool-specific locations when useful.
 - Standard-library-only validator for portability.
+- One canonical specialist-role contract with thin native adapters; runtime
+  parity requires a manual pilot.
+- Manifest-based context experiments that never scan the repository or call a
+  model/network service.
 
 ## Anti-patterns to avoid
 

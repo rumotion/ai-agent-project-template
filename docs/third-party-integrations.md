@@ -1,147 +1,277 @@
 # Third-Party Integrations Catalog
 
-This document details the recommended third-party extensions, plugins, skills, and Model Context Protocol (MCP) servers. 
+This catalog is a set of optional leads, not a compatibility or security
+allowlist. Every item below is **uninstalled and disabled by default**. The
+zero-dependency template, validator, and FAST_INIT path do not require any of
+them.
 
-To maintain the template's **strict zero-dependency core**, these tools are classified as **on-demand integrations** and are not pre-installed. You can install them when required for your project.
+## Evidence and compatibility policy
 
----
+Last catalog review: **2026-07-23**
 
-## Agent Compatibility & Interoperability
+Unless an entry is updated with stronger evidence, its **last-verified state is
+"not independently verified" as of that review date**. When adopting an item,
+record the verification date, tested version, target client, and official
+source in project documentation; a review date alone is not compatibility
+evidence.
 
-All listed tools, plugins, and MCP servers are compatible across various AI coding agents. They are implemented using standardized formats:
+Evidence labels describe only the link quality recorded in this repository:
 
-1. **Model Context Protocol (MCP) Servers** (e.g., Perplexity, Slack, Notion, Zapier, Agent-Browser):
-   - **Claude Code**: Supported natively via server configurations in user configs.
-   - **Cline / VS Code Extensions**: Supported natively via the built-in MCP configuration manager.
-   - **Gemini / Google Antigravity**: Supported using standard MCP connection adapters.
-   - **Codex / ChatGPT**: Supported via MCP host gateways or proxy tools.
+- **Direct upstream**: a direct project or service URL is available. Review its
+  current documentation, license, release status, data handling, and install
+  instructions before use.
+- **Discovery lead**: the entry uses a shortened or otherwise indirect URL.
+  Treat its destination, ownership, claims, and compatibility as unverified
+  until checked against an official upstream source.
+- **Protocol watch**: a developing interoperability option to monitor, not a
+  component of the template.
 
-2. **Instructional Skills & Methodology Rules** (e.g., `frontend-design`, `caveman`, `superpowers`, `claude-for-legal`):
-   - Because these are structured markdown files, they are LLM-agnostic.
-   - **Claude Code**: Loaded dynamically or appended to session prompts.
-   - **Cline**: Copied directly into `.clinerules` or workspace instructions.
-   - **Antigravity / Gemini**: Copied to `.agents/` or referenced in system prompts.
-   - **Codex / ChatGPT**: Imported into custom system instructions or playground prompts.
+Confidence is deliberately conservative:
 
-3. **CLI & Shell-Based Tools** (e.g., `gstack`):
-   - Standard shell utilities that run directly on the host system. Any agent with shell execution capabilities can run these tools natively.
+- **Medium** means the repository records a direct upstream URL, but no current
+  cross-client smoke test is maintained here.
+- **Low** means the entry is only a discovery lead or its detailed claims have
+  not been independently verified.
 
----
+No entry is assumed to work unchanged across Gemini, Codex, Claude, Cline, or
+other agents. MCP hosts, skill discovery paths, authentication, permissions,
+hook semantics, and CLI availability differ by client and version. Before
+activation:
 
-## 1. Developer Productivity & General Plugins
-These plugins enhance agent capabilities with prepackaged tools, commands, or methodologies.
+1. Resolve the official upstream documentation and pin a reviewed version.
+2. Confirm support in the exact agent/client version being used.
+3. Review requested filesystem, shell, network, account, and telemetry access.
+4. Test in a disposable project with non-production data.
+5. Document rollback and removal steps.
+
+## 1. Developer productivity and general plugins
 
 ### [gstack](https://github.com/garrytan/gstack)
-- **What it is**: 23 specialist developer tools bundled into a single installation.
-- **When to use**: To give your agent robust git workflows, code refactoring support, and diagnostics.
-- **Activation**: Run `npm install -g gstack` or load it via agent configuration.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Direct upstream / Medium.
+- **Potential use**: A collection of developer-agent workflows. Verify the
+  current tool count, supported agents, installation method, and commands
+  upstream before adopting it.
 
 ### [superpowers](https://lnkd.in/eppbgRaK)
-- **What it is**: A complete software development methodology containing 14 skills.
-- **When to use**: For complex projects needing disciplined planning, testing, and implementation cycles.
-- **Activation**: Follow installation steps at [superpowers](https://lnkd.in/eppbgRaK).
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: A software-development methodology and skill collection.
+  Resolve the official repository and verify its contents before importing any
+  instructions.
 
 ### [codex-plugin-cc](https://lnkd.in/eTweEPmw)
-- **What it is**: OpenAI's official Codex integration plugin.
-- **When to use**: When utilizing Codex models or legacy OpenAI endpoints.
-- **Activation**: Configure via plugin settings.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: A claimed Codex integration. Ownership, supported
+  endpoints, and the claim that it is official require upstream verification.
 
 ### [claude-skills](https://lnkd.in/eYXHrn27)
-- **What it is**: 263+ skills covering a wide array of platforms and APIs.
-- **When to use**: When you need a generic, swiss-army-knife set of tools for system management.
-- **Activation**: See instructions at [claude-skills](https://lnkd.in/eYXHrn27).
 
----
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: A broad skill collection. Verify the official source,
+  current inventory, license, and each imported skill; do not bulk-install
+  unreviewed instructions.
 
-## 2. Domain & Vertical-Specific Plugins
-These should only be loaded when building apps in specific industries.
+## 2. Domain and vertical-specific plugins
+
+Domain packs are advisory automation, not substitutes for qualified financial,
+legal, privacy, or compliance review.
 
 ### [financial-services](https://lnkd.in/e9fpC2XF)
-- **What it is**: Workflows and integrations tailored for Investment Banking, Private Equity, and Wealth Management.
-- **Activation**: Load the schema/instructions when building fintech/finance systems.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Finance-oriented workflows. Verify the publisher,
+  jurisdictional fit, data handling, and current content before use.
 
 ### [claude-for-legal](https://lnkd.in/eYgW_QUy)
-- **What it is**: Workflows, citation parsers, and review gates for legal practice areas.
-- **Activation**: Import target templates when dealing with legal compliance or document analysis.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Legal-document workflows and review aids. Verify the
+  source and require professional review for legal conclusions.
 
 ### [marketingskills](https://lnkd.in/egt-7ZwM)
-- **What it is**: 40 marketing tools covering growth ops, email templates, and analytics.
-- **Activation**: Mount these skills when writing growth automation or marketing funnels.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Marketing and growth workflows. Verify the source,
+  supported platforms, and any claims about included tools.
 
 ### [social-media-skills](https://lnkd.in/emDvetxm)
-- **What it is**: Content OS for drafting, formatting, and scheduling posts and video reels.
-- **Activation**: Enable when building social integration pipelines.
 
----
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Social-content drafting and scheduling workflows. Review
+  account permissions and require approval before publishing.
 
-## 3. Specialized Agent Skills
-Custom instruction sets that agents load dynamically to solve specific technical problems.
+## 3. Specialized agent skills
+
+Third-party Markdown is not automatically portable merely because an agent can
+read it. Skill metadata, discovery paths, tool assumptions, and instruction
+precedence vary. Import only reviewed content into the template's canonical
+skill layout and test it separately in each target agent.
 
 ### [frontend-design](https://lnkd.in/eMpNx__b)
-- **What it is**: Premium UI design rules that eliminate generic, boring AI-generated interfaces.
-- **When to use**: During UI development phases to enforce glassmorphism, harmonious HSL palettes, and micro-animations.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: UI-design guidance. Treat aesthetic and quality claims as
+  subjective until tested against project requirements.
 
 ### [hyperframes](https://lnkd.in/ed-wSdsx)
-- **What it is**: Agent-native HTML writing and video rendering skill.
-- **When to use**: When generating dynamic media content or rich interactive prototypes.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: HTML authoring and media-rendering workflows. Verify
+  runtime dependencies and output licensing.
 
 ### [ai-second-brain](https://lnkd.in/et2waZ79)
-- **What it is**: Karpathy-style local wiki and AI memory/history parser.
-- **When to use**: To keep track of deep project history and long-term knowledge across sessions.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Local knowledge and history tooling. Review what data it
+  stores or transmits. It must not replace the checked-in Memory Bank as the
+  template's cross-agent source of truth.
 
 ### [notebooklm-skill](https://lnkd.in/edUnrPTe)
-- **What it is**: Skill optimized for querying research sources and documents.
-- **When to use**: When onboarding complex academic papers or massive PDFs.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Research-source and document-query workflows. Verify
+  service requirements, upload behavior, and source-citation handling.
 
 ### [humanizer](https://lnkd.in/eekWNVYm)
-- **What it is**: Text style modifier that strips typical AI writing tells.
-- **When to use**: Generating user-facing docs, copy, or markdown explanations.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: User-facing prose editing. Review for unwanted meaning
+  changes and do not use it to conceal required AI disclosures.
 
 ### [claude-seo](https://lnkd.in/ec5AZ_pW)
-- **What it is**: GEO-first (Generative Engine Optimization) SEO audit skill.
-- **When to use**: Optimizing web landing pages for search engines and AI answer engines.
+
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: SEO and generative-search review. Verify the source and
+  benchmark recommendations against current first-party search guidance.
 
 ### [antfu-skills](https://github.com/antfu/skills)
-- **What it is**: Skills designed by Vue/Vite core team members.
-- **When to use**: When developing projects on the Vue/Vite stack.
 
-### [caveman](https://lnkd.in/e4nxpEJi)
-- **What it is**: Token-saving instruction set that forces the agent to talk like a caveman.
-- **When to use**: During fast, iterative coding rounds to cut token usage by up to 65%.
+- **Default state**: Not installed; opt-in only.
+- **Evidence / confidence**: Direct upstream / Medium.
+- **Potential use**: Skills that may be useful in Vue/Vite projects. Review
+  individual skill contents and supported discovery layouts before importing.
 
----
+### [Caveman](https://github.com/JuliusBrussee/caveman)
 
-## 4. MCP Servers (Live System & App Connections)
-Model Context Protocol (MCP) servers allow agents to safely read/write to your apps.
+- **Default state**: Not installed; opt-in experiment only.
+- **Evidence / confidence**: Direct upstream / Medium.
+- **Potential use**: Compact response-style instructions intended to reduce
+  output tokens.
+- **Caveat**: Do not assume a universal savings percentage. Compression can
+  remove qualifiers, paths, evidence, or safety context, and may be
+  **net-negative on already-terse coding workloads**. Benchmark total session
+  input/output and correctness before adoption; keep it disabled for incidents,
+  security work, architecture decisions, and handoffs unless proven safe.
+
+## 4. MCP servers and live app connections
+
+MCP servers can expose local data or perform external writes. Each server is
+**unconfigured and inactive by default**. A server supporting MCP does not mean
+every host supports the same transports, authentication, approvals, or tool
+schema. Use the native configuration for the selected client and require
+explicit confirmation for material writes.
 
 ### [perplexity](https://lnkd.in/ejdkVnes)
-- **What it is**: Live web search integration.
-- **When to use**: Fetching current documentation, live package versions, or online solutions.
+
+- **Default state**: Not installed or configured; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Live web research. Resolve the official server, review
+  query/data retention, and verify citation behavior.
 
 ### [agent-browser](https://lnkd.in/eUS4cxjs)
-- **What it is**: Playwright/Puppeteer-based browser automation server.
-- **When to use**: Visual testing, UI audits, or scraping internal web pages.
+
+- **Default state**: Not installed or configured; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Browser automation for tests or audits. Review browser
+  profile access, downloads, credentials, and destructive actions.
 
 ### [slack](https://lnkd.in/exz5AtNM)
-- **What it is**: Read/write slack channel context.
-- **When to use**: Reporting build failures or posting task completion notifications.
+
+- **Default state**: Not installed or configured; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Slack search or messaging. Verify the official provider,
+  minimize scopes, and require confirmation before posting or modifying data.
 
 ### [notion](https://lnkd.in/e6HXirqR)
-- **What it is**: Read/write Notion workspaces.
-- **When to use**: Syncing specs or updating project wikis directly from the agent.
 
-### [zapier](https://mcp.zapier.com)
-- **What it is**: Integrates Zapier’s 9,000+ app connectors.
-- **When to use**: Triggering workflows, CRM additions, or cross-app automation.
+- **Default state**: Not installed or configured; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Notion workspace access. Verify the official provider,
+  minimize scopes, and require confirmation before writes.
+
+### [Zapier MCP](https://mcp.zapier.com)
+
+- **Default state**: Not installed or configured; opt-in only.
+- **Evidence / confidence**: Direct upstream / Medium.
+- **Potential use**: Cross-application automation. Verify current connector
+  coverage and approval controls; broad account access can amplify mistakes.
 
 ### [granola](https://lnkd.in/e23ayrFh)
-- **What it is**: Meeting transcription feed.
-- **When to use**: Importing meeting action items into the active project context.
 
-### [kondo](https://relay.trykondo.com/mcp)
-- **What it is**: LinkedIn DM triaging and inbox connection.
-- **When to use**: Automating communication or fetching incoming business leads.
+- **Default state**: Not installed or configured; opt-in only.
+- **Evidence / confidence**: Discovery lead (short link) / Low.
+- **Potential use**: Meeting-note ingestion. Verify consent, retention,
+  workspace access, and the official integration.
 
-### [higgsfield](https://higgsfield.ai/mcp)
-- **What it is**: Cinematic video generation from prompts.
-- **When to use**: Dynamically generating visual media assets.
+### [Kondo relay](https://relay.trykondo.com/mcp)
+
+- **Default state**: Not installed or configured; opt-in only.
+- **Evidence / confidence**: Direct upstream / Medium.
+- **Potential use**: Claimed LinkedIn inbox access. Verify the service,
+  platform-policy compliance, authentication, and write controls.
+
+### [Higgsfield MCP](https://higgsfield.ai/mcp)
+
+- **Default state**: Not installed or configured; opt-in only.
+- **Evidence / confidence**: Direct upstream / Medium.
+- **Potential use**: Media generation. Verify current MCP support, costs,
+  asset rights, privacy terms, and output restrictions.
+
+## 5. Optional performance integration
+
+### [Headroom](https://github.com/headroomlabs-ai/headroom)
+
+- **Default state**: Not installed; opt-in benchmark only.
+- **Evidence / confidence**: Direct upstream / Medium.
+- **Potential use**: A context-optimization proxy for selected workloads.
+- **Caveat**: It adds a runtime/proxy dependency and may change or transmit
+  prompt/tool context. Review telemetry, privacy, failure behavior, and rollback
+  before testing. Do not adopt headline savings claims without measuring total
+  session cost and correctness on this template.
+
+## 6. Protocol and native-feature watch list
+
+These are not bundled dependencies and do not replace `AGENTS.md`, MCP, skills,
+workflows, or the Markdown Memory Bank:
+
+- **ACP**: Watch as an editor-to-agent transport. Client availability does not
+  establish template-wide behavior.
+- **A2A**: Watch as a remote agent-to-agent transport. It is not the template's
+  delegation contract or a replacement for MCP.
+- **Provider-native memory**: Claude-, Gemini-, or Codex-specific memory may be
+  useful as optional local recall. Treat it as advisory, verify facts against
+  the repository, and never make it the only durable project state.
+
+Adopt a watch item only after stable specifications, target-client support, a
+portable fallback, and a documented conflict-resolution policy exist.
+
+Exact statuses, first-party sources, adoption triggers, and verification dates
+live in `docs/protocol-watch.md`. Optional compressor/proxy trials use
+`docs/performance-experiments.md` and the local benchmark harness; none is
+installed or activated by this catalog.

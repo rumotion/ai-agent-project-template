@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "scenarios": [
+    {
+      "id": "fast-init",
+      "description": "Default cross-agent startup and resumption context.",
+      "files": [
+        "AGENTS.md",
+        "memory-bank/startup.md",
+        "memory-bank/00-index.md",
+        "memory-bank/handoff.md"
+      ]
+    },
+    {
+      "id": "research-synthesis",
+      "description": "Synthesize an architecture report against current compatibility rules.",
+      "files": [
+        "AGENTS.md",
+        "memory-bank/startup.md",
+        "memory-bank/handoff.md",
+        "implementation_plan.md",
+        "docs/agent-compatibility.md"
+      ]
+    },
+    {
+      "id": "routine-code-edit",
+      "description": "Perform a bounded implementation with pre-edit and self-evaluation checks.",
+      "files": [
+        "AGENTS.md",
+        "memory-bank/startup.md",
+        "memory-bank/handoff.md",
+        "workflows/pre-edit-check.md",
+        "workflows/spec-driven-development.md",
+        "workflows/self-evaluate.md"
+      ]
+    },
+    {
+      "id": "code-review",
+      "description": "Review a frozen change using the portable reviewer contract.",
+      "files": [
+        "AGENTS.md",
+        "memory-bank/startup.md",
+        "docs/reviewer-role.md",
+        "workflows/critic-review.md",
+        "workflows/self-evaluate.md"
+      ]
+    },
+    {
+      "id": "cross-model-handoff",
+      "description": "Resume work safely in a different agent client.",
+      "files": [
+        "AGENTS.md",
+        "memory-bank/startup.md",
+        "memory-bank/handoff.md",
+        "memory-bank/model-routing.md",
+        "workflows/handoff.md",
+        "docs/subagent-contract.md"
+      ]
+    }
+  ]
+}

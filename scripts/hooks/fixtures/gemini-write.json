@@ -1,0 +1,16 @@
+{
+  "session_id": "test-session-gemini-123",
+  "transcript_path": "<redacted-transcript-path>",
+  "cwd": ".",
+  "hook_event_name": "AfterTool",
+  "timestamp": "2026-07-23T00:00:00Z",
+  "tool_name": "write_file",
+  "tool_input": {
+    "file_path": "src/main.rs",
+    "content": "<redacted>"
+  },
+  "tool_response": {
+    "llmContent": "<redacted>",
+    "returnDisplay": "<redacted>"
+  }
+}

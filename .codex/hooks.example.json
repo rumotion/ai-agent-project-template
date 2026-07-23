@@ -1,0 +1,33 @@
+{
+  "description": "Inactive cross-platform write audit and sensitive-path guard examples.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/scripts/hooks/guard-sensitive-paths.py\" --client codex",
+            "commandWindows": "powershell -NoProfile -Command \"$root = git rev-parse --show-toplevel; python (Join-Path $root 'scripts/hooks/guard-sensitive-paths.py') --client codex\"",
+            "timeout": 10,
+            "statusMessage": "Checking sensitive paths"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/scripts/hooks/log-writes.py\" --client codex --workspace-root \"$(git rev-parse --show-toplevel)\"",
+            "commandWindows": "powershell -NoProfile -Command \"$root = git rev-parse --show-toplevel; python (Join-Path $root 'scripts/hooks/log-writes.py') --client codex --workspace-root $root\"",
+            "timeout": 10,
+            "statusMessage": "Recording write metadata"
+          }
+        ]
+      }
+    ]
+  }
+}

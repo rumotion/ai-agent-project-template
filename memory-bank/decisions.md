@@ -2,6 +2,65 @@
 
 Record important project decisions here.
 
+### 2026-07-23 — Ship Phase 3 scaffolding without optional runtimes
+
+Status: Accepted
+
+Context: Research recommended native specialist roles, context compression,
+provider memory, and emerging protocols, but the template must remain portable,
+low-context, and zero-dependency.
+
+Decision: Ship exactly one canonical read-only reviewer role with thin
+Gemini/Codex/Claude adapters; add an offline manifest-based benchmark and
+evidence threshold; keep provider memory advisory; track MCP, Agent Skills,
+ACP, and A2A in dated documentation. Do not install or activate compression,
+proxy, synchronization, or protocol runtimes without paired evidence and
+separate approval.
+
+Consequences: Advanced experiments are measurable and lazy-loaded. Validator
+checks structural declarations only; native reviewer behavior remains a manual
+pilot. FAST_INIT remains below the hard cap.
+
+Related files: `docs/reviewer-role.md`, `.gemini/agents/reviewer.md`,
+`.codex/agents/reviewer.toml`, `.claude/agents/reviewer.md`,
+`benchmarks/context/`, `scripts/benchmark-context.py`,
+`docs/context-memory-bridges.md`, `docs/protocol-watch.md`,
+`docs/performance-experiments.md`
+
+### 2026-07-23 — Implement Phase 2 Core Enhancements (portable subagent contract, workflows, shared hooks, inactive MCP examples)
+
+Status: Accepted
+
+Context: Gemini 3.6 Flash High executed Phase 2, followed by an independent
+Codex review against first-party client hook documentation.
+
+Decision: Keep the portable delegation/workflow additions; use shared stdlib
+hook scripts with explicit native client adapters; activate verified Claude
+guard/log mappings while leaving Gemini and Codex configs as inactive examples;
+require behavior-level fixture assertions and native adapter validation.
+
+Consequences: Delegation and evidence-grounded self-evaluation are portable.
+Hook events and denial outputs remain client-correct. The stdlib validator now
+checks 92 required files and rejects mirror drift, invalid hook mappings, and
+machine-local file URIs without adding startup instructions.
+
+Related files: `docs/subagent-contract.md`,
+`.agents/skills/delegation-coordinator/`, `workflows/self-evaluate.md`,
+`scripts/hooks/`, `.claude/settings.json`, `.gemini/settings.example.json`,
+`.codex/hooks.example.json`, `scripts/check-template.py`
+
+### 2026-07-23 — Standardize three-agent compatibility contracts
+
+Status: Accepted
+
+Context: Gemini, Codex, and Claude use different native skill and MCP discovery paths, while FAST_INIT has little remaining headroom.
+
+Decision: Keep `AGENTS.md` canonical; use exact thin primary adapters; designate `.agents/skills/` as the canonical skill tree with byte-identical `.claude/skills/` and `.cline/skills/` mirrors; document MCP as client-specific; enforce these contracts, skill schema, SHA-256 parity, and a 7,600-character aggregate startup cap in the standard-library validator.
+
+Consequences: The earlier decision naming `.cline/skills/` canonical is superseded. Cross-agent parity is testable without adding dependencies or startup context. Native hooks, MCP activation files, and subagents remain deferred and optional.
+
+Related files: `GEMINI.md`, `CLAUDE.md`, `.codex/AGENTS.md`, `.agents/skills/`, `.claude/skills/`, `.cline/skills/`, `docs/agent-compatibility.md`, `scripts/check-template.py`
+
 ### 2026-05-09 — Add cross-model continuity layer
 
 Status: Accepted

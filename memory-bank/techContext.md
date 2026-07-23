@@ -3,7 +3,7 @@
 ## Stack
 
 - Language: Markdown (docs/config) and Python (validation scripts)
-- Runtime: Python (`python` command available; exact version `TBD`)
+- Runtime: Python 3.9+ (validated locally on 3.13; CI covers 3.9 and current 3.x)
 - Framework: None (Pure template)
 - Package manager: None
 - Database: None
@@ -28,15 +28,23 @@ TBD per copied project.
 
 ```bash
 python scripts/init-fast.py
+python scripts/hooks/verify-fixtures.py
+python scripts/benchmark-context.py --self-test
+python scripts/benchmark-context.py --scenario fast-init
 python scripts/check-template.py --fast
+python scripts/check-template.py --compat
 python scripts/check-template.py
 python scripts/check-template.py --benchmark
 ```
 
+- `scripts/hooks/verify-fixtures.py`: temp-only behavioral tests for normalized
+  records, redaction, malformed input, and Claude/Gemini/Codex denial outputs.
+- `scripts/benchmark-context.py`: offline manifest measurement and sanitized
+  paired-usage comparison; no model or network calls.
 - `scripts/init-fast.py`: one-command FAST_INIT bootstrap (fast validation + token benchmark + short prompt).
 - `--fast`: lightweight startup/integration checks aligned with FAST_INIT.
+- `--compat`: full Gemini/Codex/Claude compatibility-contract validation.
 - (no flag): full template validation including secret hygiene and mirror-drift check.
-- `--benchmark`: prints FAST_INIT startup-path char and approximate token cost (chars/4).
 
 ### Lint
 

@@ -8,9 +8,9 @@
 [![Validate template](https://github.com/rumotion/ai-agent-project-template/actions/workflows/validate.yml/badge.svg)](https://github.com/rumotion/ai-agent-project-template/actions/workflows/validate.yml)
 [![Validator](https://img.shields.io/badge/validator-python%20stdlib-blue)](scripts/check-template.py)
 [![Bootstrap cost](https://img.shields.io/badge/FAST__INIT-%7E1.9K%20tokens-success)](#where-the-savings-come-from)
-[![License](https://img.shields.io/badge/license-pick%20your%20own-lightgrey)](#license)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-<img width="1672" height="941" alt="image" src="https://github.com/user-attachments/assets/0d6e7a40-ec62-4efb-b799-785172ac1054" />
+<img width="1672" height="941" alt="AI Agent Project Template — one canonical AGENTS.md and a shared Memory Bank read by Claude, Gemini, Codex, Cline, Roo Code, Cursor, Windsurf, Copilot, Aider, and Antigravity. ~1,880-token startup." src="https://github.com/user-attachments/assets/0d6e7a40-ec62-4efb-b799-785172ac1054" />
 
 ---
 
@@ -36,15 +36,15 @@
 
 | | |
 |---|---|
-| FAST_INIT bootstrap cost | ~1,880 tokens (4 files, ~7,500 chars) |
+| FAST_INIT bootstrap cost | ~1,799 tokens (4 files, 7,196 chars) |
 | AI tool adapters | 9 (Claude, Gemini, Codex, Cline, Roo Code, Cursor, Windsurf, Copilot, Aider; + Antigravity) |
 | Memory Bank files | 14 (lazy-loaded, indexed in `00-index.md`) |
-| Reusable skills | 5 (with documented chaining) |
-| Reusable workflows | 11 (incl. critic-review, autonomous-agent, Calibration, Graphify) |
-| MCP config | `.mcp.json` (root), `.vscode/mcp.json`, `.mcp/` examples (spec 2025-11-25) |
-| Automation | Opt-in Claude Code hooks + `/handoff`, `/save-context`, `/start-task` commands |
+| Reusable skills | 6 (portable `.agents/skills` source + Claude/Cline mirrors) |
+| Reusable workflows | 14 (incl. pre-edit check, spec-driven development, self-evaluation, critic-review, autonomous-agent, Calibration, Graphify) |
+| MCP config | Claude `.mcp.json`, VS Code config, and inactive Gemini/Codex native examples (spec 2025-11-25) |
+| Automation | Shared hook library (`scripts/hooks/`), Claude Code hooks + `/handoff`, `/save-context`, `/start-task` commands |
 | Continuous validation | GitHub Actions on Linux + Windows |
-| Drift protection | SHA-256 hash check across mirrors |
+| Drift protection | SHA-256 checks across workflow and three-tree skill mirrors |
 | Validator dependencies | 0 (Python stdlib only) |
 | First command after clone | `python scripts/init-fast.py` |
 
@@ -81,8 +81,8 @@ FAST_INIT startup-path size:
   - AGENTS.md: 4480 chars (~1120 tokens)
   - memory-bank/startup.md: 495 chars (~123 tokens)
   - memory-bank/00-index.md: 1540 chars (~385 tokens)
-  - memory-bank/handoff.md: 999 chars (~249 tokens)
-  Total: 7514 chars (~1878 tokens)
+  - memory-bank/handoff.md: 681 chars (~170 tokens)
+  Total: 7196 chars (~1799 tokens)
 
 ============================================================
 WELCOME TO THE AI AGENT PROJECT TEMPLATE
@@ -115,7 +115,7 @@ The default startup path is four small files. Everything else lazy-loads only wh
 The validator runs on Python stdlib alone. No Node, no global packages, no MCP server required for the template itself.
 
 **Drift-proof by construction.**
-Tool-specific mirrors of workflows and skills are SHA-256 hashed against the canonical copy. The validator fails if anyone forgets to sync.
+Tool-specific workflow and skill mirrors are SHA-256 hashed against their canonical copies. The validator fails if anyone forgets to sync.
 
 ---
 
@@ -128,8 +128,8 @@ Most agent setups spend the first 5,000–80,000 tokens "reading the project." T
 | `AGENTS.md` | 1,120 |
 | `memory-bank/startup.md` | 123 |
 | `memory-bank/00-index.md` | 385 |
-| `memory-bank/handoff.md` | ~250 (volatile; lighter on a fresh template) |
-| **Total FAST_INIT** | **~1,880** |
+| `memory-bank/handoff.md` | ~170 (volatile; lighter on a fresh template) |
+| **Total FAST_INIT** | **~1,799** |
 
 Run `python scripts/check-template.py --benchmark` to see the exact current cost.
 
@@ -165,8 +165,14 @@ The template scales with your project. These are kept **out of the fast path** s
 - **Graphify (Knowledge Graphs).** When grepping fails in large codebases, run `uv tool install graphifyy && graphify .` to build a structural graph of your code. Agents automatically read the resulting `GRAPH_REPORT.md`. See [`workflows/build-graph.md`](workflows/build-graph.md).
 - **Advanced Steering Prompts.** Force clarification, contrarian review, or divergent options on demand: `/align`, `/devil`, `/burst`, `/calibrate`. See [`docs/prompts.md`](docs/prompts.md).
 - **Parallel Agent Forking.** Open a second terminal, run `init-fast.py`, and have multiple agents work on different features simultaneously — sharing context through the Memory Bank. See [`docs/start-new-project.md`](docs/start-new-project.md).
-- **Zero-token automation (hooks).** Opt-in Claude Code hooks log file changes outside the model context for later offline consolidation into the Memory Bank — the "Dream Phase" pattern, now shipped as a working example. See [`docs/hooks.md`](docs/hooks.md).
+- **Zero-token automation (hooks).** Shared stdlib scripts guard sensitive paths and log normalized write metadata outside model context. Claude mappings are active; Gemini and Codex mappings ship as inactive native examples. See [`docs/hooks.md`](docs/hooks.md).
 - **Critic & autonomous workflows.** Run a separate-context critic over risky artifacts, or drive a bounded hands-off run with explicit guardrails. See [`workflows/critic-review.md`](workflows/critic-review.md) and [`workflows/autonomous-agent.md`](workflows/autonomous-agent.md).
+- **Portable read-only reviewer.** One canonical reviewer contract has minimal
+  native Gemini, Codex, and Claude adapters; behavioral smoke pilots remain
+  explicit and manual. See [`docs/reviewer-role.md`](docs/reviewer-role.md).
+- **Local context experiments.** Five deterministic scenarios measure declared
+  file context and compare sanitized manual usage totals without model or
+  network calls. See [`benchmarks/context/README.md`](benchmarks/context/README.md).
 
 Full list: [`docs/toolbox.md`](docs/toolbox.md).
 
@@ -180,25 +186,31 @@ Full list: [`docs/toolbox.md`](docs/toolbox.md).
   - `reminders.md` — prospective memory: trigger-keyed notes for future work.
   - `model-routing.md` — per-model context budgets, cache-stable file list, cascade routing, routing defaults.
 - `docs/agent-loop.md` — tool-call batching, turn budgets, error/retry taxonomy, phase-completion summary.
-- `docs/hooks.md` + `.claude/` — opt-in Claude Code hooks for zero-token passive logging.
-- `workflows/` — 11 reusable procedures (plan, implement, debug, refactor, update memory, handoff, critic-review, autonomous-agent, build graph, calibrate, init-lite).
-- `.cline/skills/`, `.agents/skills/` — five reusable skills with documented chaining (planner, Karpathy engineer, reviewer, test strategist, docs/memory maintainer).
-- `scripts/check-template.py` — stdlib-only validator with `--fast`, `--benchmark`, and full mode.
+- `docs/hooks.md` + `scripts/hooks/` — shared zero-dependency hook library (`log-writes.py`, `guard-sensitive-paths.py`, `verify-fixtures.py`).
+- `docs/reviewer-role.md` + native `reviewer` adapters — one portable,
+  read-only specialist contract for Gemini, Codex, and Claude.
+- `benchmarks/context/` + `scripts/benchmark-context.py` — deterministic
+  context scenarios and optional paired-usage comparison.
+- `workflows/` — 14 reusable procedures (pre-edit check, spec-driven development, self-evaluate, critic-review, autonomous-agent, handoff, build graph, etc.).
+- `.agents/skills/` — canonical source for six reusable Agent Skills (incl. `delegation-coordinator`); `.claude/skills/` and `.cline/skills/` are SHA-256-checked discovery mirrors.
+- `scripts/check-template.py` — stdlib-only validator with `--fast`, `--compat`, `--benchmark`, and full mode.
 - `scripts/init-fast.py` — one-command bootstrap.
 - Adapters: `CLAUDE.md`, `GEMINI.md`, `CONVENTIONS.md` (Aider), `.windsurfrules`, `.clinerules/` (Cline + Roo Code), `.agents/`, `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, `.codex/AGENTS.md`.
-- `.mcp.json` (root), `.vscode/mcp.json`, `.mcp/mcp_config.example.json` — MCP configs (filesystem, git, memory, fetch, sequential-thinking, …; spec 2025-11-25).
+- `.mcp.json`, `.vscode/mcp.json`, `.gemini/settings.example.json`, `.codex/config.example.toml` — Claude/VS Code MCP starters and inactive Gemini/Codex native examples.
 - `references/`, `assets/` — reference material and project asset folders.
-
----
-
-## Documentation map
-
 - [`docs/start-new-project.md`](docs/start-new-project.md) — beginner walkthrough from clone to first feature.
 - [`docs/per-tool-setup.md`](docs/per-tool-setup.md) — exactly which file each of the 9 tools reads, and how to wire MCP.
+- [`docs/agent-compatibility.md`](docs/agent-compatibility.md) — last-verified Gemini, Codex, and Claude instruction, skill, MCP, hook, and subagent paths.
+- [`docs/context-memory-bridges.md`](docs/context-memory-bridges.md) —
+  authority and safety guidance for optional provider-local memory.
+- [`docs/protocol-watch.md`](docs/protocol-watch.md) — dated MCP, Agent
+  Skills, ACP, and A2A adoption gates.
+- [`docs/performance-experiments.md`](docs/performance-experiments.md) —
+  evidence templates for optional compression/proxy trials.
 - [`docs/use-from-github.md`](docs/use-from-github.md) — GitHub template, clone, ZIP, and pull-into-existing-project flows.
 - [`docs/setup.md`](docs/setup.md) — one-page local setup.
 - [`docs/agent-loop.md`](docs/agent-loop.md) — execution rules: tool batching, turn budgets, error taxonomy, phase-completion summary.
-- [`docs/hooks.md`](docs/hooks.md) — opt-in Claude Code hooks for zero-token memory automation.
+- [`docs/hooks.md`](docs/hooks.md) — shared Claude, Gemini, and Codex hook mappings and safety contract.
 - [`docs/file-organization.md`](docs/file-organization.md) — where to put research, assets, and runtime files.
 - [`docs/toolbox.md`](docs/toolbox.md) — catalog of every optional power-up.
 - [`docs/prompts.md`](docs/prompts.md) — reusable prompts (`/calibrate`, `/align`, `/devil`, `/burst`, init prompts).
@@ -216,12 +228,22 @@ Full list: [`docs/toolbox.md`](docs/toolbox.md).
 python scripts/init-fast.py                    # bootstrap (validate + benchmark + prompt)
 python scripts/check-template.py --fast        # lightweight check
 python scripts/check-template.py               # full check (secrets, drift, all required files)
+python scripts/check-template.py --compat      # Gemini/Codex/Claude contracts
 python scripts/check-template.py --benchmark   # token cost report only
+python scripts/benchmark-context.py --self-test
+python scripts/benchmark-context.py --scenario fast-init
 ```
 
-Full validation enforces: 50 required files, 9 adapters all referencing `AGENTS.md`, 15 startup/context size budgets, public-template secret hygiene, `.gitignore` safety patterns, and SHA-256 drift between canonical and mirrored workflows/skills.
+Full validation enforces required files, 9 adapters referencing `AGENTS.md`,
+exact primary adapter imports, 15 per-file budgets, a 7,600-character aggregate
+FAST_INIT cap, Agent Skills schema checks, public-template secret hygiene,
+native hook/MCP/reviewer structures, the context-harness self-test,
+`.gitignore` safety patterns, and SHA-256 drift across canonical and mirrored
+workflows/skills.
 
-CI runs the full validator on every push and PR across Linux and Windows ([`.github/workflows/validate.yml`](.github/workflows/validate.yml)).
+CI runs fast, full, compatibility, startup benchmark, and context-harness
+self-tests on every push and PR across Linux and Windows using Python 3.9 and
+current Python 3.x ([`.github/workflows/validate.yml`](.github/workflows/validate.yml)).
 
 ---
 
@@ -229,7 +251,8 @@ CI runs the full validator on every push and PR across Linux and Windows ([`.git
 
 1. Run `python scripts/check-template.py` and confirm it passes.
 2. Confirm no `.env`, credential files, or unintended `.git/` history are committed.
-3. Add a `LICENSE` file that matches your intent (MIT, Apache-2.0, etc.) — not included by default so you can choose.
+3. Review the included MIT `LICENSE`; replace it before publishing if your
+   project requires different terms.
 4. In GitHub repository settings, enable **Template repository** so others can create clean copies via **Use this template**.
 
 ### Where to put your files
@@ -267,4 +290,5 @@ Security issues: see [`SECURITY.md`](SECURITY.md).
 
 ## License
 
-This template ships without a license so you can pick the one that matches your project. Add a `LICENSE` file before publishing publicly.
+Released under the [MIT License](LICENSE). A project created from this template
+may replace the license before publishing if it needs different terms.

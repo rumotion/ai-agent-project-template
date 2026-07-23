@@ -12,16 +12,17 @@ Run a separate-context critic over an artifact (plan, code change, architecture 
 
 1. **Freeze the artifact.** Identify exactly what is being reviewed (a diff, a file, a plan section). Do not include the chain of reasoning that produced it.
 2. **Pick the rubric.** Default dimensions: correctness, simplicity, security, matches existing style, meets the stated success criteria. For security-sensitive work, use `SECURITY.md`.
-3. **Run the critic in a fresh context.** A subagent, a second session, or a different model. Give it only the artifact + rubric + this instruction:
-   > Review the artifact against the rubric. Return structured findings only. Do not assume the author was right.
-4. **Require structured output:**
-   ```
-   issues:
+3. **Run the critic in a fresh context.** A subagent, a second session, or a different model. Give it only the artifact + rubric + Task Envelope (`read_only: true` per `docs/subagent-contract.md`).
+4. **Require structured output matching the portable result envelope:**
+   ```yaml
+   task_id: <id>
+   status: completed | partial | blocked
+   verdict: accept | revise
+   findings:
      - severity: high | medium | low
        location: <file:line or section>
-       problem: <what is wrong>
-       fix: <concrete suggested change>
-   verdict: accept | revise
+       evidence: <observable fact>
+       required_fix: <concrete suggested change>
    ```
 5. **Act on it.** Address every `high`/`medium` issue, then re-run. Cap at 2 revise cycles; if still failing, escalate to a human or a stronger model (see `model-routing.md`).
 

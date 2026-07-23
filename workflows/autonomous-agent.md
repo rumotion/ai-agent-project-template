@@ -4,10 +4,11 @@ For longer hands-off runs where the agent works across many turns toward a goal 
 
 ## Before starting
 
-1. **State the goal as a checkable completion condition.** Not "improve the API" but "all endpoints in `routes.py` have input validation and a passing test." The run ends when this is verifiably true.
-2. **Set a budget.** Max tool calls and/or max wall-clock, matched to task size (see `docs/agent-loop.md` §2). The agent halts and reports when the budget is hit, success or not.
-3. **Define the verification command.** The single check (test suite, lint, build) that decides whether a step succeeded.
-4. **Snapshot state.** Commit or note the starting point so a bad run can be rolled back.
+1. **Define task envelopes.** For subagents or delegated workers, format objectives, `owned_paths`, and budgets according to `docs/subagent-contract.md`.
+2. **State the goal as a checkable completion condition.** Not "improve the API" but "all endpoints in `routes.py` have input validation and a passing test." The run ends when this is verifiably true.
+3. **Set a budget.** Max tool calls and/or max wall-clock, matched to task size (see `docs/agent-loop.md` §2). The agent halts and reports when the budget is hit, success or not.
+4. **Define the verification command.** The single check (test suite, lint, build) that decides whether a step succeeded.
+5. **Snapshot state.** Commit or note the starting point so a bad run can be rolled back.
 
 ## Loop
 

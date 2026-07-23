@@ -1,0 +1,12 @@
+{
+  "session_id": "test-session-codex-456",
+  "transcript_path": null,
+  "cwd": ".",
+  "hook_event_name": "PreToolUse",
+  "model": "codex-test",
+  "turn_id": "test-turn-codex-456",
+  "tool_name": "apply_patch",
+  "tool_input": {
+    "command": "*** Begin Patch\n*** Update File: server.key\n@@\n-old\n+new\n*** End Patch"
+  }
+}

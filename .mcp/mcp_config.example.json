@@ -1,5 +1,5 @@
 {
-    "_comment": "Example MCP server configuration. Copy the servers you need into the client config: .mcp.json (project root, read by Claude Code / Codex / Cursor / Cline) or .vscode/mcp.json (VS Code, note: that file uses the 'servers' key, not 'mcpServers'). Never commit real tokens; use ${ENV_VAR} placeholders and set them in your shell or a local .env. Spec reference: MCP 2025-11-25.",
+    "_comment": "Claude-style MCP example. Copy only the servers you need into the native client config: Claude .mcp.json, Gemini .gemini/settings.json, Codex .codex/config.toml, or VS Code .vscode/mcp.json (which uses the 'servers' key). Consult the client documentation for its schema. Never commit real tokens; use ${ENV_VAR} placeholders and set them locally. Spec reference: MCP 2025-11-25.",
 
     "mcpServers": {
         "filesystem": {

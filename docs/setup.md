@@ -20,14 +20,16 @@ This runs the lightweight validator, prints the FAST_INIT token cost, and prints
 
 ```bash
 python scripts/check-template.py --fast        # lightweight startup/integration checks
+python scripts/check-template.py --compat      # cross-agent compatibility contract
 python scripts/check-template.py               # full validation (secrets, drift, required files)
 python scripts/check-template.py --benchmark   # FAST_INIT startup-path token cost
 ```
 
 | Mode | What it checks |
 |---|---|
-| `--fast` | required FAST_INIT files, adapter references, context budgets, `.gitignore` safety |
-| full (no flag) | everything in `--fast`, plus repo-wide secret hygiene and SHA-256 mirror drift |
+| `--fast` | required FAST_INIT files, exact primary adapters, per-file budgets, the aggregate 7,600-character ceiling, `.gitignore` safety |
+| `--compat` | full cross-agent contract: required portability files, skill schema, exact primary adapters, secrets, and SHA-256 mirror drift |
+| full (no flag) | the same comprehensive validation as `--compat`, with the standard full-validation label |
 | `--benchmark` | character and approximate token cost of the FAST_INIT startup path |
 
 ## Environment variables
@@ -51,4 +53,4 @@ If multiple models share this project, update `memory-bank/handoff.md` on pause 
 
 - Fast validation fails → fix listed missing files / patterns first; re-run.
 - Full validation fails on secret hygiene → remove or replace sensitive values, then re-run.
-- Mirror drift reported → resync the affected files from canonical (`workflows/`, `.cline/skills/`).
+- Mirror drift reported → resync the affected files from canonical (`workflows/`, `.agents/skills/`).

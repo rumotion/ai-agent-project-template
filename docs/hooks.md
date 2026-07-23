@@ -1,29 +1,45 @@
 # Hooks — Zero-Token Automation
 
-Hooks are shell commands a tool runs at lifecycle events (session start, before/after a tool call, on stop). They run **outside the model context**, so they cost zero tokens — ideal for logging, formatting, safety gates, and passive memory capture.
+Hooks are commands a client runs at lifecycle events such as before or after a
+tool call. They run outside the model context, so they are useful for
+deterministic logging and safety checks without spending model tokens.
 
-This page documents the **Claude Code** hooks system, which this template wires up by example. Other tools have their own mechanisms (Cursor/Cline have their own settings; Aider has `--lint-cmd` / `--test-cmd`); the *patterns* here transfer even when the config format differs. Always confirm the exact schema against your tool's current docs — hook formats change.
+The canonical Python scripts are shared, while each client keeps a thin native
+event mapping. Hook formats change, so `scripts/hooks/fixtures/README.md`
+records the first-party schemas last checked by this template.
 
-## Where it's configured
+## Configuration shipped
 
-`.claude/settings.json` (project-scoped, checked into git) or `~/.claude/settings.json` (user-global). This template ships a project file with:
-
-- **Permissions** — an `allow`/`deny` list. The denies block reads/writes of secret files (`.env`, `*.pem`, `*.key`) as a safety net.
-- **A PostToolUse hook** — runs [`.claude/hooks/log-writes.py`](../.claude/hooks/log-writes.py) after every `Write`/`Edit`.
-
-## Common lifecycle events
-
-| Event | Fires | Typical use |
+| Client | Configuration | Status |
 |---|---|---|
-| `SessionStart` | Session begins | Print/inject startup context, set env |
-| `UserPromptSubmit` | Before a prompt is sent | Inject reminders, redact secrets |
-| `PreToolUse` | Before a tool runs | Safety gate (block dangerous Bash) |
-| `PostToolUse` | After a tool completes | Log writes, auto-format, run quick checks |
-| `Stop` | Agent finishes a turn | Summarize, flush logs |
+| Claude Code | `.claude/settings.json` | Active project guard and logger |
+| Gemini CLI | `.gemini/settings.example.json` | Inactive example; copy deliberately to `.gemini/settings.json` |
+| Codex | `.codex/hooks.example.json` | Inactive example; copy deliberately to `.codex/hooks.json` |
 
-Exact event names and output fields are version-specific — verify in your installed version.
+The active Claude permissions deny secret-file access as a first safety layer.
+Its `PreToolUse` mapping calls `scripts/hooks/guard-sensitive-paths.py`, and its
+`PostToolUse` mapping calls `scripts/hooks/log-writes.py`. Gemini maps the same
+roles to `BeforeTool` and `AfterTool`; Codex uses `PreToolUse` and
+`PostToolUse`.
 
-## The config shape
+## Native event mapping
+
+| Portable role | Claude Code | Gemini CLI | Codex |
+|---|---|---|---|
+| Check before a write | `PreToolUse` | `BeforeTool` | `PreToolUse` |
+| Log after a write | `PostToolUse` | `AfterTool` | `PostToolUse` |
+
+Native adapters pass `--client` explicitly because all three clients share
+fields such as `session_id`, `hook_event_name`, and `tool_input`. Guessing the
+client from those fields is unsafe.
+
+The sensitive-path guard emits each verified client's documented denial shape:
+
+- Claude and Codex: `hookSpecificOutput.permissionDecision: "deny"`;
+- Gemini: top-level `decision: "deny"`;
+- unknown clients: an `unsupported` result that does not claim to block.
+
+## Claude configuration shape
 
 ```json
 {
@@ -32,7 +48,10 @@ Exact event names and output fields are version-specific — verify in your inst
       {
         "matcher": "Write|Edit",
         "hooks": [
-          { "type": "command", "command": "python .claude/hooks/log-writes.py" }
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/scripts/hooks/log-writes.py\" --client claude --workspace-root \"$CLAUDE_PROJECT_DIR\""
+          }
         ]
       }
     ]
@@ -40,30 +59,51 @@ Exact event names and output fields are version-specific — verify in your inst
 }
 ```
 
-`matcher` is a regex over the tool name (empty string = all tools). The hook receives a JSON event on **stdin**.
+`matcher` is a regex over the native tool name. The client supplies one JSON
+event on stdin.
 
-## Writing a safe hook
+## Safety contract
 
-The shipped `log-writes.py` follows three rules every hook should:
+The shipped scripts follow these rules:
 
-1. **Standard library only** — no install step, runs in a fresh clone.
-2. **Never block the agent** — swallow all errors and exit `0` (unless the hook's *job* is to block, e.g. a `PreToolUse` safety gate).
-3. **Never log file contents** — paths and metadata only, so logs are safe to keep.
+1. **Standard library only** — no install step in a fresh clone.
+2. **Passive logging always fails open** — malformed logger input exits `0`.
+3. **Denials never echo target paths** — feedback uses a generic reason.
+4. **Logs never contain contents or commands** — only normalized metadata.
+5. **Paths are bounded** — workspace paths become relative, external paths
+   become `<outside-workspace>`, and sensitive paths become
+   `<sensitive-path>`.
 
-## Pattern: passive memory capture ("Dream Phase")
+Run the deterministic fixture suite with:
 
-The high-value use of hooks for this template:
-
+```bash
+python scripts/hooks/verify-fixtures.py
 ```
-PostToolUse hook  ──>  append JSON line to .agent-logs/session.jsonl   (0 tokens)
-                              │
-                              ▼  (run manually, or on a schedule)
-              an offline consolidation step reads the log and
-              updates memory-bank/*.md with what actually changed
+
+It writes logs only to an OS temporary directory and verifies normalized
+records, redaction, outside-workspace handling, malformed input, and all three
+native denial shapes.
+
+## Passive memory capture
+
+```text
+post-write hook -> append .agent-logs/session.jsonl metadata (0 model tokens)
+                               |
+                               v
+              optional offline consolidation updates Memory Bank
 ```
 
-Keep the hook dumb (just append). Put any intelligence in the offline step so it never spends live session tokens. `.agent-logs/` is gitignored. This realizes the consolidation idea tracked in `docs/toolbox.md` §4.
+Keep the hook mechanical. Put any summarization in an explicit offline step.
+`.agent-logs/` is gitignored.
 
 ## Disabling
 
-Delete the `hooks` block from `.claude/settings.json` (or the whole file) to opt out. The template works fine without hooks; they are an optional power-up.
+Delete the `hooks` block from `.claude/settings.json` to disable the active
+Claude hooks. Gemini and Codex examples remain inactive until copied to their
+native filenames. The template works without hooks.
+
+## First-party references
+
+- [Claude Code hooks](https://code.claude.com/docs/en/hooks-guide)
+- [Gemini CLI hooks](https://geminicli.com/docs/hooks/)
+- [Codex hooks](https://developers.openai.com/codex/hooks)

@@ -1,0 +1,15 @@
+# Inactive example configuration for OpenAI Codex MCP servers
+# Specification target: MCP 2025-11-25
+# Copy to config.toml to activate. Note that npx -y and uvx download and execute code.
+
+[mcp_servers.filesystem]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-filesystem", "."]
+
+[mcp_servers.git]
+command = "uvx"
+args = ["mcp-server-git", "--repository", "."]
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]

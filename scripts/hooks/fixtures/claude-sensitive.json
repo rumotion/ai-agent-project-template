@@ -1,0 +1,11 @@
+{
+  "session_id": "test-session-claude-456",
+  "transcript_path": "<redacted-transcript-path>",
+  "cwd": ".",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": ".env",
+    "content": "<redacted>"
+  }
+}

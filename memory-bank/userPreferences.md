@@ -6,7 +6,11 @@ This file acts as the `USER.md` system described in advanced agentic memory arch
 - *Add preferred tone, verbosity level, etc.*
 
 ## Workflow Habits
-- *Add how the user likes to review code, run tests, or manage PRs.*
+- Prefer Gemini 3.6 Flash High for bounded routine implementation work.
+- Have Gemini return a structured implementation/evidence report; use Codex
+  for architectural review, targeted corrections, and final acceptance.
+- Gate multi-phase work: implement and review one phase before starting the
+  next.
 
 ## Formatting Preferences
 - *Add specific formatting rules, linting strictness, or code comment styles.*

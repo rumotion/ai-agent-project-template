@@ -1,0 +1,44 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]
+    },
+    "git": {
+      "command": "uvx",
+      "args": ["mcp-server-git", "--repository", "."]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    }
+  },
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": "write_file|replace",
+        "hooks": [
+          {
+            "name": "guard-sensitive-paths",
+            "type": "command",
+            "command": "python \"$GEMINI_PROJECT_DIR/scripts/hooks/guard-sensitive-paths.py\" --client gemini",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "matcher": "write_file|replace",
+        "hooks": [
+          {
+            "name": "log-writes",
+            "type": "command",
+            "command": "python \"$GEMINI_PROJECT_DIR/scripts/hooks/log-writes.py\" --client gemini --workspace-root \"$GEMINI_PROJECT_DIR\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}

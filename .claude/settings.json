@@ -17,13 +17,24 @@
     ]
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/scripts/hooks/guard-sensitive-paths.py\" --client claude"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/log-writes.py"
+            "command": "python \"$CLAUDE_PROJECT_DIR/scripts/hooks/log-writes.py\" --client claude --workspace-root \"$CLAUDE_PROJECT_DIR\""
           }
         ]
       }

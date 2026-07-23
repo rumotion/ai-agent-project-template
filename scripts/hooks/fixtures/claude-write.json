@@ -1,0 +1,11 @@
+{
+  "session_id": "test-session-claude-123",
+  "transcript_path": "<redacted-transcript-path>",
+  "cwd": ".",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "src/app.py",
+    "content": "<redacted>"
+  }
+}

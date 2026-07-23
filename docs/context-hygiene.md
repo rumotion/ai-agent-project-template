@@ -4,6 +4,12 @@ Optional reference. Read only when an agent session feels slow, expensive, or "d
 
 Applies to Claude Code, Codex, Cline, Antigravity, and any chat-style coding agent. Commands shown are Claude Code; other tools have equivalents.
 
+Provider-native memory is advisory and distinct from project instructions,
+conversation compaction, the checked-in Memory Bank, and MCP memory. See
+`docs/context-memory-bridges.md` before enabling or synchronizing any memory
+feature. For measured optimization trials, use
+`docs/performance-experiments.md` and `scripts/benchmark-context.py`.
+
 ## 1. Audit before you cut
 
 You cannot optimize what you cannot see.

@@ -18,7 +18,7 @@
         "AGENTS.md",
         "memory-bank/startup.md",
         "memory-bank/handoff.md",
-        "implementation_plan.md",
+        "memory-bank/activeContext.md",
         "docs/agent-compatibility.md"
       ]
     },

@@ -116,6 +116,9 @@ Done. The repo's right-hand sidebar now shows the new version, and the
   the old one.
 - **Keep `VERSION` and the tag in sync.** If you bump the tag, bump the
   file. The validator does not enforce this yet, but humans will notice.
+- **Refresh the front page.** Update the README hero image and stats (token
+  counts, adapter/skill/workflow counts) so the landing page always matches
+  validator output.
 - **One release = one logical change.** Don't bundle "new feature + bug
   fix + refactor" into one tag if you can avoid it. Smaller releases are
   easier to roll back and easier to write changelogs for.

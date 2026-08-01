@@ -10,7 +10,7 @@
 [![Bootstrap cost](https://img.shields.io/badge/FAST__INIT-%7E1.9K%20tokens-success)](#where-the-savings-come-from)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-<img width="1672" height="941" alt="AI Agent Project Template — one canonical AGENTS.md and a shared Memory Bank read by Claude, Gemini, Codex, Cline, Roo Code, Cursor, Windsurf, Copilot, Aider, and Antigravity. ~1,880-token startup." src="https://github.com/user-attachments/assets/0d6e7a40-ec62-4efb-b799-785172ac1054" />
+<img src="assets/images/hero-template.svg" alt="AI Agent Project Template — one canonical AGENTS.md and a shared Memory Bank read by Claude, Gemini, Codex, Cline, Roo Code, Cursor, Windsurf, Copilot, Aider, and Antigravity, with an atomic Plan-Execute-Verify-Commit-Reflect workflow. ~1.9K-token startup." width="1280" />
 
 ---
 

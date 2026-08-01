@@ -13,7 +13,11 @@ For the release process, see [`docs/releasing.md`](docs/releasing.md).
 
 ## Unreleased
 
-_Nothing yet._
+### Changed
+
+- README hero image replaced with a repo-hosted, always-current v0.8.0
+  infographic (SVG); `docs/releasing.md` now reminds maintainers to refresh
+  front-page stats on every release.
 
 ## v0.8.0 — 2026-08-01 — Atomic step-commit workflow
 

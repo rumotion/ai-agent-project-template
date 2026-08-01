@@ -259,7 +259,8 @@ CONTEXT_SCENARIO_IDS = {
 
 # Files counted by the FAST_INIT token benchmark.
 # Mirrors AGENTS.md FAST_INIT read list: README is intentionally excluded
-# (human-facing; agents have AGENTS.md).
+# (human-facing; agents have AGENTS.md). handoff.md is counted
+# unconditionally as the conservative worst case (read only when resuming).
 BENCHMARK_FILES = [
     "AGENTS.md",
     "memory-bank/startup.md",

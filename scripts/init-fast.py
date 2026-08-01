@@ -14,13 +14,13 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 
-FAST_PROMPT = """FAST_INIT + TOKEN_SAVER.
-Follow AGENTS.md initialization modes exactly.
+FAST_PROMPT = """FAST_INIT (default mode per AGENTS.md).
+Follow AGENTS.md initialization modes exactly (FAST_INIT; DEEP_AUDIT only on request).
 Use minimal turns and minimal narration.
 Update only allowed Memory Bank files.
 If resuming, also read memory-bank/handoff.md.
-Keep unknowns as TBD.
-Ask only critical questions before any escalation.
+Keep unknowns as TBD; escalate only when facts cannot be verified.
+Commit each verified plan step atomically (Conventional Commits).
 Return a short final summary."""
 
 
@@ -72,8 +72,8 @@ def main() -> int:
     safe_print("   (handoff.md lets one model pick up where another left off).")
     safe_print(" * FAST_INIT bootstrap (~1.9K tokens) so agents skip the usual")
     safe_print("   5K-80K token \"read the whole repo\" warm-up.")
-    safe_print(" * Agentic execution rules: parallel tool calls, turn budgets,")
-    safe_print("   error taxonomy, phase summaries (docs/agent-loop.md).")
+    safe_print(" * Agentic execution loop: Plan - Execute - Verify - Commit -")
+    safe_print("   Reflect with atomic step-commits (docs/agent-loop.md).")
     safe_print(" * Drift-proof mirrors of workflows and skills (SHA-256 checked).")
     safe_print(" * Zero-dependency validator (Python stdlib only).")
     safe_print(" * Reusable workflows + skills (plan, implement, debug, refactor,")

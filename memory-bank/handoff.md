@@ -4,9 +4,9 @@ last_touched: 2026-08-01
 last_model: Cline
 to_model: Any
 branch: main
-status: release-v0.8.0
+status: v0.8.0 released
 task: Atomic step-commit workflow
-next_action: Tag v0.8.0 and publish the GitHub release
+next_action: Create new repositories via GitHub Use this template
 files_modified: [AGENTS.md, docs/agent-loop.md, workflows/, CONVENTIONS.md, memory-bank/, check-template.py]
 blocking_issues: []
 ---

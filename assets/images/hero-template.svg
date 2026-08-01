@@ -90,8 +90,7 @@
     <rect x="928" y="420" width="140" height="40" rx="20" fill="#161b22" stroke="#76e3ea" stroke-width="1.5"/>
     <text x="998" y="445" text-anchor="middle" fill="#76e3ea">REFLECT</text>
   </g>
-  <text x="1096" y="434" text-anchor="middle" font-size="12" fill="#8b949e">every checkpoint</text>
-  <text x="1096" y="450" text-anchor="middle" font-size="12" fill="#8b949e">committed atomically</text>
+  <text x="640" y="482" text-anchor="middle" font-size="13" fill="#8b949e">every checkpoint committed atomically — repeat per plan step</text>
 
   <!-- Stats bar -->
   <line x1="64" y1="492" x2="1216" y2="492" stroke="#21262d" stroke-width="2"/>

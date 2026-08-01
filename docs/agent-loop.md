@@ -67,4 +67,3 @@ When a unit of work (phase, feature, fix) completes, append a structured block t
 ```
 
 Then update `memory-bank/handoff.md` (rolling pointer) and clear any acted-on entries in `memory-bank/reminders.md`.
-

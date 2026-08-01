@@ -20,6 +20,7 @@
 - [Quick start](#quick-start) — one command after clone
 - [Why this template](#why-this-template)
 - [Where the savings come from](#where-the-savings-come-from)
+- [Atomic step-commit workflow](#atomic-step-commit-workflow)
 - [Multi-model continuity](#multi-model-continuity)
 - [Optional power-ups](#optional-power-ups)
 - [What's inside](#whats-inside)
@@ -45,6 +46,7 @@
 | Automation | Shared hook library (`scripts/hooks/`), Claude Code hooks + `/handoff`, `/save-context`, `/start-task` commands |
 | Continuous validation | GitHub Actions on Linux + Windows |
 | Drift protection | SHA-256 checks across workflow and three-tree skill mirrors |
+| Agentic loop | Plan → Execute → Verify → Commit → Reflect with per-checkpoint atomic commits |
 | Validator dependencies | 0 (Python stdlib only) |
 | First command after clone | `python scripts/init-fast.py` |
 
@@ -140,6 +142,20 @@ Three design choices keep that number small:
 3. **A handoff pointer, not a session log.** `handoff.md` is volatile and overwritten — never an append-only history.
 
 Time savings stack on top: switch tools without re-explaining the project, because every model reads the same Memory Bank.
+
+---
+
+## Atomic step-commit workflow
+
+<p align="center">
+  <img src="assets/images/atomic-step-commit-workflow.svg" alt="Atomic Step-Commit Workflow — Plan, Execute, Verify, Commit, Reflect cycle with per-checkpoint Conventional Commits" width="900" />
+</p>
+
+Every implementation runs as **Plan → Execute → Verify → Commit → Reflect**: plans break work into discrete, individually verifiable checkpoints, and each verified checkpoint is committed immediately with Conventional Commit syntax. You get a clean, bisectable history where every commit is a working state — and rollbacks cost nothing.
+
+- `AGENTS.md` carries the always-on rule; [`docs/agent-loop.md`](docs/agent-loop.md) §4 holds the operational detail.
+- [`workflows/plan-task.md`](workflows/plan-task.md) requires committable step checkpoints; [`workflows/implement-task.md`](workflows/implement-task.md) commits each one.
+- The validator enforces all 9 workflows across 3 mirror trees, so the rule cannot drift between tools.
 
 ---
 

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="600" rx="16" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+
+  <text x="600" y="62" text-anchor="middle" font-size="34" font-weight="700" fill="#f0f6fc">Atomic Step-Commit Workflow</text>
+  <text x="600" y="96" text-anchor="middle" font-size="17" fill="#8b949e">Every plan checkpoint is verified and committed atomically — no silent drift, free rollback points.</text>
+
+  <!-- Phase boxes -->
+  <g font-size="13">
+    <!-- 1 PLAN -->
+    <rect x="60" y="150" width="168" height="118" rx="12" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+    <text x="144" y="186" text-anchor="middle" font-size="19" font-weight="700" fill="#58a6ff">1 · PLAN</text>
+    <text x="144" y="216" text-anchor="middle" fill="#c9d1d9">phases with discrete,</text>
+    <text x="144" y="236" text-anchor="middle" fill="#c9d1d9">committable checkpoints</text>
+
+    <!-- 2 EXECUTE -->
+    <rect x="288" y="150" width="168" height="118" rx="12" fill="#161b22" stroke="#d29922" stroke-width="2"/>
+    <text x="372" y="186" text-anchor="middle" font-size="19" font-weight="700" fill="#d29922">2 · EXECUTE</text>
+    <text x="372" y="216" text-anchor="middle" fill="#c9d1d9">small, surgical changes</text>
+    <text x="372" y="236" text-anchor="middle" fill="#c9d1d9">for one step only</text>
+
+    <!-- 3 VERIFY -->
+    <rect x="516" y="150" width="168" height="118" rx="12" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+    <text x="600" y="186" text-anchor="middle" font-size="19" font-weight="700" fill="#3fb950">3 · VERIFY</text>
+    <text x="600" y="216" text-anchor="middle" fill="#c9d1d9">cheapest checks first,</text>
+    <text x="600" y="236" text-anchor="middle" fill="#c9d1d9">then a critic pass</text>
+
+    <!-- 4 COMMIT -->
+    <rect x="744" y="150" width="168" height="118" rx="12" fill="#161b22" stroke="#bc8cff" stroke-width="2"/>
+    <text x="828" y="186" text-anchor="middle" font-size="19" font-weight="700" fill="#bc8cff">4 · COMMIT</text>
+    <text x="828" y="216" text-anchor="middle" fill="#c9d1d9">atomic commit per step,</text>
+    <text x="828" y="236" text-anchor="middle" fill="#c9d1d9">Conventional syntax</text>
+
+    <!-- 5 REFLECT -->
+    <rect x="972" y="150" width="168" height="118" rx="12" fill="#161b22" stroke="#76e3ea" stroke-width="2"/>
+    <text x="1056" y="186" text-anchor="middle" font-size="19" font-weight="700" fill="#76e3ea">5 · REFLECT</text>
+    <text x="1056" y="216" text-anchor="middle" fill="#c9d1d9">phase summary to</text>
+    <text x="1056" y="236" text-anchor="middle" fill="#c9d1d9">Memory Bank + handoff</text>
+  </g>
+
+  <!-- Forward arrows -->
+  <g stroke="#8b949e" stroke-width="3" fill="#8b949e">
+    <line x1="236" y1="209" x2="276" y2="209"/>
+    <path d="M272 201 l14 8 -14 8 z" stroke="none"/>
+    <line x1="464" y1="209" x2="504" y2="209"/>
+    <path d="M500 201 l14 8 -14 8 z" stroke="none"/>
+    <line x1="692" y1="209" x2="732" y2="209"/>
+    <path d="M728 201 l14 8 -14 8 z" stroke="none"/>
+    <line x1="920" y1="209" x2="960" y2="209"/>
+    <path d="M956 201 l14 8 -14 8 z" stroke="none"/>
+  </g>
+
+  <!-- Return loop -->
+  <path d="M1056 268 v40 h-912 v-40" fill="none" stroke="#484f58" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <path d="M135 278 l9 -14 9 14 z" fill="#484f58"/>
+  <text x="600" y="334" text-anchor="middle" font-size="14" fill="#8b949e">repeat per plan step — every commit is a verified, working state</text>
+
+  <!-- Divider -->
+  <line x1="80" y1="374" x2="1120" y2="374" stroke="#21262d" stroke-width="2"/>
+
+  <text x="600" y="416" text-anchor="middle" font-size="20" font-weight="700" fill="#f0f6fc">New in v0.8.0</text>
+
+  <!-- Feature chips -->
+  <g font-size="14" fill="#c9d1d9">
+    <rect x="88" y="442" width="180" height="44" rx="22" fill="#161b22" stroke="#30363d"/>
+    <text x="178" y="469" text-anchor="middle">Phased checkpoints</text>
+    <rect x="288" y="442" width="196" height="44" rx="22" fill="#161b22" stroke="#30363d"/>
+    <text x="386" y="469" text-anchor="middle">Per-step atomic commits</text>
+    <rect x="504" y="442" width="180" height="44" rx="22" fill="#161b22" stroke="#30363d"/>
+    <text x="594" y="469" text-anchor="middle">Conventional Commits</text>
+    <rect x="704" y="442" width="164" height="44" rx="22" fill="#161b22" stroke="#30363d"/>
+    <text x="786" y="469" text-anchor="middle">Clean-tree gate</text>
+    <rect x="888" y="442" width="224" height="44" rx="22" fill="#161b22" stroke="#30363d"/>
+    <text x="1000" y="469" text-anchor="middle">Validator: 9 workflows × 3 trees</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="600" y="542" text-anchor="middle" font-size="13" fill="#6e7681">AGENTS.md · docs/agent-loop.md · workflows/plan-task.md + implement-task.md · CONVENTIONS.md</text>
+  <text x="600" y="568" text-anchor="middle" font-size="13" fill="#6e7681">Mirrored byte-for-byte across .clinerules/workflows/ and .agents/workflows/ (SHA-256 enforced)</text>
+</svg>

@@ -1,21 +1,21 @@
 ---
 handoff_version: 2
 last_touched: 2026-08-01
-last_model: Gemini 3.6 Flash
+last_model: Cline
 to_model: Any
-branch: feat/cross-agent-phase1
-status: release-v0.7.0
+branch: main
+status: release-v0.8.0
 task: Atomic step-commit workflow
-next_action: Audit with stronger model or create PR
-files_modified: [AGENTS.md, docs/agent-loop.md, workflows/, CONVENTIONS.md]
+next_action: Tag v0.8.0 and publish the GitHub release
+files_modified: [AGENTS.md, docs/agent-loop.md, workflows/, CONVENTIONS.md, memory-bank/, check-template.py]
 blocking_issues: []
 ---
 
 # Handoff
 
-Release v0.7.0 updated with atomic step-commit rules.
+DEEP_AUDIT passed; remediation committed on `main`; v0.8.0 bookkeeping done.
 
 - **Loop (`AGENTS.md`, `docs/agent-loop.md`)**: Upgraded to **Plan → Execute → Verify → Commit → Reflect**.
-- **Workflows (`workflows/plan-task.md`, `workflows/implement-task.md`)**: Phased planning with atomic step checkpoints. Mirrors synced.
-- **Conventions & Patterns (`CONVENTIONS.md`, `memory-bank/systemPatterns.md`)**: Added Git & Commit Conventions and Atomic Step-Commit pattern.
-- **Verification**: `python scripts/check-template.py` PASS.
+- **Workflows (`plan-task.md`, `implement-task.md`)**: Phased planning with atomic, committable checkpoints; validator requires all 9 x 3 trees.
+- **Conventions & Patterns (`CONVENTIONS.md`, `memory-bank/systemPatterns.md`)**: Git & Commit Conventions and Atomic Step-Commit pattern.
+- **Verification**: `python scripts/check-template.py` full PASS (115 files, 15 budgets, zero drift).

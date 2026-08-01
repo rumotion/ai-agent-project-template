@@ -36,7 +36,7 @@
 
 | | |
 |---|---|
-| FAST_INIT bootstrap cost | ~1,799 tokens (4 files, 7,196 chars) |
+| FAST_INIT bootstrap cost | ~1,886 tokens (4 files, 7,545 chars) |
 | AI tool adapters | 9 (Claude, Gemini, Codex, Cline, Roo Code, Cursor, Windsurf, Copilot, Aider; + Antigravity) |
 | Memory Bank files | 14 (lazy-loaded, indexed in `00-index.md`) |
 | Reusable skills | 6 (portable `.agents/skills` source + Claude/Cline mirrors) |
@@ -78,11 +78,11 @@ $ python scripts/init-fast.py
 == FAST_INIT bootstrap ==
 Template FAST validation passed.
 FAST_INIT startup-path size:
-  - AGENTS.md: 4480 chars (~1120 tokens)
+  - AGENTS.md: 4588 chars (~1147 tokens)
   - memory-bank/startup.md: 495 chars (~123 tokens)
   - memory-bank/00-index.md: 1540 chars (~385 tokens)
-  - memory-bank/handoff.md: 681 chars (~170 tokens)
-  Total: 7196 chars (~1799 tokens)
+  - memory-bank/handoff.md: 922 chars (~230 tokens)
+  Total: 7545 chars (~1886 tokens)
 
 ============================================================
 WELCOME TO THE AI AGENT PROJECT TEMPLATE
@@ -125,11 +125,11 @@ Most agent setups spend the first 5,000–80,000 tokens "reading the project." T
 
 | File | Tokens (approx) |
 |---|---|
-| `AGENTS.md` | 1,120 |
+| `AGENTS.md` | 1,147 |
 | `memory-bank/startup.md` | 123 |
 | `memory-bank/00-index.md` | 385 |
-| `memory-bank/handoff.md` | ~170 (volatile; lighter on a fresh template) |
-| **Total FAST_INIT** | **~1,799** |
+| `memory-bank/handoff.md` | ~230 (volatile; lighter on a fresh template) |
+| **Total FAST_INIT** | **~1,886** |
 
 Run `python scripts/check-template.py --benchmark` to see the exact current cost.
 

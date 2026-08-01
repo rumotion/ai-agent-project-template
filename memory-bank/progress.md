@@ -20,15 +20,21 @@
   optional experiment recipes. No external runtime was activated.
 - (2026-07-23) Prepared release `v0.7.0` with MIT licensing, finalized
   changelog/version metadata, and curated the public file surface.
+- (2026-08-01) Atomic step-commit & phased planning workflow: execution loop
+  is now Plan → Execute → Verify → Commit → Reflect with per-checkpoint
+  Conventional Commits; `plan-task.md` requires discrete committable
+  checkpoints; Git & Commit Conventions added to `CONVENTIONS.md`; DEEP_AUDIT
+  passed and the validator now requires all 9 workflows across 3 trees.
 
 ## Current
 
-- Phase 3 deterministic implementation and internal code review are complete.
-- Automated checks pass at 103 required files, 9 adapters, and 15 budgets;
-  FAST_INIT is 7,196 chars (~1,799 tokens).
+- Atomic step-commit workflow shipped; DEEP_AUDIT remediation committed on `main`.
+- Automated checks pass at 115 required files, 9 adapters, and 15 budgets;
+  FAST_INIT is 7,545 chars (~1,886 tokens).
 
 ## Next
 
+- Tag `v0.8.0` and publish the GitHub release.
 - Create new product repositories from the published GitHub template.
 
 ## Blockers

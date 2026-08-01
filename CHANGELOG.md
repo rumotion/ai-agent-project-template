@@ -15,6 +15,23 @@ For the release process, see [`docs/releasing.md`](docs/releasing.md).
 
 _Nothing yet._
 
+## v0.8.0 — 2026-08-01 — Atomic step-commit workflow
+
+### Changed
+
+- Agent execution loop is now Plan → Execute → Verify → Commit → Reflect:
+  phased plans carry discrete, individually verifiable checkpoints, and each
+  verified checkpoint is committed atomically with Conventional Commit syntax
+  (`AGENTS.md`, `docs/agent-loop.md`, `plan-task.md` / `implement-task.md`
+  across all three workflow trees, `CONVENTIONS.md`).
+- Validator now requires every mirrored workflow file (9 workflows x 3 trees)
+  to exist, closing silent drift-skip gaps.
+
+### Fixed
+
+- Stale FAST_INIT and budget figures in README and Memory Bank summaries.
+- Missing final newlines in `plan-task.md` / `implement-task.md` mirrors.
+
 ## v0.7.0 — 2026-07-23 — Cross-agent compatibility, delegation, and context benchmarks
 
 ### Added

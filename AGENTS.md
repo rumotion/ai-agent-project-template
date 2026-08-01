@@ -14,7 +14,7 @@ Reserve most context for the actual project, not template instructions.
 
 ## Cross-model continuity
 
-Multiple models may share this project (Gemini, Claude, ChatGPT/Codex, Cline, OpenRouter, Cursor, Copilot). `memory-bank/handoff.md` is the single rolling "where we left off" pointer — update on pause/switch, read on resume. Per-model budgets, cache-stable files, and routing live in `memory-bank/model-routing.md`.
+Multiple models share this project (Gemini, Claude, Codex, Cline, Cursor, Copilot). `memory-bank/handoff.md` is the rolling "where we left off" pointer — update on pause/switch, read on resume. Model routing lives in `memory-bank/model-routing.md`.
 
 ## Initialization modes
 
@@ -43,26 +43,28 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 - Prefer small, reviewable changes that match existing style.
 - Keep Memory Bank updates concise and operational.
 - Do not re-read files already read in the current task unless they changed.
-- **Proactive Tool Suggestion:** If the codebase becomes too large for standard file searches, proactively suggest using Graphify (`workflows/build-graph.md`) to map the project. If the user requires frequent styling/behavior corrections, suggest running the Calibration workflow (`workflows/calibrate.md`).
+- **Proactive Tool Suggestion:** If codebase is too large for standard file search, suggest Graphify (`workflows/build-graph.md`). If frequent style corrections occur, suggest Calibration (`workflows/calibrate.md`).
 
 ## Engineering behavior (Karpathy defaults)
 
 - Think before coding: state assumptions; ask when unclear.
+- Detailed phased planning: break tasks into clear phases with concrete, committable step checkpoints.
 - Simplicity first: solve only what was asked; avoid speculative abstractions.
 - Surgical changes: touch only what the task requires.
-- Goal-driven: define success criteria; verify with the smallest useful check.
+- Goal-driven & atomic commits: define success criteria, verify each step, and commit immediately upon verification.
 
 ## Agentic execution
 
 - Batch independent tool calls in parallel; never serialize independent reads.
 - Bound each task (~5 / 15 / 30 tool calls for simple / standard / complex). Halt with a summary instead of looping.
 - Classify errors before retrying: transient → backoff; logic → revise; capability → escalate (`model-routing.md`). On exhausting retries, log a one-line lesson to `memory-bank/risks.md`.
-- On finishing a unit of work, write a phase-completion summary to `memory-bank/activeContext.md` and update `handoff.md`.
+- Atomic step-commit: after verifying each completed step in a plan, run `git commit -m "<type>(<scope>): <step description>"`.
+- On finishing a unit of work, write a phase summary to `memory-bank/activeContext.md` and update `handoff.md`.
 - Detail: `docs/agent-loop.md`.
 
 ## Workflow
 
-Implementation tasks: understand → plan → implement → verify → document. For risky work use procedures in `workflows/`.
+Implementation tasks: understand → plan → implement → verify → commit → document. For risky work use procedures in `workflows/`.
 
 ## Memory Bank
 

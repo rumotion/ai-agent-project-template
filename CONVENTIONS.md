@@ -1,7 +1,12 @@
 # Conventions
 
-Adapter for tools that read a `CONVENTIONS.md` file (e.g. Aider).
+Adapter for tools reading `CONVENTIONS.md` (e.g. Aider). Read `AGENTS.md` first; it is canonical. Then read `memory-bank/startup.md` and `memory-bank/handoff.md`.
 
-Read `AGENTS.md` first; it is canonical. Then read `memory-bank/startup.md`. If resuming work, also read `memory-bank/handoff.md`. Lazy-load deeper context only when the task requires it.
+## Git & Commit Conventions
 
-Do not add instructions here that conflict with `AGENTS.md`. Aider loads this file via `.aider.conf.yml` (`read: [AGENTS.md, CONVENTIONS.md]`).
+- **Phased Planning**: Plan tasks with clear, verifiable step checkpoints.
+- **Atomic Step Commits**: Run `git commit` immediately after verifying each step checkpoint (`<type>(<scope>): <step description>`).
+- **Pre-Commit Check**: Verify tests pass before committing. Never commit broken builds.
+- **Push Policy**: Push commits to remote (`git push`) on milestone/phase completion.
+
+

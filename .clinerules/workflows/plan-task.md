@@ -6,5 +6,5 @@ Use this workflow when planning a feature, fix, refactor, or automation.
 2. Read `memory-bank/00-index.md`.
 3. Read relevant Memory Bank files.
 4. Inspect relevant source files.
-5. Produce a plan with goal, requirements, assumptions, approach, affected files, risks, test plan, rollback plan where relevant, and Memory Bank updates.
+5. Produce a detailed phased plan with goal, requirements, assumptions, approach, affected files, risks, test plan, and discrete, atomic step checkpoints (each step individually verifiable and committable). Include Memory Bank updates.
 6. Do not edit files until the user approves if the task is high-risk or ambiguous.

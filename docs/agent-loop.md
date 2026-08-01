@@ -39,12 +39,19 @@ Classify the failure before reacting; not every error deserves a retry.
 
 The "one-line lesson on failure" matters: it stops the next session repeating the same dead end.
 
-## 4. Plan → execute → verify → reflect
+## 4. Plan → execute → verify → commit → reflect
 
-1. **Plan** — success criteria, affected files, risks (`workflows/plan-task.md`).
-2. **Execute** — atomic, individually verifiable changes.
-3. **Verify** — cheapest checks first (lint, types, tests), then an agent/critic pass (`workflows/critic-review.md`).
-4. **Reflect** — write the phase-completion summary below.
+1. **Plan** — structure detailed phases and concrete task checkpoints with success criteria (`workflows/plan-task.md`).
+2. **Execute** — perform small, focused, surgical changes for the active task step.
+3. **Verify** — run cheapest checks first (lint, types, unit tests), followed by an agent/critic pass (`workflows/critic-review.md`).
+4. **Commit** — immediately commit verified work for the current step (`git commit -m "<type>(<scope>): <step description>"`). Keep commits atomic and frequent per plan step.
+5. **Reflect** — write the phase-completion summary below upon finishing a milestone/phase.
+
+### Atomic Commit Guidelines
+- **Frequency**: Commit after *every* verified task step or phase checkpoint in the plan (do not accumulate uncommitted diffs across multiple steps).
+- **Conventional Commits**: Use standardized commit prefixes: `feat`, `fix`, `docs`, `test`, `refactor`, `chore`, `style`, `perf`.
+- **Clean Working Tree**: Verify tests pass before committing; never commit broken build states.
+- **Pushing**: Push commits to remote branch upon phase completion or major milestone verification (`git push`).
 
 ## 5. Phase-completion summary
 
@@ -60,3 +67,4 @@ When a unit of work (phase, feature, fix) completes, append a structured block t
 ```
 
 Then update `memory-bank/handoff.md` (rolling pointer) and clear any acted-on entries in `memory-bank/reminders.md`.
+

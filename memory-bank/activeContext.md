@@ -1,10 +1,18 @@
 # Active Context
 
+## Phase summary: Atomic Step-Commit & Phased Planning Agentic Workflow — 2026-08-01
+
+- Outcome: COMPLETE
+- Embedded modern Agentic & Vibe Coding best practices into the core template (`AGENTS.md`, `docs/agent-loop.md`, `workflows/`, `CONVENTIONS.md`, `memory-bank/`).
+- Established strict **Plan → Execute → Verify → Commit → Reflect** cycle with atomic step-level commits using Conventional Commits.
+- Synced all workflow mirrors across `workflows/`, `.clinerules/workflows/`, and `.agents/workflows/`.
+- Verified character budgets: `AGENTS.md` (4,588 / 4,700 chars), `CONVENTIONS.md` (460 / 700 chars), total FAST_INIT size (7,304 / 7,600 chars).
+- Verification: `python scripts/check-template.py` full pass (103 required files, 9 adapters, 15 context budgets, zero drift).
+
 ## Current focus
 
-Release `v0.7.0` packages the completed cross-agent Phase 1–3 upgrades under
-the MIT license. Native reviewer behavior pilots remain optional and pending;
-no compressor, proxy, memory sync, or protocol runtime was activated.
+Release `v0.7.0` packages the completed cross-agent upgrades and atomic step-commit workflow enhancements under the MIT license.
+
 
 ## Phase summary: Phase 3 Advanced Optional Features — 2026-07-23
 

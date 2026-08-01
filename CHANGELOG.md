@@ -19,6 +19,14 @@ For the release process, see [`docs/releasing.md`](docs/releasing.md).
   infographic (SVG); `docs/releasing.md` now reminds maintainers to refresh
   front-page stats on every release.
 
+### Fixed
+
+- Hero infographic caption no longer overlaps the REFLECT pill.
+- `init-fast.py` bootstrap prompt aligned with canonical `AGENTS.md` modes
+  (dropped legacy TOKEN_SAVER wording; added atomic step-commit rule).
+- `implement-task.md` closes the loop: cheapest-first verify with critic
+  pass for risky steps, plus an explicit Reflect/phase-summary step.
+
 ## v0.8.0 — 2026-08-01 — Atomic step-commit workflow
 
 ### Changed

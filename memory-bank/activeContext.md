@@ -1,5 +1,14 @@
 # Active Context
 
+## Phase summary: DEEP_AUDIT remediation — 2026-08-01
+
+- Outcome: COMPLETE
+- Key decisions: left untracked sharepoint skill dirs and tracked `.claude/skills/` stray files untouched (user decision, logged as follow-ups); propagated only validator-measured figures.
+- Findings fixed: uncommitted enhancement work (now 5 atomic commits), missing v0.8.0 release bookkeeping, stale budget figures, dropped rollback-plan item, missing EOF newlines, validator mirror-existence gap (103 -> 115 required files).
+- Files modified: README.md, memory-bank/, scripts/check-template.py, all 3 workflow trees, docs/agent-loop.md, VERSION, CHANGELOG.md.
+- Open items: untracked sharepoint skill exists only in `.agents/skills` + `.cline/skills` (complete 3-tree mirror or remove before tracking); `report_template.html` + `storm_research.md` tracked at `.claude/skills/` root (pre-existing, likely misplaced); validator does not enforce VERSION <-> CHANGELOG sync; no `.gitattributes`, so CRLF checkout on Windows would inflate char counts.
+- Next: tag `v0.8.0` and publish the GitHub release (`docs/releasing.md`).
+
 ## Phase summary: Atomic Step-Commit & Phased Planning Agentic Workflow — 2026-08-01
 
 - Outcome: COMPLETE

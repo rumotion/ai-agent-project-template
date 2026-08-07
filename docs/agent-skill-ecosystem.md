@@ -51,6 +51,8 @@ Add skills/plugins only when they clearly:
 - `test-strategist`
 - `docs-memory-maintainer`
 - `delegation-coordinator` (see `docs/subagent-contract.md`)
+- `project-upgrader` (see `docs/upgrade-existing-project.md`)
+
 
 ## Recommended third-party integrations
 

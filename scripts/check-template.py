@@ -32,6 +32,7 @@ REQUIRED_FILES = [
     "docs/file-organization.md",
     "docs/per-tool-setup.md",
     "docs/start-new-project.md",
+    "docs/upgrade-existing-project.md",
     "docs/use-from-github.md",
     "docs/subagent-contract.md",
     "docs/reviewer-role.md",
@@ -70,18 +71,22 @@ REQUIRED_FILES = [
     ".agents/skills/test-strategist/SKILL.md",
     ".agents/skills/docs-memory-maintainer/SKILL.md",
     ".agents/skills/delegation-coordinator/SKILL.md",
+    ".agents/skills/project-upgrader/SKILL.md",
     ".claude/skills/project-planner/SKILL.md",
     ".claude/skills/karpathy-engineer/SKILL.md",
     ".claude/skills/code-reviewer/SKILL.md",
     ".claude/skills/test-strategist/SKILL.md",
     ".claude/skills/docs-memory-maintainer/SKILL.md",
     ".claude/skills/delegation-coordinator/SKILL.md",
+    ".claude/skills/project-upgrader/SKILL.md",
     ".cline/skills/project-planner/SKILL.md",
     ".cline/skills/karpathy-engineer/SKILL.md",
     ".cline/skills/code-reviewer/SKILL.md",
     ".cline/skills/test-strategist/SKILL.md",
     ".cline/skills/docs-memory-maintainer/SKILL.md",
     ".cline/skills/delegation-coordinator/SKILL.md",
+    ".cline/skills/project-upgrader/SKILL.md",
+
     "workflows/plan-task.md",
     "workflows/handoff.md",
     "workflows/critic-review.md",
@@ -205,6 +210,7 @@ WORKFLOW_FILES = [
     "pre-edit-check.md",
     "spec-driven-development.md",
     "self-evaluate.md",
+    "upgrade-project.md",
 ]
 
 SKILL_CANONICAL = ".agents/skills"
@@ -216,7 +222,9 @@ SKILL_NAMES = [
     "test-strategist",
     "docs-memory-maintainer",
     "delegation-coordinator",
+    "project-upgrader",
 ]
+
 
 FAST_INIT_MAX_CHARS = 7_600
 SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")

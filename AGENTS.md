@@ -37,6 +37,29 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 
 ## Core rules
 
+### Repository boundaries — read before any git command
+
+- **This project is local-only until a human says otherwise in the current conversation.** `git clone` copies
+  the remote configuration, so a project created from this template may still point at the **template's own
+  repository**. A push would then upload this project into a repository shared with unrelated projects.
+  **Check `git remote -v` before any git work.** If `origin` points at the template, or at anything that is
+  not this project's own repository, detach it: `python scripts/detach-remote.py`. Local commits are
+  encouraged; transmission is not.
+- **Never push, publish, or sync without an explicit instruction.** No `git push`, no remote branch, no pull
+  request, no issue, no tag push. **Never run `git push --force --mirror`** — it uploads *every* local ref,
+  including refs holding material you were asked to delete. External documentation recommends it in contexts
+  where it is unsafe here.
+- **One project, one repository.** Two projects must never share a repository, and the template's repository
+  is never a deployment source. If hosting is needed (Vercel, Cloudflare, Netlify), a **human** creates a new
+  repository for that project alone and chooses its visibility.
+- **Confidential material never enters a repository that is, or ever was, public.** Removing it later does not
+  work: hosts retain unreachable commits retrievable by commit ID, and forks share object storage. Treat a
+  public repository as permanent.
+- **`.gitignore` is not a security control.** It prevents accidents, not decisions, and only for the paths it
+  was written for. Verify with `git status --ignored --short` and `git ls-files` rather than assuming.
+
+### General
+
 - Do not invent facts. If unknown, write `TBD` or ask.
 - Do not expose or edit secrets, credentials, tokens, `.env` values, or production config unless explicitly requested.
 - Ask before destructive commands, dependency installs, migrations, production-impacting actions, or broad refactors.

@@ -37,10 +37,10 @@
 
 | | |
 |---|---|
-| FAST_INIT bootstrap cost | ~1,886 tokens (4 files, 7,545 chars) |
+| FAST_INIT bootstrap cost | ~2,283 tokens (4 files, 9,133 chars) |
 | AI tool adapters | 9 (Claude, Gemini, Codex, Cline, Roo Code, Cursor, Windsurf, Copilot, Aider; + Antigravity) |
 | Memory Bank files | 14 (lazy-loaded, indexed in `00-index.md`) |
-| Reusable skills | 6 (portable `.agents/skills` source + Claude/Cline mirrors) |
+| Reusable skills | 7 (portable `.agents/skills` source + Claude/Cline mirrors) |
 | Reusable workflows | 14 (incl. pre-edit check, spec-driven development, self-evaluation, critic-review, autonomous-agent, Calibration, Graphify) |
 | MCP config | Claude `.mcp.json`, VS Code config, and inactive Gemini/Codex native examples (spec 2025-11-25) |
 | Automation | Shared hook library (`scripts/hooks/`), Claude Code hooks + `/handoff`, `/save-context`, `/start-task` commands |
@@ -64,7 +64,7 @@ Three steps from zero to a working agent:
 git clone https://github.com/<your-user>/<your-new-repo>.git
 cd <your-new-repo>
 
-# 2. Bootstrap (validates the template + prints a ~1,500-token prompt)
+# 2. Bootstrap (detaches inherited remotes + validates + prints prompt)
 python scripts/init-fast.py
 
 # 3. Paste the printed prompt into a fresh agent context window
@@ -80,17 +80,18 @@ $ python scripts/init-fast.py
 == FAST_INIT bootstrap ==
 Template FAST validation passed.
 FAST_INIT startup-path size:
-  - AGENTS.md: 4588 chars (~1147 tokens)
+  - AGENTS.md: 6164 chars (~1541 tokens)
   - memory-bank/startup.md: 495 chars (~123 tokens)
   - memory-bank/00-index.md: 1540 chars (~385 tokens)
-  - memory-bank/handoff.md: 922 chars (~230 tokens)
-  Total: 7545 chars (~1886 tokens)
+  - memory-bank/handoff.md: 934 chars (~233 tokens)
+  Total: 9133 chars (~2283 tokens)
 
 ============================================================
 WELCOME TO THE AI AGENT PROJECT TEMPLATE
 ============================================================
 What this template gives you out of the box:
  * One canonical instruction file (AGENTS.md) read by every model.
+ * Repository boundary security: projects are local-only by default.
  * Shared Memory Bank for cross-session and cross-model continuity.
  * FAST_INIT bootstrap so agents skip the usual 5K-80K token warm-up.
  * Drift-proof mirrors of workflows and skills (SHA-256 checked).
@@ -127,11 +128,11 @@ Most agent setups spend the first 5,000–80,000 tokens "reading the project." T
 
 | File | Tokens (approx) |
 |---|---|
-| `AGENTS.md` | 1,147 |
+| `AGENTS.md` | 1,541 |
 | `memory-bank/startup.md` | 123 |
 | `memory-bank/00-index.md` | 385 |
-| `memory-bank/handoff.md` | ~230 (volatile; lighter on a fresh template) |
-| **Total FAST_INIT** | **~1,886** |
+| `memory-bank/handoff.md` | ~233 (volatile; lighter on a fresh template) |
+| **Total FAST_INIT** | **~2,283** |
 
 Run `python scripts/check-template.py --benchmark` to see the exact current cost.
 
@@ -208,9 +209,10 @@ Full list: [`docs/toolbox.md`](docs/toolbox.md).
 - `benchmarks/context/` + `scripts/benchmark-context.py` — deterministic
   context scenarios and optional paired-usage comparison.
 - `workflows/` — 14 reusable procedures (pre-edit check, spec-driven development, self-evaluate, critic-review, autonomous-agent, handoff, build graph, etc.).
-- `.agents/skills/` — canonical source for six reusable Agent Skills (incl. `delegation-coordinator`); `.claude/skills/` and `.cline/skills/` are SHA-256-checked discovery mirrors.
-- `scripts/check-template.py` — stdlib-only validator with `--fast`, `--compat`, `--benchmark`, and full mode.
-- `scripts/init-fast.py` — one-command bootstrap.
+- `.agents/skills/` — canonical source for seven reusable Agent Skills (incl. `delegation-coordinator`, `project-upgrader`); `.claude/skills/` and `.cline/skills/` are SHA-256-checked discovery mirrors.
+- `scripts/check-template.py` — stdlib-only validator with `--fast`, `--compat`, `--benchmark`, `--check-remote`, and full mode.
+- `scripts/init-fast.py` — one-command bootstrap (detaches template remotes, validates, benchmarks, prints prompt).
+- `scripts/detach-remote.py` — detaches inherited template remotes, installs pre-push block hook, secures repository boundaries.
 - Adapters: `CLAUDE.md`, `GEMINI.md`, `CONVENTIONS.md` (Aider), `.windsurfrules`, `.clinerules/` (Cline + Roo Code), `.agents/`, `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, `.codex/AGENTS.md`.
 - `.mcp.json`, `.vscode/mcp.json`, `.gemini/settings.example.json`, `.codex/config.example.toml` — Claude/VS Code MCP starters and inactive Gemini/Codex native examples.
 - `references/`, `assets/` — reference material and project asset folders.
@@ -246,12 +248,13 @@ python scripts/check-template.py --fast        # lightweight check
 python scripts/check-template.py               # full check (secrets, drift, all required files)
 python scripts/check-template.py --compat      # Gemini/Codex/Claude contracts
 python scripts/check-template.py --benchmark   # token cost report only
+python scripts/check-template.py --check-remote # fail if inherited remotes exist
 python scripts/benchmark-context.py --self-test
 python scripts/benchmark-context.py --scenario fast-init
 ```
 
 Full validation enforces required files, 9 adapters referencing `AGENTS.md`,
-exact primary adapter imports, 15 per-file budgets, a 7,600-character aggregate
+exact primary adapter imports, 15 per-file budgets, a 9,500-character aggregate
 FAST_INIT cap, Agent Skills schema checks, public-template secret hygiene,
 native hook/MCP/reviewer structures, the context-harness self-test,
 `.gitignore` safety patterns, and SHA-256 drift across canonical and mirrored

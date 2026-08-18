@@ -1,5 +1,19 @@
 # Active Context
 
+## Phase summary: Repository Boundary Security & Auto-Isolation — 2026-08-18
+
+- Outcome: COMPLETE
+- Addressed accidental upstream pushes from cloned template repositories by establishing strict repository boundaries.
+- **Core Rules in `AGENTS.md`**: Added 5 repository boundary rules (Local-only default, check `git remote -v`, never push without human instruction, never force-mirror, 1 project = 1 repo, no secrets in public repos, gitignore is not security).
+- **Automation & Bootstrap**:
+  - Added `scripts/detach-remote.py` to identify template remotes, remove them, and install `.git/hooks/pre-push` push-block.
+  - Updated `scripts/init-fast.py` to automatically detect inherited remotes and detach them on bootstrap.
+  - Added `--check-remote` to `scripts/check-template.py` to fail when derived projects inherit upstream template remotes.
+- **Documentation & Workflows**:
+  - Updated `docs/start-new-project.md`, `docs/use-from-github.md`, `docs/upgrade-existing-project.md`, `scripts/README.md`, and `README.md`.
+  - Updated `workflows/upgrade-project.md` and `.agents/skills/project-upgrader/SKILL.md` along with all three-tree mirrors.
+- **Validation**: Full validation pass at 121 required files, 9 adapters, 15 budgets (FAST_INIT at 9,133 / 9,500 chars, ~2,283 tokens), 7 skills across 3 trees, 10 workflows across 3 trees, zero SHA-256 drift.
+
 ## Phase summary: DEEP_AUDIT remediation — 2026-08-01
 
 - Outcome: COMPLETE

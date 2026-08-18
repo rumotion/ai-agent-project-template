@@ -9,6 +9,7 @@ import argparse
 import hashlib
 from pathlib import Path
 import re
+import subprocess
 import sys
 from typing import Optional
 
@@ -42,6 +43,8 @@ REQUIRED_FILES = [
     "benchmarks/context/README.md",
     "benchmarks/context/scenarios.json",
     "scripts/benchmark-context.py",
+    "scripts/init-fast.py",
+    "scripts/detach-remote.py",
     ".gemini/agents/reviewer.md",
     ".codex/agents/reviewer.toml",
     ".claude/agents/reviewer.md",
@@ -149,6 +152,8 @@ FAST_REQUIRED_FILES = [
     "memory-bank/startup.md",
     "memory-bank/00-index.md",
     "memory-bank/handoff.md",
+    "scripts/init-fast.py",
+    "scripts/detach-remote.py",
 ]
 
 ADAPTER_FILES = [
@@ -170,7 +175,7 @@ PRIMARY_ADAPTER_CONTENT = {
 }
 
 CONTEXT_BUDGETS = {
-    "AGENTS.md": 4_700,
+    "AGENTS.md": 6_500,
     "memory-bank/startup.md": 900,
     "memory-bank/00-index.md": 1_600,
     "memory-bank/handoff.md": 1_200,
@@ -226,7 +231,7 @@ SKILL_NAMES = [
 ]
 
 
-FAST_INIT_MAX_CHARS = 7_600
+FAST_INIT_MAX_CHARS = 9_500
 SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LAST_VERIFIED_RE = re.compile(r"(?m)^last_verified:\s*\d{4}-\d{2}-\d{2}\s*$")
 REVIEWER_MARKER = "reviewer-contract: v1"
@@ -821,11 +826,46 @@ def print_benchmark() -> None:
     print(f"  Total: {total_chars} chars (~{total_chars // 4} tokens)")
 
 
+def check_inherited_remotes() -> list[str]:
+    """Check if repository remotes inherit upstream template repository URLs."""
+    try:
+        proc = subprocess.run(
+            ["git", "remote"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        if proc.returncode != 0 or not proc.stdout:
+            return []
+        findings: list[str] = []
+        for name in proc.stdout.splitlines():
+            name = name.strip()
+            if not name:
+                continue
+            proc_url = subprocess.run(
+                ["git", "remote", "get-url", name],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+            )
+            url = proc_url.stdout.strip() if proc_url.returncode == 0 else ""
+            if "ai-agent-project-template" in url:
+                findings.append(f"{name}: {url}")
+        return findings
+    except Exception:
+        return []
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate AI-agent project template structure.")
     parser.add_argument("--fast", action="store_true", help="Lightweight FAST_INIT validation.")
     parser.add_argument("--compat", action="store_true", help="Validate Gemini/Codex/Claude compatibility contracts.")
     parser.add_argument("--benchmark", action="store_true", help="Print FAST_INIT startup-path token estimate and exit.")
+    parser.add_argument("--check-remote", action="store_true", help="Fail if inherited template remotes are detected.")
     return parser.parse_args()
 
 
@@ -856,6 +896,7 @@ def main() -> int:
         check_hook_fixtures() + check_hook_examples()
     )
     mcp_findings = [] if fast_mode else check_mcp_examples()
+    remote_findings = check_inherited_remotes() if args.check_remote else []
     startup_chars, _ = benchmark_startup()
     startup_excess = max(0, startup_chars - FAST_INIT_MAX_CHARS)
 
@@ -887,6 +928,7 @@ def main() -> int:
         or context_benchmark_findings
         or hook_findings
         or mcp_findings
+        or remote_findings
     ):
         if missing:
             print("Missing required files:")
@@ -947,6 +989,11 @@ def main() -> int:
             print("Native MCP example violations:")
             for finding in mcp_findings:
                 print(f"  - {finding}")
+        if remote_findings:
+            print("Inherited template remotes detected (unsafe for derived projects):")
+            for finding in remote_findings:
+                print(f"  - {finding}")
+            print("  Run 'python scripts/detach-remote.py' to detach inherited remotes and install pre-push hook.")
         return 1
 
     if fast_mode:

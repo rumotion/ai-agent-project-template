@@ -7,6 +7,7 @@ a coding agent.
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 import subprocess
 import sys
@@ -48,9 +49,44 @@ def run(cmd: list[str]) -> int:
     return subprocess.run(cmd, cwd=ROOT).returncode
 
 
+def handle_remotes(keep_remote: bool = False) -> None:
+    if keep_remote:
+        safe_print("Keeping git remotes (--keep-remote specified).\n")
+        return
+
+    # Check if inherited template remotes are present
+    check_code = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "detach-remote.py"), "--check"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    ).returncode
+
+    if check_code == 1:
+        safe_print("Inherited template remote detected. Securing repository boundaries...")
+        run([sys.executable, str(ROOT / "scripts" / "detach-remote.py")])
+        safe_print("")
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="FAST_INIT helper for freshly copied template repositories.")
+    parser.add_argument(
+        "--keep-remote",
+        action="store_true",
+        help="Keep inherited template remotes (for template repository maintainers only).",
+    )
+    return parser.parse_args()
+
+
 def main() -> int:
     _configure_stdout_utf8()
+    args = parse_args()
+
     safe_print("== FAST_INIT bootstrap ==")
+    handle_remotes(keep_remote=args.keep_remote)
+
     safe_print("Running lightweight template validation...\n")
     code = run([sys.executable, str(ROOT / "scripts" / "check-template.py"), "--fast"])
     if code != 0:
@@ -68,9 +104,11 @@ def main() -> int:
     safe_print(" * One canonical instruction file (AGENTS.md) read by every model")
     safe_print("   (Claude, Gemini, ChatGPT/Codex, Cline, Roo Code, Cursor, Windsurf,")
     safe_print("   Copilot, Aider, Antigravity) - no per-tool rewrites.")
+    safe_print(" * Repository boundary security: projects are local-only by default")
+    safe_print("   with automatic push-blocks preventing accidental upstream pushes.")
     safe_print(" * Shared Memory Bank for cross-session and cross-model continuity")
     safe_print("   (handoff.md lets one model pick up where another left off).")
-    safe_print(" * FAST_INIT bootstrap (~1.9K tokens) so agents skip the usual")
+    safe_print(" * FAST_INIT bootstrap (~2.2K tokens) so agents skip the usual")
     safe_print("   5K-80K token \"read the whole repo\" warm-up.")
     safe_print(" * Agentic execution loop: Plan - Execute - Verify - Commit -")
     safe_print("   Reflect with atomic step-commits (docs/agent-loop.md).")
@@ -95,3 +133,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

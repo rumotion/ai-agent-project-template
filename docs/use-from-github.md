@@ -25,7 +25,7 @@ This is the cleanest path because the new project gets its own repository withou
 
 ## Clone the template directly
 
-Use this when you want a local copy of the template itself or want to branch from it:
+Use this when you want a local copy of the template:
 
 ```bash
 git clone https://github.com/<owner>/<repo>.git my-new-project
@@ -33,17 +33,29 @@ cd my-new-project
 python scripts/init-fast.py
 ```
 
-After cloning, decide whether this folder should remain connected to the template repository:
+`git clone` copies the remote configuration, so the new folder initially points at the **template's own repository**.
 
-- Keep `origin` if you want to pull template updates.
-- Change `origin` if this should become your own independent project repository.
+When you run `python scripts/init-fast.py` (or `python scripts/detach-remote.py`), it automatically secures the repository boundaries:
 
-To change the remote after creating your own GitHub repository:
+1. Removes inherited template remotes (`origin`, `ai-agent-project-template`).
+2. Installs a local `.git/hooks/pre-push` block that refuses pushes.
+3. Leaves your local Git history intact while ensuring the project is **local-only by default**.
 
-```bash
-git remote set-url origin https://github.com/<your-owner>/<your-new-repo>.git
-git push -u origin main
-```
+To publish to your own independent GitHub repository later:
+
+1. Create a NEW repository under your account (never share the template repository).
+2. Add your project's remote:
+   ```bash
+   git remote add origin https://github.com/<your-owner>/<your-new-repo>.git
+   ```
+3. Remove the push block:
+   ```bash
+   rm .git/hooks/pre-push
+   ```
+4. Push your commits:
+   ```bash
+   git push -u origin main
+   ```
 
 ## Download without Git history
 

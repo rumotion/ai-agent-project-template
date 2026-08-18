@@ -19,7 +19,7 @@ Alternative paths:
 - GitHub **Code > Download ZIP** if you want files without Git history.
 - Local folder copy if you already have the template on disk.
 
-See `docs/use-from-github.md` for details, including when to keep or change the Git remote.
+See `docs/use-from-github.md` for details. **Important**: If cloning the template directly, the folder inherits the template's Git remotes. Run `python scripts/init-fast.py` to automatically detach the template remote and secure repository boundaries.
 
 ## 2. Check the template files
 
@@ -57,8 +57,9 @@ python scripts/init-fast.py
 
 This command:
 
-1. runs `python scripts/check-template.py --fast`, and
-2. prints a short FAST_INIT prompt to paste into a new agent context window.
+1. detaches inherited template remotes and installs a pre-push block to keep the project local-only,
+2. runs `python scripts/check-template.py --fast`, and
+3. prints a short FAST_INIT prompt to paste into a new agent context window.
 
 Use full validation (`python scripts/check-template.py`) when you need deep/publish checks.
 
@@ -160,8 +161,10 @@ The agent should then:
 4. update relevant Memory Bank files,
 5. run validation/build checks.
 
-## 8. Optional: initialize Git
-
+## 8. Git and Publishing Boundaries
+ 
+All projects created from this template are **local-only by default**.
+ 
 If this is a new local folder that is not already a Git repo:
 
 ```bash
@@ -171,20 +174,30 @@ git commit -m "Initial project from AI-agent template"
 git checkout -b feature/app-foundation
 ```
 
-Do not copy an old `.git/` directory into a public starter unless you intentionally want its history and remote URLs.
+If you cloned the template directly, `python scripts/init-fast.py` (or `python scripts/detach-remote.py`) automatically removes inherited remotes and installs `.git/hooks/pre-push` to block accidental upstream pushes to the template.
 
-If you cloned the public template directly and want this to become your own independent GitHub project, create a new GitHub repo and then update the remote:
+When you are ready to publish the project to your own independent Git repository:
 
-```bash
-git remote set-url origin https://github.com/<your-owner>/<your-new-repo>.git
-git push -u origin main
-```
+1. Create a NEW repository under your personal or organization account (never share the template repository).
+2. Add your new remote:
+   ```bash
+   git remote add origin https://github.com/<your-owner>/<your-new-repo>.git
+   ```
+3. Remove the local pre-push block hook:
+   ```bash
+   rm .git/hooks/pre-push
+   ```
+4. Run validation before publishing:
+   ```bash
+   python scripts/check-template.py
+   ```
+5. Push to your repository:
+   ```bash
+   git push -u origin main
+   ```
 
-Before pushing publicly, run:
-
-```bash
-python scripts/check-template.py
-```
+> [!CAUTION]
+> Never point a project at the shared template repository, and never run `git push --force --mirror`. Confidential material must never enter a repository that is or ever was public.
 
 ## 9. Work feature by feature
 

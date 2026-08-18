@@ -25,17 +25,20 @@
   Conventional Commits; `plan-task.md` requires discrete committable
   checkpoints; Git & Commit Conventions added to `CONVENTIONS.md`; DEEP_AUDIT
   passed and the validator now requires all 9 workflows across 3 trees.
+- (2026-08-18) Repository Boundary Security & Auto-Isolation: added 5 boundary
+  rules to `AGENTS.md`, `scripts/detach-remote.py`, auto-detach in `scripts/init-fast.py`,
+  `--check-remote` validator check in `scripts/check-template.py`, documentation updates,
+  and mirror updates.
 
 ## Current
 
-- Atomic step-commit workflow shipped; DEEP_AUDIT remediation committed on `main`.
-- Automated checks pass at 115 required files, 9 adapters, and 15 budgets;
-  FAST_INIT is 7,545 chars (~1,886 tokens).
+- Repository Boundary Security and auto-isolation tooling shipped.
+- Automated checks pass at 121 required files, 9 adapters, and 15 budgets;
+  FAST_INIT is 9,133 chars (~2,283 tokens).
 
 ## Next
 
-- Tag `v0.8.0` and publish the GitHub release.
-- Create new product repositories from the published GitHub template.
+- Create new product repositories from the template with local-only guarantee.
 
 ## Blockers
 

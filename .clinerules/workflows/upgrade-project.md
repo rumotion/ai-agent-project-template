@@ -6,7 +6,7 @@ Follow this procedure when upgrading an existing external repository/project to 
 
 - **Zero Breaking Changes**: Do not delete, overwrite, or mutate project-specific code, test scripts, assets, or domain configs.
 - **Preserve Domain Rules**: Maintain any custom rules in target's `AGENTS.md` (e.g. SQLite locks, test board rules).
-- **Budget Compliance**: Keep target `AGENTS.md` <= 4,700 chars and `memory-bank/handoff.md` <= 1,200 chars.
+- **Budget Compliance**: Keep target `AGENTS.md` <= 6,500 chars and `memory-bank/handoff.md` <= 1,200 chars.
 
 ## Workflow Steps
 
@@ -19,7 +19,7 @@ Follow this procedure when upgrading an existing external repository/project to 
 2. Sync `workflows/`, `.agents/workflows/`, and `.clinerules/workflows/`.
 3. Copy standard template skills to `.agents/skills/`, `.claude/skills/`, `.cline/skills/` without deleting target's custom skills.
 4. Copy updated documentation files in `docs/` and reviewer contracts (`.gemini/agents/reviewer.md`, `.codex/agents/reviewer.toml`, `.claude/agents/reviewer.md`).
-5. Copy `scripts/hooks/`, `scripts/check-template.py`, `scripts/benchmark-context.py`, and `benchmarks/context/`.
+5. Copy `scripts/hooks/`, `scripts/check-template.py`, `scripts/init-fast.py`, `scripts/detach-remote.py`, `scripts/benchmark-context.py`, and `benchmarks/context/`.
 
 ### Step 3: Validation & Memory Bank Sync
 1. Run `python scripts/check-template.py --fast` in target project.

@@ -33,6 +33,10 @@ Initialization now follows a two-mode flow: start in `FAST_INIT` for low-token, 
 - Keep raw references in `references/`; summarize durable facts in `memory-bank/`.
 - Keep project source assets in `assets/`; move runtime assets to stack-specific folders such as `public/` or `src/assets/` only after a stack is chosen.
 - Atomic Step-Commit Agentic Cycle: Plan → Execute → Verify → Commit → Reflect. Every task step checkpoint in a plan is verified and committed atomically with Conventional Commit syntax.
+- Falsifiable Predictions & Pre-Execution Expectation: Formulate concrete baseline failure and expected passing diff before executing modifying edits. Misses trigger immediate refutation learning.
+- 4-Tier Problem-Solving Escalation Ladder: Tier 1 (surgical fix) $\rightarrow$ Tier 2 (scratch script in `tmp/`) $\rightarrow$ Tier 3 (mock harness/simulator) $\rightarrow$ Tier 4 (architecture/state-machine redesign).
+- Bimodal Execution: Single narrow probes during exploration; aggressive parallel batching during verified plan execution.
+- Compaction-Resistant Refutation Ledger: Record dead hypotheses and killing evidence in `activeContext.md` / `risks.md` to avoid regression loops across model handoffs and compactions.
 - Prefer GitHub **Use this template** for clean new repositories; direct clone keeps template history/remotes until changed.
 - Tool-agnostic workflows mirrored into tool-specific locations when useful.
 - Standard-library-only validator for portability.

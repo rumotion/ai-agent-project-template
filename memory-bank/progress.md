@@ -29,16 +29,24 @@
   rules to `AGENTS.md`, `scripts/detach-remote.py`, auto-detach in `scripts/init-fast.py`,
   `--check-remote` validator check in `scripts/check-template.py`, documentation updates,
   and mirror updates.
+- (2026-08-20) ARC-Skill Cognitive Doctrines Integration: integrated proven cognitive
+  patterns from ARC-Skill (100% RHAE benchmark) across the template. Added pre-action
+  falsifiable predictions ("say what an action will do before you spend it"), 4-tier
+  problem-solving escalation ladder (surgical fix $\rightarrow$ scratch script $\rightarrow$
+  mock harness $\rightarrow$ architecture redesign), bimodal probe vs batch discipline,
+  and `REFUTED` dead hypotheses ledger across `AGENTS.md`, `docs/agent-loop.md`,
+  `workflows/`, `skills/`, and `memory-bank/`.
 
 ## Current
 
-- Repository Boundary Security and auto-isolation tooling shipped.
+- ARC-Skill cognitive doctrines integrated with zero mirror drift across 3 discovery trees.
 - Automated checks pass at 121 required files, 9 adapters, and 15 budgets;
-  FAST_INIT is 9,133 chars (~2,283 tokens).
+  FAST_INIT is 9,298 chars (~2,324 tokens).
 
 ## Next
 
 - Create new product repositories from the template with local-only guarantee.
+- Apply falsifiable prediction and escalation ladder workflows in real coding sessions.
 
 ## Blockers
 

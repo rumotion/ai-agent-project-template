@@ -2,6 +2,18 @@
 
 Record important project decisions here.
 
+### 2026-08-20 — Adopt ARC-Skill cognitive doctrines (falsifiable predictions, escalation ladder, bimodal execution, refuted hypotheses ledger)
+
+Status: Accepted
+
+Context: ARC-Skill achieved a historic 100.00 RHAE on 25 ARC-AGI-3 games (183 levels) with unmodified Claude Code on Opus 5 across 115 compactions. Its core cognitive loop (predict before action, graded feedback, 4-tier problem-solving escalation, bimodal probe vs batch, and compaction-resistant refutation tracking) solves common failure modes in agentic coding (hallucinated passes, repeated dead ends, ungrounded edits).
+
+Decision: Embed these principles into `AGENTS.md`, `docs/agent-loop.md`, `workflows/pre-edit-check.md`, `workflows/debug-issue.md`, `workflows/implement-task.md`, and `.agents/skills/karpathy-engineer/SKILL.md`. Maintain 100% mirror parity across all 3 workflow trees and all 3 skill trees. Keep FAST_INIT within the 9,500-char budget.
+
+Consequences: Agents formulate falsifiable expectations before edits, escalate diagnostics through structured tiers, avoid batching speculative exploration, and track dead hypotheses in `activeContext.md` / `risks.md` to prevent re-testing disproven theories across compactions/handoffs.
+
+Related files: `AGENTS.md`, `docs/agent-loop.md`, `workflows/pre-edit-check.md`, `workflows/debug-issue.md`, `workflows/implement-task.md`, `.agents/skills/karpathy-engineer/SKILL.md`, `memory-bank/activeContext.md`, `memory-bank/handoff.md`
+
 ### 2026-07-23 — Ship Phase 3 scaffolding without optional runtimes
 
 Status: Accepted

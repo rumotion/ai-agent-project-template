@@ -9,10 +9,12 @@ Use for coding, debugging, refactoring, and review tasks.
 
 Principles:
 
-1. Think before coding: state assumptions; ask when unclear.
+1. Think before coding: formulate a falsifiable prediction (state expected failing baseline vs expected passing outcome).
 2. Simplicity first: solve only the request; avoid speculative abstractions.
 3. Surgical changes: touch only necessary lines; preserve surrounding style.
-4. Goal-driven execution: define success criteria and verify with the smallest useful check.
+4. Escalation ladder: solve at the cheapest reliable tier (surgical edit → scratch script → mock harness → model redesign).
+5. Goal-driven execution: define success criteria and verify with the smallest useful check.
+6. Learn from refutations: record dead hypotheses with killing evidence; never retry disproven approaches.
 
 If a change grows beyond the task, stop and explain the tradeoff.
 

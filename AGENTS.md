@@ -68,19 +68,19 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 
 ## Engineering behavior (Karpathy defaults)
 
-- Think before coding: state assumptions; ask when unclear.
-- Detailed phased planning: break tasks into clear phases with concrete, committable step checkpoints.
-- Simplicity first: solve only what was asked; avoid speculative abstractions.
-- Surgical changes: touch only what the task requires.
-- Goal-driven & atomic commits: define success criteria, verify each step, and commit immediately upon verification.
+- Think before coding: state falsifiable prediction (expected baseline failure vs expected passing outcome).
+- Phased planning: discrete, committable step checkpoints with verification criteria.
+- Simplicity & surgical changes: solve only what was asked; touch only necessary lines.
+- Escalation ladder: escalate diagnostics (surgical fix → scratch script → mock harness → model redesign).
+- Goal-driven atomic commits: verify each step and commit immediately upon verification.
 
 ## Agentic execution
 
-- Batch independent tool calls in parallel; never serialize independent reads.
-- Bound each task (~5 / 15 / 30 tool calls for simple / standard / complex). Halt with a summary instead of looping.
-- Classify errors before retrying: transient → backoff; logic → revise; capability → escalate (`model-routing.md`). On exhausting retries, log a one-line lesson to `memory-bank/risks.md`.
-- Atomic step-commit: after verifying each completed step in a plan, run `git commit -m "<type>(<scope>): <step description>"`.
-- On finishing a unit of work, write a phase summary to `memory-bank/activeContext.md` and update `handoff.md`.
+- Bimodal discipline: single narrow probes for exploration; batch independent calls for verified execution.
+- Bound tasks (~5 / 15 / 30 tool calls for simple / standard / complex). Halt with summary on limit.
+- Classify errors: transient → backoff; logic → revise; capability → escalate (`model-routing.md`). Log disproven hypotheses and killing evidence to `activeContext.md` / `risks.md`.
+- Atomic step-commit: after verifying each completed step, run `git commit -m "<type>(<scope>): <step description>"`.
+- Phase summary: on completing a work unit, write summary to `memory-bank/activeContext.md` and update `handoff.md`.
 - Detail: `docs/agent-loop.md`.
 
 ## Workflow

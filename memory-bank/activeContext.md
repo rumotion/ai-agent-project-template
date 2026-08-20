@@ -1,5 +1,16 @@
 # Active Context
 
+## Phase summary: ARC-Skill Cognitive Doctrines Integration — 2026-08-20
+
+- Outcome: COMPLETE
+- Embedded battle-tested agentic cognitive principles from ARC-Skill (100% RHAE on ARC-AGI-3) into the template:
+  - **Falsifiable Predictions**: Added pre-action expectation setting ("Say what an action will do before you spend it") across `AGENTS.md`, `docs/agent-loop.md`, `workflows/pre-edit-check.md`, `workflows/implement-task.md`, and `karpathy-engineer` skill.
+  - **4-Tier Escalation Ladder**: Structured diagnostic escalation (Tier 1: Surgical Inline Fix $\rightarrow$ Tier 2: Scratch Diagnostic Script in `tmp/` $\rightarrow$ Tier 3: Diagnostic Test Harness / Mock Simulator $\rightarrow$ Tier 4: Model & Architecture Redesign) in `docs/agent-loop.md`, `workflows/debug-issue.md`, and `karpathy-engineer`.
+  - **Bimodal Execution Discipline**: Formulated exploration (single narrow probes) vs. verified execution (batched parallel tool calls & atomic commits).
+  - **Refuted Hypotheses Ledger (`REFUTED`)**: Added explicit tracking of dead hypotheses with killing evidence in `docs/agent-loop.md`, `workflows/debug-issue.md`, and `memory-bank/activeContext.md` to prevent retry loops across context compactions/model handoffs.
+- Synced all 3 workflow trees (`workflows/`, `.agents/workflows/`, `.clinerules/workflows/`) and all 3 skill trees (`.agents/skills/`, `.claude/skills/`, `.cline/skills/`).
+- Verification: `python scripts/check-template.py` full PASS (121 files, 9 adapters, 15 budgets, FAST_INIT ~2,324 tokens, zero drift).
+
 ## Phase summary: Repository Boundary Security & Auto-Isolation — 2026-08-18
 
 - Outcome: COMPLETE

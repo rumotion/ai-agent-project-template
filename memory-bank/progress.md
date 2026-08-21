@@ -36,17 +36,22 @@
   mock harness $\rightarrow$ architecture redesign), bimodal probe vs batch discipline,
   and `REFUTED` dead hypotheses ledger across `AGENTS.md`, `docs/agent-loop.md`,
   `workflows/`, `skills/`, and `memory-bank/`.
+- (2026-08-20) Automated Target Upgrader & 2026 SDD Modernization: built `scripts/upgrade-target.py`
+  (automated standard-library project upgrader with `--dry-run`, custom rules/skills preservation,
+  and validation), modernized `workflows/spec-driven-development.md` with 2026 executable anchors
+  and characterization safety nets, and updated `project-upgrader` skill and `upgrade-project.md`
+  workflow across all 3 discovery trees.
 
 ## Current
 
-- ARC-Skill cognitive doctrines integrated with zero mirror drift across 3 discovery trees.
-- Automated checks pass at 121 required files, 9 adapters, and 15 budgets;
+- Automated Target Project Upgrader tool and 2026 SDD doctrines integrated.
+- Automated checks pass at 122 required files, 9 adapters, and 15 budgets;
   FAST_INIT is 9,298 chars (~2,324 tokens).
 
 ## Next
 
-- Create new product repositories from the template with local-only guarantee.
-- Apply falsifiable prediction and escalation ladder workflows in real coding sessions.
+- Run `scripts/upgrade-target.py` to upgrade existing derived repositories (e.g. `KumoQAToolkit`).
+- Build new product repositories with automated verification.
 
 ## Blockers
 

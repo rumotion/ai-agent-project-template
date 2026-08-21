@@ -10,6 +10,28 @@ Use this guide when you have an existing project repository created from an olde
 
 ---
 
+## Automated Upgrade Tool (`scripts/upgrade-target.py`)
+
+The template includes an automated, standard-library Python tool to safely upgrade any target repository:
+
+```bash
+# Preview planned changes
+python scripts/upgrade-target.py --target /path/to/target/project --dry-run
+
+# Execute upgrade and validate
+python scripts/upgrade-target.py --target /path/to/target/project
+```
+
+### What `scripts/upgrade-target.py` does:
+1. **Preserves Custom Rules**: Merges latest `AGENTS.md` instructions and cognitive doctrines (falsifiable predictions, escalation ladder, bimodal execution, refutation ledger) while preserving target custom rules.
+2. **Synchronizes Multi-Agent Adapters**: Updates `GEMINI.md`, `CLAUDE.md`, `CONVENTIONS.md`, `.windsurfrules`, `.codex/AGENTS.md`, `.cursor/rules/agents.mdc`, `.github/copilot-instructions.md`, `.clinerules/`, and `.agents/rules/`.
+3. **Synchronizes 3-Tree Workflows**: Keeps all 10 workflows byte-identical across `workflows/`, `.agents/workflows/`, and `.clinerules/workflows/`.
+4. **Synchronizes 3-Tree Skills**: Copies standard skills across `.agents/skills/`, `.claude/skills/`, and `.cline/skills/` while leaving custom domain skills intact.
+5. **Copies Safety Hooks, Docs & Scripts**: Installs latest reviewer contracts, hooks, benchmark tools, and `scripts/check-template.py`.
+6. **Validates Target**: Automatically executes `python scripts/check-template.py --fast` in the target repository.
+
+---
+
 ## Upgrade Steps for AI Agents
 
 When the user asks:
@@ -17,15 +39,10 @@ When the user asks:
 Upgrade my project [project-path] using the latest template.
 ```
 
-The agent executes the following steps:
-
-1. **Read Target Context**: Inspect target `AGENTS.md`, `memory-bank/handoff.md`, and `.agents/skills/` to record custom rules, handoff state, and existing domain skills.
-2. **Update Core Instructions & Adapters**: Merge latest template `AGENTS.md` while keeping target custom rules. Update `GEMINI.md`, `CLAUDE.md`, `CONVENTIONS.md`, `.codex/AGENTS.md`, `.cursor/rules/agents.mdc`, `.github/copilot-instructions.md`, `.clinerules/`, and `.agents/rules/`.
-3. **Synchronize Workflows & Skills**: Copy all workflows (`workflows/`, `.agents/workflows/`, `.clinerules/workflows/`) and standard skills (`.agents/skills/`, `.claude/skills/`, `.cline/skills/`). Ensure custom domain skills are untouched.
-4. **Copy Documentation & Hooks**: Copy `docs/`, reviewer contracts (`.gemini/agents/reviewer.md`, `.codex/agents/reviewer.toml`, `.claude/agents/reviewer.md`), and safety hook scripts (`scripts/hooks/`).
-5. **Install Validator, Bootstrap & Security Scripts**: Copy `scripts/check-template.py`, `scripts/init-fast.py`, `scripts/detach-remote.py`, `scripts/benchmark-context.py`, and `benchmarks/context/`.
-6. **Validate & Commit**:
-   - `python scripts/check-template.py --fast` (PASS)
-   - `python scripts/benchmark-context.py --self-test` (PASS)
-   - `python scripts/hooks/verify-fixtures.py` (PASS)
-   - `git commit -m "feat(template): upgrade framework to AI Agent Project Template v0.8.0"`
+The agent executes:
+1. `python scripts/upgrade-target.py --target [project-path] --dry-run` (inspect preview)
+2. `python scripts/upgrade-target.py --target [project-path]` (apply upgrade)
+3. `python [project-path]/scripts/check-template.py --fast` (verify target health)
+4. `python [project-path]/scripts/benchmark-context.py --self-test` (verify benchmark harness)
+5. `python [project-path]/scripts/hooks/verify-fixtures.py` (verify hook safety)
+6. Commit upgraded framework files in target repository.

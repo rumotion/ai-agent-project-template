@@ -23,6 +23,7 @@ It will:
 |---|---|
 | `init-fast.py` | One-command bootstrap (detach template remotes + validate + benchmark + prompt). |
 | `detach-remote.py` | Detaches inherited template remotes, installs pre-push block hook, makes repo local-only. |
+| `upgrade-target.py` | Automated project upgrader tool; upgrades any target repo to latest template standard while preserving custom code, rules, and skills. |
 | `check-template.py` | Template validator. Modes: `--fast` (lightweight), `--compat` (cross-agent contract), full (no flag), `--benchmark` (token cost only), `--check-remote` (remote audit). |
 | `benchmark-context.py` | Offline manifest-based context measurement and sanitized paired-usage comparison; supports `--json` and `--self-test`. |
 | `hooks/log-writes.py` | Passive write event logger (writes metadata to `.agent-logs/session.jsonl`). |

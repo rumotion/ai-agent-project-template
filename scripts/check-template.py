@@ -45,6 +45,7 @@ REQUIRED_FILES = [
     "scripts/benchmark-context.py",
     "scripts/init-fast.py",
     "scripts/detach-remote.py",
+    "scripts/upgrade-target.py",
     ".gemini/agents/reviewer.md",
     ".codex/agents/reviewer.toml",
     ".claude/agents/reviewer.md",
@@ -154,6 +155,7 @@ FAST_REQUIRED_FILES = [
     "memory-bank/handoff.md",
     "scripts/init-fast.py",
     "scripts/detach-remote.py",
+    "scripts/upgrade-target.py",
 ]
 
 ADAPTER_FILES = [

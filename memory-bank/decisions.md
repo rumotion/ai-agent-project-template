@@ -2,6 +2,18 @@
 
 Record important project decisions here.
 
+### 2026-08-20 — Build Automated Target Project Upgrader tool and modernize Spec-Driven Development (SDD)
+
+Status: Accepted
+
+Context: Upgrading existing derived projects to newer template versions was previously manual, error-prone, and required replicating files across multiple mirrored directories. Furthermore, 2026 agentic coding research shows that Spec-Driven Development with executable anchors and characterization test safety nets is essential to prevent "vibe coding" regressions.
+
+Decision: Add `scripts/upgrade-target.py` as a deterministic standard-library Python CLI tool to upgrade any target repository with `--dry-run`, custom domain rules preservation, custom domain skills preservation, and automated post-upgrade validation. Modernize `workflows/spec-driven-development.md` and update `project-upgrader` skill and `upgrade-project.md` workflow across all 3 discovery trees.
+
+Consequences: Users and agents can upgrade any target project safely in one command (`python scripts/upgrade-target.py --target <path>`) with zero manual drift. Target application code and custom domain skills remain 100% protected.
+
+Related files: `scripts/upgrade-target.py`, `scripts/check-template.py`, `workflows/spec-driven-development.md`, `workflows/upgrade-project.md`, `.agents/skills/project-upgrader/SKILL.md`, `docs/upgrade-existing-project.md`, `scripts/README.md`
+
 ### 2026-08-20 — Adopt ARC-Skill cognitive doctrines (falsifiable predictions, escalation ladder, bimodal execution, refuted hypotheses ledger)
 
 Status: Accepted

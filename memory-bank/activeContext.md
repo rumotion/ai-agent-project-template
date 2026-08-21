@@ -1,5 +1,15 @@
 # Active Context
 
+## Phase summary: Automated Project Upgrader & 2026 SDD Modernization — 2026-08-20
+
+- Outcome: COMPLETE
+- Implemented state-of-the-art agentic project upgrade and specification-driven development features:
+  - **Automated Target Project Upgrader (`scripts/upgrade-target.py`)**: Standalone, standard-library CLI script to safely upgrade any target repository. Includes `--dry-run`, automatic custom domain rules preservation in `AGENTS.md`, custom domain skills preservation in `.agents/skills/`, 3-tree sync, and post-upgrade validation.
+  - **2026 Spec-Driven Development (`workflows/spec-driven-development.md`)**: Modernized with executable specification anchors, characterization test safety nets before refactoring, and falsifiable prediction gates.
+  - **Updated `project-upgrader` Skill & `upgrade-project.md` Workflow**: Streamlined to leverage `scripts/upgrade-target.py` across `.agents/skills/`, `.claude/skills/`, `.cline/skills/` and `workflows/`, `.agents/workflows/`, `.clinerules/workflows/`.
+  - **Validator & Manifest Sync**: Added `scripts/upgrade-target.py` to `REQUIRED_FILES` and `FAST_REQUIRED_FILES` in `scripts/check-template.py`.
+- Verification: `python scripts/check-template.py` full PASS (122 files, 9 adapters, 15 budgets, FAST_INIT ~2,324 tokens, zero drift).
+
 ## Phase summary: ARC-Skill Cognitive Doctrines Integration — 2026-08-20
 
 - Outcome: COMPLETE

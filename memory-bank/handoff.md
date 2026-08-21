@@ -4,17 +4,17 @@ last_touched: 2026-08-20
 last_model: Gemini
 to_model: Any
 branch: main
-status: arc-skill cognitive doctrines integrated
-task: ARC-Skill Cognitive Doctrines Integration
-next_action: Create new repositories or upgrade existing projects
-files_modified: [AGENTS.md, docs/agent-loop.md, workflows/, .agents/, .claude/, .cline/, memory-bank/]
+status: automated upgrader and 2026 SDD integrated
+task: Automated Target Upgrader & 2026 SDD Modernization
+next_action: Run automated upgrades on target projects (scripts/upgrade-target.py)
+files_modified: [scripts/upgrade-target.py, scripts/check-template.py, workflows/, .agents/, .claude/, .cline/, docs/, memory-bank/]
 blocking_issues: []
 ---
 
 # Handoff
 
-ARC-Skill cognitive doctrines (falsifiable predictions, 4-tier escalation ladder, bimodal probe vs batch, refuted hypotheses ledger) integrated across template.
+Automated Target Project Upgrader (`scripts/upgrade-target.py`) and 2026 Spec-Driven Development doctrines integrated across the template.
 
-- **Doctrines (`AGENTS.md`, `docs/agent-loop.md`, `workflows/`, `skills/`)**: Falsifiable predictions before edits, 4-tier problem-solving escalation, single probe for exploration vs parallel batch for execution, `REFUTED` dead hypothesis tracking.
-- **Mirror Parity**: 100% byte parity verified across all 3 workflow trees and all 3 skill trees.
-- **Verification**: `python scripts/check-template.py` full PASS (121 files, 15 budgets, FAST_INIT ~2,324 tokens, zero drift).
+- **Automation (`scripts/upgrade-target.py`)**: Safely upgrades any external target repository, preserves custom rules and domain skills, syncs 3 trees, runs post-upgrade validation.
+- **SDD & Doctrines**: Spec-driven development with characterization safety nets, falsifiable prediction gates, 4-tier escalation ladder, and refutation tracking.
+- **Verification**: `python scripts/check-template.py` full PASS (122 files, 15 budgets, FAST_INIT ~2,324 tokens, zero drift).

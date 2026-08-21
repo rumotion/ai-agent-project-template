@@ -13,19 +13,32 @@ For the release process, see [`docs/releasing.md`](docs/releasing.md).
 
 ## Unreleased
 
+_Nothing yet._
+
+## v0.9.0 — 2026-08-20 — Cognitive Doctrines, Automated Upgrader & Repository Boundary Isolation
+
+### Added
+
+- **Automated Target Project Upgrader (`scripts/upgrade-target.py`)**: A deterministic standard-library Python tool that upgrades any target codebase with `--dry-run`, preserves target custom domain rules in `AGENTS.md`, preserves custom domain skills in `.agents/skills/`, updates 3-tree workflows and skills, copies safety hooks and validators, and executes post-upgrade validation automatically.
+- **ARC-Skill Cognitive Doctrines Integration**: Embedded battle-tested agentic cognitive patterns into `AGENTS.md`, `docs/agent-loop.md`, workflows, and skills:
+  - **Falsifiable Predictions**: Formulate baseline failing state vs expected passing outcome before making edits ("Say what an action will do before you spend it").
+  - **4-Tier Escalation Ladder**: Structured diagnostic escalation (Tier 1: Surgical Inline Fix $\rightarrow$ Tier 2: Scratch Diagnostic Script in `tmp/` $\rightarrow$ Tier 3: Diagnostic Mock Harness $\rightarrow$ Tier 4: Model & Architecture Redesign).
+  - **Bimodal Execution Discipline**: Single narrow probes for speculative exploration; parallel batched execution for verified plans.
+  - **Refuted Hypotheses Ledger (`REFUTED`)**: Explicit logging of dead theories with killing evidence to prevent repetitive retry loops across context compactions and model handoffs.
+- **Repository Boundary Security & Auto-Isolation**: Added strict boundary rules in `AGENTS.md` to make cloned templates local-only by default, preventing accidental pushes to upstream template repositories. Added `scripts/detach-remote.py`, auto-detach in `scripts/init-fast.py`, and `--check-remote` validator check in `scripts/check-template.py`.
+- **Modernized Spec-Driven Development (`workflows/spec-driven-development.md`)**: Structured around executable specification anchors, characterization safety nets before legacy refactoring, and falsifiable prediction gates.
+- **Updated `project-upgrader` Skill**: Updated across all 3 discovery trees (`.agents/skills/`, `.claude/skills/`, `.cline/skills/`) to drive `scripts/upgrade-target.py`.
+
 ### Changed
 
-- README hero image replaced with a repo-hosted, always-current v0.8.0
-  infographic (SVG); `docs/releasing.md` now reminds maintainers to refresh
-  front-page stats on every release.
+- README hero image replaced with a repo-hosted, always-current infographic (SVG); `docs/releasing.md` now reminds maintainers to refresh front-page stats on every release.
+- Updated `scripts/check-template.py` with 122 required files, 9 adapters, 15 context budgets, and zero drift checks.
 
 ### Fixed
 
 - Hero infographic caption no longer overlaps the REFLECT pill.
-- `init-fast.py` bootstrap prompt aligned with canonical `AGENTS.md` modes
-  (dropped legacy TOKEN_SAVER wording; added atomic step-commit rule).
-- `implement-task.md` closes the loop: cheapest-first verify with critic
-  pass for risky steps, plus an explicit Reflect/phase-summary step.
+- `init-fast.py` bootstrap prompt aligned with canonical `AGENTS.md` modes (dropped legacy TOKEN_SAVER wording; added atomic step-commit rule).
+- `implement-task.md` closes the loop: cheapest-first verify with critic pass for risky steps, plus an explicit Reflect/phase-summary step.
 
 ## v0.8.0 — 2026-08-01 — Atomic step-commit workflow
 

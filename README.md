@@ -37,7 +37,7 @@
 
 | | |
 |---|---|
-| FAST_INIT bootstrap cost | ~2,283 tokens (4 files, 9,133 chars) |
+| FAST_INIT bootstrap cost | ~2,333 tokens (4 files, 9,333 chars) |
 | AI tool adapters | 9 (Claude, Gemini, Codex, Cline, Roo Code, Cursor, Windsurf, Copilot, Aider; + Antigravity) |
 | Memory Bank files | 14 (lazy-loaded, indexed in `00-index.md`) |
 | Reusable skills | 7 (portable `.agents/skills` source + Claude/Cline mirrors) |
@@ -213,6 +213,7 @@ Full list: [`docs/toolbox.md`](docs/toolbox.md).
 - `scripts/check-template.py` — stdlib-only validator with `--fast`, `--compat`, `--benchmark`, `--check-remote`, and full mode.
 - `scripts/init-fast.py` — one-command bootstrap (detaches template remotes, validates, benchmarks, prints prompt).
 - `scripts/detach-remote.py` — detaches inherited template remotes, installs pre-push block hook, secures repository boundaries.
+- `scripts/upgrade-target.py` — automated target project upgrader (preserves custom code, rules, and skills).
 - Adapters: `CLAUDE.md`, `GEMINI.md`, `CONVENTIONS.md` (Aider), `.windsurfrules`, `.clinerules/` (Cline + Roo Code), `.agents/`, `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, `.codex/AGENTS.md`.
 - `.mcp.json`, `.vscode/mcp.json`, `.gemini/settings.example.json`, `.codex/config.example.toml` — Claude/VS Code MCP starters and inactive Gemini/Codex native examples.
 - `references/`, `assets/` — reference material and project asset folders.

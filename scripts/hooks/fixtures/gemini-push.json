@@ -1,0 +1,11 @@
+{
+  "session_id": "test-session-gemini-789",
+  "transcript_path": "<redacted-transcript-path>",
+  "cwd": ".",
+  "hook_event_name": "BeforeTool",
+  "timestamp": "2026-09-05T00:00:00Z",
+  "tool_name": "run_shell_command",
+  "tool_input": {
+    "command": "git push origin main"
+  }
+}

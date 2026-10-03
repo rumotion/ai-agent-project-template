@@ -1,0 +1,669 @@
+{
+  "baseline": "6ea5081",
+  "context": [
+    {
+      "id": "duplicate-id",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.\n\n## Risks\n- same p1: Keep this risk\n- same p1: Contradictory risk\n",
+        "chars": 270,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 67,
+        "included": [
+          "same",
+          "same"
+        ],
+        "malformed": [],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": []
+      }
+    },
+    {
+      "id": "cycle",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.",
+        "chars": 203,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 50,
+        "included": [],
+        "malformed": [],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": [
+          "a",
+          "b"
+        ]
+      }
+    },
+    {
+      "id": "self-supersede",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.",
+        "chars": 203,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 50,
+        "included": [],
+        "malformed": [],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": [
+          "a"
+        ]
+      }
+    },
+    {
+      "id": "missing-successor",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.\n\n## Risks\n- a p1: Keep this risk\n",
+        "chars": 237,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 59,
+        "included": [
+          "a"
+        ],
+        "malformed": [],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": []
+      }
+    },
+    {
+      "id": "bom-record",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.",
+        "chars": 203,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 50,
+        "included": [],
+        "malformed": [
+          "memory-bank/records/0.md: front-matter needs a kebab-case `id`"
+        ],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": []
+      }
+    },
+    {
+      "id": "empty-front-matter",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.",
+        "chars": 203,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 50,
+        "included": [],
+        "malformed": [
+          "memory-bank/records/0.md: front-matter needs a kebab-case `id`"
+        ],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": []
+      }
+    },
+    {
+      "id": "duplicate-key",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.\n\n## Facts\n- a p1: Keep this risk\n",
+        "chars": 237,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 59,
+        "included": [
+          "a"
+        ],
+        "malformed": [],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": []
+      }
+    },
+    {
+      "cli_exit_code": 1,
+      "cli_last_error": "UnicodeEncodeError: 'charmap' codec can't encode characters in position 227-626: character maps to <undefined>",
+      "id": "unicode-body",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.\n\n## Risks\n- a p1: \u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\u96aa\ud83d\ude42\u98a8\n",
+        "chars": 623,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 155,
+        "included": [
+          "a"
+        ],
+        "malformed": [],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": []
+      }
+    },
+    {
+      "cli_exit_code": 1,
+      "cli_last_error": "ValueError: invalid literal for int() with base 10: '\\xb9'",
+      "exception": "ValueError",
+      "id": "unicode-digit",
+      "message": "invalid literal for int() with base 10: '\u00b9'"
+    },
+    {
+      "id": "semantic-truncation",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.\n\n## Decisions\n- a p1: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+        "chars": 627,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 156,
+        "included": [
+          "a"
+        ],
+        "malformed": [],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": []
+      }
+    },
+    {
+      "id": "drop-successor",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.",
+        "chars": 203,
+        "client": "claude",
+        "dropped": [
+          "new"
+        ],
+        "est_tokens": 50,
+        "included": [],
+        "malformed": [],
+        "max_chars": 350,
+        "over_budget": false,
+        "superseded": [
+          "old"
+        ]
+      }
+    },
+    {
+      "id": "bom-handoff",
+      "status": {}
+    },
+    {
+      "common_prefix_chars": 223,
+      "id": "status-prefix-churn",
+      "total_chars": 263
+    },
+    {
+      "id": "missing-root",
+      "result": {
+        "blob": "# Compiled project context (for claude)\n# Deterministic output of scripts/ctx.py; treat this, not the transcript, as the source of truth.\n# AGENTS.md is already imported via CLAUDE.md; do not re-read it.",
+        "blob_sha256": "527b5946f8c7e1fff5d18bd3a95037333d9e7a64655682127166a0e3b5486ba3",
+        "chars": 203,
+        "client": "claude",
+        "dropped": [],
+        "est_tokens": 50,
+        "included": [],
+        "malformed": [],
+        "max_chars": 6000,
+        "over_budget": false,
+        "superseded": []
+      }
+    }
+  ],
+  "environment": {
+    "platform": "win32",
+    "python": "3.13.9",
+    "sh": "C:\\Program Files\\Git\\bin\\sh.exe"
+  },
+  "installers": [
+    {
+      "dot_git_is_file": true,
+      "hook_installed": false,
+      "id": "linked-worktree"
+    },
+    {
+      "id": "existing-permissive-hook",
+      "preserved_permissive": true
+    }
+  ],
+  "lf_gate": {
+    "committed_blob_has_cr": true,
+    "text_mode_has_cr": false
+  },
+  "local_git": [
+    {
+      "exit_code": 1,
+      "guard_blocked": true,
+      "id": "normal-agent",
+      "stderr": "\n  PUSH BLOCKED - this push originates from an agent session.\n\n  Publishing requires an explicit human instruction (AGENTS.md ->\n  Repository boundaries). Commit locally, then ask.\n\n  If the human already authorized it, run from a real terminal:\n    ALLOW_AGENT_PUSH=1 git push ...\n\nerror: failed to push some refs to '<temporary-fixture>\\receiver.git'\n"
+    },
+    {
+      "exit_code": 0,
+      "guard_blocked": false,
+      "id": "alias-and-hooksPath",
+      "stderr": "To <temporary-fixture>\\receiver.git\n * [new branch]      HEAD -> alias\n"
+    },
+    {
+      "exit_code": 0,
+      "guard_blocked": false,
+      "id": "alias-and-no-verify",
+      "stderr": "To <temporary-fixture>\\receiver.git\n * [new branch]      HEAD -> noverify\n"
+    },
+    {
+      "exit_code": 0,
+      "guard_blocked": true,
+      "id": "send-pack",
+      "stderr": "To <temporary-fixture>\\receiver.git\n * [new branch]      HEAD -> plumbing\n"
+    }
+  ],
+  "new_project": {
+    "active_mcp": [],
+    "exit_code": 0,
+    "hook_exists": true,
+    "records": [
+      "fact-project-created.md"
+    ]
+  },
+  "pre_push": [
+    {
+      "exit_code": 0,
+      "id": "human"
+    },
+    {
+      "exit_code": 1,
+      "id": "agent"
+    },
+    {
+      "exit_code": 1,
+      "id": "template"
+    },
+    {
+      "exit_code": 0,
+      "id": "escape-template"
+    },
+    {
+      "exit_code": 0,
+      "id": "unlisted-client"
+    }
+  ],
+  "python39_syntax": {
+    "errors": [],
+    "files": 9
+  },
+  "remote": [
+    {
+      "blocked": false,
+      "command": "# <<EOF\ngit push",
+      "defect": true,
+      "expected_block": true,
+      "id": "comment-heredoc"
+    },
+    {
+      "blocked": false,
+      "command": "printf '%s\\n' '<<EOF'\ngit push",
+      "defect": true,
+      "expected_block": true,
+      "id": "quoted-heredoc-opener"
+    },
+    {
+      "blocked": false,
+      "command": "cat <<EOF\n$(git push)\nEOF",
+      "defect": true,
+      "expected_block": true,
+      "id": "expanding-heredoc"
+    },
+    {
+      "blocked": false,
+      "command": "cat <<'EOF'\ngit push\nEOF",
+      "defect": false,
+      "expected_block": false,
+      "id": "quoted-heredoc-data"
+    },
+    {
+      "blocked": false,
+      "command": "env -i git push",
+      "defect": true,
+      "expected_block": true,
+      "id": "wrapper-options"
+    },
+    {
+      "blocked": false,
+      "command": "/usr/bin/env git push",
+      "defect": true,
+      "expected_block": true,
+      "id": "wrapper-path"
+    },
+    {
+      "blocked": false,
+      "command": "timeout 10 git push",
+      "defect": true,
+      "expected_block": true,
+      "id": "timeout-wrapper"
+    },
+    {
+      "blocked": false,
+      "command": "f() { git push; }; f",
+      "defect": true,
+      "expected_block": true,
+      "id": "function-prefix"
+    },
+    {
+      "blocked": false,
+      "command": "git -c alias.pp=push pp",
+      "defect": true,
+      "expected_block": true,
+      "id": "git-alias"
+    },
+    {
+      "blocked": false,
+      "command": "git config core.hooksPath /dev/null",
+      "defect": true,
+      "expected_block": true,
+      "id": "hook-config-write"
+    },
+    {
+      "blocked": false,
+      "command": "git --config-env=alias.pp=PUSH_ALIAS pp",
+      "defect": true,
+      "expected_block": true,
+      "id": "git-config-env"
+    },
+    {
+      "blocked": false,
+      "command": "hub push",
+      "defect": true,
+      "expected_block": true,
+      "id": "hub-push"
+    },
+    {
+      "blocked": false,
+      "command": "gh api repos/o/r/issues --input payload.json",
+      "defect": true,
+      "expected_block": true,
+      "id": "gh-stdin-post"
+    },
+    {
+      "blocked": true,
+      "command": "gh api repos/o/r/issues -F title=x",
+      "defect": false,
+      "expected_block": true,
+      "id": "gh-upper-field"
+    },
+    {
+      "blocked": false,
+      "command": "gh api graphql --input mutation.json",
+      "defect": true,
+      "expected_block": true,
+      "id": "gh-graphql-mutation"
+    },
+    {
+      "blocked": false,
+      "command": "gh issue comment 1 --body x",
+      "defect": true,
+      "expected_block": true,
+      "id": "gh-comment"
+    },
+    {
+      "blocked": true,
+      "command": "gh api -X GET search/issues -f q=repo:o/r",
+      "defect": true,
+      "expected_block": false,
+      "id": "gh-raw-read-false-positive"
+    },
+    {
+      "blocked": false,
+      "command": "python3.9 -c \"import os; os.system('git push')\"",
+      "defect": true,
+      "expected_block": true,
+      "id": "python-exe-version"
+    },
+    {
+      "blocked": false,
+      "command": "python -c \"import subprocess; subprocess.run(['git', 'pu'+'sh'])\"",
+      "defect": true,
+      "expected_block": true,
+      "id": "python-split-code"
+    },
+    {
+      "blocked": true,
+      "command": "python -c \"print('git push')\"",
+      "defect": true,
+      "expected_block": false,
+      "id": "print-code-false-positive"
+    },
+    {
+      "blocked": true,
+      "command": "git config --get remote.origin.url",
+      "defect": true,
+      "expected_block": false,
+      "id": "remote-config-read-false-positive"
+    },
+    {
+      "blocked": true,
+      "command": "git\" \"push",
+      "defect": true,
+      "expected_block": false,
+      "id": "quoted-program-false-positive"
+    },
+    {
+      "blocked": true,
+      "command": "git -c core.hooksPath=/dev/null push",
+      "defect": false,
+      "expected_block": true,
+      "id": "ordinary-push"
+    },
+    {
+      "blocked": false,
+      "command": "sh -c 'sh -c '\"'\"'sh -c '\"'\"'\"'\"'\"'\"'\"'\"'sh -c '\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'sh -c '\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'sh -c '\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'sh -c '\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'git push'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"''\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"''\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"''\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"'\"''\"'\"'\"'\"'\"'\"'\"'\"''\"'\"''",
+      "defect": true,
+      "expected_block": true,
+      "id": "depth-cap"
+    }
+  ],
+  "schemas": [
+    {
+      "errors": [],
+      "id": "path-traversal"
+    },
+    {
+      "errors": [],
+      "id": "memory-worker"
+    },
+    {
+      "errors": [],
+      "id": "contradictory-paths"
+    },
+    {
+      "errors": [],
+      "id": "false-masking"
+    },
+    {
+      "errors": [
+        "task.owned_paths: fewer than minItems 1"
+      ],
+      "id": "read-only-empty-owner"
+    },
+    {
+      "errors": [],
+      "id": "unsupported-const"
+    },
+    {
+      "errors": [],
+      "id": "number-bounds"
+    },
+    {
+      "errors": [],
+      "id": "nonfinite-number"
+    },
+    {
+      "errors": [],
+      "id": "uncapped-result",
+      "serialized_chars": 503038,
+      "summary_words": 150
+    }
+  ],
+  "sensitive": [
+    {
+      "blocked": false,
+      "defect": true,
+      "expected_block": true,
+      "id": "redirection-cmd-key",
+      "input": {
+        "cmd": "echo demo > .env"
+      },
+      "paths": []
+    },
+    {
+      "blocked": false,
+      "defect": true,
+      "expected_block": true,
+      "id": "redirection-commandline-key",
+      "input": {
+        "CommandLine": "echo demo > .env"
+      },
+      "paths": []
+    },
+    {
+      "blocked": false,
+      "defect": true,
+      "expected_block": true,
+      "id": "cp-options",
+      "input": {
+        "command": "cp -f src .env"
+      },
+      "paths": [
+        "src"
+      ]
+    },
+    {
+      "blocked": false,
+      "defect": true,
+      "expected_block": true,
+      "id": "tee-options",
+      "input": {
+        "command": "printf demo | tee --append .env"
+      },
+      "paths": [
+        "--append"
+      ]
+    },
+    {
+      "blocked": false,
+      "defect": true,
+      "expected_block": true,
+      "id": "tee-multiple",
+      "input": {
+        "command": "printf demo | tee notes.txt .env"
+      },
+      "paths": [
+        "notes.txt"
+      ]
+    },
+    {
+      "blocked": false,
+      "defect": true,
+      "expected_block": true,
+      "id": "quoted-space-path",
+      "input": {
+        "command": "echo demo > \"private dir/.env\""
+      },
+      "paths": [
+        "private"
+      ]
+    },
+    {
+      "blocked": false,
+      "defect": true,
+      "expected_block": true,
+      "id": "powershell-set-content",
+      "input": {
+        "command": "Set-Content -LiteralPath .env -Value demo"
+      },
+      "paths": []
+    },
+    {
+      "blocked": false,
+      "defect": true,
+      "expected_block": true,
+      "id": "python-write",
+      "input": {
+        "command": "python -c \"open('.env','w').write('demo')\""
+      },
+      "paths": []
+    },
+    {
+      "blocked": false,
+      "defect": true,
+      "expected_block": true,
+      "id": "trailing-command-punctuation",
+      "input": {
+        "command": "echo demo > secret.key; echo done"
+      },
+      "paths": [
+        "secret.key;"
+      ]
+    },
+    {
+      "blocked": true,
+      "defect": true,
+      "expected_block": false,
+      "id": "path-normalization-fp",
+      "input": {
+        "file_path": ".env/../safe.txt"
+      },
+      "paths": [
+        ".env/../safe.txt"
+      ]
+    },
+    {
+      "blocked": true,
+      "defect": true,
+      "expected_block": false,
+      "id": "quoted-data-fp",
+      "input": {
+        "command": "printf '%s' 'example > .env'"
+      },
+      "paths": [
+        ".env"
+      ]
+    },
+    {
+      "blocked": true,
+      "defect": false,
+      "expected_block": true,
+      "id": "starter-policy-restriction",
+      "input": {
+        "command": "cp examples/sample .env.example"
+      },
+      "paths": [
+        ".env.example"
+      ]
+    }
+  ],
+  "shell_semantics": [
+    {
+      "exit_code": 0,
+      "id": "comment-heredoc",
+      "stderr": "",
+      "stdout": "MOCK_GIT:push\n"
+    },
+    {
+      "exit_code": 0,
+      "id": "quoted-heredoc-opener",
+      "stderr": "",
+      "stdout": "<<EOF\nMOCK_GIT:push\n"
+    },
+    {
+      "exit_code": 0,
+      "id": "expanding-heredoc",
+      "stderr": "",
+      "stdout": "MOCK_GIT:push\n"
+    },
+    {
+      "exit_code": 127,
+      "id": "quoted-program-false-positive",
+      "stderr": "/usr/bin/bash: line 2: git push: command not found\n",
+      "stdout": ""
+    }
+  ]
+}

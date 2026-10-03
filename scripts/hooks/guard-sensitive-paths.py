@@ -12,6 +12,8 @@ import argparse
 import json
 import re
 import sys
+import posixpath
+from shell_events import command as event_command, tool_input as event_input, write_paths
 from typing import Dict, List
 
 
@@ -21,6 +23,12 @@ SENSITIVE_RE = re.compile(
 )
 PATCH_PATH_RE = re.compile(
     r"(?m)^\*\*\* (?:Add|Update|Delete) File:\s*(.+?)\s*$"
+)
+# Shell write targets: `> .env`, `>> .key`, `tee -a .env`, `cp src .pem`,
+# `mv x token.json`. Writing a sensitive path via shell instead of the write
+# tool must not be a bypass.
+SHELL_WRITE_RE = re.compile(
+    r"(?:>>?\s*|\btee\b(?:\s+-a)?\s+|\bcp\b\s+\S+\s+|\bmv\b\s+\S+\s+)\s*(?P<target>\S+)"
 )
 DENIAL_REASON = "Access to a sensitive path is denied by repository policy."
 
@@ -36,25 +44,26 @@ def parse_event(raw_input: str) -> Dict[str, object]:
 
 
 def extract_paths(event: Dict[str, object]) -> List[str]:
-    tool_input = event.get("tool_input")
-    if not isinstance(tool_input, dict):
-        tool_input = event.get("input")
-    if not isinstance(tool_input, dict):
-        tool_input = {}
+    tool_input = event_input(event)
 
     paths: List[str] = []
-    for key in ("file_path", "path"):
+    for key in ("file_path", "path", "TargetFile", "target_file", "AbsolutePath", "absolute_path"):
         value = tool_input.get(key)
         if isinstance(value, str) and value:
             paths.append(value)
             break
 
-    command = tool_input.get("command")
+    command = event_command(event)
     if isinstance(command, str):
         paths.extend(PATCH_PATH_RE.findall(command))
+        paths.extend(write_paths(command))
+    for key in ("patch", "input"):
+        value = tool_input.get(key)
+        if isinstance(value, str):
+            paths.extend(PATCH_PATH_RE.findall(value))
 
     if not paths:
-        for key in ("file_path", "path"):
+        for key in ("file_path", "path", "TargetFile", "target_file"):
             value = event.get(key)
             if isinstance(value, str) and value:
                 paths.append(value)
@@ -65,7 +74,7 @@ def extract_paths(event: Dict[str, object]) -> List[str]:
 def is_sensitive(raw_path: object) -> bool:
     if not isinstance(raw_path, str) or not raw_path:
         return False
-    return bool(SENSITIVE_RE.search(raw_path.replace("\\", "/")))
+    return bool(SENSITIVE_RE.search(posixpath.normpath(raw_path.replace("\\", "/"))))
 
 
 def denial_for(client: str) -> Dict[str, object]:

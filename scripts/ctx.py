@@ -1,0 +1,424 @@
+#!/usr/bin/env python3
+"""Context Compiler: build a deterministic, budget-capped, cache-stable
+startup blob from the typed Memory Bank.
+
+Instead of every agent re-reading prose memory files in a model-dependent
+order, `ctx.py compile` renders a single, byte-stable context blob from:
+
+* `memory-bank/handoff.md` front-matter (status, task, next_action,
+  blocking_issues), and
+* typed records in `memory-bank/records/*.md`:
+
+      ---
+      id: kebab-case-id
+      type: fact | decision | risk | preference
+      priority: 1-5     # 1 = keep-alive, 5 = drop first when over budget
+      superseded_by: optional-record-id
+      ---
+
+Section order is fixed (status -> decisions -> risks -> facts ->
+preferences; then priority, then id). An over-budget blob drops droppable
+records (preferences first, then facts, highest priority number first) but
+never decision, risk, or status records. Output is deterministic: the same
+memory compiles to the same bytes, so repeated sessions maximize
+prompt-cache prefix hits instead of paying for re-read variance.
+
+Usage:
+
+    python scripts/ctx.py compile --for claude [--max-chars N] [--json] [--check]
+    python scripts/ctx.py self-test
+
+Exit codes: 0 ok, 1 over-budget or malformed records (in every compile mode; or
+always in self-test failure), 2 usage error.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+import sys
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+TYPE_RANK = {"decision": 0, "risk": 1, "fact": 2, "preference": 3}
+DROPPABLE_TYPES = {"fact", "preference"}
+RECORD_ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,63}$")
+DEFAULT_MAX_CHARS = 6_000
+MAX_SOURCE_BYTES = 16_384
+
+CLIENT_NOTES = {
+    "claude": "AGENTS.md is already imported via CLAUDE.md; do not re-read it.",
+    "gemini": "AGENTS.md is already imported via GEMINI.md; do not re-read it.",
+    "codex": "AGENTS.md is already loaded; do not re-read it.",
+    "cline": "AGENTS.md and the .clinerules pointers are already loaded; do not re-read them.",
+    "cursor": "AGENTS.md is already loaded via the rules adapter; do not re-read it.",
+    "antigravity": "AGENTS.md and the .agents/rules are already loaded; do not re-read them.",
+    "generic": "AGENTS.md is already in your context; do not re-read it.",
+}
+
+
+def parse_front_matter(text: str) -> Tuple[Dict[str, str], str]:
+    """Parse a minimal `key: value` front-matter block. Returns ({}, text) if absent."""
+    lines = text.lstrip('\ufeff').splitlines()
+    if not lines or lines[0].strip() != "---":
+        return {}, text
+    try:
+        closing = next(i for i, line in enumerate(lines[1:], 1) if line.strip() == "---")
+    except StopIteration:
+        raise ValueError('unterminated front matter')
+    fields: Dict[str, str] = {}
+    for line in lines[1:closing]:
+        if ":" in line:
+            key, value = line.split(":", 1)
+            key = key.strip()
+            if key in fields:
+                raise ValueError('duplicate front-matter key')
+            fields[key] = value.strip()
+    body = "\n".join(lines[closing + 1:]).strip()
+    return fields, body
+
+
+def load_handoff_status(root: Path) -> Dict[str, str]:
+    handoff = root / "memory-bank" / "handoff.md"
+    status: Dict[str, str] = {}
+    if not handoff.is_file():
+        return status
+    fields, _ = parse_front_matter(handoff.read_text(encoding="utf-8-sig"))
+    for key in ("status", "task", "next_action", "blocking_issues"):
+        value = fields.get(key, "").strip()
+        if value and value.lower() not in ("[]", "none", "tbd"):
+            status[key] = value
+    return status
+
+
+def load_records(root: Path) -> Tuple[List[Dict[str, Any]], List[str]]:
+    """Load and validate typed records. Returns (records, errors)."""
+    records_dir = root / "memory-bank" / "records"
+    records: List[Dict[str, Any]] = []
+    errors: List[str] = []
+    if not records_dir.is_dir():
+        return records, ['missing memory-bank/records directory']
+    for path in sorted(records_dir.glob("*.md")):
+        try:
+            if path.is_symlink() or path.stat().st_size > MAX_SOURCE_BYTES:
+                raise ValueError("record is a symlink or exceeds source byte limit")
+            fields, body = parse_front_matter(path.read_text(encoding="utf-8-sig"))
+        except (OSError, ValueError):
+            errors.append("{}: unreadable or malformed record".format(path.relative_to(root).as_posix()))
+            continue
+        rel = path.relative_to(root).as_posix()
+        record_id = fields.get("id", "")
+        record_type = fields.get("type", "")
+        priority_raw = fields.get("priority", "")
+        if not RECORD_ID_RE.fullmatch(record_id):
+            errors.append("{}: front-matter needs a kebab-case `id`".format(rel))
+            continue
+        if record_type not in TYPE_RANK:
+            errors.append("{}: `type` must be one of {}".format(rel, sorted(TYPE_RANK)))
+            continue
+        if not re.fullmatch(r"[1-5]", priority_raw):
+            errors.append("{}: `priority` must be an integer 1-5".format(rel))
+            continue
+        if not body:
+            errors.append("{}: record body is empty".format(rel))
+            continue
+        records.append(
+            {
+                "id": record_id,
+                "type": record_type,
+                "priority": int(priority_raw),
+                "superseded_by": fields.get("superseded_by", "").strip(),
+                "body": " ".join(body.split()),
+            }
+        )
+    return records, errors
+
+
+def active_records(records: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """Require a unique, acyclic, same-type supersession graph."""
+    by_id: Dict[str, Dict[str, Any]] = {}
+    for record in records:
+        rid = record["id"]
+        if rid in by_id:
+            raise ValueError("duplicate record id")
+        by_id[rid] = record
+    for record in records:
+        target = record["superseded_by"]
+        if target:
+            if target not in by_id or target == record["id"]:
+                raise ValueError("missing successor or self supersession")
+            if by_id[target]["type"] != record["type"]:
+                raise ValueError("supersession must preserve record type")
+    done = set()
+    for rid in by_id:
+        chain = set()
+        cursor = rid
+        while cursor and cursor not in done:
+            if cursor in chain:
+                raise ValueError("supersession cycle")
+            chain.add(cursor)
+            cursor = by_id[cursor]["superseded_by"]
+        done.update(chain)
+    return ([r for r in records if not r["superseded_by"]],
+            [r for r in records if r["superseded_by"]])
+
+
+def render_blob(status: Dict[str, str], records: List[Dict[str, Any]]) -> str:
+    """Render the deterministic blob body (status + typed records)."""
+    lines: List[str] = []
+    if status:
+        lines.append("## Status")
+        for key in ("status", "task", "next_action", "blocking_issues"):
+            if key in status:
+                lines.append("{}: {}".format(key.replace("_", " "), status[key]))
+        lines.append("")
+    for record_type in ("decision", "risk", "fact", "preference"):
+        group = [r for r in records if r["type"] == record_type]
+        if not group:
+            continue
+        lines.append("## {}s".format(record_type.capitalize()))
+        for record in group:
+            lines.append(
+                "- {id} p{priority}: {body}".format(
+                    id=record["id"], priority=record["priority"], body=record["body"]
+                )
+            )
+        lines.append("")
+    return "\n".join(lines).rstrip()
+
+
+def build_blob(client: str, status: Dict[str, str], records: List[Dict[str, Any]]) -> str:
+    note = CLIENT_NOTES.get(client, CLIENT_NOTES["generic"])
+    header = (
+        "# Compiled project context (for {})\n"
+        "# Validated projection of source records; current user instructions take precedence.\n"
+        "# {}\n"
+    ).format(client, note)
+    # Stable durable records precede volatile task status for prefix reuse.
+    body = "\n\n".join(part for part in (render_blob({}, records), render_blob(status, [])) if part)
+    if not body:
+        return header.rstrip()
+    return header + "\n" + body + "\n"
+
+
+def distill(
+    client: str,
+    status: Dict[str, str],
+    records: List[Dict[str, Any]],
+    max_chars: int,
+) -> Tuple[str, List[Dict[str, Any]], List[Dict[str, Any]], bool]:
+    """Drop droppable records (worst first) until the blob fits the budget.
+
+    Returns (blob, kept, dropped, over_budget). Decision, risk, and status
+    records are never dropped; if the blob still exceeds max_chars the
+    result is over_budget and the caller decides how harshly to fail.
+    """
+    kept = sorted(records, key=lambda r: (TYPE_RANK[r["type"]], r["priority"], r["id"]))
+    dropped: List[Dict[str, Any]] = []
+    blob = build_blob(client, status, kept)
+    while len(blob) > max_chars:
+        candidates = [r for r in kept if r["type"] in DROPPABLE_TYPES]
+        if not candidates:
+            return blob, kept, dropped, True
+        worst = max(candidates, key=lambda r: (TYPE_RANK[r["type"]], r["priority"], r["id"]))
+        kept.remove(worst)
+        dropped.append(worst)
+        blob = build_blob(client, status, kept)
+    return blob, kept, dropped, False
+
+
+def compile_context(root: Path, client: str, max_chars: int) -> Dict[str, Any]:
+    status: Dict[str, str] = {}
+    records: List[Dict[str, Any]] = []
+    errors: List[str] = []
+    active: List[Dict[str, Any]] = []
+    superseded: List[Dict[str, Any]] = []
+    if max_chars < 1:
+        errors.append("max_chars must be positive")
+    try:
+        status = load_handoff_status(root)
+        records, record_errors = load_records(root)
+        errors.extend(record_errors)
+        if not errors:
+            active, superseded = active_records(records)
+    except (OSError, ValueError):
+        errors.append("invalid handoff or supersession graph")
+    if errors:
+        blob, kept, dropped, over_budget = "", [], [], False
+    else:
+        blob, kept, dropped, over_budget = distill(client, status, active, max_chars)
+    return {
+        "client": client, "blob": blob,
+        "blob_sha256": hashlib.sha256(blob.encode("utf-8")).hexdigest(),
+        "chars": len(blob), "est_tokens": len(blob) // 4,
+        "render_version": 2,
+        "stable_prefix_chars": len(build_blob(client, {}, kept)) if not errors else 0,
+        "stable_prefix_sha256": hashlib.sha256(build_blob(client, {}, kept).encode("utf-8")).hexdigest() if not errors else None,
+        "measured_tokens": None,
+        "token_measurement": "unmeasured; est_tokens is a characters/4 heuristic",
+        "max_chars": max_chars, "included": [r["id"] for r in kept],
+        "dropped": [r["id"] for r in dropped],
+        "superseded": [r["id"] for r in superseded],
+        "malformed": errors, "over_budget": over_budget,
+    }
+
+
+def run_self_test() -> None:
+    import tempfile
+
+    def record(rid: str, rtype: str, priority: int, body: str, superseded_by: str = "") -> str:
+        return "---\nid: {}\ntype: {}\npriority: {}\nsuperseded_by: {}\n---\n{}\n".format(
+            rid, rtype, priority, superseded_by, body
+        )
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        records_dir = root / "memory-bank" / "records"
+        records_dir.mkdir(parents=True)
+        (root / "memory-bank" / "handoff.md").write_text(
+            "---\nstatus: self-test\nnext_action: verify compiler\n---\n\n# Handoff\n",
+            encoding="utf-8",
+        )
+        (records_dir / "a-decision.md").write_text(
+            record("a-decision", "decision", 1, "Keep decisions forever"), encoding="utf-8"
+        )
+        (records_dir / "b-risk.md").write_text(
+            record("b-risk", "risk", 1, "Risks stay too"), encoding="utf-8"
+        )
+        (records_dir / "c-fact.md").write_text(
+            record("c-fact", "fact", 1, "Important fact that survives"), encoding="utf-8"
+        )
+        (records_dir / "d-fact.md").write_text(
+            record("d-fact", "fact", 5, "Droppable fact"), encoding="utf-8"
+        )
+        (records_dir / "e-pref.md").write_text(
+            record("e-pref", "preference", 5, "Droppable preference"), encoding="utf-8"
+        )
+        (records_dir / "f-old.md").write_text(
+            record("f-old", "fact", 3, "Old fact", superseded_by="c-fact"), encoding="utf-8"
+        )
+        (records_dir / "z-bad.md").write_text(
+            "---\nid: Bad Id\ntype: thought\npriority: 9\n---\nbroken", encoding="utf-8"
+        )
+
+        invalid = compile_context(root, "claude", DEFAULT_MAX_CHARS)
+        assert invalid["malformed"] and invalid["blob"] == ""
+        (records_dir / "z-bad.md").unlink()
+        first = compile_context(root, "claude", DEFAULT_MAX_CHARS)
+        second = compile_context(root, "claude", DEFAULT_MAX_CHARS)
+        assert first["blob"] == second["blob"], "compile must be deterministic"
+        assert first["blob_sha256"] == second["blob_sha256"]
+
+        blob = first["blob"]
+        assert (
+            blob.index("## Decisions")
+            < blob.index("## Risks")
+            < blob.index("## Facts")
+            < blob.index("## Status")
+        ), "section order must be fixed"
+        assert "f-old" not in blob, "superseded record must be excluded"
+        assert "c-fact" in blob, "successor record must be included"
+        assert not first["malformed"]
+        assert "e-pref" in blob, "nothing should drop while under budget"
+        assert "do not re-read" in blob, "client dedup note missing"
+
+        tiny = compile_context(root, "claude", 420)
+        assert "e-pref" not in tiny["blob"], "preferences must drop first"
+        assert "d-fact" not in tiny["blob"], "priority-5 facts must drop before priority-1"
+        assert "a-decision" in tiny["blob"] and "b-risk" in tiny["blob"], "decisions/risks never drop"
+        assert not tiny["over_budget"], "fits once droppables are gone"
+
+        cramped = compile_context(root, "claude", 240)
+        assert cramped["over_budget"], "non-droppable remainder must be flagged over budget"
+        assert "a-decision" in cramped["blob"] and "b-risk" in cramped["blob"], "decisions/risks never drop"
+
+        # Unknown client is rejected by argparse choices, not a crash.
+        try:
+            result = compile_context(root, "not-a-client", DEFAULT_MAX_CHARS)
+            assert "do not re-read" in result["blob"], "unknown clients fall back to generic note"
+        except (KeyError, SystemExit):
+            raise AssertionError("unknown client must not raise")
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    sub = parser.add_subparsers(dest="command", required=True)
+    compile_parser = sub.add_parser("compile", help="Compile the deterministic context blob.")
+    compile_parser.add_argument("--for", dest="client", required=True, choices=sorted(CLIENT_NOTES))
+    compile_parser.add_argument("--max-chars", type=int, default=DEFAULT_MAX_CHARS)
+    compile_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON.")
+    compile_parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Exit 1 on validation failure (retained for CLI compatibility).",
+    )
+    compile_parser.add_argument(
+        "--root",
+        type=Path,
+        default=None,
+        help="Repository root override (used by tooling; defaults to this repo).",
+    )
+    sub.add_parser("self-test", help="Run the deterministic harness tests.")
+    return parser.parse_args()
+
+
+def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    args = parse_args()
+
+    if args.command == "self-test":
+        try:
+            run_self_test()
+        except AssertionError as err:
+            print("FAIL: {}".format(err), file=sys.stderr)
+            return 1
+        print("Context compiler self-test passed.")
+        return 0
+
+    root = args.root if args.root is not None else ROOT
+    result = compile_context(root, args.client, args.max_chars)
+
+    if result["malformed"] or result["over_budget"]:
+        # Machine mode preserves diagnostics, but never emits usable invalid context.
+        result["blob"] = ""
+        result["blob_sha256"] = hashlib.sha256(b"").hexdigest()
+        result["projected_chars"] = result["chars"]
+        result["chars"] = 0
+        result["est_tokens"] = 0
+        if args.json:
+            print(json.dumps(result, indent=2, sort_keys=True))
+        else:
+            print("ctx: invalid or over-budget context; inspect --json diagnostics", file=sys.stderr)
+        return 1
+
+    if args.json:
+        print(json.dumps(result, indent=2, sort_keys=True))
+    else:
+        print(result["blob"], end="" if result["blob"].endswith("\n") else "\n")
+        print(
+            "ctx: {} chars (~{} tokens), sha256 {}, {} included, {} dropped, {} superseded".format(
+                result["chars"],
+                result["est_tokens"],
+                result["blob_sha256"][:12],
+                len(result["included"]),
+                len(result["dropped"]),
+                len(result["superseded"]),
+            ),
+            file=sys.stderr,
+        )
+        for error in result["malformed"]:
+            print("ctx: malformed: {}".format(error), file=sys.stderr)
+
+    if args.check and (result["malformed"] or result["over_budget"]):
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

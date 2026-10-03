@@ -26,8 +26,11 @@ It will:
 | `upgrade-target.py` | Automated project upgrader tool; upgrades any target repo to latest template standard while preserving custom code, rules, and skills. |
 | `check-template.py` | Template validator. Modes: `--fast` (lightweight), `--compat` (cross-agent contract), full (no flag), `--benchmark` (token cost only), `--check-remote` (remote audit). |
 | `benchmark-context.py` | Offline manifest-based context measurement and sanitized paired-usage comparison; supports `--json` and `--self-test`. |
+| `ctx.py` | Context Compiler: deterministic, budget-capped startup blob from typed `memory-bank/records/` (`compile --for <client>`, `self-test`). |
 | `hooks/log-writes.py` | Passive write event logger (writes metadata to `.agent-logs/session.jsonl`). |
-| `hooks/guard-sensitive-paths.py` | Client-aware path guard with verified Claude, Gemini, and Codex denial outputs. |
+| `hooks/guard-sensitive-paths.py` | Client-aware path guard with verified Claude, Gemini, and Codex denial outputs; also inspects shell redirection/copy targets. |
+| `hooks/guard-remote-ops.py` | Client-aware publishing guard; blocks git/gh publishing incl. plumbing and interpreter indirection. |
+| `hooks/git/pre-push` | POSIX sh push backstop covering clients with no hook runtime; installed by `init-fast.py`/`new-project.py`. |
 | `hooks/verify-fixtures.py` | Temp-only harness for normalized logs, redaction, malformed input, and native denial shapes. |
 
 ## Validator details
@@ -52,3 +55,5 @@ Full mode enforces:
 - Document inputs and side effects in the script's docstring.
 - Do not store secrets in `scripts/`.
 - Ask before adding scripts that call paid APIs or modify external systems.
+
+Regenerate tracked skill/workflow mirrors with `python scripts/gen-adapters.py --write`; verify with `--check`. Inspect advisory boundaries with `python scripts/boundary.py inspect --client codex --json`. Stronger containment/release profiles are unsupported and fail verification. Full template validation includes the second-order regression scripts.

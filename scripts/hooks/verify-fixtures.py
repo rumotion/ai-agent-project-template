@@ -21,6 +21,8 @@ ROOT = Path(__file__).resolve().parents[2]
 FIXTURES_DIR = ROOT / "scripts" / "hooks" / "fixtures"
 LOG_WRITES_SCRIPT = ROOT / "scripts" / "hooks" / "log-writes.py"
 GUARD_SCRIPT = ROOT / "scripts" / "hooks" / "guard-sensitive-paths.py"
+REMOTE_GUARD_SCRIPT = ROOT / "scripts" / "hooks" / "guard-remote-ops.py"
+SESSION_CONTEXT_SCRIPT = ROOT / "scripts" / "hooks" / "session-context.py"
 LOG_KEYS = {
     "schema_version",
     "timestamp",
@@ -272,6 +274,192 @@ def test_guard_sensitive_paths() -> None:
         )
         assert code == 0 and not stdout and not stderr
 
+    # Shell redirection writes to sensitive paths must be denied too
+    # (audit hardening: write-tool-only checks were a bypass).
+    shell_denials = [
+        'echo "SECRET=1" > .env',
+        "cat id_rsa.txt >> server.key",
+        "tee -a .env",
+        "cp leaked.txt backup.pem",
+        "mv token.txt token.json",
+        'echo "K=v" > ".env"',
+    ]
+    for command in shell_denials:
+        code, stdout, stderr = run_script(
+            GUARD_SCRIPT,
+            json.dumps({"tool_name": "Bash", "tool_input": {"command": command}}),
+            ["--client", "claude"],
+        )
+        assert code == 0 and "deny" in stdout, "shell write not denied: " + command
+        assert ".env" not in stdout and ".key" not in stdout
+
+    # Ordinary shell output files must pass through.
+    shell_safe = [
+        "git diff > notes.md",
+        "echo done > build.log",
+        "cp src/main.py backup/",
+        "python run.py > out.txt",
+    ]
+    for command in shell_safe:
+        code, stdout, stderr = run_script(
+            GUARD_SCRIPT,
+            json.dumps({"tool_name": "Bash", "tool_input": {"command": command}}),
+            ["--client", "claude"],
+        )
+        assert code == 0 and not stdout, "false positive: " + command
+
+
+def expected_remote_denial(client: str) -> Dict[str, object]:
+    reason = (
+        "Publishing is denied by repository policy (AGENTS.md -> Repository "
+        "boundaries). Pushing, remote changes, and PR/repo creation require an "
+        "explicit human instruction in the current conversation. Commit locally "
+        "instead, then ask."
+    )
+    if client == "gemini":
+        return {"decision": "deny", "reason": reason}
+    return {
+        "hookSpecificOutput": {
+            "hookEventName": "PreToolUse",
+            "permissionDecision": "deny",
+            "permissionDecisionReason": reason,
+        }
+    }
+
+
+def test_guard_remote_ops() -> None:
+    for client in EXPECTED_WRITES:
+        # A push must be denied in the client's native shape.
+        code, stdout, stderr = run_script(
+            REMOTE_GUARD_SCRIPT, fixture_text(client, "push"), ["--client", client]
+        )
+        assert code == 0 and not stderr
+        assert json.loads(stdout) == expected_remote_denial(client)
+        # The denial must not echo the command or a remote URL.
+        assert "origin" not in stdout and "git push" not in stdout
+
+        # Read-only git work that merely mentions "push" must pass through.
+        code, stdout, stderr = run_script(
+            REMOTE_GUARD_SCRIPT, fixture_text(client, "shell-safe"), ["--client", client]
+        )
+        assert code == 0 and not stdout and not stderr, "false positive on safe shell command"
+
+        # Malformed input fails open.
+        code, stdout, stderr = run_script(
+            REMOTE_GUARD_SCRIPT, fixture_text(client, "malformed"), ["--client", client]
+        )
+        assert code == 0 and not stdout and not stderr
+
+
+    # Regression: heredoc bodies are data. Writing a commit message or document
+    # that merely mentions "git push" must not be denied, but a real command on
+    # the heredoc-invoking line must still be caught.
+    heredoc_safe = "\n".join(
+        [
+            "git commit -F - <<'MSG'",
+            "fix: block git push",
+            "- git push / remote add is denied",
+            "MSG",
+        ]
+    )
+    code, stdout, stderr = run_script(
+        REMOTE_GUARD_SCRIPT,
+        json.dumps({"tool_name": "Bash", "tool_input": {"command": heredoc_safe}}),
+        ["--client", "claude"],
+    )
+    assert code == 0 and not stdout and not stderr, "heredoc body must not be parsed as a command"
+
+    heredoc_blocked = "\n".join(["git push origin main <<'EOF'", "notes", "EOF"])
+    code, stdout, stderr = run_script(
+        REMOTE_GUARD_SCRIPT,
+        json.dumps({"tool_name": "Bash", "tool_input": {"command": heredoc_blocked}}),
+        ["--client", "claude"],
+    )
+    assert code == 0 and "deny" in stdout, "command on the heredoc-invoking line must be caught"
+
+    # Adversarial indirection must still be denied (audit hardening, 2026-10).
+    bypass_denials = [
+        "git send-pack origin main",                         # plumbing push
+        "sh -c 'git push origin main'",                       # interpreter wrapper
+        'bash -c "git push origin main"',
+        "echo $(git push origin main)",                      # command substitution
+        "`git push origin main`",                             # backtick substitution
+        "xargs git push",                                     # wrapper indirection
+        "env git push origin main",
+        "gh api repos/o/r -X POST",                           # raw API publishing
+        "gh secret set AWS_SECRET_ACCESS_KEY",                # secret transmission
+        "git config remote.origin.url https://host/x.git",    # config remote repoint
+        "python -c \"import subprocess; subprocess.run(['git','push'])\"",
+        'echo "$(git push origin main)"',                  # substitution in double quotes
+    ]
+    for command in bypass_denials:
+        code, stdout, stderr = run_script(
+            REMOTE_GUARD_SCRIPT,
+            json.dumps({"tool_name": "Bash", "tool_input": {"command": command}}),
+            ["--client", "claude"],
+        )
+        assert code == 0 and "deny" in stdout, "bypass not denied: " + command
+
+    # Safe commands that merely mention publishing words must still pass.
+    safe_mentions = [
+        'git" "push origin main',
+        'python -c "print(\'git push\')"',
+        "git config --get remote.origin.url",
+        "sh -c 'echo never run git push'",
+        "git commit -m \"docs: explain why git push is blocked\"",
+        "echo 'see gh secret set docs'",
+        "python -c \"print('hello')\"",
+        "gh api repos/o/r",                              # GET, no write method/field
+        "git config user.name demo",                     # harmless config key
+        "git commit -m \"docs; git push\"",              # quoted `;` is data
+    ]
+    for command in safe_mentions:
+        code, stdout, stderr = run_script(
+            REMOTE_GUARD_SCRIPT,
+            json.dumps({"tool_name": "Bash", "tool_input": {"command": command}}),
+            ["--client", "claude"],
+        )
+        assert code == 0 and not stdout, "false positive: " + command
+
+
+def test_session_context() -> None:
+    startup = '{"hook_event_name": "SessionStart", "source": "startup", "cwd": "."}'
+    code, stdout, stderr = run_script(
+        SESSION_CONTEXT_SCRIPT,
+        startup,
+        ["--event", "session-start", "--client", "claude",
+         "--workspace-root", str(ROOT)],
+    )
+    assert code == 0 and not stderr
+    payload = json.loads(stdout)["hookSpecificOutput"]
+    assert payload["hookEventName"] == "SessionStart"
+    assert "memory-bank/startup.md" in payload["additionalContext"]
+
+    # Resuming additionally injects the cross-model handoff pointer.
+    resume = '{"hook_event_name": "SessionStart", "source": "resume", "cwd": "."}'
+    code, stdout, stderr = run_script(
+        SESSION_CONTEXT_SCRIPT,
+        resume,
+        ["--event", "session-start", "--client", "claude",
+         "--workspace-root", str(ROOT)],
+    )
+    assert code == 0 and not stderr
+    assert "memory-bank/handoff.md" in json.loads(stdout)["hookSpecificOutput"]["additionalContext"]
+
+    # Pre-compact emits the Memory Bank flush notice.
+    code, stdout, stderr = run_script(
+        SESSION_CONTEXT_SCRIPT, "{}", ["--event", "pre-compact", "--client", "claude"]
+    )
+    assert code == 0 and not stderr
+    assert "handoff.md" in json.loads(stdout)["hookSpecificOutput"]["additionalContext"]
+
+    # Never blocks, even on garbage.
+    for bad in ("", "not json", '{"tool_input": null}'):
+        code, _, stderr = run_script(
+            SESSION_CONTEXT_SCRIPT, bad, ["--event", "session-start", "--client", "claude"]
+        )
+        assert code == 0 and not stderr
+
 
 def main() -> int:
     try:
@@ -279,6 +467,10 @@ def main() -> int:
         print("PASS: log-writes.py normalized output, redaction, and fail-open cases")
         test_guard_sensitive_paths()
         print("PASS: guard-sensitive-paths.py native denial and safe-pass cases")
+        test_guard_remote_ops()
+        print("PASS: guard-remote-ops.py publishing denial and safe-pass cases")
+        test_session_context()
+        print("PASS: session-context.py startup/resume/pre-compact injection")
         print("All hook fixtures verified successfully.")
         return 0
     except AssertionError as error:

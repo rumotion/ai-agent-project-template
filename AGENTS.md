@@ -39,24 +39,19 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 
 ### Repository boundaries — read before any git command
 
-- **This project is local-only until a human says otherwise in the current conversation.** `git clone` copies
-  the remote configuration, so a derived project may still point at the **template's own repository**. A push
-  would upload this project into a repository shared with unrelated projects. **Check `git remote -v` before any git work.**
-  If `origin` points at the template or anything not this project's own repository, detach it:
-  `python scripts/detach-remote.py`. Local commits are encouraged; transmission is not.
-- **Never push, publish, or sync without an explicit instruction.** No `git push`, no remote branch, no pull
-  request, no issue, no tag push. **Never run `git push --force --mirror`** — it uploads *every* local ref,
-  including refs holding material meant to be deleted.
-- **One project, one repository.** Two projects must never share a repository; the template repo is never a
-  deployment source. If hosting is needed (Vercel, Cloudflare, Netlify), a **human** creates a dedicated repository
-  and chooses its visibility.
-- **Confidential material never enters a repository that is, or ever was, public.** Removing it later does not
-  work: hosts retain unreachable commits retrievable by commit ID, and forks share object storage. Treat a
-  public repository as permanent.
-- **`.gitignore` is not a security control.** It prevents accidents, not decisions, and only for targeted paths.
-  Verify with `git status --ignored --short` and `git ls-files` rather than assuming.
+- **This project is local-only until human says otherwise in current conversation.** Check `git remote -v` before any git work. If `origin` points to the template repo, detach: `python scripts/detach-remote.py`. Local commits encouraged; transmission forbidden.
+- **Never push, publish, or sync without explicit instruction.** No `git push`, remote branch, PR, issue, or tag push. Never run `git push --force --mirror`.
+- **One project, one repository.** Never share a repo between projects. Humans create dedicated repos for hosting (Vercel, Cloudflare, Netlify).
+- **Confidential material never enters a repository that is or was public.** Removing later does not work (commits retrievable, forks share objects).
+- **`.gitignore` is not a security control.** Verify with `git status --ignored --short` and `git ls-files`.
+
+### Media & Transcription (Local GPU-Only)
+
+- **Always GPU-first (`large-v3`):** Audio/video transcription runs locally on GPU (RTX A5000) via `faster-whisper` (`scripts/transcribe_local_large_v3.py`). Never downgrade model size (32 layers).
+- **Precision ladder & privacy:** `cuda/float16` -> `cuda/int8_float16` -> CPU chunked. 100% confidential; media and transcripts never leave workstation.
 
 ### General
+
 
 - Do not invent facts. If unknown, write `TBD` or ask.
 - Do not expose or edit secrets, credentials, tokens, `.env` values, or production config unless explicitly requested.
@@ -64,10 +59,12 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 - Prefer small, reviewable changes that match existing style.
 - Keep Memory Bank updates concise and operational.
 - Do not re-read files already read in the current task unless they changed.
+- **HARD RULE — anything the user sends under their own name must read as human-written.** Apply `.agents/skills/human-voice-drafting/SKILL.md`; repo files are exempt.
 - **Proactive Tool Suggestion:** If codebase is too large for standard file search, suggest Graphify (`workflows/build-graph.md`). If frequent style corrections occur, suggest Calibration (`workflows/calibrate.md`).
 
-## Engineering behavior (Karpathy defaults)
+## Engineering behavior (Karpathy defaults & Cognitive Harness)
 
+- Cognitive harness (`assets/LLM_PROJECT_HARNESS.md`, `.agents/rules/30-cognitive-harness.md`): candid thinking partner, challenge unsound assumptions, ground in evidence, evaluate before committing, execute to verified completion.
 - Think before coding: state falsifiable prediction (expected baseline failure vs expected passing outcome).
 - Phased planning: discrete, committable step checkpoints with verification criteria.
 - Simplicity & surgical changes: solve only what was asked; touch only necessary lines.
@@ -94,8 +91,9 @@ Start with `memory-bank/startup.md`; lazy-load via `memory-bank/00-index.md`; up
 ## More detail (lazy-load)
 
 - Agent execution loop (budgets, errors, phase summary): `docs/agent-loop.md`
+- Subagent delegation contract: `docs/subagent-contract.md`
 - Prompts: `docs/prompts.md`
 - Antigravity/Cline master setup: `docs/antigravity-master-prompt.md`
 - Skills/plugins: `docs/agent-skill-ecosystem.md`
-- Hooks (Claude Code automation): `docs/hooks.md`
+- Hooks & safety guards (Antigravity, Claude, Codex): `docs/hooks.md`
 - Model/provider routing: `memory-bank/model-routing.md`

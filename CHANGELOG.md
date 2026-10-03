@@ -1,19 +1,60 @@
 # Changelog
 
-All notable changes to this template are documented here. This project follows
-[Semantic Versioning](https://semver.org/) — `MAJOR.MINOR.PATCH`. The version
-in [`VERSION`](VERSION) always matches the latest released git tag.
-
-- **MAJOR** — breaking changes to the canonical `AGENTS.md` contract, the
-  Memory Bank file layout, or the validator's public flags.
-- **MINOR** — new opt-in features, new workflows/skills, new docs.
-- **PATCH** — bug fixes, doc clarifications, validator polish.
-
-For the release process, see [`docs/releasing.md`](docs/releasing.md).
+This project follows Semantic Versioning. See [the release checklist](docs/releasing.md).
 
 ## Unreleased
 
-_Nothing yet._
+No changes yet.
+
+## v1.0.0 - 2026-10-03 - Validated context and reproducible agent workflows
+
+### Added
+
+- Context compiler with full-body preservation, unique identities/metadata,
+  validated supersession graphs, strict UTF-8/BOM support, bounded sources,
+  explicit malformed/overflow failure, and a durable-prefix diagnostic hash.
+- Compiled Claude SessionStart context and continuity reminders.
+- Closed-dialect JSON task/result schemas, paired path/scope validation,
+  forbidden-path checks, serialized-byte caps, and optional trusted token gates.
+- Shared local-only push installer with linked-worktree resolution, nested-root
+  rejection, byte-exact LF checks, and preserved custom-hook conflicts.
+- Advisory boundary inspection and a ten-client capability inventory that labels
+  missing live evidence and unsupported containment/release profiles.
+- Canonical workflow/skill mirror generator with check/write modes.
+- Adversarial context, contract, shell, and installer checks in full validation.
+- Antigravity discovery/rule files, VS Code tasks, and 11 canonical skills
+  with tracked Claude/Cline mirrors, including the STORM research workflow.
+- Updated public landing page, release notes, and public-surface review.
+
+### Changed
+
+- Shell guards cover the reproduced wrappers, aliases, heredocs, Git configuration,
+  payload aliases, redirection/copy flags, PowerShell writes, and patch inputs.
+  Opaque inline Python is conservatively denied; literal print statements remain allowed.
+- The push backstop blocks ordinary pushes without environment-marker exemptions.
+  It remains accident prevention, not hostile-process isolation.
+- Full validation checks 160 required files, 10 adapters and 17 context budgets,
+  including the additional regressions and generated mirrors.
+- Startup stays capped at 9,500 characters with an 8,500 advisory target.
+  Token estimates and provider cache behavior are explicitly unmeasured.
+- Documentation distinguishes validated declarations, synthetic fixtures and
+  actual native/supervisor enforcement. Unsupported guarantees are not claimed.
+
+### Removed
+
+- Active MCP configuration from the shipped template. Integrations are now opt-in;
+  MCP Git tools can bypass shell matchers and bring separate installation risk.
+- Personal project-transfer notes and unrelated-project details from the public
+  Memory Bank. Local implementation history is preserved outside the release ancestry.
+
+### Verification
+
+- Local full validation, compiler, contract, installer and advisory shell checks.
+- 24 remote-command cases, 12 sensitive-path cases and payload aliases;
+  15 compiler checks including every supported renderer.
+- Disposable fresh-project initialization and upgrade/preservation checks.
+- GitHub Actions matrix: Windows/Linux, Python 3.9/current. Live native-client,
+  sandbox and provider cache behavior need separate evidence.
 
 ## v0.9.0 — 2026-08-20 — Cognitive Doctrines, Automated Upgrader & Repository Boundary Isolation
 

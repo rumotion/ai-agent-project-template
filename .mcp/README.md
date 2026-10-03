@@ -13,7 +13,20 @@ configuration location that clients load automatically.
 | Claude Code | Root `.mcp.json` | `mcpServers` |
 | VS Code | `.vscode/mcp.json` | `servers` |
 
-The root `.mcp.json` currently activates the starter set for Claude Code. Inactive native example files are provided for Gemini ([`.gemini/settings.example.json`](../.gemini/settings.example.json)) and Codex ([`.codex/config.example.toml`](../.codex/config.example.toml)). Translate the same server intent into each client's native schema; do not copy JSON fields blindly between clients.
+This template ships **no active MCP configuration** by default: MCP tools add
+context overhead, supply-chain surface (`npx -y` / `uvx` download and execute
+packages), and — critically — a git MCP server exposes `git_push` as a
+first-class tool that bypasses the repository-boundary hooks in
+`scripts/hooks/` (they match shell/write tools, not MCP tools). To opt in,
+copy the servers you actually need from
+[`mcp_config.example.json`](mcp_config.example.json) into your client's native
+project file below. If you enable a git MCP server, remove or deny its
+`git_push` tool or accept that the publishing boundary is no longer enforced.
+Inactive native example files are provided for Gemini
+([`.gemini/settings.example.json`](../.gemini/settings.example.json)) and Codex
+([`.codex/config.example.toml`](../.codex/config.example.toml)). Translate the
+same server intent into each client's native schema; do not copy JSON fields
+blindly between clients.
 
 See [`../docs/agent-compatibility.md`](../docs/agent-compatibility.md) for the
 last-verified compatibility matrix and official client sources.
@@ -39,6 +52,14 @@ last-verified compatibility matrix and official client sources.
   capability, attack surface, and context overhead.
 - Do not expose secrets or sensitive production data without explicit
   approval.
+
+## The `memory` server is not the Memory Bank
+
+Optional memory servers like `@modelcontextprotocol/server-memory` persist to
+`.mcp/memory.json` (which is **gitignored**). It is session scratch, not
+durable project state, and is intentionally excluded from the default starter set.
+Durable, cross-model state belongs in `memory-bank/*.md` so it is committed and
+every agent can read it. See [`../docs/context-memory-bridges.md`](../docs/context-memory-bridges.md).
 
 The examples in [`mcp_config.example.json`](mcp_config.example.json) are a
 catalog to adapt, not a drop-in configuration for every client. Verify package

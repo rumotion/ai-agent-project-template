@@ -45,13 +45,17 @@ Add skills/plugins only when they clearly:
 
 ## Current local skills
 
-- `project-planner`
-- `karpathy-engineer`
-- `code-reviewer`
-- `test-strategist`
-- `docs-memory-maintainer`
-- `delegation-coordinator` (see `docs/subagent-contract.md`)
-- `project-upgrader` (see `docs/upgrade-existing-project.md`)
+- `project-planner` — creates structured implementation plans from requirements
+- `karpathy-engineer` — surgical, falsifiable, simplicity-first engineering behavior
+- `code-reviewer` — reviews diffs for correctness, security, maintainability, and tests
+- `test-strategist` — designs test suites and characterization harnesses
+- `docs-memory-maintainer` — keeps Memory Bank and documentation synchronized
+- `delegation-coordinator` — orchestrates subagents across model surfaces (`docs/subagent-contract.md`)
+- `project-upgrader` — upgrades projects to latest template standards (`docs/upgrade-existing-project.md`)
+- `human-voice-drafting` — mandatory for any message sent under the user's name (enforced in `AGENTS.md`)
+- `local-media-transcription` — local GPU-accelerated Whisper large-v3 transcription with zero cloud leakage
+- `sharepoint-teams-video-transcript-downloader` — downloads Teams/SharePoint recordings and 100% complete transcripts
+- `storm-research` — 4-phase adversarial multi-perspective research briefing with verified citations and HTML deliverable
 
 
 ## Recommended third-party integrations

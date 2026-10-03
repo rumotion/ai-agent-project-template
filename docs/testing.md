@@ -30,7 +30,7 @@ git diff --check
 
 Expected invariants:
 
-- FAST_INIT is at most 7,600 characters.
+- FAST_INIT is at most 9,500 characters.
 - `GEMINI.md`, `CLAUDE.md`, and `.codex/AGENTS.md` are exact thin adapters.
 - Every canonical `.agents/skills/*/SKILL.md` has valid minimal frontmatter.
 - Canonical skills and `.claude/skills` / `.cline/skills` mirrors have equal
@@ -41,7 +41,7 @@ Expected invariants:
   restrictions. These checks are structural, not behavioral proof.
 - The context harness self-test passes and its FAST_INIT count equals the
   validator's count.
-- Native hook examples use verified event names and pass an explicit
+- Native hook examples use synthetically exercised event names and pass an explicit
   `--client` value to the shared scripts.
 - Hook fixtures write only to a temporary directory and prove normalized
   output, path redaction, malformed-input handling, and denial JSON.
@@ -55,7 +55,7 @@ temporary fixture should prove that validation rejects:
 - a primary adapter with an extra policy line;
 - a skill with a missing or mismatched `name` or empty `description`;
 - a changed skill mirror;
-- a FAST_INIT payload over 7,600 characters;
+- a FAST_INIT payload over 9,500 characters;
 - a literal token or non-placeholder secret assignment.
 - a machine-local file URI;
 - a native hook event that omits its explicit client adapter.
@@ -78,3 +78,16 @@ Codex, and Claude Code clients. Record client versions and any unavailable
 entitlement; do not make paid model calls solely for structural CI.
 
 Keep quick command references in `memory-bank/techContext.md`.
+
+## Second-order regressions
+
+Full validation also runs the context integrity, strict contract, push installer,
+boundary refusal, adversarial shell and generated-adapter checks. Individual
+commands are `scripts/verify-context.py`, `scripts/verify-contracts.py`,
+`scripts/verify-backstop.py`, `scripts/verify-boundary.py`,
+`scripts/hooks/verify-hardening.py`, and `scripts/gen-adapters.py --check`.
+After editing canonical skills/workflows, run `scripts/gen-adapters.py --write`
+and review the generated diff. Tracked discovery files remain available in
+fresh clones. Live client denials, Linux execution, actual Python 3.9 execution,
+provider token/cache measurements and external containment require separate
+host-specific evidence; synthetic fixtures do not establish them.

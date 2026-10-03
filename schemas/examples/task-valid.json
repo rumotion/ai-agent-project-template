@@ -1,0 +1,38 @@
+{
+  "task_id": "auth-refactor-01",
+  "objective": "Refactor the login handler to use the new session service",
+  "scope": "src/auth/ and tests/test_auth.py only; no public API changes",
+  "owned_paths": [
+    "src/auth/*",
+    "tests/test_auth.py"
+  ],
+  "forbidden_paths": [
+    "src/api/*",
+    "memory-bank/*"
+  ],
+  "read_only": false,
+  "inputs": [
+    "src/auth/login.py",
+    "src/auth/session.py"
+  ],
+  "constraints": [
+    "Match existing code style",
+    "No new dependencies"
+  ],
+  "expected_output": "login.py delegates to session service; existing auth tests pass unchanged",
+  "verification": [
+    "python -m pytest tests/test_auth.py"
+  ],
+  "tool_allowlist": [],
+  "isolation": {
+    "context_policy": "envelope-only",
+    "mask_secrets": true,
+    "memory_bank_writes": "parent-only"
+  },
+  "budget": {
+    "max_turns": 20,
+    "max_repairs": 2,
+    "max_output_tokens": 2000,
+    "max_result_bytes": 16000
+  }
+}

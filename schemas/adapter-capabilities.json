@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "coverage": "advisory; synthetic fixtures do not prove live consumption",
+  "adapters": [
+    {
+      "client": "claude",
+      "version": null,
+      "config": ".claude/settings.json",
+      "status": "synthetic-only",
+      "live_evidence": null,
+      "shell_tools": [
+        "Bash"
+      ],
+      "write_tools": [
+        "Write",
+        "Edit"
+      ],
+      "mcp_tools": [],
+      "payload_extractor": "scripts/hooks/shell_events.py",
+      "denial_format": "hookSpecificOutput.permissionDecision",
+      "fixture": "scripts/hooks/fixtures/claude-sensitive.json"
+    },
+    {
+      "client": "codex",
+      "version": null,
+      "config": ".codex/hooks.example.json",
+      "status": "synthetic-only",
+      "live_evidence": null,
+      "shell_tools": [
+        "exec_command",
+        "write_stdin"
+      ],
+      "write_tools": [
+        "apply_patch"
+      ],
+      "mcp_tools": [],
+      "payload_extractor": "scripts/hooks/shell_events.py",
+      "denial_format": "hookSpecificOutput.permissionDecision",
+      "fixture": "scripts/hooks/fixtures/codex-sensitive.json"
+    },
+    {
+      "client": "gemini",
+      "version": null,
+      "config": ".gemini/settings.example.json",
+      "status": "synthetic-only",
+      "live_evidence": null,
+      "shell_tools": [
+        "run_shell_command"
+      ],
+      "write_tools": [
+        "write_file",
+        "replace"
+      ],
+      "mcp_tools": [],
+      "payload_extractor": "scripts/hooks/shell_events.py",
+      "denial_format": "decision:deny",
+      "fixture": "scripts/hooks/fixtures/gemini-sensitive.json"
+    },
+    {
+      "client": "cline",
+      "version": null,
+      "config": null,
+      "status": "unverified",
+      "live_evidence": null,
+      "shell_tools": [],
+      "write_tools": [],
+      "mcp_tools": [],
+      "payload_extractor": null,
+      "denial_format": null,
+      "fixture": null
+    },
+    {
+      "client": "roo",
+      "version": null,
+      "config": null,
+      "status": "unverified",
+      "live_evidence": null,
+      "shell_tools": [],
+      "write_tools": [],
+      "mcp_tools": [],
+      "payload_extractor": null,
+      "denial_format": null,
+      "fixture": null
+    },
+    {
+      "client": "cursor",
+      "version": null,
+      "config": null,
+      "status": "unverified",
+      "live_evidence": null,
+      "shell_tools": [],
+      "write_tools": [],
+      "mcp_tools": [],
+      "payload_extractor": null,
+      "denial_format": null,
+      "fixture": null
+    },
+    {
+      "client": "copilot",
+      "version": null,
+      "config": null,
+      "status": "unverified",
+      "live_evidence": null,
+      "shell_tools": [],
+      "write_tools": [],
+      "mcp_tools": [],
+      "payload_extractor": null,
+      "denial_format": null,
+      "fixture": null
+    },
+    {
+      "client": "windsurf",
+      "version": null,
+      "config": null,
+      "status": "unverified",
+      "live_evidence": null,
+      "shell_tools": [],
+      "write_tools": [],
+      "mcp_tools": [],
+      "payload_extractor": null,
+      "denial_format": null,
+      "fixture": null
+    },
+    {
+      "client": "aider",
+      "version": null,
+      "config": null,
+      "status": "unverified",
+      "live_evidence": null,
+      "shell_tools": [],
+      "write_tools": [],
+      "mcp_tools": [],
+      "payload_extractor": null,
+      "denial_format": null,
+      "fixture": null
+    },
+    {
+      "client": "antigravity",
+      "version": null,
+      "config": ".agents/hooks.json",
+      "status": "unverified-active",
+      "live_evidence": null,
+      "shell_tools": [
+        "run_command"
+      ],
+      "write_tools": [
+        "write_to_file",
+        "replace_file_content",
+        "multi_replace_file_content"
+      ],
+      "mcp_tools": [],
+      "payload_extractor": "scripts/hooks/shell_events.py",
+      "denial_format": "decision:deny",
+      "fixture": null
+    }
+  ]
+}

@@ -1,10 +1,13 @@
 {
     "recommendations": [
         "saoudrizwan.claude-dev",
+        "rooveterinaryinc.roo-cline",
         "google.geminicodeassist",
         "anthropic.claude-code",
         "openai.chatgpt",
-        "anysphere.cursor-retainer",
-        "continue.continue"
+        "github.copilot",
+        "github.copilot-chat",
+        "continue.continue",
+        "anysphere.cursor-retainer"
     ]
 }

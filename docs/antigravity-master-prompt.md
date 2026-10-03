@@ -35,10 +35,10 @@ Please do the following:
    - memory-bank/model-routing.md
 7. Keep unknown items as TBD. Do not invent facts.
 8. Review .clineignore and .gitignore. Suggest project-specific exclusions if needed.
-9. Review .agents/rules and .clinerules for consistency with AGENTS.md.
-10. Review .cline/skills and .agents/skills. Suggest additional skills only if this project needs them.
+9. Review .agents/rules and .agents/hooks.json for Antigravity native execution.
+10. Review .agents/skills, .claude/skills, and .cline/skills. Suggest additional skills only if this project needs them.
 11. Review workflows/ plus tool-specific workflow mirrors. Suggest project-specific workflows only if useful.
-12. Recommend MCP servers only if clearly useful for this project.
+12. Review .vscode/tasks.json and recommended extensions for 1-click developer workflow.
 13. For VS Code OpenAI/Codex-style extensions, use the official sign-in or API-key path where supported and treat AGENTS.md as the canonical project instruction file.
 14. If ChatGPT Team/Business subscription-backed coding is desired, use official OpenAI/Codex-style IDE sign-in where supported. Do not assume that Cline can directly consume ChatGPT subscription quota; Cline usually uses API keys, direct providers, or OpenRouter.
 15. Produce a final initialization report with:
@@ -68,12 +68,12 @@ After initialization, ask me what first feature, bug fix, automation, documentat
 
 | Need | Recommended path |
 |---|---|
-| Main local coding agent | Cline with direct provider API key or OpenRouter |
-| Google/Gemini-native agent workflow | Google Antigravity native agent |
+| Google/Gemini-native agent workflow | Google Antigravity native agent (`.agents/` workspace rules, skills, MCP, hooks) |
+| VS Code agentic IDE coding | Cline / Roo Code / Claude Code with `.vscode/tasks.json` |
 | VS Code OpenAI/Codex-style agent | Official OpenAI/Codex extension sign-in or supported API-key flow |
-| ChatGPT Team/Business subscription usage | Official Codex/OpenAI-style IDE extension or supported sign-in path |
-| Multi-model fallback/routing | OpenRouter in Cline or other supported clients |
+| Terminal agent workflow | Claude Code with `.claude/settings.json` lifecycle hooks |
+| Multi-model fallback/routing | OpenRouter in Cline / Roo Code or supported clients |
 | Durable project memory | `AGENTS.md` plus `memory-bank/` |
-| Reusable expert procedures | `.cline/skills/` and `.agents/skills/` |
+| Reusable expert procedures | `.agents/skills/`, `.claude/skills/`, `.cline/skills/` |
 | Repeatable task flows | `workflows/`, `.clinerules/workflows/`, `.agents/workflows/` |
-| External live context | MCP, configured only with approved safe servers |
+| External live context | Opt-in MCP via the client's native project file (see `.mcp/README.md`) |

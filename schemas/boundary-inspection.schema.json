@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Boundary inspection v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "client",
+    "profile",
+    "hook_path_resolved",
+    "approved_hook_installed",
+    "tool_events_verified",
+    "egress_denied_outside_worker",
+    "protected_paths_denied_outside_worker",
+    "authority_outside_worker",
+    "limitations"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "client": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "advisory",
+        "contained-local",
+        "release"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "string",
+        "maxLength": 160
+      }
+    },
+    "hook_path_resolved": {
+      "type": "boolean"
+    },
+    "approved_hook_installed": {
+      "type": "boolean"
+    },
+    "tool_events_verified": {
+      "type": "boolean"
+    },
+    "egress_denied_outside_worker": {
+      "type": "boolean"
+    },
+    "protected_paths_denied_outside_worker": {
+      "type": "boolean"
+    },
+    "authority_outside_worker": {
+      "type": "boolean"
+    }
+  }
+}

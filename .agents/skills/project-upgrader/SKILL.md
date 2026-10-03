@@ -19,7 +19,7 @@ Use this skill whenever asked to upgrade an existing repository/project using th
 ## Upgrade Execution Procedure
 
 ### Step 1: Preflight & Dry-Run
-1. Identify target project path (e.g. `c:\AI\_code\InnovationLab\KUMO\KumoQAToolkit`).
+1. Identify target project path (e.g. `../existing-project`).
 2. Run a dry-run to preview planned modifications:
    ```bash
    python scripts/upgrade-target.py --target <target-path> --dry-run

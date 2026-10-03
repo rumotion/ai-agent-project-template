@@ -7,7 +7,7 @@ them.
 
 ## Evidence and compatibility policy
 
-Last catalog review: **2026-07-23**
+Last catalog review: **2026-09-05** (section 7 verified against the GitHub API that day; earlier sections last reviewed 2026-07-23)
 
 Unless an entry is updated with stronger evidence, its **last-verified state is
 "not independently verified" as of that review date**. When adopting an item,
@@ -254,6 +254,94 @@ explicit confirmation for material writes.
   prompt/tool context. Review telemetry, privacy, failure behavior, and rollback
   before testing. Do not adopt headline savings claims without measuring total
   session cost and correctness on this template.
+
+## 7. Reviewed 2026-09-05: four widely-shared Claude Code plugins
+
+A circulated social-media post recommended four plugins as prerequisites for
+"vibe coding" in Claude Code. All four **exist and the post's headline numbers
+check out** against the GitHub API on 2026-09-05 — this is not stale news. Star
+counts are popularity, not evidence of fitness, license safety, or data
+handling, so each is assessed against *this* template below.
+
+| Project | Verified 2026-09-05 | License | Fit for this template |
+|---|---|---|---|
+| [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | 127,538 stars | MIT | Redundant — overlaps existing doctrine |
+| [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) | 61,515 stars | MIT | **Not recommended** — confidentiality conflict |
+| [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | 114,985 stars | Apache-2.0 | Already catalogued; caveat added |
+| [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 92,397 stars | MIT | Best fit — cherry-pick, do not bulk-install |
+
+The post attributes `agent-skills` to "Eddie Osmani"; the author is **Addy
+Osmani**, a Google Chrome engineering leader. Verify role claims at the source.
+
+### Ponytail — redundant with existing doctrine
+
+Enforces a "write the least code that works" ladder before the agent codes.
+The template already carries this rule: `AGENTS.md` -> "Simplicity & surgical
+changes: solve only what was asked; touch only necessary lines", implemented by
+the `karpathy-engineer` skill. Installing Ponytail adds a second, differently
+worded authority on the same axis, which is how instruction conflicts start.
+
+Adopt only if measurement shows the existing rule is being ignored — and then
+prefer strengthening `karpathy-engineer` over adding a competing source of
+truth. Treat the published reduction percentages as vendor claims; benchmark
+with `scripts/benchmark-context.py` before believing them for this workload.
+
+### OmniRoute — do not adopt for confidential work
+
+**This is a gateway, not a skill.** Adopting it routes prompts, file contents,
+and diffs through a third-party endpoint to reach "352 providers (150+ free)".
+Two consequences the post does not mention:
+
+1. **Confidentiality.** It conflicts directly with this repository's rules —
+   "Confidential material never enters a repository that is or was public" and
+   the Media & Transcription rule requiring that work stay on the workstation.
+   Free inference tiers commonly reserve training rights on submitted data;
+   that must be read per provider, not assumed.
+2. **Bundled compression.** It ships RTK + Caveman compression. Section 3 of
+   this catalog already records that Caveman can be **net-negative on terse
+   coding workloads** and strips qualifiers needed for security and incident
+   work.
+
+Quota failover is a real problem worth solving. Solve it with
+`memory-bank/model-routing.md` (explicit, auditable routing) or a
+self-hosted/first-party gateway. If OmniRoute is ever trialled, do it in a
+disposable project with non-production data, never with client material.
+
+### Graphify — already catalogued, with one caveat to record
+
+Already covered in [toolbox.md](toolbox.md) section 1 and
+[../workflows/build-graph.md](../workflows/build-graph.md), and referenced by
+the `AGENTS.md` proactive-tool-suggestion rule. Apache-2.0 is confirmed.
+
+**Caveat verified 2026-09-05:** code is parsed **locally** with tree-sitter (no
+model call), but upstream documents that **docs, PDFs, and images are sent to a
+model for concept extraction**. Under this template's confidentiality rules,
+index code locally and exclude confidential non-code material, or confirm the
+current local-only options upstream before indexing it.
+
+### agent-skills — best fit, but cherry-pick
+
+MIT, ~22 workflow skills plus a meta-skill, spanning Define -> Plan -> Build ->
+Verify -> Review -> Ship, with explicit verification gates. This is the closest
+match to the template's own philosophy.
+
+It also overlaps the seven skills already shipped here (`project-planner`,
+`code-reviewer`, `test-strategist`, `karpathy-engineer`,
+`docs-memory-maintainer`, `delegation-coordinator`, `project-upgrader`) and the
+procedures in `workflows/`. Bulk-installing would duplicate them and create
+ambiguity about which gate is authoritative.
+
+Recommended approach, consistent with section 3 of this catalog: review
+individual skills, import only ones covering a genuine gap, and place them in
+the template's canonical skill layout (`.agents/skills/` with mirrors) so
+`scripts/check-template.py` keeps checking them for drift.
+
+### Standing rule
+
+Star count is not evidence. Before adopting anything from a social feed, resolve
+the upstream repository, confirm the license, determine **where the data goes**,
+and check whether the template already solves the problem. Three of these four
+were already covered by existing template doctrine.
 
 ## 6. Protocol and native-feature watch list
 

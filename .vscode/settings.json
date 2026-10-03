@@ -1,13 +1,24 @@
 {
     "files.exclude": {
+        "**/.git": false,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true
+        "**/Thumbs.db": true,
+        "**/__pycache__": true,
+        "**/*.pyc": true
     },
     "search.exclude": {
         "**/node_modules": true,
         "**/.venv": true,
+        "**/venv": true,
         "**/dist": true,
         "**/build": true,
-        "**/coverage": true
-    }
+        "**/coverage": true,
+        "**/.agent-logs": true,
+        "**/graphify-out": true,
+        "**/.pytest_cache": true,
+        "**/.mypy_cache": true
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "editor.formatOnSave": true
 }

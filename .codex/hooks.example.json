@@ -3,8 +3,27 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Edit|Write",
+        "matcher": "Edit|Write|apply_patch",
         "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/scripts/hooks/guard-sensitive-paths.py\" --client codex",
+            "commandWindows": "powershell -NoProfile -Command \"$root = git rev-parse --show-toplevel; python (Join-Path $root 'scripts/hooks/guard-sensitive-paths.py') --client codex\"",
+            "timeout": 10,
+            "statusMessage": "Checking sensitive paths"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|Shell|exec_command|write_stdin",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/scripts/hooks/guard-remote-ops.py\" --client codex",
+            "commandWindows": "powershell -NoProfile -Command \"$root = git rev-parse --show-toplevel; python (Join-Path $root 'scripts/hooks/guard-remote-ops.py') --client codex\"",
+            "timeout": 10,
+            "statusMessage": "Checking publishing policy"
+          },
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/scripts/hooks/guard-sensitive-paths.py\" --client codex",

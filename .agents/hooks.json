@@ -1,0 +1,35 @@
+{
+  "boundary-guard": {
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "command": "python scripts/hooks/guard-remote-ops.py --client gemini"
+          },
+          {
+            "command": "python scripts/hooks/guard-sensitive-paths.py --client gemini"
+          }
+        ]
+      },
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "command": "python scripts/hooks/guard-sensitive-paths.py --client gemini"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "command": "python scripts/hooks/log-writes.py --client gemini"
+          }
+        ]
+      }
+    ]
+  }
+}

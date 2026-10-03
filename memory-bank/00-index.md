@@ -16,13 +16,14 @@ Use this file only to choose what to read next. Start with `startup.md`; lazy-lo
 | `userPreferences.md` | User communication style, habits, and workflow quirks |
 | `decisions.md` | Important decisions and rationale |
 | `risks.md` | Security, migration, performance risks |
+| `records/` | Typed records compiled by `scripts/ctx.py` |
 | `glossary.md` | Domain terms |
 | `model-routing.md` | Agent/model/provider setup |
 | `../docs/agent-loop.md` | Execution rules: budgets, errors, phase summary |
 | `../docs/hooks.md` | Claude Code hooks for memory automation |
 | `../docs/toolbox.md` | Optional power-ups (Graphify, Prompts, etc.) |
-| `../docs/context-hygiene.md` | Slow/expensive/"dumb" session — audit, filter, compact, cache rules |
-| `../docs/third-party-integrations.md` | Optional third-party plugins, skills, and MCP configurations |
+| `../docs/context-hygiene.md` | Slow or "dumb" session triage |
+| `../docs/third-party-integrations.md` | Optional plugins and MCP configs |
 | `../graphify-out/GRAPH_REPORT.md` | (Optional) Graphify knowledge graph summary |
 
 

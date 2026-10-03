@@ -1,13 +1,7 @@
 # Startup Context
 
 Project: AI Agent Project Template.
-
-Goal: maintain a low-context, canonical-agent setup with `FAST_INIT` default and `DEEP_AUDIT` escalation. Continually improve the template.
-
-Current focus: Initializing context to continue improving the template.
-
-If resuming work or switching models, read `memory-bank/handoff.md` next.
-
-Next:
-- Keep unknown project-specific requirements as `TBD` until user provides them.
-- Use `handoff.md` to maintain continuity across model switches.
+Goal: one canonical instruction source, small startup context, and verified multi-model workflows.
+Current focus: v1.0.0 public release preparation and validation.
+Read handoff.md when resuming; use 00-index.md to select other context.
+Keep unknown project-specific facts as TBD. No credentials or unrelated project notes belong in this template.

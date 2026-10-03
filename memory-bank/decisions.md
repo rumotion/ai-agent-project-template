@@ -241,6 +241,116 @@ Consequences: The template is more conventional, stack-agnostic, safer for secre
 
 Related files: `workflows/`, `scripts/`, `.mcp/`, `.env.example`, `.gitignore`, `.clineignore`
 
+### 2026-09-05 — Enforce repository boundaries at the tool boundary, not in prose
+
+Status: Accepted
+
+Context: `AGENTS.md` forbade publishing without explicit human instruction, but
+`docs/agent-loop.md`, `CONVENTIONS.md`, and `workflows/implement-task.md` (plus
+both mirrors) instructed the agent to `git push` on phase/milestone completion.
+Lazy-loading any of those files told the agent to do exactly what the canonical
+rule forbids. In a derived project that has not run `scripts/detach-remote.py`,
+that transmits to the shared template remote — the failure the template calls
+unrecoverable for confidential work.
+
+Decision: Align all five files with `AGENTS.md`, and add
+`scripts/hooks/guard-remote-ops.py` as a `PreToolUse` denial for publishing
+commands. Keep the prose rule and the `.claude/settings.json` deny list as
+independent layers.
+
+Consequences: The rule now holds even if an agent skips, misreads, or compacts
+away the instruction. The guard parses commands (token-walk over shell
+segments, heredoc bodies stripped) rather than pattern-matching, so
+`git -C dir push` is caught while `git log --grep=push` and commit messages
+mentioning the verb are not. It is defense in depth, not a sandbox: a
+sufficiently indirect invocation can still evade it, which is why the other two
+layers remain.
+
+Related files: `scripts/hooks/guard-remote-ops.py`, `.claude/settings.json`,
+`docs/agent-loop.md`, `CONVENTIONS.md`, `workflows/implement-task.md`
+
+### 2026-09-05 — Make FAST_INIT deterministic via SessionStart
+
+Status: Accepted
+
+Context: The startup path depended on the model choosing to read
+`memory-bank/startup.md`. Anthropic's context-engineering guidance favors
+just-in-time retrieval plus structured note-taking persisted outside the
+context window; the template had the files but no mechanism.
+
+Decision: Add `scripts/hooks/session-context.py`. `SessionStart` injects the
+startup path (plus `handoff.md` when resuming); `PreCompact` reminds the agent
+to flush durable state before the transcript is summarized away.
+
+Consequences: Startup context is loaded without spending model reasoning on
+remembering to do it, and continuity survives compaction. Injection is
+size-capped (4k/file, 8k total) so it cannot defeat the FAST_INIT budget. The
+hooks are Claude-only today; the prose instructions remain the portable
+fallback and were not removed.
+
+Related files: `scripts/hooks/session-context.py`, `.claude/settings.json`,
+`docs/hooks.md`
+
+### 2026-09-05 — Reject OmniRoute; three of four circulated plugins already covered
+
+Status: Accepted
+
+Context: A social post recommended four plugins. All four are real and their
+star counts verified against the GitHub API on 2026-09-05.
+
+Decision: Do not adopt OmniRoute — it is a gateway that routes prompts and code
+through a third-party endpoint ("150+ free" providers) and bundles Caveman
+compression the catalog already flags as possibly net-negative. Ponytail
+duplicates the existing `karpathy-engineer` doctrine. Graphify was already
+catalogued; recorded the verified caveat that docs/PDFs/images are sent to a
+model even though code is parsed locally. `addyosmani/agent-skills` is the best
+fit but should be cherry-picked, not bulk-installed, to avoid duplicating the
+seven shipped skills.
+
+Consequences: Quota failover stays with `memory-bank/model-routing.md`.
+Confidential work is not routed through third-party inference.
+
+Related files: `docs/third-party-integrations.md`
+
+### 2026-09-05 — Ship `.rules` for Zed; no adapter for Amp, opencode, or Warp
+
+Status: Accepted
+
+Context: A prior research note (`tmp/deep_research_claude.md.md`) listed Amp,
+opencode, Zed, and Warp as missing adapters. First-party documentation checked
+2026-09-05 shows Amp, opencode, and Warp read root `AGENTS.md` natively, so
+adapters for them would be noise. Zed does support `AGENTS.md`, but resolves
+project instructions **first match wins** over `.rules`, `.cursorrules`,
+`.windsurfrules`, `.clinerules`, `.github/copilot-instructions.md`, `AGENT.md`,
+`AGENTS.md`, ... This template ships three filenames that outrank `AGENTS.md`,
+so Zed stopped at `.windsurfrules` and never read the canonical file.
+
+Decision: Ship `.rules` — Zed's highest-priority filename — as a pointer to
+`AGENTS.md`. Add no adapter for Amp, opencode, or Warp. Record all four in
+`docs/agent-compatibility.md` with sources.
+
+Consequences: Zed resolution is deterministic in one hop. The template stays at
+the smallest adapter set that is actually required. This also surfaced a
+property worth keeping: because every adapter is a pointer naming `AGENTS.md`,
+a shadowed resolution still redirects to the canonical file — an adapter
+carrying independent policy would silently fork the rules. The validator's
+existing "every adapter must name AGENTS.md" check is what preserves that.
+
+Related files: `.rules`, `docs/agent-compatibility.md`,
+`scripts/check-template.py`, `README.md`
+
+### 2026-10-03 — Audit fixes: MCP off by default, git-level push backstop, schema-validated subagent contract, Context Compiler
+
+Status: Accepted
+
+Context: An adversarial architectural audit found the shipped git MCP server exposes `git_push` outside the PreToolUse matchers (a one-call boundary bypass); `guard-remote-ops.py` was defeated by `git send-pack`, `gh api` write calls, and interpreter/code-runner indirection; the sensitive-path guard ignored shell redirection targets; clients without hook runtimes (Cline, Roo Code, Cursor, Copilot, Windsurf) had no enforcement layer; and the subagent contract was unvalidatable free text with no context isolation, output caps, or write-scope audit.
+
+Decision: Remove all active MCP configs (opt-in via the `.mcp/` catalog with documented security rationale); harden both guards and register the sensitive-path guard on shell matchers; add an agent-aware POSIX sh `pre-push` hook at the git layer (env-marker detection, template-upstream deny, `ALLOW_AGENT_PUSH` escape hatch, never clobbering detach-remote's stronger block); replace the free-text subagent envelopes with machine-validated JSON schemas enforced in CI; add `scripts/ctx.py`, a deterministic budget-capped Context Compiler over typed `memory-bank/records/`.
+
+Consequences: The publishing boundary now holds across all clients at the git layer; delegation is validated, isolated, and context-bounded; startup context becomes a reproducible, cache-stable artifact. Trade-off accepted: fail-closed code-runner scans deny harmless one-liners that merely mention `git push` in interpreted code strings.
+
+Related files: `scripts/hooks/guard-remote-ops.py`, `scripts/hooks/guard-sensitive-paths.py`, `scripts/hooks/git/pre-push`, `schemas/`, `scripts/validate-schemas.py`, `scripts/ctx.py`, `docs/hooks.md`, `docs/subagent-contract.md`, `docs/context-compiler.md`
+
 ## Decision template
 
 ### YYYY-MM-DD — Decision title

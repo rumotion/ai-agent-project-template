@@ -27,6 +27,10 @@ STANDARD_SKILLS = [
     "docs-memory-maintainer",
     "delegation-coordinator",
     "project-upgrader",
+    "human-voice-drafting",
+    "local-media-transcription",
+    "sharepoint-teams-video-transcript-downloader",
+    "storm-research",
 ]
 
 STANDARD_WORKFLOWS = [
@@ -46,6 +50,7 @@ STANDARD_ADAPTER_FILES = [
     "GEMINI.md",
     "CLAUDE.md",
     "CONVENTIONS.md",
+    ".rules",
     ".windsurfrules",
     ".codex/AGENTS.md",
     ".cursor/rules/agents.mdc",
@@ -55,6 +60,7 @@ STANDARD_ADAPTER_FILES = [
     ".clinerules/40-testing.md",
     ".agents/rules/00-master.md",
     ".agents/rules/10-memory-bank.md",
+    ".agents/rules/30-cognitive-harness.md",
 ]
 
 STANDARD_REVIEWER_FILES = [
@@ -66,7 +72,13 @@ STANDARD_REVIEWER_FILES = [
 STANDARD_HOOK_FILES = [
     "scripts/hooks/log-writes.py",
     "scripts/hooks/guard-sensitive-paths.py",
+    "scripts/hooks/guard-remote-ops.py",
+    "scripts/hooks/shell_events.py",
+    "scripts/hooks/verify-hardening.py",
+    "scripts/hooks/fixtures/adversarial.json",
+    "scripts/hooks/session-context.py",
     "scripts/hooks/verify-fixtures.py",
+    "scripts/hooks/git/pre-push",
     "scripts/hooks/fixtures/README.md",
     "scripts/hooks/fixtures/claude-write.json",
     "scripts/hooks/fixtures/claude-sensitive.json",
@@ -77,17 +89,38 @@ STANDARD_HOOK_FILES = [
     "scripts/hooks/fixtures/codex-write.json",
     "scripts/hooks/fixtures/codex-sensitive.json",
     "scripts/hooks/fixtures/codex-malformed.json",
+    "scripts/hooks/fixtures/claude-push.json",
+    "scripts/hooks/fixtures/claude-shell-safe.json",
+    "scripts/hooks/fixtures/gemini-push.json",
+    "scripts/hooks/fixtures/gemini-shell-safe.json",
+    "scripts/hooks/fixtures/codex-push.json",
+    "scripts/hooks/fixtures/codex-shell-safe.json",
     ".claude/settings.json",
     ".codex/hooks.example.json",
     ".gemini/settings.example.json",
     ".codex/config.example.toml",
+    ".agents/hooks.json",
+    ".vscode/tasks.json",
 ]
 
 STANDARD_SCRIPTS = [
     "scripts/check-template.py",
     "scripts/init-fast.py",
+    "scripts/new-project.py",
     "scripts/detach-remote.py",
     "scripts/benchmark-context.py",
+    "scripts/validate-schemas.py",
+    "scripts/ctx.py",
+    "scripts/push_backstop.py",
+    "scripts/verify-context.py",
+    "scripts/verify-backstop.py",
+    "scripts/contract_checks.py",
+    "scripts/verify-contracts.py",
+    "scripts/boundary.py",
+    "scripts/verify-boundary.py",
+    "scripts/gen-adapters.py",
+    "schemas/boundary-inspection.schema.json",
+    "schemas/adapter-capabilities.json",
     "scripts/upgrade-target.py",
     "scripts/README.md",
 ]
@@ -114,6 +147,11 @@ STANDARD_DOCS = [
     "docs/context-memory-bridges.md",
     "docs/protocol-watch.md",
     "docs/performance-experiments.md",
+    "docs/context-compiler.md",
+    "schemas/subagent-task.schema.json",
+    "schemas/subagent-result.schema.json",
+    "schemas/examples/task-valid.json",
+    "schemas/examples/result-valid.json",
 ]
 
 
@@ -134,6 +172,47 @@ def copy_file_safe(src: Path, dst: Path, dry_run: bool = False) -> bool:
     return True
 
 
+def extract_custom_rules_from_target(target_content: str) -> str:
+    """Extract domain-specific custom rules from target AGENTS.md."""
+    # 1. Explicit ### Custom Rules section
+    custom_rules_match = re.search(r"### Custom Rules\s*\n(.*?)(?=\n## |\n### |\Z)", target_content, re.DOTALL)
+    if custom_rules_match and custom_rules_match.group(1).strip():
+        return custom_rules_match.group(1).strip()
+    
+    # 2. Check for custom bullet points under Core rules
+    core_match = re.search(r"## Core rules\s*\n(.*?)(?=\n## |\Z)", target_content, re.DOTALL)
+    if not core_match:
+        return ""
+    
+    core_text = core_match.group(1)
+    raw_bullets = re.findall(r"(?:^|\n)(-\s+.*?)(?=(?:\n-\s+)|\n###|\n##|\Z)", core_text, re.DOTALL)
+    
+    standard_keywords = [
+        "This project is local-only until",
+        "Never push, publish, or sync",
+        "One project, one repository",
+        "Confidential material never enters",
+        ".gitignore is not a security control",
+        "Do not invent facts",
+        "Do not expose or edit secrets",
+        "Ask before destructive commands",
+        "Prefer small, reviewable changes",
+        "Keep Memory Bank updates",
+        "Do not re-read files already read",
+        "Proactive Tool Suggestion",
+    ]
+    
+    custom_bullets = []
+    for bullet in raw_bullets:
+        cleaned = bullet.strip()
+        if not cleaned:
+            continue
+        if not any(kw in cleaned for kw in standard_keywords):
+            custom_bullets.append(cleaned)
+            
+    return "\n".join(custom_bullets).strip()
+
+
 def merge_agents_md(src_agents: Path, dst_agents: Path, dry_run: bool = False) -> bool:
     """Merge template AGENTS.md with target AGENTS.md, preserving custom rules."""
     template_content = src_agents.read_text(encoding="utf-8")
@@ -147,14 +226,18 @@ def merge_agents_md(src_agents: Path, dst_agents: Path, dry_run: bool = False) -
     if target_content == template_content:
         return False
     
-    # Check if target has custom rules section
-    custom_rules_match = re.search(r"### Custom Rules\s*\n(.*?)(?=\n## |\Z)", target_content, re.DOTALL)
-    if custom_rules_match:
-        custom_rules_text = custom_rules_match.group(1).strip()
-        # Inject into template_content under Core rules -> General or dedicated Custom Rules section
+    custom_rules = extract_custom_rules_from_target(target_content)
+    if custom_rules:
         if "### Custom Rules" not in template_content:
-            replacement = f"### Custom Rules\n\n{custom_rules_text}\n\n### General"
+            replacement = f"### Custom Rules\n\n{custom_rules}\n\n### General"
             template_content = template_content.replace("### General", replacement, 1)
+        else:
+            template_content = re.sub(
+                r"### Custom Rules\s*\n.*?(?=\n### General)",
+                f"### Custom Rules\n\n{custom_rules}\n\n",
+                template_content,
+                flags=re.DOTALL,
+            )
     
     if not dry_run:
         dst_agents.write_text(template_content, encoding="utf-8")
@@ -266,6 +349,17 @@ def upgrade_project(target_dir: Path, dry_run: bool = False, verbose: bool = Fal
                 target_gitignore.write_text(new_content, encoding="utf-8")
             actions.append(f"Added {len(missing_patterns)} missing safety patterns to .gitignore")
     
+    # Install into Git's resolved hook path after synchronizing trusted scripts.
+    if not dry_run:
+        from push_backstop import install
+        try:
+            install(target_dir)
+            actions.append("Verified local-only pre-push backstop")
+        except (OSError, ValueError) as error:
+            actions.append("Push backstop conflict: " + str(error))
+            return 1, actions
+    else:
+        actions.append("Would verify/install local-only pre-push backstop")
     return 0, actions
 
 
@@ -315,6 +409,8 @@ def main() -> int:
     
     code, actions = upgrade_project(target_path, dry_run=args.dry_run, verbose=args.verbose)
     if code != 0:
+        for action in actions:
+            print(action, file=sys.stderr)
         return code
     
     print(f"\nUpgrade complete! Total modifications: {len(actions)}")

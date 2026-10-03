@@ -70,7 +70,9 @@ The "one-line lesson on failure" matters: it stops the next session repeating th
 - **Frequency**: Commit after *every* verified task step or phase checkpoint in the plan (do not accumulate uncommitted diffs across multiple steps).
 - **Conventional Commits**: Use standardized commit prefixes: `feat`, `fix`, `docs`, `test`, `refactor`, `chore`, `style`, `perf`.
 - **Clean Working Tree**: Verify tests pass before committing; never commit broken build states.
-- **Pushing**: Push commits to remote branch upon phase completion or major milestone verification (`git push`).
+- **Pushing**: Do **not** push. `git push`, remote branches, PRs, issues, and tag pushes require an explicit
+  human instruction in the current conversation (`AGENTS.md` → Repository boundaries). Commit locally and stop.
+  A derived project that still points at the template remote must run `python scripts/detach-remote.py` first.
 
 ## 7. Phase-completion summary
 

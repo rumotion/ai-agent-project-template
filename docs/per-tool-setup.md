@@ -46,7 +46,7 @@ client-specific:
 | Claude Code | `.mcp.json` at the repository root | `mcpServers` |
 | VS Code | `.vscode/mcp.json` | `servers` |
 
-The checked-in root `.mcp.json` activates the filesystem, git, and memory starters for Claude Code. Inactive native example configurations are provided for Gemini ([`.gemini/settings.example.json`](../.gemini/settings.example.json)) and Codex ([`.codex/config.example.toml`](../.codex/config.example.toml)).
+This template ships **no active MCP configuration**: connected tools add capability, attack surface, and per-session context overhead, and a git MCP server would expose `git_push` outside the repository-boundary hooks. Inactive native example configurations are provided for Gemini ([`.gemini/settings.example.json`](../.gemini/settings.example.json)) and Codex ([`.codex/config.example.toml`](../.codex/config.example.toml)).
 
 Use [`.mcp/README.md`](../.mcp/README.md) for transport and trust guidance and
 [`mcp_config.example.json`](../.mcp/mcp_config.example.json) as a logical

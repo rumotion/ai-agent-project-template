@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "subagent-result.schema.json",
+  "title": "Portable Subagent Result Envelope v2",
+  "type": "object",
+  "required": [
+    "task_id",
+    "status",
+    "summary",
+    "files_changed",
+    "verification_run",
+    "tokens_used"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,63}$"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "partial",
+        "blocked"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 800,
+      "description": "One paragraph, 120 words or fewer. The parent reads summaries, not transcripts."
+    },
+    "files_changed": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "action"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "action": {
+            "enum": [
+              "added",
+              "modified",
+              "deleted"
+            ]
+          }
+        }
+      }
+    },
+    "verification_run": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "command",
+          "exit_code"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "command": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "exit_code": {
+            "type": "integer"
+          },
+          "output_summary": {
+            "type": "string",
+            "maxLength": 400,
+            "description": "Key stdout/stderr snippet, capped so one verbose worker cannot flood the parent context."
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "severity",
+          "location",
+          "evidence",
+          "required_fix"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "severity": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "location": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "evidence": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "required_fix": {
+            "type": "string",
+            "maxLength": 400
+          }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "string",
+        "maxLength": 400
+      }
+    },
+    "deferred": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "string",
+        "maxLength": 400
+      }
+    },
+    "next_action": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "tokens_used": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Worker's self-reported total. The parent aggregates this for fleet cost accounting."
+    }
+  }
+}

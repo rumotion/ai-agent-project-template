@@ -2,25 +2,84 @@
   "permissions": {
     "allow": [
       "Read(**)",
+      "Glob(**)",
+      "Grep(**)",
       "Bash(git status)",
+      "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git remote -v)",
       "Bash(python scripts/*)"
     ],
     "deny": [
       "Read(.env)",
       "Read(.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_ed25519*)",
+      "Read(**/credentials.json)",
+      "Read(**/token.json)",
+      "Read(**/.aws/**)",
+      "Read(**/.ssh/**)",
       "Write(.env)",
       "Write(.env.*)",
       "Write(**/*.pem)",
-      "Write(**/*.key)"
+      "Write(**/*.key)",
+      "Bash(git push:*)",
+      "Bash(git remote add:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(git remote rename:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh repo create:*)",
+      "Bash(gh release create:*)",
+      "Bash(gh issue create:*)",
+      "Bash(gh gist create:*)"
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/scripts/hooks/session-context.py\" --event session-start --client claude --workspace-root \"$CLAUDE_PROJECT_DIR\""
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/scripts/hooks/session-context.py\" --event pre-compact --client claude --workspace-root \"$CLAUDE_PROJECT_DIR\""
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Write|Edit",
         "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/scripts/hooks/guard-sensitive-paths.py\" --client claude"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/scripts/hooks/guard-remote-ops.py\" --client claude"
+          },
           {
             "type": "command",
             "command": "python \"$CLAUDE_PROJECT_DIR/scripts/hooks/guard-sensitive-paths.py\" --client claude"

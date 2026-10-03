@@ -22,6 +22,7 @@ REQUIRED_FILES = [
     "GEMINI.md",
     "CLAUDE.md",
     "CONVENTIONS.md",
+    ".rules",
     ".windsurfrules",
     "README.md",
     "docs/antigravity-master-prompt.md",
@@ -36,6 +37,13 @@ REQUIRED_FILES = [
     "docs/upgrade-existing-project.md",
     "docs/use-from-github.md",
     "docs/subagent-contract.md",
+    "schemas/subagent-task.schema.json",
+    "schemas/subagent-result.schema.json",
+    "schemas/examples/task-valid.json",
+    "schemas/examples/result-valid.json",
+    "scripts/validate-schemas.py",
+    "scripts/ctx.py",
+    "docs/context-compiler.md",
     "docs/reviewer-role.md",
     "docs/context-memory-bridges.md",
     "docs/protocol-watch.md",
@@ -44,6 +52,7 @@ REQUIRED_FILES = [
     "benchmarks/context/scenarios.json",
     "scripts/benchmark-context.py",
     "scripts/init-fast.py",
+    "scripts/new-project.py",
     "scripts/detach-remote.py",
     "scripts/upgrade-target.py",
     ".gemini/agents/reviewer.md",
@@ -69,6 +78,9 @@ REQUIRED_FILES = [
     ".clinerules/40-testing.md",
     ".agents/rules/00-master.md",
     ".agents/rules/10-memory-bank.md",
+    ".agents/rules/30-cognitive-harness.md",
+    ".agents/hooks.json",
+    ".vscode/tasks.json",
     ".agents/skills/project-planner/SKILL.md",
     ".agents/skills/karpathy-engineer/SKILL.md",
     ".agents/skills/code-reviewer/SKILL.md",
@@ -76,6 +88,10 @@ REQUIRED_FILES = [
     ".agents/skills/docs-memory-maintainer/SKILL.md",
     ".agents/skills/delegation-coordinator/SKILL.md",
     ".agents/skills/project-upgrader/SKILL.md",
+    ".agents/skills/human-voice-drafting/SKILL.md",
+    ".agents/skills/local-media-transcription/SKILL.md",
+    ".agents/skills/sharepoint-teams-video-transcript-downloader/SKILL.md",
+    ".agents/skills/storm-research/SKILL.md",
     ".claude/skills/project-planner/SKILL.md",
     ".claude/skills/karpathy-engineer/SKILL.md",
     ".claude/skills/code-reviewer/SKILL.md",
@@ -83,6 +99,10 @@ REQUIRED_FILES = [
     ".claude/skills/docs-memory-maintainer/SKILL.md",
     ".claude/skills/delegation-coordinator/SKILL.md",
     ".claude/skills/project-upgrader/SKILL.md",
+    ".claude/skills/human-voice-drafting/SKILL.md",
+    ".claude/skills/local-media-transcription/SKILL.md",
+    ".claude/skills/sharepoint-teams-video-transcript-downloader/SKILL.md",
+    ".claude/skills/storm-research/SKILL.md",
     ".cline/skills/project-planner/SKILL.md",
     ".cline/skills/karpathy-engineer/SKILL.md",
     ".cline/skills/code-reviewer/SKILL.md",
@@ -90,6 +110,10 @@ REQUIRED_FILES = [
     ".cline/skills/docs-memory-maintainer/SKILL.md",
     ".cline/skills/delegation-coordinator/SKILL.md",
     ".cline/skills/project-upgrader/SKILL.md",
+    ".cline/skills/human-voice-drafting/SKILL.md",
+    ".cline/skills/local-media-transcription/SKILL.md",
+    ".cline/skills/sharepoint-teams-video-transcript-downloader/SKILL.md",
+    ".cline/skills/storm-research/SKILL.md",
 
     "workflows/plan-task.md",
     "workflows/handoff.md",
@@ -129,6 +153,20 @@ REQUIRED_FILES = [
     "scripts/hooks/fixtures/codex-write.json",
     "scripts/hooks/fixtures/codex-sensitive.json",
     "scripts/hooks/fixtures/codex-malformed.json",
+    "scripts/hooks/git/pre-push",
+    "scripts/push_backstop.py",
+    "scripts/verify-context.py",
+    "scripts/verify-backstop.py",
+    "scripts/contract_checks.py",
+    "scripts/verify-contracts.py",
+    "scripts/boundary.py",
+    "scripts/verify-boundary.py",
+    "scripts/gen-adapters.py",
+    "schemas/boundary-inspection.schema.json",
+    "schemas/adapter-capabilities.json",
+    "scripts/hooks/shell_events.py",
+    "scripts/hooks/verify-hardening.py",
+    "scripts/hooks/fixtures/adversarial.json",
     ".claude/settings.json",
     ".codex/hooks.example.json",
     ".gemini/settings.example.json",
@@ -156,12 +194,14 @@ FAST_REQUIRED_FILES = [
     "scripts/init-fast.py",
     "scripts/detach-remote.py",
     "scripts/upgrade-target.py",
+    "scripts/push_backstop.py",
 ]
 
 ADAPTER_FILES = [
     "GEMINI.md",
     "CLAUDE.md",
     "CONVENTIONS.md",
+    ".rules",
     ".windsurfrules",
     ".clinerules/00-master.md",
     ".agents/rules/00-master.md",
@@ -184,11 +224,13 @@ CONTEXT_BUDGETS = {
     "GEMINI.md": 700,
     "CLAUDE.md": 700,
     "CONVENTIONS.md": 700,
+    ".rules": 500,
     ".windsurfrules": 500,
     ".clinerules/00-master.md": 700,
     ".clinerules/10-memory-bank.md": 700,
     ".agents/rules/00-master.md": 800,
     ".agents/rules/10-memory-bank.md": 800,
+    ".agents/rules/30-cognitive-harness.md": 1_800,
     ".github/copilot-instructions.md": 600,
     ".cursor/rules/agents.mdc": 700,
     ".codex/AGENTS.md": 600,
@@ -230,6 +272,10 @@ SKILL_NAMES = [
     "docs-memory-maintainer",
     "delegation-coordinator",
     "project-upgrader",
+    "human-voice-drafting",
+    "local-media-transcription",
+    "sharepoint-teams-video-transcript-downloader",
+    "storm-research",
 ]
 
 
@@ -762,6 +808,87 @@ def check_hook_examples() -> list[str]:
     return findings
 
 
+def check_ctx_compiler() -> list[str]:
+    """Run the Context Compiler self-test and a budget-checked compile."""
+    findings: list[str] = []
+    script_path = ROOT / "scripts" / "ctx.py"
+    if not script_path.is_file():
+        return ["Missing required script scripts/ctx.py"]
+    for arguments in (
+        [sys.executable, str(script_path), "self-test"],
+        [sys.executable, str(script_path), "compile", "--for", "claude", "--check"],
+    ):
+        proc = subprocess.run(
+            arguments,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            cwd=str(ROOT),
+        )
+        if proc.returncode != 0:
+            detail = proc.stderr.strip() or proc.stdout.strip()
+            findings.append(
+                "scripts/ctx.py {} failed with exit code {}: {}".format(
+                    " ".join(arguments[2:]), proc.returncode, detail
+                )
+            )
+    return findings
+
+
+def check_subagent_schemas() -> list[str]:
+    """Run the stdlib subagent contract schema validator and its self-test."""
+    findings: list[str] = []
+    script_path = ROOT / "scripts" / "validate-schemas.py"
+    if not script_path.is_file():
+        return ["Missing required script scripts/validate-schemas.py"]
+    for arguments in (
+        [sys.executable, str(script_path), "--self-test"],
+        [sys.executable, str(script_path)],
+        [sys.executable, str(ROOT / "scripts/verify-contracts.py")],
+    ):
+        proc = subprocess.run(
+            arguments,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            cwd=str(ROOT),
+        )
+        if proc.returncode != 0:
+            detail = proc.stderr.strip() or proc.stdout.strip()
+            findings.append(
+                "scripts/validate-schemas.py {} failed with exit code {}: {}".format(
+                    arguments[-1], proc.returncode, detail
+                )
+            )
+    return findings
+
+
+def check_git_backstop() -> list[str]:
+    from push_backstop import LOCAL_ONLY_HOOK
+    path = ROOT / "scripts/hooks/git/pre-push"
+    findings = []
+    if not path.is_file() or path.read_bytes() != LOCAL_ONLY_HOOK:
+        findings.append("pre-push source differs from approved LF bytes")
+    proc = subprocess.run(["git", "cat-file", "blob", "HEAD:scripts/hooks/git/pre-push"], capture_output=True, cwd=ROOT)
+    if proc.returncode == 0 and b"\r" in proc.stdout:
+        findings.append("committed pre-push blob contains CR bytes")
+    return findings
+
+
+def check_hardening() -> list[str]:
+    findings = []
+    for name in ("verify-context.py", "verify-backstop.py", "verify-boundary.py",
+                 "hooks/verify-hardening.py", "gen-adapters.py"):
+        proc = subprocess.run([sys.executable, str(ROOT / "scripts" / name)],
+                              capture_output=True, text=True, encoding="utf-8",
+                              errors="replace", cwd=ROOT)
+        if proc.returncode:
+            findings.append(name + ": " + (proc.stderr.strip() or proc.stdout.strip()))
+    return findings
+
+
 def check_mcp_examples() -> list[str]:
     findings: list[str] = []
     import json
@@ -868,6 +995,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--compat", action="store_true", help="Validate Gemini/Codex/Claude compatibility contracts.")
     parser.add_argument("--benchmark", action="store_true", help="Print FAST_INIT startup-path token estimate and exit.")
     parser.add_argument("--check-remote", action="store_true", help="Fail if inherited template remotes are detected.")
+    parser.add_argument("--schemas", action="store_true", help="Validate subagent contract schemas and examples, then exit.")
     return parser.parse_args()
 
 
@@ -876,6 +1004,15 @@ def main() -> int:
 
     if args.benchmark and not args.fast and not args.compat:
         print_benchmark()
+        return 0
+
+    if args.schemas and not args.fast and not args.compat:
+        findings = check_subagent_schemas()
+        for finding in findings:
+            print(f"  - {finding}")
+        if findings:
+            return 1
+        print("Subagent contract schemas and examples validated.")
         return 0
 
     fast_mode = args.fast
@@ -898,6 +1035,9 @@ def main() -> int:
         check_hook_fixtures() + check_hook_examples()
     )
     mcp_findings = [] if fast_mode else check_mcp_examples()
+    git_backstop_findings = [] if fast_mode else check_git_backstop()
+    subagent_schema_findings = [] if fast_mode else check_subagent_schemas()
+    ctx_compiler_findings = [] if fast_mode else (check_ctx_compiler() + check_hardening())
     remote_findings = check_inherited_remotes() if args.check_remote else []
     startup_chars, _ = benchmark_startup()
     startup_excess = max(0, startup_chars - FAST_INIT_MAX_CHARS)
@@ -930,6 +1070,9 @@ def main() -> int:
         or context_benchmark_findings
         or hook_findings
         or mcp_findings
+        or git_backstop_findings
+        or subagent_schema_findings
+        or ctx_compiler_findings
         or remote_findings
     ):
         if missing:
@@ -991,6 +1134,18 @@ def main() -> int:
             print("Native MCP example violations:")
             for finding in mcp_findings:
                 print(f"  - {finding}")
+        if git_backstop_findings:
+            print("Git backstop hook violations:")
+            for finding in git_backstop_findings:
+                print(f"  - {finding}")
+        if subagent_schema_findings:
+            print("Subagent contract schema violations:")
+            for finding in subagent_schema_findings:
+                print(f"  - {finding}")
+        if ctx_compiler_findings:
+            print("Context compiler violations:")
+            for finding in ctx_compiler_findings:
+                print(f"  - {finding}")
         if remote_findings:
             print("Inherited template remotes detected (unsafe for derived projects):")
             for finding in remote_findings:
@@ -1011,6 +1166,8 @@ def main() -> int:
     print(f"Checked {len(required_files)} required files and {len(ADAPTER_FILES)} adapters.")
     print(f"Checked {len(CONTEXT_BUDGETS)} startup/context budgets.")
     print(f"Checked FAST_INIT aggregate budget ({startup_chars}/{FAST_INIT_MAX_CHARS} chars).")
+    if startup_chars > 8_500:
+        print("Advisory: startup exceeds the 8500-character soft target; token estimates are unmeasured.")
     if fast_mode:
         print("Checked .gitignore safety patterns.")
         print("Skipped repository-wide secret hygiene scan and mirror-drift check in fast mode.")

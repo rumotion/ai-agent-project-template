@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "subagent-task.schema.json",
+  "title": "Portable Subagent Task Envelope v2",
+  "type": "object",
+  "required": [
+    "task_id",
+    "objective",
+    "owned_paths",
+    "read_only",
+    "isolation",
+    "budget"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,63}$",
+      "description": "Unique, lowercase identifier for this delegation."
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Concise description of the task."
+    },
+    "scope": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "Component, phase, or boundaries of work."
+    },
+    "owned_paths": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 240
+      },
+      "description": "File paths or globs this worker may write. Disjoint from every other concurrent worker.",
+      "maxItems": 64,
+      "uniqueItems": true
+    },
+    "forbidden_paths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 240
+      },
+      "description": "Hard exclusions that override owned_paths globs.",
+      "maxItems": 64,
+      "uniqueItems": true
+    },
+    "read_only": {
+      "type": "boolean",
+      "description": "True means the worker must never modify files or run mutating commands."
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 240
+      },
+      "description": "Repo-relative paths ONLY. The parent must never paste transcript text, secrets, or conversation history here.",
+      "maxItems": 64,
+      "uniqueItems": true
+    },
+    "constraints": {
+      "type": "array",
+      "maxItems": 10,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 300
+      },
+      "uniqueItems": true
+    },
+    "expected_output": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "verification": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 400
+      },
+      "description": "Commands the parent will run to verify the result.",
+      "uniqueItems": true
+    },
+    "tool_allowlist": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80
+      },
+      "description": "If non-empty, the worker may invoke only these tools.",
+      "maxItems": 32,
+      "uniqueItems": true
+    },
+    "isolation": {
+      "type": "object",
+      "required": [
+        "context_policy",
+        "mask_secrets",
+        "memory_bank_writes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "context_policy": {
+          "enum": [
+            "envelope-only"
+          ],
+          "description": "The worker receives ONLY this envelope - never the parent transcript, other tasks, or secret-bearing history."
+        },
+        "mask_secrets": {
+          "type": "boolean",
+          "description": "If true, the parent redacted or excluded secret-bearing material before dispatch.",
+          "enum": [
+            true
+          ]
+        },
+        "memory_bank_writes": {
+          "enum": [
+            "parent-only"
+          ],
+          "description": "Workers must not write memory-bank/*; the parent serializes all Memory Bank updates to prevent parallel handoff clobbering."
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "required": [
+        "max_turns",
+        "max_repairs",
+        "max_output_tokens"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "max_turns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "max_repairs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 4000,
+          "description": "Hard cap on the result envelope. Truncate narrative, never verification evidence."
+        },
+        "max_result_bytes": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 64000,
+          "description": "Serialized UTF-8 result byte cap; independent of provider token telemetry."
+        }
+      }
+    }
+  }
+}

@@ -8,9 +8,11 @@ a coding agent.
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 import subprocess
 import sys
+from push_backstop import install
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -70,6 +72,12 @@ def handle_remotes(keep_remote: bool = False) -> None:
         safe_print("")
 
 
+def install_push_backstop() -> None:
+    """Install or verify local-only accident prevention, including worktrees."""
+    install(ROOT)
+    safe_print("Verified local-only pre-push hook.\n")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="FAST_INIT helper for freshly copied template repositories.")
     parser.add_argument(
@@ -86,6 +94,11 @@ def main() -> int:
 
     safe_print("== FAST_INIT bootstrap ==")
     handle_remotes(keep_remote=args.keep_remote)
+    try:
+        install_push_backstop()
+    except (OSError, ValueError) as error:
+        safe_print("Push backstop unavailable: {}".format(error))
+        return 1
 
     safe_print("Running lightweight template validation...\n")
     code = run([sys.executable, str(ROOT / "scripts" / "check-template.py"), "--fast"])
@@ -133,4 +146,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

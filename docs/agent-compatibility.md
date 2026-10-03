@@ -1,5 +1,5 @@
 ---
-last_verified: 2026-07-23
+last_verified: 2026-09-05
 ---
 
 # Gemini, Codex, and Claude Compatibility
@@ -35,12 +35,13 @@ Current interoperability statuses and adoption gates are tracked separately in
 | Project hooks (client-native) | `.gemini/settings.example.json` (inactive example) | `.codex/hooks.example.json` (inactive example) | `.claude/settings.json` (active) |
 | Project subagents | `.gemini/agents/reviewer.md` | `.codex/agents/reviewer.toml` | `.claude/agents/reviewer.md` |
 | Reviewer restriction | Read/search tool allowlist | `sandbox_mode = "read-only"` | Read/search tool allowlist plus `permissionMode: plan` |
-| Status in this template | Instructions, canonical skills, and one reviewer adapter ship; MCP and hooks have inactive native examples | Instructions, canonical skills, and one reviewer adapter ship; MCP and hooks have inactive native examples | Instructions, skill mirrors, one reviewer adapter, root `.mcp.json`, and active sensitive-path/write-log hooks ship |
+| Status in this template | Instructions, canonical skills, and one reviewer adapter ship; MCP and hooks have inactive native examples | Instructions, canonical skills, and one reviewer adapter ship; MCP and hooks have inactive native examples | Instructions, skill mirrors, one reviewer adapter, and active sensitive-path/write-log hooks ship; MCP is opt-in (no active config) |
 
 Important distinctions:
 
-- `.mcp.json` is Claude Code's project MCP file. It is not a universal Gemini
-  or Codex project configuration.
+- `.mcp.json` is Claude Code's project MCP file format. This template no
+  longer ships one: an active git MCP server would expose `git_push` outside
+  the repository-boundary hooks. Opt in per client via `.mcp/README.md`.
 - `.mcp/` contains reusable documentation and examples; clients do not load
   that directory automatically.
 - `.agents/skills` is canonical. Claude's `.claude/skills` copies are
@@ -97,8 +98,8 @@ claude
 ```
 
 Confirm that `/context` shows `CLAUDE.md` and its `AGENTS.md` import, `/skills`
-shows the `.claude/skills` mirrors, and `/mcp` shows the approved servers from
-root `.mcp.json`.
+shows the `.claude/skills` mirrors, and `/mcp` shows only the servers you
+have deliberately opted into (none ship by default).
 
 ### Reviewer pilot status
 
@@ -106,6 +107,44 @@ The shared frozen-diff pilot is pending for Gemini, Codex, and Claude. No model
 session is launched by validation or CI. When a maintainer runs a pilot, record
 whether the reviewer found the correctness defect, ignored the harmless style
 issue, preserved the worktree, and followed `docs/reviewer-role.md`.
+
+## Additional agents (verified 2026-09-05)
+
+`AGENTS.md` is an open standard, so most modern agents need **no adapter at
+all**. Adding pointer files for them would be noise, not coverage. Verified
+against first-party documentation:
+
+| Agent | Reads root `AGENTS.md`? | Adapter shipped | Note |
+|---|---|---|---|
+| [Amp](https://ampcode.com/agent.md) (Sourcegraph) | Yes, natively | None needed | Reads the nearest file up the tree; subdirectory files take precedence |
+| [opencode](https://opencode.ai/docs/rules/) | Yes, natively | None needed | Where both exist, `AGENTS.md` wins over `CLAUDE.md` |
+| [Warp](https://docs.warp.dev/knowledge-and-collaboration/rules) | Yes, natively | None needed | Applies root and current-directory rules; filename must be uppercase |
+| [Zed](https://zed.dev/docs/ai/instructions) | Only if nothing earlier matches | **`.rules`** | See below |
+
+### Why Zed needs an adapter
+
+Zed resolves project instructions by **first match wins**, in this order:
+
+`.rules`, `.cursorrules`, `.windsurfrules`, `.clinerules`,
+`.github/copilot-instructions.md`, `AGENT.md`, `AGENTS.md`, `CLAUDE.md`,
+`GEMINI.md`
+
+This template ships `.windsurfrules`, `.clinerules/`, and
+`.github/copilot-instructions.md` — all of which rank **above** `AGENTS.md`.
+Without intervention, Zed would stop at `.windsurfrules` and never reach the
+canonical file.
+
+Two properties make this safe:
+
+1. Every adapter in this template is a pointer that names `AGENTS.md`, so even
+   a shadowed resolution still directs the agent to the canonical file. This is
+   a deliberate design property, not luck — an adapter carrying independent
+   policy would silently fork the rules.
+2. `.rules` is shipped as Zed's highest-priority filename, so resolution is
+   deterministic and reaches the pointer in one hop.
+
+The validator enforces that every adapter names `AGENTS.md`, which is what
+keeps property 1 true as adapters are added.
 
 ## Official sources
 
@@ -132,6 +171,13 @@ Claude Code:
 - [MCP configuration](https://code.claude.com/docs/en/mcp)
 - [Hooks](https://code.claude.com/docs/en/hooks)
 - [Subagents](https://code.claude.com/docs/en/sub-agents)
+
+Additional agents (verified 2026-09-05):
+
+- [Amp AGENTS.md](https://ampcode.com/agent.md)
+- [opencode rules](https://opencode.ai/docs/rules/)
+- [Warp rules for agents](https://docs.warp.dev/knowledge-and-collaboration/rules)
+- [Zed instructions](https://zed.dev/docs/ai/instructions)
 
 Shared format:
 

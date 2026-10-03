@@ -11,5 +11,5 @@
 4. Summarize files changed across all completed steps.
 5. Reflect on phase/milestone completion: write a phase summary (`docs/agent-loop.md` section 7) and update `handoff.md`.
 6. Update Memory Bank if project knowledge changed.
-7. Push commits to remote repository upon phase/milestone completion (`git push`).
+7. Do not push. Stop at local commits; `git push`/PRs require explicit human instruction (`AGENTS.md` → Repository boundaries).
 8. Recommend next tests or review steps.

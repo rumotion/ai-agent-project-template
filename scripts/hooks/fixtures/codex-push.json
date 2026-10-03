@@ -1,0 +1,12 @@
+{
+  "session_id": "test-session-codex-789",
+  "transcript_path": null,
+  "cwd": ".",
+  "hook_event_name": "PreToolUse",
+  "model": "codex-test",
+  "turn_id": "test-turn-codex-789",
+  "tool_name": "shell",
+  "tool_input": {
+    "command": "git push origin main"
+  }
+}

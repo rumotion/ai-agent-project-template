@@ -11,7 +11,7 @@ Follow this procedure when upgrading an existing external repository/project to 
 ## Workflow Steps
 
 ### Step 1: Preflight & Safety Inventory
-1. Identify target project directory path (e.g. `c:\AI\_code\InnovationLab\KUMO\KumoQAToolkit`).
+1. Identify target project directory path (e.g. `../existing-project`).
 2. Run dry-run to preview planned changes:
    ```bash
    python scripts/upgrade-target.py --target <target-path> --dry-run

@@ -1,157 +1,20 @@
 # Active Context
 
-## Phase summary: Automated Project Upgrader & 2026 SDD Modernization — 2026-08-20
+## v1.0.0 release preparation - 2026-10-03
 
-- Outcome: COMPLETE
-- Implemented state-of-the-art agentic project upgrade and specification-driven development features:
-  - **Automated Target Project Upgrader (`scripts/upgrade-target.py`)**: Standalone, standard-library CLI script to safely upgrade any target repository. Includes `--dry-run`, automatic custom domain rules preservation in `AGENTS.md`, custom domain skills preservation in `.agents/skills/`, 3-tree sync, and post-upgrade validation.
-  - **2026 Spec-Driven Development (`workflows/spec-driven-development.md`)**: Modernized with executable specification anchors, characterization test safety nets before refactoring, and falsifiable prediction gates.
-  - **Updated `project-upgrader` Skill & `upgrade-project.md` Workflow**: Streamlined to leverage `scripts/upgrade-target.py` across `.agents/skills/`, `.claude/skills/`, `.cline/skills/` and `workflows/`, `.agents/workflows/`, `.clinerules/workflows/`.
-  - **Validator & Manifest Sync**: Added `scripts/upgrade-target.py` to `REQUIRED_FILES` and `FAST_REQUIRED_FILES` in `scripts/check-template.py`.
-- Verification: `python scripts/check-template.py` full PASS (122 files, 9 adapters, 15 budgets, FAST_INIT ~2,324 tokens, zero drift).
+- Updated README, native SVG hero, release notes and changelog to match current behavior.
+- Public Memory Bank contains template facts only. Unrelated project notes and
+  unpublished operational history are excluded from the public release ancestry.
+- Preserved implementation history locally; the release snapshot advances existing
+  public main without rewriting published commits. New metadata uses GitHub no-reply.
+- Pattern review covers tracked files, historical blobs, outgoing objects and
+  author metadata. Ignored logs, caches and local scratch are not release inputs.
+- Local regression checks are required before push; remote CI is checked afterward.
+- Native containment, live client denials and provider cache savings remain unverified.
 
-## Phase summary: ARC-Skill Cognitive Doctrines Integration — 2026-08-20
+## Refuted hypotheses
 
-- Outcome: COMPLETE
-- Embedded battle-tested agentic cognitive principles from ARC-Skill (100% RHAE on ARC-AGI-3) into the template:
-  - **Falsifiable Predictions**: Added pre-action expectation setting ("Say what an action will do before you spend it") across `AGENTS.md`, `docs/agent-loop.md`, `workflows/pre-edit-check.md`, `workflows/implement-task.md`, and `karpathy-engineer` skill.
-  - **4-Tier Escalation Ladder**: Structured diagnostic escalation (Tier 1: Surgical Inline Fix $\rightarrow$ Tier 2: Scratch Diagnostic Script in `tmp/` $\rightarrow$ Tier 3: Diagnostic Test Harness / Mock Simulator $\rightarrow$ Tier 4: Model & Architecture Redesign) in `docs/agent-loop.md`, `workflows/debug-issue.md`, and `karpathy-engineer`.
-  - **Bimodal Execution Discipline**: Formulated exploration (single narrow probes) vs. verified execution (batched parallel tool calls & atomic commits).
-  - **Refuted Hypotheses Ledger (`REFUTED`)**: Added explicit tracking of dead hypotheses with killing evidence in `docs/agent-loop.md`, `workflows/debug-issue.md`, and `memory-bank/activeContext.md` to prevent retry loops across context compactions/model handoffs.
-- Synced all 3 workflow trees (`workflows/`, `.agents/workflows/`, `.clinerules/workflows/`) and all 3 skill trees (`.agents/skills/`, `.claude/skills/`, `.cline/skills/`).
-- Verification: `python scripts/check-template.py` full PASS (121 files, 9 adapters, 15 budgets, FAST_INIT ~2,324 tokens, zero drift).
-
-## Phase summary: Repository Boundary Security & Auto-Isolation — 2026-08-18
-
-- Outcome: COMPLETE
-- Addressed accidental upstream pushes from cloned template repositories by establishing strict repository boundaries.
-- **Core Rules in `AGENTS.md`**: Added 5 repository boundary rules (Local-only default, check `git remote -v`, never push without human instruction, never force-mirror, 1 project = 1 repo, no secrets in public repos, gitignore is not security).
-- **Automation & Bootstrap**:
-  - Added `scripts/detach-remote.py` to identify template remotes, remove them, and install `.git/hooks/pre-push` push-block.
-  - Updated `scripts/init-fast.py` to automatically detect inherited remotes and detach them on bootstrap.
-  - Added `--check-remote` to `scripts/check-template.py` to fail when derived projects inherit upstream template remotes.
-- **Documentation & Workflows**:
-  - Updated `docs/start-new-project.md`, `docs/use-from-github.md`, `docs/upgrade-existing-project.md`, `scripts/README.md`, and `README.md`.
-  - Updated `workflows/upgrade-project.md` and `.agents/skills/project-upgrader/SKILL.md` along with all three-tree mirrors.
-- **Validation**: Full validation pass at 121 required files, 9 adapters, 15 budgets (FAST_INIT at 9,133 / 9,500 chars, ~2,283 tokens), 7 skills across 3 trees, 10 workflows across 3 trees, zero SHA-256 drift.
-
-## Phase summary: DEEP_AUDIT remediation — 2026-08-01
-
-- Outcome: COMPLETE
-- Key decisions: left untracked sharepoint skill dirs and tracked `.claude/skills/` stray files untouched (user decision, logged as follow-ups); propagated only validator-measured figures.
-- Findings fixed: uncommitted enhancement work (now 5 atomic commits), missing v0.8.0 release bookkeeping, stale budget figures, dropped rollback-plan item, missing EOF newlines, validator mirror-existence gap (103 -> 115 required files).
-- Files modified: README.md, memory-bank/, scripts/check-template.py, all 3 workflow trees, docs/agent-loop.md, VERSION, CHANGELOG.md.
-- Open items: untracked sharepoint skill exists only in `.agents/skills` + `.cline/skills` (complete 3-tree mirror or remove before tracking); `report_template.html` + `storm_research.md` tracked at `.claude/skills/` root (pre-existing, likely misplaced); validator does not enforce VERSION <-> CHANGELOG sync; no `.gitattributes`, so CRLF checkout on Windows would inflate char counts.
-- Next: tag `v0.8.0` and publish the GitHub release (`docs/releasing.md`).
-
-## Phase summary: Atomic Step-Commit & Phased Planning Agentic Workflow — 2026-08-01
-
-- Outcome: COMPLETE
-- Embedded modern Agentic & Vibe Coding best practices into the core template (`AGENTS.md`, `docs/agent-loop.md`, `workflows/`, `CONVENTIONS.md`, `memory-bank/`).
-- Established strict **Plan → Execute → Verify → Commit → Reflect** cycle with atomic step-level commits using Conventional Commits.
-- Synced all workflow mirrors across `workflows/`, `.clinerules/workflows/`, and `.agents/workflows/`.
-- Verified character budgets: `AGENTS.md` (4,588 / 4,700 chars), `CONVENTIONS.md` (594 / 700 chars), total FAST_INIT size (7,545 / 7,600 chars).
-- Verification: `python scripts/check-template.py` full pass (115 required files, 9 adapters, 15 context budgets, zero drift).
-
-## Current focus
-
-Release `v0.8.0` packages the atomic step-commit workflow enhancements on top of the `v0.7.0` cross-agent upgrades under the MIT license.
-
-## Phase summary: Phase 3 Advanced Optional Features — 2026-07-23
-
-- Outcome: IMPLEMENTED_AND_CODE_REVIEWED
-- Added one canonical read-only reviewer contract with minimal Gemini, Codex,
-  and Claude native adapters; validator checks markers, paths, formats, and
-  declared restrictions without claiming runtime parity.
-- Added a five-scenario, stdlib-only context benchmark with JSON output,
-  sanitized paired-usage records, correctness/privacy gates, and self-tests.
-- Added provider-memory authority guidance, a dated MCP/Agent Skills/ACP/A2A
-  watch, and optional performance experiment recipes.
-- Kept all Phase 3 material lazy-loaded and all integrations disabled.
-- Verification: compile, benchmark self-test/text/JSON, hook fixtures, fast,
-  compatibility, full, startup benchmark, bootstrap, and diff checks pass.
-- Current validator: 103 required files, 9 adapters, 15 budgets; FAST_INIT is
-  7,196 chars (~1,799 tokens).
-
-## Phase summary: Phase 2 Core Enhancements — 2026-07-23
-
-- Outcome: REVIEWED_AND_CORRECTED
-- P2.0: Preflight verified baseline diff (24 files changed); model routing updated for Gemini-first implementation & Codex review; user preferences recorded.
-- P2.1: Portable subagent contract (`docs/subagent-contract.md`) and `delegation-coordinator` skill created and mirrored across `.agents/skills`, `.claude/skills`, and `.cline/skills`.
-- P2.2: Pre-edit check (`workflows/pre-edit-check.md`), spec-driven development (`workflows/spec-driven-development.md`), and self-evaluation (`workflows/self-evaluate.md`) workflows created and mirrored across `workflows/`, `.agents/workflows/`, and `.clinerules/workflows/`. Reusable risk entry schema added to `memory-bank/risks.md`.
-- P2.3: Shared stdlib hook library now uses verified Claude, Gemini, and Codex
-  event/denial schemas, explicit client routing, redacted native fixtures, and
-  behavior assertions confined to an OS temporary directory.
-- P2.4: Inactive native MCP examples created (`.gemini/settings.example.json`, `.codex/config.example.toml`); documentation and validator updated for stdlib JSON and TOML validation.
-- P2.5: Validator enforces 92 required files, 9 adapters, 6 skills across 3
-  trees, 9 workflows across 3 trees, hook behavior/adapter checks, native MCP
-  examples, mirror hashes, and machine-local file-URI hygiene.
-- Codex corrections: replaced obsolete Gemini/Codex hook shapes, made the
-  fixture harness assert records and denials, restored Python 3.9 syntax,
-  removed machine-local links, and aligned cross-agent docs/configs.
-- Verification: fast, compatibility, full, benchmark, fixture, Python
-  3.9-grammar, negative validator, mirror, bootstrap, and diff checks pass.
-
-## Phase summary: cross-agent compatibility quick wins — 2026-07-23
-
-- Outcome: COMPLETE
-- Normalized Gemini/Claude imports and the Codex pointer while preserving root `AGENTS.md` as the sole instruction source.
-- Made `.agents/skills` canonical; added five byte-identical `.claude/skills` mirrors and retained `.cline/skills` mirrors.
-- Added the compatibility truth table and corrected client-specific MCP guidance for Gemini, Codex, and Claude.
-- Validator now enforces exact primary adapters, minimal skill schema, three-tree SHA-256 parity, and the 7,600-character FAST_INIT ceiling; CI covers Python 3.9/current on Windows/Linux.
-- Cleaned optional-integration claims and added evidence/confidence labels.
-- Verification: fast, full, compatibility, bootstrap, negative fixtures, compile, and diff checks pass; FAST_INIT is 7,381 chars (~1,845 tokens).
-- Native smoke status: Codex CLI 0.142.0 and Claude Code 2.1.116 are installed; Gemini CLI is unavailable. No paid model sessions were launched.
-
-## Phase summary: v0.6.0 universal agent features — 2026-06-05
-
-- Outcome: COMPLETE
-- Key decisions:
-  - Added only verified / tool-agnostic features; deliberately omitted LOW-confidence Claude Code commands (e.g. `/goal`, `/ultracode`) per "do not invent facts".
-  - Detail in lazy-loaded `docs/agent-loop.md`; only a tight summary in always-on `AGENTS.md` (budget raised 4,000 → 4,700).
-  - Activatable configs (`.claude/`, `.mcp.json`, `.aider.conf.yml`) ship but are NOT validator-required, so users can opt out.
-- Files modified: AGENTS.md, model-routing.md, handoff.md, context-hygiene.md, toolbox.md, mcp config + README, check-template.py, README.md, CHANGELOG.md, VERSION, all 10 SKILL.md mirrors, init-fast.py; new: `.windsurfrules`, `CONVENTIONS.md`, `.aider.conf.yml`, `.mcp.json`, `.vscode/mcp.json`, `.claude/settings.json`, `.claude/hooks/log-writes.py`, `docs/agent-loop.md`, `docs/hooks.md`, `memory-bank/reminders.md`, `workflows/critic-review.md`, `workflows/autonomous-agent.md`.
-- Also added (infra wave): CI (`.github/workflows/validate.yml`, Linux+Windows), `.github/PULL_REQUEST_TEMPLATE.md` + issue templates, `.editorconfig`, `.claude/commands/` (`/handoff`, `/save-context`, `/start-task`), `docs/per-tool-setup.md`, expanded `.env.example`.
-- Validator: 50 required files, 9 adapters, 15 budgets — full pass on Python 3.13.
-- Open items: none blocking. Optional future: MCP memory-server as a scaling path for large `memory-bank/`.
-- Next: commit when the user is ready (branch off main first).
-
-## DEEP_AUDIT findings (2026-05-09)
-
-- `python scripts/check-template.py` (full): PASS — 36 required files, 4 adapters, 9 budgets, gitignore + secret hygiene clean.
-- All adapters (`GEMINI.md`, `CLAUDE.md`, `.clinerules/00-master.md`, `.agents/rules/00-master.md`) are thin and reference `AGENTS.md`.
-- Triplicated workflow trees (`workflows/`, `.clinerules/workflows/`, `.agents/workflows/`) and duplicated skill/rule trees (`.cline/skills/` vs `.agents/skills/`, `.clinerules/` vs `.agents/rules/`) are a maintenance/drift risk per the brief but currently consistent.
-- Memory Bank consistent and within budget; `progress.md` has one mildly run-specific phrase ("Push updated template to GitHub") that could be generalized.
-- `docs/setup.md`, `CONTRIBUTING.md`, `SECURITY.md`, and `LICENSE` are not enforced by the validator's `REQUIRED_FILES`.
-
-## Brief analysis (`docs/template-improvement-brief.md`)
-
-Strengths: clear mission/non-goals, concrete token-usage measurements, backlog grouped by category, external-review prompt, proposal format, success metrics, maintenance cadence.
-
-Gaps / candidate improvements (not yet applied):
-
-1. No date/version stamp on the brief; hard to detect staleness.
-2. Backlog mentions a token-benchmark script and `--json` output for validators but does not yet specify acceptance criteria or apply-now vs monitor.
-3. No success metric for autonomous-mode turn count / narration verbosity, although §14 names it the top issue.
-4. Triplicated workflow/skill/rule trees not flagged as a maintainable-surface risk.
-5. External-review prompt (§10) does not include the brief's own current status, so an external LLM cannot easily judge what is already done.
-6. Public-template hygiene checklist does not cover `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md` enforcement.
-7. §14 says docs are not the bottleneck, but most of §8 is documentation; the conflict could be resolved by sharpening §8's "apply now / monitor" column.
-
-## Changes applied (2026-05-09)
-
-- Added `memory-bank/handoff.md` and `workflows/handoff.md` for cross-model continuity.
-- Updated `AGENTS.md` startup path with handoff pointer; added "Cross-model continuity" section; added `handoff.md` to FAST_INIT update list. Budget bumped to 4,000.
-- Rewrote `memory-bank/model-routing.md` with per-model context budgets, cache-stable file list, Antigravity sub-agent notes, and concrete current defaults.
-- Added adapters: `.github/copilot-instructions.md`, `.cursor/rules/agents.mdc`, `.codex/AGENTS.md`. Validator enforces them.
-- Expanded `.mcp/mcp_config.example.json` with filesystem, fetch, and git server stubs.
-- Expanded `.vscode/extensions.json` recommendations.
-- Synced mirrored workflows (`.clinerules/workflows/`, `.agents/workflows/`) and skills (`.agents/skills/`) to canonical content; validator now enforces zero drift.
-- Validator: new adapters, handoff budget, mirror-drift check, and `--benchmark` flag.
-- `scripts/init-fast.py` now prints the token benchmark in the bootstrap output.
-
-## Next step
-
-1. Start new product repositories through GitHub **Use this template**.
-2. Optionally run the frozen-diff reviewer pilot in installed Gemini, Codex,
-   and Claude clients and record behavioral evidence.
+- Worker-writable hooks were not a universal publishing boundary. They prevent
+  ordinary accidents; external supervisor controls are not supplied.
+- Comparing durable prefixes across clients ignored client-specific notes. Tests
+  now compare status changes within each renderer.

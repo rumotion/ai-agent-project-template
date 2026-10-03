@@ -1,0 +1,4 @@
+#!/bin/sh
+# Local-only accident prevention; an external sandbox enforces adversarial isolation.
+echo "PUSH BLOCKED - this repository is local-only (AGENTS.md)." >&2
+exit 1

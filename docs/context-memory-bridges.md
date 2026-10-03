@@ -1,5 +1,5 @@
 ---
-last_verified: 2026-07-23
+last_verified: 2026-09-05
 ---
 
 # Provider-Native Context and Memory Bridges
@@ -23,9 +23,34 @@ Resolve conflicting claims in this order:
 1. checked-in repository state and passing tests;
 2. current working state that has been directly verified;
 3. checked-in Memory Bank;
-4. provider-native local memory as advisory recall.
+4. provider-native local memory as advisory recall;
+5. MCP memory-server state as advisory recall.
 
-Never let provider memory override repository evidence. Do not automatically
+Never let provider or MCP memory override repository evidence.
+
+## Durability: what survives a model switch
+
+Only committed files survive. This is the trap worth naming explicitly:
+
+| Store | Survives model switch? | Survives fresh clone? |
+|---|---|---|
+| `memory-bank/*.md` | Yes — committed | Yes |
+| MCP `memory` server (`.mcp/memory.json`) | **No** — gitignored | **No** |
+| Provider-native memory | No — account/machine-local | No |
+| Conversation context | No | No |
+
+No active MCP config ships by default. If you opt into the `memory` server
+(`@modelcontextprotocol/server-memory`), it exposes inviting tool names
+(`create_entities`, `add_observations`). An agent told to "remember" something
+can reach for those instead of the Memory Bank. Its store,
+`.mcp/memory.json`, is listed in `.gitignore`, so state written there is
+invisible to every other model and lost on a fresh clone — silently defeating
+the cross-model continuity the Memory Bank exists to provide.
+
+**Rule:** the MCP memory graph is session scratch. Anything that must outlive
+the session goes in `memory-bank/` and gets committed. Never re-add the
+`memory` server as a default; if it is ever enabled, removing it must not
+break startup, validation, or handoff. Do not automatically
 copy secrets, credentials, personal data, absolute machine paths, raw prompts,
 or unreviewed chat history into any shared layer.
 

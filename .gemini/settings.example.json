@@ -2,15 +2,26 @@
   "mcpServers": {
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "."
+      ]
     },
     "git": {
       "command": "uvx",
-      "args": ["mcp-server-git", "--repository", "."]
+      "args": [
+        "mcp-server-git",
+        "--repository",
+        "."
+      ]
     },
     "memory": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
     }
   },
   "hooks": {
@@ -18,6 +29,23 @@
       {
         "matcher": "write_file|replace",
         "hooks": [
+          {
+            "name": "guard-sensitive-paths",
+            "type": "command",
+            "command": "python \"$GEMINI_PROJECT_DIR/scripts/hooks/guard-sensitive-paths.py\" --client gemini",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "name": "guard-remote-ops",
+            "type": "command",
+            "command": "python \"$GEMINI_PROJECT_DIR/scripts/hooks/guard-remote-ops.py\" --client gemini",
+            "timeout": 5000
+          },
           {
             "name": "guard-sensitive-paths",
             "type": "command",

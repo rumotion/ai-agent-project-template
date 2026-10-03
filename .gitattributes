@@ -1,0 +1,4 @@
+# The pre-push hook runs through sh on every platform; CRLF breaks it.
+scripts/hooks/git/pre-push text eol=lf
+# Audit diffs contain a single space on blank context lines; preserve LF bytes.
+docs/audits/second-order/*.patch text eol=lf whitespace=-blank-at-eol

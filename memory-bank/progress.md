@@ -9,6 +9,12 @@
 - Canonical mirror generator and explicit boundary/capability reporting.
 - Professional README, release notes and reviewed public file surface.
 
+## Released
+
+- v1.0.0 published from reviewed commit ae5b1ad.
+- GitHub Actions run 37156383241: all four Windows/Linux, Python 3.9/current jobs passed.
+- Public repository presentation updated; secret scanning and push protection enabled.
+
 ## Verified locally
 
 - Full template gate, context/contract/installer regressions and shell fixtures.

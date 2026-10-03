@@ -1,24 +1,24 @@
 ---
-handoff_version: 7
+handoff_version: 8
 last_touched: 2026-10-03
 last_model: Codex
 to_model: Any
 branch: main
-status: v1.0.0 public release prepared
-task: Publish the reviewed template release
-next_action: Verify release and CI; future work needs new authorization
+status: v1.0.0 published; all four release CI jobs passed
+task: Public template release completed
+next_action: Maintain template; new publishing needs current authorization
 files_modified: [README.md, CHANGELOG.md, assets/images/hero-template.svg, memory-bank/]
 blocking_issues: []
 ---
 
 # Handoff
 
-The user explicitly authorized publishing rumotion/ai-agent-project-template.
-Public release ancestry excludes unpublished operational/project history;
-that history is retained on a local-only branch. Push only reviewed public
-main and the specific release tag. Existing public history is not rewritten.
+Published rumotion/ai-agent-project-template v1.0.0 at ae5b1ad.
+CI: actions/runs/37156383241, four successful Windows/Linux and Python jobs.
+Public history excludes unpublished project notes; original work is preserved
+on local-only branches. New commits/tags use GitHub no-reply metadata.
+Secret scanning and push protection are enabled; the local push block remains.
 
-Compiler integrity, bounded envelope checks, advisory shell regressions,
-shared push installation and adapter generation are implemented. Host
-containment, native-client evidence, cache measurement and ledger execution
-remain future work. Future publishing requires current user authorization.
+Host containment, native-client evidence, cache measurement and ledger execution
+remain future work. Do not push backup branches. Future publication needs current
+user authorization.

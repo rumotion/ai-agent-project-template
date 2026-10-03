@@ -34,3 +34,16 @@ Pattern scanning is evidence of the checks performed, not proof that every
 possible confidential fact or encoded credential can be recognized. Future
 release changes need another outgoing-content review. Keep private project
 memory in its own local repository and never merge it into this public template.
+
+## Publication receipt
+
+- Release: [v1.0.0](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.0.0).
+- Reviewed release commit: `ae5b1ad31d4a5f6bf9d89b624cfd3e19f65d360a`.
+- Hosted validation: [run 37156383241](https://github.com/rumotion/ai-agent-project-template/actions/runs/37156383241).
+  All four Windows/Linux and Python 3.9/current jobs passed.
+- GitHub secret scanning and push protection are enabled. No open secret alerts
+  were returned when the repository was checked during publication.
+- Only main and the annotated v1.0.0 tag were pushed; local backup branches were
+  excluded. The installed local-only hook was verified unchanged after the push.
+- The existing CI workflow invokes the expanded full validator, including all
+  new regressions. It was retained without requesting workflow-edit privileges.

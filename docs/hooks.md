@@ -1,4 +1,4 @@
-# Hooks — Zero-Token Automation
+# Hooks and deterministic checks
 
 Hooks are commands a client runs at lifecycle events such as before or after a
 tool call. They run outside the model context, so they are useful for
@@ -15,6 +15,7 @@ records the first-party schemas last checked by this template.
 | Claude Code | `.claude/settings.json` | Active project guard and logger |
 | Gemini CLI | `.gemini/settings.example.json` | Inactive example; copy deliberately to `.gemini/settings.json` |
 | Codex | `.codex/hooks.example.json` | Inactive example; copy deliberately to `.codex/hooks.json` |
+| Antigravity (current App/CLI/IDE) | No native hook config shipped | Different payloads from legacy Gemini CLI; do not copy its example blindly |
 
 The active Claude permissions deny secret-file access and publishing commands
 as a first safety layer. Its `PreToolUse` mapping calls
@@ -95,14 +96,23 @@ precedence. Injected bytes still consume model context and are not free tokens.
 | Check before a write | `PreToolUse` | `BeforeTool` | `PreToolUse` |
 | Check before a shell command | `PreToolUse` | `BeforeTool` | `PreToolUse` |
 | Log after a write | `PostToolUse` | `AfterTool` | `PostToolUse` |
-| Inject startup context | `SessionStart` | (no verified equivalent) | (no verified equivalent) |
-| Persist state before compaction | `PreCompact` | (no verified equivalent) | (no verified equivalent) |
+| Inject startup context | `SessionStart` | (no verified equivalent in shipped adapter) | Available upstream; not wired/tested here |
+| Persist state before compaction | `PreCompact` | (no verified equivalent in shipped adapter) | Check current client; not wired/tested here |
 
-`SessionStart` and `PreCompact` are currently Claude-only in this template. The
+`SessionStart` and `PreCompact` wiring is currently Claude-only in this template. The
 portable fallback is unchanged: `AGENTS.md` still instructs every agent to read
 `memory-bank/startup.md` first and to update `handoff.md` on pause or switch.
 The hooks make that deterministic where the client supports it; they never
 become the only mechanism.
+
+Checked 2026-10-26: current Antigravity documents `SessionStart` and
+`PreToolUse` with `conversationId`/`toolCall` payloads, unlike the shipped
+legacy Gemini CLI mapping. Its lifecycle adapter needs native fixtures and a
+live smoke test before activation. Current Codex docs also distinguish local
+orchestration from cloud orchestration: local command hooks are not universal
+even when tool execution is local. Keep these adapters inactive until checked
+in the actual client. [Antigravity hooks](https://antigravity.google/docs/hooks),
+[Codex hook support](https://learn.chatgpt.com/docs/hooks).
 
 Native adapters pass `--client` explicitly because all three clients share
 fields such as `session_id`, `hook_event_name`, and `tool_input`. Guessing the

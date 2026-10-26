@@ -73,7 +73,7 @@ silently. See [Upgrade an existing project](docs/upgrade-existing-project.md).
 | [Context compiler](docs/context-compiler.md) | Typed records compiled into validated, bounded context |
 | [Portable subagent contracts](docs/subagent-contract.md) | Task/result schemas with path scopes, pairing, and report limits |
 | [Workflows](workflows/) | Planning, implementation, debugging, review, and handoff procedures |
-| [11 reusable skills](.agents/skills/) | Canonical skills with tracked Claude/Cline discovery mirrors |
+| [22 skills and workflow entry points](.agents/skills/) | Canonical skills with tracked Claude/Cline discovery mirrors |
 | [Shared hooks](docs/hooks.md) | Advisory shell/write guards, metadata logging, and lifecycle context |
 | [Project tools](scripts/README.md) | Creation, upgrades, initialization, validation, and adapter generation |
 | [GitHub Actions](.github/workflows/validate.yml) | Windows/Linux validation on Python 3.9 and current Python |
@@ -109,6 +109,27 @@ mappings from missing live-client evidence.
 Details: [Changelog](CHANGELOG.md) |
 [Implementation and verification](docs/audits/second-order/implementation.md).
 
+## Updates on main after v1.0.0
+
+- **Confirmed quota pacing:** a local, opt-in adviser for approved useful work.
+  Default OFF; a concrete plan and separate human confirmation are required.
+  Claude statusline input and manual Codex/Google readings are supported.
+  The tool never reads credentials, calls an API or launches agents.
+- **Current Antigravity discovery:** ten thin skill entry points link to the
+  canonical workflows; procedures are maintained in one place. Current main
+  has 22 skills with generated Claude/Cline mirrors.
+- **Smaller startup and proportional planning:** choose an observable success
+  check first, keep routine plans short, and use phases when complexity needs it.
+- **Regression coverage:** 18 new pacing/integration tests run in full validation;
+  the upgrader preserves custom skills by refusing new-name conflicts.
+
+Read [usage pacing](docs/usage-pacing.md) for commands, state/telemetry formats,
+confirmation, stop conditions and native-goal integration. The
+[October tooling review](docs/ai-market-review-2026-10.md) explains adoption
+decisions and limits; [local agent mail](docs/local-agent-mail.md) is an
+assessment, not an installed messaging system. These updates are on main;
+the latest tagged release remains v1.0.0.
+
 ## How project memory works
 
 ```text
@@ -134,7 +155,7 @@ python scripts/benchmark-context.py --self-test
 python scripts/gen-adapters.py --check
 ```
 
-Full validation checks 160 required files, 10 instruction adapters, 17 context
+Full validation checks the required file manifest, 10 instruction adapters, 17 context
 budgets, schemas, mirrors, context integrity, hook fixtures, and the adversarial
 regressions. [Testing guide](docs/testing.md) documents the individual checks.
 
@@ -177,6 +198,9 @@ Keep credentials outside Git. Ignored files are still local files, and
 | Resume with another model | [Handoff workflow](workflows/handoff.md) |
 | Understand the hooks | [Hook behavior and limitations](docs/hooks.md) |
 | Validate worker reports | [Subagent contract](docs/subagent-contract.md) |
+| Pace approved quota use | [Optional usage pacing](docs/usage-pacing.md) |
+| Assess cross-client mail | [Local mail assessment](docs/local-agent-mail.md) |
+| Review current AI tooling changes | [October 2026 review](docs/ai-market-review-2026-10.md) |
 | Inspect context | [Context compiler](docs/context-compiler.md) |
 | Publish a release | [Release checklist](docs/releasing.md) |
 | Review the public surface | [Public release review](docs/public-release-review.md) |

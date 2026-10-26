@@ -1,5 +1,24 @@
 # Active Context
 
+## Publication preparation — 2026-10-26
+
+- Current user explicitly authorized a reviewed GitHub main push.
+- Documented the implementation and Unreleased changes; no new release/tag requested.
+- Outgoing source content passed initial pattern review; unpublished non-no-reply author metadata is excluded from the public commit ancestry and retained locally.
+- Full validation and a final outgoing-object audit precede the main-only push.
+- Separate company-project context must stay outside this public repository.
+
+## Phase summary: current-client review and optional pacing — 2026-10-26
+
+- Outcome: COMPLETE; verified locally, no publication authorized.
+- Decisions: verification-first proportional plans; thin workflow skills for current Antigravity; quota pacing OFF until separate human confirmation.
+- Evidence: supplied Gemini summary and developer playbook checked against official sources; full Gemini artifact/video timestamps unavailable/unverified.
+- Refuted hypotheses: fixed first-100-lines truncation is not a universal skill rule; native goals do not measure subscription quota; legacy Gemini hooks are not current Antigravity payloads.
+- Files: root guidance, workflows/skill discovery, routing/hooks docs, market/mail assessments, pacing CLI/tests and upgrade manifests.
+- Checks: full gate passes (165 required files, 22 skills/3 trees); 18 pacing/integration regressions; Python 3.9 grammar; disposable fresh-project creation/upgrade/mirrors pass.
+- Open: live client smoke tests and provider measurements; local mail intentionally optional, Ponytail uninstalled.
+- Pacing: no real run activated; tests use disposable databases. Template origin detached and push block preserved; nothing published.
+
 ## v1.0.0 release completion - 2026-10-03
 
 - Updated README, native SVG hero, release notes and changelog to match current behavior.

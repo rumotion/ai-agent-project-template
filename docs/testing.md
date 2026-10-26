@@ -91,3 +91,14 @@ and review the generated diff. Tracked discovery files remain available in
 fresh clones. Live client denials, Linux execution, actual Python 3.9 execution,
 provider token/cache measurements and external containment require separate
 host-specific evidence; synthetic fixtures do not establish them.
+
+## Usage pacing regressions
+
+`python scripts/verify-usage-pacing.py` uses temporary SQLite databases and
+simulated timestamps. It exercises explicit plan confirmation, terminal stop,
+stale/missing telemetry, rate measurement, count-change boundaries, short-window
+constraints, quota reserves, resets, context handoff, sanitized statusline
+ingestion, cost snapshot semantics, invalid input and concurrent writers.
+Full validation runs it automatically. No model calls, credentials, quota use
+or live client integration are needed. Live statusline wiring and background
+completion notifications need a separate native-client smoke test.

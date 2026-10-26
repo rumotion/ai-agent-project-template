@@ -5,14 +5,9 @@ description: Creates implementation plans from project requirements. Use when pl
 
 # Project Planner Skill
 
-Always start by reading:
-
-1. `AGENTS.md`
-2. `memory-bank/00-index.md`
-3. `memory-bank/projectbrief.md`
-4. `memory-bank/activeContext.md`
-5. `memory-bank/systemPatterns.md`
-6. `memory-bank/techContext.md`
+Follow `AGENTS.md` startup routing; load only Memory Bank files relevant to the
+requested plan. Identify the observable success check first. Scale detail to
+the task: a short plan for routine work, phases for complex changes.
 
 ## Output format
 
@@ -27,6 +22,8 @@ Provide:
 7. Test plan
 8. Memory Bank updates needed
 
-Do not edit files unless the user asks to proceed.
+For a planning-only request, deliver the plan. When implementation is already
+requested, continue within that authorization; ask only for missing information
+or authority needed for a consequential action.
 
-Chains to: `karpathy-engineer` once the plan is approved. See `docs/agent-skill-ecosystem.md`.
+Chains to: `karpathy-engineer` for authorized implementation. See `docs/agent-skill-ecosystem.md`.

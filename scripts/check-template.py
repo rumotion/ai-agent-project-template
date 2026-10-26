@@ -29,6 +29,11 @@ REQUIRED_FILES = [
     "docs/agent-skill-ecosystem.md",
     "docs/agent-compatibility.md",
     "docs/agent-loop.md",
+    "docs/usage-pacing.md",
+    "docs/local-agent-mail.md",
+    "docs/ai-market-review-2026-10.md",
+    "scripts/usage-pacing.py",
+    "scripts/verify-usage-pacing.py",
     "docs/hooks.md",
     "docs/api.md",
     "docs/file-organization.md",
@@ -276,7 +281,8 @@ SKILL_NAMES = [
     "local-media-transcription",
     "sharepoint-teams-video-transcript-downloader",
     "storm-research",
-]
+    "usage-pacing",
+] + [Path(name).stem for name in WORKFLOW_FILES]
 
 
 FAST_INIT_MAX_CHARS = 9_500
@@ -880,7 +886,7 @@ def check_git_backstop() -> list[str]:
 def check_hardening() -> list[str]:
     findings = []
     for name in ("verify-context.py", "verify-backstop.py", "verify-boundary.py",
-                 "hooks/verify-hardening.py", "gen-adapters.py"):
+                 "hooks/verify-hardening.py", "gen-adapters.py", "verify-usage-pacing.py"):
         proc = subprocess.run([sys.executable, str(ROOT / "scripts" / name)],
                               capture_output=True, text=True, encoding="utf-8",
                               errors="replace", cwd=ROOT)

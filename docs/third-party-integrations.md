@@ -273,18 +273,24 @@ handling, so each is assessed against *this* template below.
 The post attributes `agent-skills` to "Eddie Osmani"; the author is **Addy
 Osmani**, a Google Chrome engineering leader. Verify role claims at the source.
 
-### Ponytail — redundant with existing doctrine
+### Ponytail — overlap; optional benchmark
 
-Enforces a "write the least code that works" ladder before the agent codes.
-The template already carries this rule: `AGENTS.md` -> "Simplicity & surgical
-changes: solve only what was asked; touch only necessary lines", implemented by
-the `karpathy-engineer` skill. Installing Ponytail adds a second, differently
-worded authority on the same axis, which is how instruction conflicts start.
+Rechecked 2026-10-26 against the current upstream README. Ponytail now describes
+problem inspection before choosing a minimal solution and preserving safety
+checks, error handling and accessibility. Its published benchmarks are upstream
+measurements, not results reproduced on this template. The September popularity
+table above is historical, not a current recommendation signal.
+
+The template already carries simplicity/surgical-change guidance through
+`AGENTS.md` and `karpathy-engineer`. Root guidance now explicitly prefers reuse
+and configuration before new code. A second broad instruction layer has no
+demonstrated incremental value here. Keep Ponytail uninstalled by default.
 
 Adopt only if measurement shows the existing rule is being ignored — and then
 prefer strengthening `karpathy-engineer` over adding a competing source of
-truth. Treat the published reduction percentages as vendor claims; benchmark
-with `scripts/benchmark-context.py` before believing them for this workload.
+truth. Use paired real tasks with identical acceptance checks and native usage
+telemetry to assess it. `scripts/benchmark-context.py` can compare sanitized
+measurements; it does not execute an agent-quality benchmark by itself.
 
 ### OmniRoute — do not adopt for confidential work
 

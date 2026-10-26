@@ -4,7 +4,35 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 ## Unreleased
 
-No changes yet.
+### Added
+
+- Optional stdlib-only quota pacing with private SQLite state, pending plans,
+  separate human confirmation, sanitized Claude statusline input and manual
+  Codex/Google telemetry. No network, credential reads or agent launching.
+- Eighteen deterministic pacing/integration regressions, including quota resets,
+  stale data, concurrent writers and preservation of conflicting custom skills.
+- Thin skill entry points for ten canonical workflows, preserving current
+  Antigravity discovery after its workflow-to-skills migration.
+- Implementation, activation, stopping and verification documentation in
+  `docs/usage-pacing.md`, plus current-client and local-mail assessments.
+
+### Changed
+
+- Root guidance and planning now start with observable success checks and scale
+  planning detail to task complexity; duplicated startup instructions removed.
+- Model routing avoids stale model IDs, fixed context sizes and universal cache
+  assumptions. Native goals, quota accounting and client-specific hooks are
+  documented separately with explicit live-verification limits.
+- Full validation covers 165 required files and 22 skills across three trees;
+  project creation/upgrades include the new tools without activating pacing.
+- Newly reserved skill-name conflicts stop an upgrade before any target writes.
+
+### Security
+
+- Runtime quota databases remain outside the repository. Private playbooks,
+  local logs, scratch files and unrelated project information are excluded.
+- Public updates use reviewed content and GitHub no-reply commit metadata;
+  unpublished local history is not part of the publication ancestry.
 
 ## v1.0.0 - 2026-10-03 - Validated context and reproducible agent workflows
 

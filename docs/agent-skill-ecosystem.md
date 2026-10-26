@@ -19,6 +19,13 @@ normal startup context small while preserving richer, task-specific guidance.
 
 ## Selection rule
 
+Start from a demonstrated recurring failure or a client discovery requirement.
+Do not add a skill just to restate general model competence. Before deleting
+one, compare representative tasks with/without it using the same checks,
+model and settings; retain project-specific invariants. No universal skill
+win/loss ratio is assumed. Long references benefit from a short contents list;
+tiny entry points do not need a ceremonial checklist.
+
 Add skills/plugins only when they clearly:
 
 - save time,
@@ -56,6 +63,17 @@ Add skills/plugins only when they clearly:
 - `local-media-transcription` — local GPU-accelerated Whisper large-v3 transcription with zero cloud leakage
 - `sharepoint-teams-video-transcript-downloader` — downloads Teams/SharePoint recordings and 100% complete transcripts
 - `storm-research` — 4-phase adversarial multi-perspective research briefing with verified citations and HTML deliverable
+- `usage-pacing` — explicit-request quota planning; activation requires separate human confirmation
+
+The ten canonical `workflows/*.md` also have thin skill entry points using
+their workflow names. These preserve current Antigravity slash discovery
+after its October 19, 2026 workflow migration; they link to the original
+procedures instead of duplicating them. `gen-adapters.py` maintains their
+Claude/Cline mirrors. Existing legacy workflow mirrors remain for older clients.
+The upgrader refuses before writing if one of these newly reserved names (or
+`usage-pacing`) collides with differing custom skill content. Resolve the
+naming conflict deliberately; custom project instructions must be preserved.
+[Google migration guide](https://antigravity.google/docs/migration/workflows-to-skills/).
 
 
 ## Recommended third-party integrations

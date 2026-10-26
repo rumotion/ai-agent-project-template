@@ -17,31 +17,24 @@ Cross-model usage map. Read only when choosing or switching providers. Keep conc
 | Aider | Terminal pair-programmer | Direct provider key | `CONVENTIONS.md` via `.aider.conf.yml` |
 | OpenRouter | Multi-model fallback, free-tier exploration | OpenRouter API key | (depends on host tool) |
 
-## Per-model context budgets and tactics
+## Model selection and context
 
-| Model | Approx context | Tactic |
-|---|---|---|
-| Claude Opus / Sonnet (current) | up to ~1M + prompt cache | Large window, but still prefer FAST_INIT — keep `AGENTS.md`, `memory-bank/startup.md`, `memory-bank/00-index.md` byte-stable for cache hits. Match `effort` to task (see below). |
-| Claude Haiku (current) | ~200K | Fast/cheap tier for grunt work and subagents |
-| Gemini 2.5 Pro / Flash | ~1M+ | Eager reads OK; still prefer FAST_INIT to keep responses tight |
-| GPT / o-series (Codex) | ~128K–200K | Minimize tool turns; concise narration |
-| OpenRouter free models | often 8K–32K | FAST_INIT mandatory; never escalate to DEEP_AUDIT |
-
-Context windows grow over time — verify the current figure for your exact model rather than trusting this table. The tactic column is the durable part.
+Resolve the exact model, context window, effort controls and account entitlement
+from the installed client's picker and current first-party documentation. Do not
+treat a product/plan name (Codex, Antigravity, Ultra) as a model ID. Use FAST_INIT
+on every model; a larger window is not a reason for eager repository reads.
+Use observed context percentage for handoff, not fixed 150k/250k thresholds.
 
 ## Reasoning effort / adaptive thinking
 
-Current frontier models expose a thinking control instead of (or alongside) a fixed token budget:
-
-- **Claude** — `effort` (`low` / `medium` / `high`) with adaptive thinking; the model decides how much to think. Manual fixed `budget_tokens` is being phased out on the newest models. Default high effort on the largest models; lower it for trivial tasks.
-- **OpenAI o-series** — `reasoning_effort`.
-- **Gemini** — `thinking_budget` / dynamic thinking.
-
-Match effort to the task class in the table below; do not run "high" on every rename.
+Thinking/effort controls and accepted values depend on model, API and client.
+Use supported native controls, preserve an explicit user choice, and match
+effort to task difficulty. Do not translate an API parameter directly into a
+CLI flag or assume fixed-budget thinking works on every current model.
 
 ## Cache-stable files (do not bytewise-edit casually)
 
-These should change rarely so Claude prompt cache hits stay warm:
+Keep stable guidance separate from volatile status; avoid incidental rewrites:
 
 - `AGENTS.md`
 - `memory-bank/startup.md`
@@ -52,14 +45,18 @@ Volatile files (safe to update often): `memory-bank/handoff.md`, `memory-bank/ac
 
 ## Cache ordering rule (stable prefix, dynamic tail)
 
-Prompt caching works top-down and breaks at the first changed byte. Order request material from most stable to most dynamic:
+Where the client permits request ordering, put stable material before volatile
+material. This is a design preference, not a measured cache guarantee:
 
 1. System rules (`AGENTS.md`, adapters) — most stable.
 2. Tool schemas — stable.
 3. Memory-bank routing (`startup.md`, `00-index.md`) — mostly stable.
 4. Current task, conversation history, fresh tool output — most dynamic.
 
-Anti-patterns: timestamps near the top, mid-session edits to the system prompt, casual rewrites of cache-stable files. Put dynamic facts (date, git status, mode switch) in user/system-reminder messages, not in the cached prefix. TTL is ~5 minutes; idle conversations cool fast.
+Put dates, git status and mode switches in the dynamic tail. Cache matching,
+minimum sizes, TTL and billing differ by provider and surface. A repository
+cannot control all system/tool ordering; measure native telemetry before
+claiming savings. Do not assume a universal five-minute or one-hour expiry.
 
 ## Reasoning effort defaults
 
@@ -78,11 +75,11 @@ Set per-model knobs (Claude `thinking`, OpenAI `reasoning_effort`, Gemini equiva
 
 | Role | Preferred | Fallback |
 |---|---|---|
-| Initialization / planning | Gemini (Antigravity) | Claude |
-| Routine implementation | Gemini 3.6 Flash High | ChatGPT / Codex or Cline |
-| Architecture / review / fixes | ChatGPT / Codex or Claude | Gemini 3.6 Flash High |
-| Fast utility | OpenRouter cheap model | Cline w/ small model |
-| Long-context analysis | Gemini Ultra | Claude |
+| Initialization / planning | Available capable model in the chosen client | Another entitled provider |
+| Routine implementation | Lowest-cost model that passes project checks | Stronger model after a demonstrated failure |
+| Architecture / review / fixes | Model proven on representative project tasks | Independent model when review warrants it |
+| Fast utility | Local or inexpensive capable model | Current client default |
+| Long-context analysis | Model with a verified sufficient window | Chunked retrieval and short sessions |
 
 ## Cascade routing (cheapest-capable first)
 
@@ -119,10 +116,12 @@ authority order and current Gemini/Codex/Claude controls.
 - Use FAST_INIT by default; escalate to DEEP_AUDIT only when needed.
 - Record project-specific overrides below.
 
-## Current defaults
+## Optional quota pacing and goals
 
-- Planning model: Gemini Ultra (Antigravity)
-- Routine coding model: Gemini 3.6 Flash High
-- Architecture & review model: ChatGPT Teams / Codex or Claude
-- Fast/cheap model: OpenRouter free tier
-- Long-context model: Gemini Ultra
+Default OFF; see `docs/usage-pacing.md`. Native goals continue a task but do not
+measure subscription quota. Cross-client fallback is a verified task queue and
+handoff. Current first-party sources: `docs/ai-market-review-2026-10.md`.
+Installed-client behavior remains unverified.
+
+Project-specific model pins: TBD. Record real model IDs and verification date
+when selected; do not hardcode marketing names as universal defaults.

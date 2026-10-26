@@ -15,7 +15,7 @@ Separate **exploration** from **execution**:
 
 ## 2. Falsifiable predictions ("Say what an action will do before you spend it")
 
-Before executing a modifying edit or diagnostic command, formulate a concrete, falsifiable expectation:
+At the start of a work unit, define a concrete, falsifiable expectation. Keep it brief; do not narrate a prediction before every routine read:
 1. **Baseline failure/state**: State what currently fails or returns unexpected data (e.g. `pytest tests/test_auth.py` fails with `401 Unauthorized` at line 58).
 2. **Expected post-action outcome**: State the exact observable diff, return value, or test output expected after the action (e.g. `pytest tests/test_auth.py` exits 0 with 3 passed).
 3. **Learn from misses**: When reality contradicts the prediction (a test fails differently or an unexpected side effect occurs), treat it as a high-value correction signal. Stop immediately, identify where the mental model diverged from the code, record the disproven belief in the refutation ledger (`memory-bank/activeContext.md`), and update notes before trying another edit.
@@ -41,7 +41,9 @@ Bound every task so a stuck agent halts instead of looping and burning tokens:
 | Standard (bug fix, single feature) | ~15 |
 | Complex (refactor, architecture, cross-module) | ~30 |
 
-On reaching the budget without success: stop, summarize what was tried, and report — do not keep looping silently. Claude Code exposes a `/goal`-style completion condition for long autonomous runs; other tools rely on this convention.
+These are diagnostic checkpoints, not hard task limits. At a checkpoint, inspect progress and stop unproductive retries; continue authorized work when checks show progress. A user-specified hard budget takes precedence. Optional quota pacing requires separate confirmation (`docs/usage-pacing.md`).
+
+Codex, Claude Code and Antigravity document native goals, but availability and lifecycle controls depend on the installed client. A goal continues work toward an objective; it does not measure subscription quota or authorize additional spend. Use native goals only when explicitly requested and supported. Preserve the same success checks, budget and handoff fallback on other clients.
 
 ## 5. Error taxonomy and retry limits
 
@@ -60,7 +62,7 @@ The "one-line lesson on failure" matters: it stops the next session repeating th
 
 ## 6. Plan → execute → verify → commit → reflect
 
-1. **Plan** — structure detailed phases and concrete task checkpoints with success criteria (`workflows/plan-task.md`).
+1. **Check and plan** — identify the success command or observable acceptance check first. For bugs, reproduce the failure where feasible. Keep routine plans short; use phases for complex work (`workflows/plan-task.md`). A green check must test the requested behavior, not merely syntax or a weakened test.
 2. **Execute** — perform small, focused, surgical changes for the active task step using falsifiable predictions.
 3. **Verify** — run cheapest checks first (lint, types, unit tests), followed by an agent/critic pass (`workflows/critic-review.md`).
 4. **Commit** — immediately commit verified work for the current step (`git commit -m "<type>(<scope>): <step description>"`). Keep commits atomic and frequent per plan step.

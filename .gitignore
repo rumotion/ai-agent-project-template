@@ -45,6 +45,10 @@ graphify-out/
 # Agent runtime artifacts
 .agent-logs/
 .agent-benchmarks/
+.agent-usage-pacing/
+pacing.sqlite3
+pacing.sqlite3-wal
+pacing.sqlite3-shm
 .claude/settings.local.json
 .mcp/memory.json
 

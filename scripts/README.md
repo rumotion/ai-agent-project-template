@@ -26,6 +26,8 @@ It will:
 | `upgrade-target.py` | Automated project upgrader tool; upgrades any target repo to latest template standard while preserving custom code, rules, and skills. |
 | `check-template.py` | Template validator. Modes: `--fast` (lightweight), `--compat` (cross-agent contract), full (no flag), `--benchmark` (token cost only), `--check-remote` (remote audit). |
 | `benchmark-context.py` | Offline manifest-based context measurement and sanitized paired-usage comparison; supports `--json` and `--self-test`. |
+| `usage-pacing.py` | Optional confirmed quota plans, numeric telemetry and worker-count advice; no API calls or launching. See `docs/usage-pacing.md`. |
+| `verify-usage-pacing.py` | Temporary SQLite and simulated-time pacing regressions. Included in full validation. |
 | `ctx.py` | Context Compiler: deterministic, budget-capped startup blob from typed `memory-bank/records/` (`compile --for <client>`, `self-test`). |
 | `hooks/log-writes.py` | Passive write event logger (writes metadata to `.agent-logs/session.jsonl`). |
 | `hooks/guard-sensitive-paths.py` | Client-aware path guard with verified Claude, Gemini, and Codex denial outputs; also inspects shell redirection/copy targets. |
@@ -40,7 +42,7 @@ Full mode enforces:
 - All files in the validator's required manifest are present.
 - All adapter files reference `AGENTS.md`; Gemini, Claude, and Codex primary adapters match their exact thin-import forms.
 - Startup/context size budgets respected, including a hard 9,500-character aggregate FAST_INIT ceiling.
-- Canonical skill frontmatter is valid and all canonical/mirrored skill files across three trees are present (7 skills).
+- Canonical skill frontmatter is valid and all configured skills/workflow entry points across three trees are present.
 - Canonical workflow files and mirrors across three trees are present (10 workflows).
 - `.gitignore` includes required safety patterns.
 - Repository text scanned for secret-like content.

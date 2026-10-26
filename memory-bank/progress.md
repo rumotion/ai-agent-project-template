@@ -26,3 +26,13 @@
 - Host-specific supervisor containment and transaction-ledger execution.
 - Live native-client denial coverage and provider token/cache measurements.
 - Cline rule slimming after read-order evidence.
+
+## Local post-release changes — 2026-10-26
+
+- Reviewed the supplied Gemini summary, pacing playbook and current official client docs.
+- Reduced duplicated root guidance; verification-first proportional plans.
+- Thin skill entry points preserve migrated Antigravity workflow discovery.
+- Optional offline quota pacing requires separate human confirmation; no credential reads or automatic dispatch.
+- Local mail remains an assessed optional extension; Ponytail remains uninstalled.
+- Live current-client discovery/hooks/statusline behavior is unverified; no publication authorized.
+- Full local validation and 18 pacing/integration regressions pass; disposable creation/upgrade preserves discovery and passes pacing tests.

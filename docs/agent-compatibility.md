@@ -25,6 +25,17 @@ below is not necessarily shipped or enabled; see the Status row.
 Current interoperability statuses and adoption gates are tracked separately in
 `docs/protocol-watch.md`; no protocol runtime is installed by the template.
 
+### Current Google surface — documentation checked 2026-10-26
+
+The matrix below describes the shipped **legacy Gemini CLI** adapter, not a
+certified current Antigravity hook integration. Antigravity App/CLI/IDE have
+different native hook payloads. Workflow procedures now have thin skill entry
+points because current Antigravity no longer indexes legacy workflow directories
+after October 19, 2026. Test discovery in the installed client before relying
+on slash invocation. Current goals, usage telemetry and remaining native-test
+gaps are documented in [the October review](ai-market-review-2026-10.md),
+[hooks](hooks.md), and [optional pacing](usage-pacing.md).
+
 ## Compatibility matrix
 
 | Capability | Gemini CLI | Codex | Claude Code |

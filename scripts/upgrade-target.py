@@ -31,6 +31,7 @@ STANDARD_SKILLS = [
     "local-media-transcription",
     "sharepoint-teams-video-transcript-downloader",
     "storm-research",
+    "usage-pacing",
 ]
 
 STANDARD_WORKFLOWS = [
@@ -45,6 +46,30 @@ STANDARD_WORKFLOWS = [
     "self-evaluate.md",
     "upgrade-project.md",
 ]
+
+STANDARD_SKILLS += [Path(name).stem for name in STANDARD_WORKFLOWS]
+
+def new_skill_conflicts(target_dir: Path) -> List[str]:
+    """Do not claim newly reserved names over a target's custom skills."""
+    conflicts = []
+    for name in ["usage-pacing"] + [Path(path).stem for path in STANDARD_WORKFLOWS]:
+        for tree in (".agents/skills", ".claude/skills", ".cline/skills"):
+            target = target_dir / tree / name
+            source = TEMPLATE_ROOT / ".agents/skills" / name
+            if target.exists() or target.is_symlink():
+                if target.is_symlink() or not target.is_dir():
+                    conflicts.append(f"{tree}/{name}")
+                    continue
+                # Compare text to tolerate Git's platform line-ending conversion.
+                files = list(target.rglob("*"))
+                if any(path.is_symlink() for path in files):
+                    conflicts.append(f"{tree}/{name}")
+                    continue
+                actual = [path for path in files if path.is_file()]
+                if (len(actual) != 1 or actual[0].name != "SKILL.md"
+                        or actual[0].read_text(encoding="utf-8") != (source / "SKILL.md").read_text(encoding="utf-8")):
+                    conflicts.append(f"{tree}/{name}")
+    return conflicts
 
 STANDARD_ADAPTER_FILES = [
     "GEMINI.md",
@@ -109,6 +134,8 @@ STANDARD_SCRIPTS = [
     "scripts/new-project.py",
     "scripts/detach-remote.py",
     "scripts/benchmark-context.py",
+    "scripts/usage-pacing.py",
+    "scripts/verify-usage-pacing.py",
     "scripts/validate-schemas.py",
     "scripts/ctx.py",
     "scripts/push_backstop.py",
@@ -135,6 +162,9 @@ STANDARD_DOCS = [
     "docs/agent-skill-ecosystem.md",
     "docs/agent-compatibility.md",
     "docs/agent-loop.md",
+    "docs/usage-pacing.md",
+    "docs/local-agent-mail.md",
+    "docs/ai-market-review-2026-10.md",
     "docs/hooks.md",
     "docs/api.md",
     "docs/file-organization.md",
@@ -250,6 +280,11 @@ def upgrade_project(target_dir: Path, dry_run: bool = False, verbose: bool = Fal
     if not target_dir.exists():
         print(f"Error: Target directory does not exist: {target_dir}", file=sys.stderr)
         return 1, []
+
+    conflicts = new_skill_conflicts(target_dir)
+    if conflicts:
+        return 1, ["New template skill names conflict with existing target content; no files changed: "
+                   + ", ".join(conflicts)]
     
     actions = []
     print(f"[{'DRY-RUN' if dry_run else 'UPGRADE'}] Target: {target_dir}")

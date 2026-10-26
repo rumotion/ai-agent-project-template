@@ -5,6 +5,17 @@ description: Hard rules for drafting any email, chat message, meeting note or co
 
 # Human Voice Drafting
 
+## Contents
+
+- [Why this rule exists](#why-this-rule-exists)
+- [The hard rule](#the-hard-rule)
+- [Banned constructions](#banned-constructions)
+- [Positive shape](#positive-shape)
+- [Calibration](#calibrate-to-this-projects-user)
+- [Draft review](#before-handing-over-any-draft)
+- [Scope and limits](#scope-and-limits)
+- [Worked example](#worked-example)
+
 ## Why this rule exists
 
 This skill was codified after a real incident. A user sent an email drafted by an assistant to a senior

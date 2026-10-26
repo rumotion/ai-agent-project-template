@@ -1,5 +1,32 @@
 # Public release review: v1.0.0
 
+## Post-release main update — 2026-10-26
+
+Scope: the current-client/workflow and optional pacing update described in
+`CHANGELOG.md` under Unreleased. No new tag or GitHub Release is created.
+
+- Compare against fetched public main and inspect every outgoing text blob,
+  the complete current tracked file inventory and new commit metadata.
+- Check known credential/private-key patterns, secret-like assignments,
+  personal email/home paths, local file URIs and sensitive runtime filenames.
+  Review binary additions explicitly; none are intended in this update.
+- Keep unpublished commits with non-no-reply author metadata on a local-only
+  archive branch. Construct the public update on the existing public parent
+  with GitHub no-reply metadata; do not rewrite published history.
+- Publish only the reviewed main ref, never all branches or tags. Preserve the
+  local pre-push block after the explicitly authorized publication command.
+- Ignore-state review excludes runtime logs, scratch, historical local proposals,
+  caches, pacing databases and the developer's original local playbook.
+- Run full local validation before publication. Native client integration and
+  provider quota/cache measurements remain unverified.
+
+The company workflow project is created separately after publication. Its
+project-specific context is local-only and never enters this public template.
+Pattern scans cannot prove the absence of every possible confidential fact;
+the reviewed scope and actual Git transmission inputs are the boundary here.
+
+## Original release review
+
 Scope: rumotion/ai-agent-project-template, the reviewed public main snapshot and
 its annotated v1.0.0 tag. Private workspace files are not release inputs.
 

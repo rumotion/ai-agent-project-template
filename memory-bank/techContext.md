@@ -6,7 +6,7 @@
 - Runtime: Python 3.9+ (validated locally on 3.13; CI covers 3.9 and current 3.x)
 - Framework: None (Pure template)
 - Package manager: None
-- Database: None
+- Database: Optional private SQLite quota-pacing state outside projects; no application database
 - Test framework: Python validator scripts (`scripts/check-template.py`)
 - Deployment: GitHub Template
 
@@ -30,6 +30,7 @@ TBD per copied project.
 python scripts/init-fast.py
 python scripts/hooks/verify-fixtures.py
 python scripts/benchmark-context.py --self-test
+python scripts/verify-usage-pacing.py
 python scripts/benchmark-context.py --scenario fast-init
 python scripts/check-template.py --fast
 python scripts/check-template.py --compat

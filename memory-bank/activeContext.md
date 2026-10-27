@@ -1,5 +1,13 @@
 # Active Context
 
+## v1.1.0 release packaging — 2026-10-26
+
+- Current user authorized a visible versioned GitHub release and English description/visual updates.
+- VERSION/changelog promoted to 1.1.0; README prioritizes new capabilities and links to release notes.
+- Expanded the native SVG overview with a highlighted new-in-1.1 row. Chrome rendering produced a 2400x1520 PNG with no embedded metadata or text overflow.
+- Release assets are derived only from public template content. Company repositories are outside this work unit.
+- Full validation and outgoing content/metadata review precede the main/tag push; native client guarantees are unchanged.
+
 ## Publication and English starter verification — 2026-10-26
 
 - Published reviewed main at 5f46a66; hosted run 40409209097 passed Windows/Linux and Python 3.9/current.

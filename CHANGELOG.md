@@ -4,6 +4,10 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 ## Unreleased
 
+_Nothing yet._
+
+## v1.1.0 - 2026-10-26 - Confirmed quota pacing and portable workflows
+
 ### Added
 
 - Optional stdlib-only quota pacing with private SQLite state, pending plans,

@@ -1,4 +1,20 @@
-# Public release review: v1.0.0
+# Public release reviews
+
+## v1.1.0 release preparation — 2026-10-26
+
+Scope: version/changelog metadata, README, English release notes and the feature
+overview. The functional update and English starter fix are already on public
+main. No company project, private playbook or runtime state is a release input.
+
+- The updated native SVG was rendered locally in headless Chrome. Text bounds
+  fit the cards; the 2400x1520 PNG has no embedded metadata. Both visuals use
+  only reviewed public template descriptions.
+- Full local validation and outgoing Git object/metadata checks precede the
+  main/tag push. Use GitHub no-reply author, committer and tagger metadata.
+- Publish only reviewed main and v1.1.0, with the release marked Latest. Keep
+  local archive branches and the installed accidental-push backstop intact.
+- Release notes distinguish implemented features from advisory controls and
+  unverified live-client behavior. Optional pacing remains OFF.
 
 ## Post-release main update — 2026-10-26
 

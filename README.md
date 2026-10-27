@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template: canonical instructions, shared project memory, and verified workflows" width="1200" />
+  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.1.0: shared instructions, durable memory, verified workflows, new quota pacing and portable skill discovery" width="1200" />
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@ instructions in one place, carry project context between sessions, and verify
 changes with dependency-free tooling.
 
 [Quick start](#quick-start) | [What is included](#what-is-included) |
-[What changed in v1.0](#what-changed-in-v10) | [Verification](#verification) |
+[What changed in v1.1](#what-changed-in-v11) | [Verification](#verification) |
 [Documentation](#documentation) | [Releases](https://github.com/rumotion/ai-agent-project-template/releases)
 
 [![Validate template](https://github.com/rumotion/ai-agent-project-template/actions/workflows/validate.yml/badge.svg)](https://github.com/rumotion/ai-agent-project-template/actions/workflows/validate.yml)
@@ -84,32 +84,7 @@ not establish that every client consumes hook events. The
 [capability inventory](schemas/adapter-capabilities.json) distinguishes candidate
 mappings from missing live-client evidence.
 
-## What changed in v1.0
-
-- **Context integrity:** duplicate metadata and identities, invalid supersession
-  graphs, symlink records, and oversized sources are rejected. Complete record
-  bodies are preserved. Invalid or protected-over-budget CLI projections fail
-  explicitly instead of returning partial context.
-- **Compiled startup:** Claude's SessionStart hook now uses the compiler. Durable
-  records precede changing status; JSON diagnostics identify the durable prefix.
-- **Stricter delegation:** a closed schema dialect, paired task/result checks,
-  ownership and forbidden-path checks, and serialized UTF-8 byte limits.
-  Token-budget checks can require trusted provider telemetry.
-- **Local push protection:** one installer resolves actual Git hook paths,
-  including linked worktrees. Ordinary pushes are blocked unconditionally;
-  custom hooks and configuration conflicts fail visibly.
-- **Adversarial regressions:** 24 remote-command cases, 12 sensitive-path cases,
-  payload aliases, 15 compiler checks, and installer/contract regressions are
-  included in validation.
-- **Reproducible adapters:** regenerate workflow and skill mirrors from their
-  canonical files, with byte-level drift checking.
-- **Explicit boundaries:** inspection reports the controls that are present.
-  Unsupported containment and release profiles fail verification.
-
-Details: [Changelog](CHANGELOG.md) |
-[Implementation and verification](docs/audits/second-order/implementation.md).
-
-## Updates on main after v1.0.0
+## What changed in v1.1
 
 - **Confirmed quota pacing:** a local, opt-in adviser for approved useful work.
   Default OFF; a concrete plan and separate human confirmation are required.
@@ -127,8 +102,26 @@ Read [usage pacing](docs/usage-pacing.md) for commands, state/telemetry formats,
 confirmation, stop conditions and native-goal integration. The
 [October tooling review](docs/ai-market-review-2026-10.md) explains adoption
 decisions and limits; [local agent mail](docs/local-agent-mail.md) is an
-assessment, not an installed messaging system. These updates are on main;
-the latest tagged release remains v1.0.0.
+assessment, not an installed messaging system.
+
+Release: [v1.1.0 - Confirmed quota pacing and portable workflows](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.1.0).
+
+## Core verification features
+
+- **Context integrity:** reject invalid or oversized records; preserve complete
+  bodies and fail explicitly instead of returning partial context.
+- **Compiled startup:** Claude's SessionStart hook uses typed context records,
+  with durable facts before changing status.
+- **Scoped delegation:** paired task/result schemas, path ownership checks,
+  forbidden paths and bounded UTF-8 reports.
+- **Local push protection:** a shared installer preserves custom hooks and
+  blocks ordinary accidental pushes. Publishing requires explicit authorization.
+- **Reproducible adapters:** generated workflow/skill mirrors with drift checks.
+- **Adversarial regressions:** context, contracts, shell guards and installer
+  behavior are exercised by the dependency-free validator.
+
+Details: [Changelog](CHANGELOG.md) |
+[Implementation and verification](docs/audits/second-order/implementation.md).
 
 ## How project memory works
 

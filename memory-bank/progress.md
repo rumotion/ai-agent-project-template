@@ -1,5 +1,11 @@
 # Progress
 
+## v1.1.0 release packaging — 2026-10-26
+
+- Versioned release notes and refreshed visual overview prepared in English.
+- No functional changes beyond the previously validated workflow/pacing update.
+- Await release publication/CI verification; native-client smoke tests remain separate.
+
 ## Implemented
 
 - Canonical instructions and thin discovery adapters.

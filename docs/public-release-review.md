@@ -16,6 +16,13 @@ main. No company project, private playbook or runtime state is a release input.
 - Release notes distinguish implemented features from advisory controls and
   unverified live-client behavior. Optional pacing remains OFF.
 
+Publication receipt: [v1.1.0](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.1.0)
+is the latest release, tagged at `1e9ca6e5750877b0aca975884d50d32f26497622`.
+[Hosted run 40432331642](https://github.com/rumotion/ai-agent-project-template/actions/runs/40432331642)
+passed all four Windows/Linux and Python jobs. The release contains the reviewed
+SVG and PNG overview assets. A documentation-only main follow-up records this
+receipt; the published tag is not moved.
+
 ## Post-release main update — 2026-10-26
 
 Scope: the current-client/workflow and optional pacing update described in

@@ -4,7 +4,7 @@
 
 - Versioned release notes and refreshed visual overview prepared in English.
 - No functional changes beyond the previously validated workflow/pacing update.
-- Await release publication/CI verification; native-client smoke tests remain separate.
+- Published v1.1.0 as Latest at 1e9ca6e; run 40432331642 passed all four hosted jobs. Native-client smoke tests remain separate.
 
 ## Implemented
 

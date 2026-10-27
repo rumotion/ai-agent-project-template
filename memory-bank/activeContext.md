@@ -2,6 +2,8 @@
 
 ## v1.1.0 release packaging — 2026-10-26
 
+- Outcome: COMPLETE. Published v1.1.0 as Latest at 1e9ca6e; hosted run 40432331642 passed all four jobs.
+- Repository description and README overview are updated; the release includes English notes and PNG/SVG visual assets.
 - Current user authorized a visible versioned GitHub release and English description/visual updates.
 - VERSION/changelog promoted to 1.1.0; README prioritizes new capabilities and links to release notes.
 - Expanded the native SVG overview with a highlighted new-in-1.1 row. Chrome rendering produced a 2400x1520 PNG with no embedded metadata or text overflow.

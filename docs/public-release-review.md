@@ -25,6 +25,19 @@ project-specific context is local-only and never enters this public template.
 Pattern scans cannot prove the absence of every possible confidential fact;
 the reviewed scope and actual Git transmission inputs are the boundary here.
 
+### Main update receipt
+
+- Published source commit: `5f46a6610122ef8c5b9a00e1ac9e18b735a47a56`.
+- [Hosted validation run 40409209097](https://github.com/rumotion/ai-agent-project-template/actions/runs/40409209097)
+  passed all four Windows/Linux and Python 3.9/current jobs.
+- Reviewed 291 tracked files and 39 outgoing text blobs, plus the sole outgoing
+  commit's author/committer metadata. No checked sensitive-pattern matches or
+  non-English documentation remained. These counts describe that source push.
+- Verified the remote main SHA after push and preserved the installed local
+  pre-push hook byte-for-byte. No archive branches, tags or company content
+  were included. The follow-up fixes generated starter text separators and
+  records this receipt; it undergoes a separate outgoing review.
+
 ## Original release review
 
 Scope: rumotion/ai-agent-project-template, the reviewed public main snapshot and

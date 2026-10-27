@@ -34,6 +34,11 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 - Public updates use reviewed content and GitHub no-reply commit metadata;
   unpublished local history is not part of the publication ancestry.
 
+### Fixed
+
+- Replaced corrupted text separators in generated README and Memory Bank stubs
+  with ASCII separators, keeping fresh-project documentation readable English.
+
 ## v1.0.0 - 2026-10-03 - Validated context and reproducible agent workflows
 
 ### Added

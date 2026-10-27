@@ -36,3 +36,9 @@
 - Local mail remains an assessed optional extension; Ponytail remains uninstalled.
 - Live current-client discovery/hooks/statusline behavior is unverified; no publication authorized.
 - Full local validation and 18 pacing/integration regressions pass; disposable creation/upgrade preserves discovery and passes pacing tests.
+
+## Published main update — 2026-10-26
+
+- Reviewed public main 5f46a66; GitHub Actions run 40409209097 passed all four Windows/Linux and Python jobs.
+- English-only documentation/commit policy and corrected generated starter text.
+- Public ancestry excludes unpublished local metadata; only reviewed main is transmitted.

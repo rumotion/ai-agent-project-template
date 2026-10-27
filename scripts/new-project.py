@@ -60,7 +60,7 @@ MEMORY_STUBS = {
 
 Project: {name}.
 
-Goal: TBD РІР‚вЂќ describe the project in one or two sentences.
+Goal: TBD - describe the project in one or two sentences.
 
 Current focus: Initial setup. No implementation yet.
 
@@ -135,7 +135,7 @@ None yet. Record disproven beliefs and their killing evidence here.
 
 Architecture, module boundaries, and recurring patterns.
 
-TBD РІР‚вЂќ record these once the stack is chosen.
+TBD - record these once the stack is chosen.
 """,
     "techContext.md": """# Tech Context
 
@@ -152,7 +152,7 @@ Important decisions and their rationale. Newest first.
 
 ## Decision template
 
-### YYYY-MM-DD РІР‚вЂќ Decision title
+### YYYY-MM-DD - Decision title
 
 Status: Proposed / Accepted / Rejected / Superseded
 
@@ -181,7 +181,7 @@ Domain terms used in this project.
 
 README_STUB = """# {name}
 
-TBD РІР‚вЂќ one-paragraph description of this project.
+TBD - one-paragraph description of this project.
 
 ## Status
 
@@ -204,7 +204,7 @@ python scripts/check-template.py
 
 ## Getting started
 
-TBD РІР‚вЂќ add setup, run, and test commands once the stack is chosen.
+TBD - add setup, run, and test commands once the stack is chosen.
 """
 
 CHANGELOG_STUB = """# Changelog

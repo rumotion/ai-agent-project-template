@@ -1,5 +1,13 @@
 # Active Context
 
+## Publication and English starter verification — 2026-10-26
+
+- Published reviewed main at 5f46a66; hosted run 40409209097 passed Windows/Linux and Python 3.9/current.
+- Reviewed 291 tracked files, 39 outgoing text blobs and commit metadata; no checked sensitive-pattern findings. The public commit excludes unpublished non-no-reply metadata and prior local-only history.
+- Repository documentation and commit messages are English. Fixed corrupted separators in generated README/Memory Bank stubs; fresh generated Markdown and Python 3.9 grammar checks pass.
+- Full local validation passes after the generator fix. Native-client behavior remains unverified; pacing remains OFF.
+- Company project state is maintained separately and is not a public-template input.
+
 ## Publication preparation — 2026-10-26
 
 - Current user explicitly authorized a reviewed GitHub main push.

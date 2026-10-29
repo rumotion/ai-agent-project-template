@@ -68,3 +68,86 @@ keywords. Byte caps and schema checks do not enforce tool allowlists, exclusive
 leases, process isolation, or actual verification execution. Parents must run
 verification independently. A supervisor-owned transaction ledger remains a
 future design in `docs/audits/second-order/report.md`, not an implemented runtime.
+
+## Completion-first coordination
+
+One lead owns one project work package, its dependency graph, acceptance and
+integration. Default to one worker and a maximum of two open tasks. Increase
+these limits only in an explicit plan with independent work and sufficient
+completion resources. A worker never spawns another worker. Read-only review
+also consumes a native worker slot; the lead must count every live worker,
+including reviewers, when applying the runtime/plan limit.
+
+Use this lifecycle for planning and parent-maintained snapshots:
+
+```text
+queued -> running -> review -> accepted
+             |         |
+             +-> blocked
+```
+
+`running`, `review` and `blocked` count against work in progress (WIP), even
+after a worker's session ends. A worker returning `completed` moves work to
+`review`; only parent verification and scope checks permit `accepted`.
+Dependencies release only on `accepted`. Stop new dispatch while any result
+awaits review or any task is blocked. Serialize integration, shared interface
+changes and Memory Bank updates through the lead. Prefer a small end-to-end
+slice with acceptance checks over starting multiple unrelated projects.
+
+Before each dispatch, the lead checks:
+
+1. Dependencies have been accepted against the current input/base version.
+2. Concrete write paths are disjoint from active ownership; shared contracts
+   are fixed. Schema globs are declarations, not a collision detector.
+3. There is a native slot and an open-task slot, including pending reviews.
+4. The entire bounded completion package fits time, context and **all**
+   binding quota limits. Include current work, required downstream tasks,
+   parent verification, repairs and integration;
+   keep a separate wrap-up reserve. Unknown cost never justifies scaling.
+5. The worker receives its narrow envelope, acceptance command, next checkpoint
+   and instruction to report blockers without expanding scope.
+
+### Communication and interruption
+
+Use a hub: worker -> lead -> affected worker. Send facts, not transcripts.
+At useful checkpoints report task ID, attempt, state, changed artifact refs,
+check outcome, remaining estimate and the next action. Send blockers or changed
+interface assumptions immediately. Store longer evidence outside chat and load
+only what the lead needs to decide. Only the lead changes scope or priorities.
+Review results as they arrive; a new wave must not bury unaccepted results.
+
+If progress stops, stop dispatch first and ask that worker for its last safe
+checkpoint. A missed heartbeat is evidence of uncertainty, not permission to
+reassign its files. Request native cancellation, wait for stop acknowledgement,
+preserve changes and record a resumable checkpoint before transferring ownership.
+On handoff, stop pacing and reconcile every live worker; do not leave a fleet
+running behind a new coordinator. Unfinished work remains explicitly unfinished.
+
+Measure accepted work and integration failures, blocked age, review queue size,
+estimate error and remaining open tasks. Agent count and consumed quota are
+resource measurements, never productivity or success criteria.
+
+### What is implemented and what remains
+
+`scripts/usage-pacing.py` now requires a fresh completion snapshot before it
+can recommend dispatch. It applies dependency, WIP and conservative completion
+cost checks in addition to quota advice (see `docs/usage-pacing.md`). This is
+an advisory gate over parent declarations. Normal delegation follows the same
+policy without requiring quota pacing or its activation.
+
+There is still no native dispatcher, durable task/attempt ledger, path lease
+service, heartbeat monitor, authenticated acceptance or automatic cancellation.
+The snapshot is not that runtime. The existing transaction-ledger proposal in
+`docs/audits/second-order/report.md` remains the basis for future work:
+
+| Next bounded step | Acceptance check before expansion |
+|---|---|
+| Durable queue with dependency states, attempts, exclusive path leases and atomic claims | Two coordinators cannot claim the same task/path; dependencies cannot bypass parent acceptance; restart preserves open work |
+| One tested native adapter with narrow context, progress events and stop acknowledgement | One worker completes and is independently accepted; a timed-out worker cannot keep writing after its paths are reassigned |
+| Small parallel pilot, then measured scaling | Two independent tasks finish, integrate and leave zero open work; crash/restart, stale-base and late-result tests pass before a larger fleet |
+
+Keep runtime state local, outside worker authority; use a single coordinator per
+shared quota pool or an explicit supervisor shared by project leads. Multiple
+advisers for the same pool cannot each assume the same remaining budget.
+Do not add more workers until the preceding acceptance check passes. These are
+future implementation milestones, not claims about current enforcement.

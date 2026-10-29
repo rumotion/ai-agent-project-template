@@ -9,6 +9,10 @@ Coordinates task breakdown, path ownership, worker dispatch, and evidence-ground
 
 ## Quick Start
 
+0. Apply the completion-first admission rules in `docs/subagent-contract.md`.
+   Keep one lead and one worker by default, at most two open tasks unless the
+   plan explicitly increases that limit. Stop dispatch while review or blocked
+   work is pending; workers do not spawn workers.
 1. Define worker tasks using the JSON task envelope validated by `schemas/subagent-task.schema.json` (rules in `docs/subagent-contract.md`).
 2. Assign disjoint `owned_paths` to each worker to prevent write collisions; list hard exclusions in `forbidden_paths`.
 3. Dispatch the envelope only — never forward the parent transcript, other tasks, or secret-bearing history.
@@ -22,6 +26,8 @@ Coordinates task breakdown, path ownership, worker dispatch, and evidence-ground
 - **Envelope-Only Context**: Workers receive only their JSON task envelope; mask secrets before dispatch.
 - **Deterministic Verification**: Verify subagent results with explicit build, test, or lint commands before accepting the result; reject every write outside `owned_paths` or within `forbidden_paths`, including reported writes. Compare content hashes for already-dirty files, not just status.
 - **Memory Bank Serialization**: Only the parent writes `memory-bank/*`; merge worker-reported facts once.
+- **Completion Before Expansion**: Dependencies release only after parent acceptance. Reserve time and every binding quota for implementation, parent checks and integration. With pacing, use a fresh completion board and dispatch only `dispatch_task_ids`; quota headroom alone never permits launch.
+- **Directed Coordination**: Workers send bounded progress, blockers and result references to the lead. The lead routes changed contracts and cancellation requests; no peer may change another worker's scope. A silent worker retains ownership until native execution is confirmed stopped.
 - **Conflict Handling**: If a worker returns `status: blocked` or fails verification twice, halt and escalate to parent/Codex review.
 
 Validate paired results with `scripts/validate-schemas.py --schema schemas/subagent-result.schema.json --instance result.json --task task.json --root .`. Read-only tasks use `owned_paths: []`. Serialized-byte limits are independent of token telemetry; declarations do not create a sandbox or lease system.

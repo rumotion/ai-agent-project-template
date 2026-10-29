@@ -65,6 +65,7 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 
 - Define the observable success check first; state baseline and expected outcome. Use a short plan for routine work, phases for complex work. Detail: `docs/agent-loop.md`.
 - Inspect the real flow, then reuse existing behavior, configuration or code before adding code. Keep validation, error handling, security and accessibility.
+- Delegate ready, bounded tasks only: one worker by default, two open tasks unless explicitly planned otherwise. Review/blocked work counts as open. Accept results before releasing dependents; no recursive spawning. See `docs/subagent-contract.md`.
 - Verify each step, then commit locally: `git commit -m "<type>(<scope>): <step>"`. Document completed work in `activeContext.md` and `handoff.md`.
 - Batch independent reads/checks; keep dependent operations sequential. Escalate diagnostics only when evidence requires it.
 - Use ~5 / 15 / 30 calls as diagnostic checkpoints, not forced task termination. Stop unproductive retries; continue authorized work while making measurable progress.

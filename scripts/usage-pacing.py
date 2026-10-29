@@ -76,7 +76,7 @@ def get_run(db, run_id):
 
 
 def create_plan(db, provider, objective, deadline, target=90, max_agents=1,
-                reserve=1, wrap_minutes=30, now=None):
+                reserve=1, wrap_minutes=30, now=None, max_open_tasks=2):
     now = now or datetime.now(UTC)
     end = timestamp(deadline)
     if provider not in ("claude", "codex", "google"):
@@ -89,13 +89,15 @@ def create_plan(db, provider, objective, deadline, target=90, max_agents=1,
     number(reserve, 1, 20)
     number(max_agents, 1, 10)
     number(wrap_minutes, 1, 120)
-    if int(max_agents) != max_agents or int(wrap_minutes) != wrap_minutes:
+    number(max_open_tasks, 1, 10)
+    if any(int(v) != v for v in (max_agents, wrap_minutes, max_open_tasks)):
         raise ValueError("agent count and wrap minutes must be integers")
     if reserve >= target or not now + timedelta(minutes=wrap_minutes) < end <= now + timedelta(days=7):
         raise ValueError("invalid reserve or deadline (must allow wrap-up, within seven days)")
     plan = {"provider": provider, "objective": objective.strip(), "deadline": end.isoformat(),
             "target": target, "reserve": reserve, "max_agents": max_agents,
-            "wrap_minutes": wrap_minutes, "created_at": now.isoformat()}
+            "wrap_minutes": wrap_minutes, "max_open_tasks": max_open_tasks,
+            "created_at": now.isoformat()}
     run_id = uuid.uuid4().hex[:16]
     with db:
         db.execute("INSERT INTO runs VALUES (?, ?, 'pending', NULL)",
@@ -203,7 +205,7 @@ def recent(db, run_id):
              **json.loads(r["data"])} for r in reversed(rows)]
 
 
-def advice(db, run_id, agents=0, since=None, now=None):
+def quota_advice(db, run_id, agents=0, since=None, now=None):
     now = now or datetime.now(UTC)
     run = get_run(db, run_id)
     plan = run["plan"]
@@ -275,6 +277,144 @@ def advice(db, run_id, agents=0, since=None, now=None):
             "scale": round(scale, 3)}
 
 
+def work_snapshot(data, now, run_id):
+    """Validate a bounded parent-maintained board; never trust worker completion."""
+    if not isinstance(data, dict) or set(data) != {"run_id", "observed_at", "tasks"} or data["run_id"] != run_id:
+        raise ValueError("work snapshot requires matching run_id, observed_at and tasks")
+    at = timestamp(data["observed_at"])
+    if at > now or now - at > timedelta(minutes=10):
+        raise ValueError("work snapshot must be fresh and not future-dated")
+    tasks = data["tasks"]
+    if not isinstance(tasks, list) or len(tasks) > 32:
+        raise ValueError("at most 32 tasks per snapshot")
+    board = {}
+    for task in tasks:
+        if not isinstance(task, dict) or set(task) - {
+                "task_id", "state", "depends_on", "remaining_minutes", "quota_percent"}:
+            raise ValueError("invalid task fields")
+        task_id = task.get("task_id")
+        if not isinstance(task_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9._-]{0,63}", task_id):
+            raise ValueError("invalid task ID")
+        if task_id in board or task.get("state") not in {"queued", "running", "review", "accepted", "blocked"}:
+            raise ValueError("duplicate task or invalid state")
+        deps = task.get("depends_on")
+        if not isinstance(deps, list) or len(deps) > 32 or any(not isinstance(d, str) for d in deps):
+            raise ValueError("invalid dependencies")
+        if len(set(deps)) != len(deps):
+            raise ValueError("duplicate dependencies")
+        board[task_id] = task
+    visited, active = set(), set()
+
+    def visit(task_id):
+        if task_id not in board or task_id in active:
+            raise ValueError("unknown dependency or cycle")
+        if task_id in visited:
+            return
+        active.add(task_id)
+        for dep in board[task_id]["depends_on"]:
+            visit(dep)
+        active.remove(task_id)
+        visited.add(task_id)
+
+    for task_id in board:
+        visit(task_id)
+        task = board[task_id]
+        if task["state"] in {"running", "review", "accepted"} and any(
+                board[d]["state"] != "accepted" for d in task["depends_on"]):
+            raise ValueError("started task has unaccepted dependencies")
+    return list(board.values())
+
+
+def advice(db, run_id, agents=0, since=None, now=None, work=None):
+    """Quota advice is an upper bound, never sufficient authority to dispatch."""
+    now = now or datetime.now(UTC)
+    result = {**quota_advice(db, run_id, agents, since, now), "dispatch_task_ids": []}
+    if result["state"] in {"inactive", "wrap_up"} or (
+            result["state"] == "hold" and result["recommended_agents"] == 0):
+        return result
+
+    def drain(reason):
+        return {**result, "state": "drain", "recommended_agents": min(agents, result["recommended_agents"]),
+                "reason": reason}
+
+    if work is None:
+        return drain("No fresh completion board; finish current work without dispatching")
+    try:
+        tasks = work_snapshot(work, now, run_id)
+    except (ValueError, TypeError, KeyError):
+        return drain("Invalid or stale completion board; refresh it before dispatching")
+    running = [t for t in tasks if t["state"] == "running"]
+    opened = [t for t in tasks if t["state"] in {"running", "review", "blocked"}]
+    if len(running) != agents:
+        return drain("Worker count disagrees with running tasks; reconcile native workers and board")
+    if all(t["state"] == "accepted" for t in tasks):
+        return {**result, "state": "complete", "recommended_agents": 0,
+                "reason": "All queued work accepted; stop this run"}
+    latest = recent(db, run_id)[-1]
+    context = latest.get("context")
+    plan = get_run(db, run_id)["plan"]
+    windows = latest["windows"]
+    end = min([timestamp(plan["deadline"])] + [timestamp(w["resets_at"]) for w in windows.values()])
+    minutes = (end - now).total_seconds() / 60 - plan["wrap_minutes"]
+    quota = {name: (plan["target"] - plan["reserve"] if name == "long" else 98) - w["used_percent"]
+             for name, w in windows.items()}
+
+    def charge(task):
+        nonlocal minutes
+        # Estimates include implementation, parent checks and serialized integration.
+        # The 50% margin is a heuristic, not a provider spending guarantee.
+        duration = 1.5 * number(task.get("remaining_minutes"), 1, 10_080)
+        costs = task.get("quota_percent")
+        if not isinstance(costs, dict) or set(costs) != set(quota):
+            raise ValueError("completion estimates must cover every quota window")
+        amounts = {name: 1.5 * number(costs[name], .001, 100) for name in quota}
+        if duration >= minutes or any(amounts[name] >= quota[name] for name in quota):
+            return False
+        minutes -= duration
+        for name in quota:
+            quota[name] -= amounts[name]
+        return True
+
+    try:
+        for task in opened:
+            if not charge(task):
+                return {**result, "state": "wrap_up", "recommended_agents": 0,
+                        "reason": "Open work no longer fits completion reserves; checkpoint and stop"}
+    except (ValueError, TypeError):
+        return drain("Open work has unknown completion cost; estimate it before dispatching")
+    if context and context["used_tokens"] / context["window_tokens"] >= .75:
+        return drain("Context at 75%; accept or checkpoint current work and prepare handoff")
+    if any(t["state"] in {"review", "blocked"} for t in opened):
+        return drain("Review or blocked work is open; accept or checkpoint it before dispatching")
+    if result["state"] not in {"ready", "run"}:
+        return result
+    # A board is one bounded, required package. Reserve downstream acceptance
+    # and integration too, even though dependencies prevent their launch now.
+    try:
+        for task in tasks:
+            if task["state"] == "queued" and not charge(task):
+                return drain("Required completion package exceeds reserves; reduce scope explicitly before dispatching")
+    except (ValueError, TypeError):
+        return drain("Required completion package has unknown costs; estimate all remaining work before dispatching")
+    cap = min(plan.get("max_open_tasks", 2) - len(opened),
+              (1 if agents == 0 else result["recommended_agents"]) - agents)
+    accepted = {t["task_id"] for t in tasks if t["state"] == "accepted"}
+    for task in tasks:
+        if cap <= 0:
+            break
+        if task["state"] != "queued" or not set(task["depends_on"]) <= accepted:
+            continue
+        result["dispatch_task_ids"].append(task["task_id"])
+        cap -= 1
+    result["recommended_agents"] = min(result["recommended_agents"], agents + len(result["dispatch_task_ids"]))
+    if agents == 0 and result["dispatch_task_ids"]:
+        result["recommended_agents"] = 1
+    if not result["dispatch_task_ids"] and result["recommended_agents"] >= agents:
+        return drain("No admissible independent task within WIP and completion reserves")
+    result["reason"] = "Completion board bounds quota advice; dispatch only listed tasks after scope checks"
+    return result
+
+
 def metrics(db, run_id, kind, now=None):
     get_run(db, run_id)
     rows = recent(db, run_id)
@@ -316,6 +456,7 @@ def main():
     plan.add_argument("--target", type=float, default=90)
     plan.add_argument("--reserve", type=float, default=1)
     plan.add_argument("--max-agents", type=int, default=1)
+    plan.add_argument("--max-open-tasks", type=int, default=2, help="Includes running, review and blocked work")
     plan.add_argument("--wrap-minutes", type=int, default=30)
     for name in ("start", "status", "stop", "record", "pace", "usage", "context", "cost"):
         sub = commands.add_parser(name)
@@ -328,6 +469,7 @@ def main():
             source.add_argument("--claude-stdin", action="store_true")
             sub.add_argument("--observed-at", help="Actual reading time with offset; defaults to now")
         if name == "pace":
+            sub.add_argument("--work-file", type=Path, help="Fresh parent-maintained completion board JSON")
             sub.add_argument("--agents", type=int, default=0)
             sub.add_argument("--since", help="Time agent count last changed, with offset")
             sub.add_argument("--watch", type=int, help="Poll local data every N seconds (minimum 300); exit on advice change")
@@ -336,7 +478,8 @@ def main():
         with closing(database(args.root)) as db:
             if args.command == "plan":
                 result = create_plan(db, args.provider, args.objective, args.deadline, args.target,
-                                     args.max_agents, args.reserve, args.wrap_minutes)
+                                     args.max_agents, args.reserve, args.wrap_minutes,
+                                     max_open_tasks=args.max_open_tasks)
             elif args.command == "start":
                 result = confirm(db, args.run, args.confirm)
             elif args.command == "status":
@@ -352,7 +495,8 @@ def main():
                 if args.watch is not None and args.watch < 300:
                     raise ValueError("watch interval must be at least 300 seconds")
                 while True:
-                    result = advice(db, args.run, args.agents, args.since)
+                    work = load_input(args.work_file) if args.work_file else None
+                    result = advice(db, args.run, args.agents, args.since, work=work)
                     print(json.dumps(result, allow_nan=False), flush=True)
                     if not args.watch or result["state"] not in ("measuring", "run") or result["recommended_agents"] != args.agents:
                         return 0

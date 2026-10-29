@@ -1,5 +1,16 @@
 # Active Context
 
+## Phase summary: completion-first coordination - 2026-10-29
+
+- Outcome: COMPLETE for advisory admission and coordination policy; native fleet runtime remains future work.
+- Decisions: one worker/two open tasks by default; no recursive spawning; parent acceptance releases dependencies; drain reviews/blockers and 75% context.
+- Admission: fresh run-bound board, matching worker count, acyclic dependencies and entire required package costs with a 50% estimate margin across time/all quota windows.
+- Refuted hypothesis: funding only the dispatched task was sufficient; critic probes showed downstream integration could overrun. Full-package reservation and regressions address this.
+- Files: pacing CLI/tests, delegation contract/skill mirrors, root guidance, testing docs and changelog.
+- Checks: 34 offline regressions; full/compatibility gates, context self-test, Python 3.9 grammar and independent read-only critic acceptance. Parent confirmed unchanged tracked-file hashes after review.
+- Open: durable task/attempt ledger, atomic path leases and one tested native dispatch/cancellation adapter; see docs/subagent-contract.md.
+- Pacing remains OFF. No real worker fleet or provider quota run started; no push/publication authorized.
+
 ## v1.1.0 release packaging — 2026-10-26
 
 - Outcome: COMPLETE. Published v1.1.0 as Latest at 1e9ca6e; hosted run 40432331642 passed all four jobs.

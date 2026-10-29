@@ -1,5 +1,12 @@
 # Progress
 
+## Completion-first admission - 2026-10-29
+
+- Implemented advisory completion-board gates: dependency acceptance, two-open-task default, review/blocked backpressure, full-package reserves and 75% context draining.
+- Quota headroom alone cannot recommend dispatch; unknown/stale task costs cannot unlock expansion.
+- 34 offline tests and independent critic review pass; pacing remains OFF and changes stay local.
+- Durable supervision, path leases and native cancellation are future milestones in docs/subagent-contract.md.
+
 ## v1.1.0 release packaging — 2026-10-26
 
 - Versioned release notes and refreshed visual overview prepared in English.

@@ -4,7 +4,15 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 ## Unreleased
 
-_Nothing yet._
+### Changed
+
+- Quota pacing requires a fresh parent-maintained completion board before
+  recommending dispatch. Dependencies, open-task limits, review/blocked work,
+  completion estimates for every quota window and 75% context draining now
+  bound rate-based advice. The default open-task limit is two.
+- Delegation guidance prioritizes parent acceptance, directed progress reports,
+  native stop acknowledgement and finishing bounded work before expansion.
+  Durable fleet supervision is documented as future work, not enforcement.
 
 ## v1.1.0 - 2026-10-26 - Confirmed quota pacing and portable workflows
 

@@ -102,3 +102,9 @@ ingestion, cost snapshot semantics, invalid input and concurrent writers.
 Full validation runs it automatically. No model calls, credentials, quota use
 or live client integration are needed. Live statusline wiring and background
 completion notifications need a separate native-client smoke test.
+
+Completion-board cases additionally cover dependency acceptance, WIP defaults,
+review/blocked backpressure, unknown or insufficient completion costs across
+all quota windows, the 50% estimate margin, context draining at 75%, stale or
+invalid boards, mismatched run/worker counts and early queue completion.
+These checks prove advisory decisions only, not native dispatch/cancellation.

@@ -1,5 +1,11 @@
 # Active Context
 
+## v1.1.1 release preparation - 2026-10-29
+
+- User explicitly authorized GitHub publication and a patch release with a short description.
+- VERSION, changelog, README, hero version label and English release notes target v1.1.1.
+- Publish only reviewed main and the new version tag; preserve the local push block and private refs. Pacing stays OFF.
+
 ## Phase summary: completion-first coordination - 2026-10-29
 
 - Outcome: COMPLETE for advisory admission and coordination policy; native fleet runtime remains future work.

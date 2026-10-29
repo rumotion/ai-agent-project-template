@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.1.0: shared instructions, durable memory, verified workflows, new quota pacing and portable skill discovery" width="1200" />
+  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.1.1: shared instructions, durable memory, verified workflows, completion-first quota pacing and portable skill discovery" width="1200" />
 </p>
 
 <p align="center">
@@ -86,6 +86,10 @@ mappings from missing live-client evidence.
 
 ## What changed in v1.1
 
+- **v1.1.1 pacing fix:** new dispatch requires a fresh completion board and
+  resources for the whole required work package, including integration.
+  Default limits are one worker and two open tasks; pending reviews, blockers
+  and 75% lead context pause new dispatch.
 - **Confirmed quota pacing:** a local, opt-in adviser for approved useful work.
   Default OFF; a concrete plan and separate human confirmation are required.
   Claude statusline input and manual Codex/Google readings are supported.
@@ -95,7 +99,7 @@ mappings from missing live-client evidence.
   has 22 skills with generated Claude/Cline mirrors.
 - **Smaller startup and proportional planning:** choose an observable success
   check first, keep routine plans short, and use phases when complexity needs it.
-- **Regression coverage:** 18 new pacing/integration tests run in full validation;
+- **Regression coverage:** 34 pacing/integration tests run in full validation;
   the upgrader preserves custom skills by refusing new-name conflicts.
 
 Read [usage pacing](docs/usage-pacing.md) for commands, state/telemetry formats,
@@ -104,7 +108,7 @@ confirmation, stop conditions and native-goal integration. The
 decisions and limits; [local agent mail](docs/local-agent-mail.md) is an
 assessment, not an installed messaging system.
 
-Release: [v1.1.0 - Confirmed quota pacing and portable workflows](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.1.0).
+Release: [v1.1.1 - Completion-first agent pacing](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.1.1).
 
 ## Core verification features
 

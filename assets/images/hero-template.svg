@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">AI Agent Project Template v1.1.0 - features and release highlights</title>
+  <title id="title">AI Agent Project Template v1.1.1 - features and release highlights</title>
   <desc id="desc">Canonical instructions, shared project memory and verified workflows. New in v1.1: optional confirmed quota pacing, portable workflow skill discovery and cleaner English project starters. Python standard-library tooling and local-only defaults.</desc>
   <defs>
     <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1220"/><stop offset="1" stop-color="#111c30"/></linearGradient>
@@ -13,7 +13,7 @@
   <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
     <text x="65" y="65" fill="#94a3b8" font-size="14" letter-spacing="2">A FOUNDATION FOR AI CODING PROJECTS</text>
     <rect x="1020" y="42" width="132" height="34" rx="17" fill="#18263d" stroke="#475569"/>
-    <text x="1086" y="64" text-anchor="middle" fill="#c4b5fd" font-size="14">RELEASE 1.1.0</text>
+    <text x="1086" y="64" text-anchor="middle" fill="#c4b5fd" font-size="14">RELEASE 1.1.1</text>
     <text x="48" y="144" fill="#f8fafc" font-size="52" font-weight="700" letter-spacing="-1.5">AI Agent Project Template</text>
     <text x="50" y="186" fill="#cbd5e1" font-size="22">One instruction source. Shared project memory. Verified steps.</text>
     <text x="50" y="220" fill="#94a3b8" font-size="16">For Claude, Codex and Gemini / Antigravity. Python standard-library tools.</text>

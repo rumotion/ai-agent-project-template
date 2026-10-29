@@ -4,7 +4,11 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 ## Unreleased
 
-### Changed
+_Nothing yet._
+
+## v1.1.1 - 2026-10-29 - Completion-first agent pacing
+
+### Fixed
 
 - Quota pacing requires a fresh parent-maintained completion board before
   recommending dispatch. Dependencies, open-task limits, review/blocked work,
@@ -13,6 +17,12 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 - Delegation guidance prioritizes parent acceptance, directed progress reports,
   native stop acknowledgement and finishing bounded work before expansion.
   Durable fleet supervision is documented as future work, not enforcement.
+
+### Tests
+
+- Expanded offline pacing/integration coverage from 18 to 34 regressions,
+  including required downstream integration costs and completion checks for
+  running, review and blocked work.
 
 ## v1.1.0 - 2026-10-26 - Confirmed quota pacing and portable workflows
 

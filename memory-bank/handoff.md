@@ -1,17 +1,17 @@
 ---
-handoff_version: 14
+handoff_version: 15
 last_touched: 2026-10-29
 last_model: Codex
 to_model: Any
 branch: main
-status: v1.1.1 prepared for authorized publication; pacing OFF
-task: Publish patch release with short English notes
-next_action: Verify outgoing content, publish main/tag and confirm CI
+status: v1.1.1 published as Latest; four CI jobs passed
+task: Patch release complete
+next_action: Supervisor milestones in docs/subagent-contract.md
 blocking_issues: []
 ---
 
 # Handoff
 
-See docs/releases/v1.1.1.md. User authorized GitHub publication of v1.1.1.
-Pacing needs fresh human confirmation. Native dispatch, leases and cancellation
-remain unimplemented; the completion board is advisory.
+Release fc9d91b; CI run 40966241837 passed all four jobs.
+See docs/releases/v1.1.1.md. Pacing is OFF and needs fresh confirmation.
+Native dispatch, leases and cancellation remain unimplemented.

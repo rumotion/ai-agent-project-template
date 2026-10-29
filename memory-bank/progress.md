@@ -1,5 +1,11 @@
 # Progress
 
+## v1.1.1 published - 2026-10-29
+
+- Released completion-first pacing fixes as Latest at fc9d91b with short English notes.
+- Hosted validation run 40966241837 passed all four jobs. Local full/compatibility/context checks passed; pacing suite has 34 regressions.
+- Reviewed outgoing source and metadata; published only main and v1.1.1. Local push protection remains installed; pacing remains OFF.
+
 ## Completion-first admission - 2026-10-29
 
 - Implemented advisory completion-board gates: dependency acceptance, two-open-task default, review/blocked backpressure, full-package reserves and 75% context draining.

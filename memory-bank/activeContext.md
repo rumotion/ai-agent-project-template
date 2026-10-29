@@ -1,10 +1,12 @@
 # Active Context
 
-## v1.1.1 release preparation - 2026-10-29
+## v1.1.1 publication - 2026-10-29
 
 - User explicitly authorized GitHub publication and a patch release with a short description.
-- VERSION, changelog, README, hero version label and English release notes target v1.1.1.
-- Publish only reviewed main and the new version tag; preserve the local push block and private refs. Pacing stays OFF.
+- Published main/tag v1.1.1 at fc9d91b and the English release as Latest. Hosted run 40966241837 passed all four Windows/Linux, Python 3.9/current jobs.
+- Outgoing audit covered two commits and 20 text blobs with no sensitive-pattern findings; commit/tag metadata use GitHub no-reply. Release notes are 110 words.
+- Local push block and private refs were preserved using an isolated publication repository with an exact two-ref gate. Pacing stays OFF.
+- Refuted hypothesis: an explicit tag refspec alone prevented auto-following other public tags. The exact-ref gate stopped the first attempt before push; adding --no-tags restricted the successful fetch.
 
 ## Phase summary: completion-first coordination - 2026-10-29
 

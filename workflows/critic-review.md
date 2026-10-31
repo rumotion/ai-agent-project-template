@@ -26,6 +26,24 @@ Run a separate-context critic over an artifact (plan, code change, architecture 
    ```
 5. **Act on it.** Address every `high`/`medium` issue, then re-run. Cap at 2 revise cycles; if still failing, escalate to a human or a stronger model (see `model-routing.md`).
 
+## Evidence and opposing cases
+
+For a consequential or contested decision, include a short case stating the
+proposal, constraints, known facts and unknowns. Have the critic examine the
+strongest honest case for failure and the strongest honest case for proceeding.
+Require each material objection to name a failure mechanism, evidence and a
+specific check or change that would reverse the finding. Distinguish observed
+facts from assumptions; missing evidence is not a fabricated result.
+
+Keep judgments tied to tests and artifacts. Several personas of one model do
+not establish independent evidence or a statistical confidence level. A review
+verdict never substitutes for application checks. Use the smallest review that
+resolves the decision; a full multi-agent jury is an explicit optional exercise,
+not a default requirement for code changes or template upgrades.
+
+This approach is informed by [court-skill](https://github.com/alexyc9381/court-skill).
+See the [assessment](../docs/court-skill-assessment.md) for scope and tradeoffs.
+
 ## Notes
 
 - Cheapest critics run first: linters, type-checkers, and tests catch mechanical issues before the LLM critic spends tokens on judgment calls.

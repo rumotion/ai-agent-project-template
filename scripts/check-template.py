@@ -60,6 +60,8 @@ REQUIRED_FILES = [
     "scripts/new-project.py",
     "scripts/detach-remote.py",
     "scripts/upgrade-target.py",
+    "scripts/template_upgrade.py",
+    "scripts/verify-upgrade.py",
     ".gemini/agents/reviewer.md",
     ".codex/agents/reviewer.toml",
     ".claude/agents/reviewer.md",
@@ -199,6 +201,7 @@ FAST_REQUIRED_FILES = [
     "scripts/init-fast.py",
     "scripts/detach-remote.py",
     "scripts/upgrade-target.py",
+    "scripts/template_upgrade.py",
     "scripts/push_backstop.py",
 ]
 
@@ -886,7 +889,7 @@ def check_git_backstop() -> list[str]:
 def check_hardening() -> list[str]:
     findings = []
     for name in ("verify-context.py", "verify-backstop.py", "verify-boundary.py",
-                 "hooks/verify-hardening.py", "gen-adapters.py", "verify-usage-pacing.py"):
+                 "hooks/verify-hardening.py", "gen-adapters.py", "verify-usage-pacing.py", "verify-upgrade.py"):
         proc = subprocess.run([sys.executable, str(ROOT / "scripts" / name)],
                               capture_output=True, text=True, encoding="utf-8",
                               errors="replace", cwd=ROOT)

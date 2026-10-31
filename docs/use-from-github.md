@@ -71,25 +71,13 @@ python scripts/init-fast.py
 
 Then create your first commit only after reviewing the files and initializing project-specific context.
 
-## Advanced: pull into an existing project
+## Upgrade an existing project
 
-Pulling or merging this template into an existing project is possible but riskier than starting from a template or clone.
-
-Before merging into an existing project:
-
-1. Commit or back up all existing work.
-2. Review overlapping files such as `README.md`, `.gitignore`, `AGENTS.md`, and `docs/`.
-3. Merge selectively rather than blindly overwriting project-specific files.
-
-Example advanced flow:
-
-```bash
-git remote add template https://github.com/<owner>/<repo>.git
-git fetch template
-git checkout template/main -- AGENTS.md memory-bank docs workflows scripts
-```
-
-Adjust the file list for your project. Do not run broad checkout or merge commands unless you understand what will be overwritten.
+Use the [preservation upgrade guide](upgrade-existing-project.md). The agent
+fetches the template separately and applies explicit framework paths with a
+preview, installed-file hashes, conflict preservation and external backups.
+Do not pull the template into the application's branch or broadly check out its
+AGENTS.md, memory-bank, scripts or docs over the existing project.
 
 ## Are you ready after cloning?
 

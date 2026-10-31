@@ -23,7 +23,9 @@ It will:
 |---|---|
 | `init-fast.py` | One-command bootstrap (detach template remotes + validate + benchmark + prompt). |
 | `detach-remote.py` | Detaches inherited template remotes, installs pre-push block hook, makes repo local-only. |
-| `upgrade-target.py` | Automated project upgrader tool; upgrades any target repo to latest template standard while preserving custom code, rules, and skills. |
+| `upgrade-target.py` | Local/GitHub/GitLab framework upgrades with SHA pinning, saved hashes, preserved conflicts, backups and optional legacy baselines. |
+| `template_upgrade.py` | Standard-library Git transport, explicit-path planning and transactional file updates; no upstream code execution. |
+| `verify-upgrade.py` | Offline project-preservation, rollback and real local Git transport regressions; included in full validation. |
 | `check-template.py` | Template validator. Modes: `--fast` (lightweight), `--compat` (cross-agent contract), full (no flag), `--benchmark` (token cost only), `--check-remote` (remote audit). |
 | `benchmark-context.py` | Offline manifest-based context measurement and sanitized paired-usage comparison; supports `--json` and `--self-test`. |
 | `usage-pacing.py` | Optional confirmed quota plans, numeric telemetry and worker-count advice; no API calls or launching. See `docs/usage-pacing.md`. |

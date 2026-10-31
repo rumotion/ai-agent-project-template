@@ -1,5 +1,28 @@
 # Active Context
 
+## Remote preservation upgrades - 2026-10-31
+
+- Scope: GitHub/GitLab source reads, SHA-pinned previews, remembered file hashes,
+  legacy baselines, preserved conflicts and external backup/report transactions.
+- Replaced unsafe overwrite/regex rule extraction; application files, active
+  settings and existing project memory remain outside automatic updates.
+- Latest workflow can bootstrap older projects from a URL; source credentials
+  use existing Git authentication. No dependency installs or publication.
+- court-skill inspected without execution/vendoring; adopted evidence and
+  reversal conditions in critic guidance, not its default 17-agent trial.
+- Refuted hypotheses: the old merge preserved every custom rule (regex omitted
+  arbitrary sections); hash membership alone proved a retired helper unchanged
+  (critic found customized retired files). Preservation regressions cover both.
+- Checks so far: 22 upgrade regressions (one unavailable Windows symlink case
+  skipped; junction regression passes), 34 pacing regressions, FAST validation,
+  skill schema, mirrors and Python 3.9 grammar. GitHub preview at fc9d91b wrote
+  zero target files. Hosted GitLab/private authentication remains untested.
+- Outcome: COMPLETE locally. Full validation and final critic acceptance pass;
+  before/after content inventories confirm read-only review. No publication.
+- Changed: upgrader/engine/tests, skill and workflow mirrors, source/upgrade
+  guides, README/changelog, critic assessment and operational memory.
+
+
 ## v1.1.1 publication - 2026-10-29
 
 - User explicitly authorized GitHub publication and a patch release with a short description.

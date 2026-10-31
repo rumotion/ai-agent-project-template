@@ -1,5 +1,14 @@
 # Progress
 
+## 2026-10-31 - Remote template upgrades (local)
+
+- Implemented explicit-path hash updates, GitHub/GitLab reads, commit pins,
+  legacy baselines, preserved conflicts, external backups and rollback.
+- Added URL/remembered-source prompts and court-skill assessment/critic guidance.
+- Full validation, mirrors, skill schema, context self-test and critic review pass.
+- 22 upgrade scenarios (one Windows symlink skip); junction regression passes.
+- No remote publication or changes to other projects.
+
 ## v1.1.1 published - 2026-10-29
 
 - Released completion-first pacing fixes as Latest at fc9d91b with short English notes.

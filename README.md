@@ -127,6 +127,21 @@ Release: [v1.1.1 - Completion-first agent pacing](https://github.com/rumotion/ai
 Details: [Changelog](CHANGELOG.md) |
 [Implementation and verification](docs/audits/second-order/implementation.md).
 
+## Upgrade an older project
+
+Inside that project, ask your agent:
+
+```text
+Upgrade this project's AI framework from
+https://github.com/rumotion/ai-agent-project-template using the latest upgrade
+workflow. Preserve the application, custom rules, skills and project memory;
+preview, resolve conflicts, and verify locally. Do not push or deploy.
+```
+
+GitHub and GitLab sources are supported. The upgrader remembers the source and
+installed hashes, preserves conflicting local changes and creates external
+backups. [Upgrade guide](docs/upgrade-existing-project.md).
+
 ## How project memory works
 
 ```text

@@ -4,7 +4,25 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 ## Unreleased
 
-_Nothing yet._
+### Added
+
+- GitHub/GitLab template sources, commit-pinned previews, saved upstream/file
+  hashes and optional known-release baselines for legacy projects.
+- Preservation/rollback regressions, external backups and JSON change reports.
+- A short upgrade prompt for existing projects and a court-skill source assessment.
+
+### Fixed
+
+- Unknown or locally changed framework files now produce conflicts instead of
+  being overwritten. Custom skills, project rules, Memory Bank history, active
+  settings and application files are preserved for scoped agent merges.
+- Upgrade instructions use exact reviewed paths for commits and independent
+  application baseline checks. Downloaded scripts are not automatically executed.
+
+### Changed
+
+- Critic guidance asks for opposing cases, evidence and conditions that would
+  reverse a finding; a multi-agent jury remains optional.
 
 ## v1.1.1 - 2026-10-29 - Completion-first agent pacing
 

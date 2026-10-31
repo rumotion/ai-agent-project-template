@@ -1,17 +1,18 @@
 ---
-handoff_version: 15
-last_touched: 2026-10-29
+handoff_version: 16
+last_touched: 2026-10-31
 last_model: Codex
 to_model: Any
 branch: main
-status: v1.1.1 published as Latest; four CI jobs passed
-task: Patch release complete
-next_action: Supervisor milestones in docs/subagent-contract.md
+status: Remote template upgrades verified locally
+task: GitHub/GitLab preservation upgrades
+next_action: Publish only on explicit request
 blocking_issues: []
 ---
 
 # Handoff
 
-Release fc9d91b; CI run 40966241837 passed all four jobs.
-See docs/releases/v1.1.1.md. Pacing is OFF and needs fresh confirmation.
-Native dispatch, leases and cancellation remain unimplemented.
+See docs/upgrade-existing-project.md. Full validation and critic review pass.
+22 upgrade scenarios: one symlink skip; Windows junction test passes.
+GitHub preview at fc9d91b wrote no target files; live GitLab/private auth untested.
+Published version remains v1.1.1. No push authorized. Pacing OFF.

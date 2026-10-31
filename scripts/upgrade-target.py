@@ -1,20 +1,17 @@
 """Upgrade an existing target project to the latest AI Agent Project Template version.
 
 Standard-library only so it runs in fresh environments without installs.
-Safely updates workflows, skills, multi-agent adapters, safety hooks, documentation,
-and validators while strictly preserving project domain code, custom rules, and domain skills.
+Updates explicit framework files using installed hashes; unknown/local changes
+are conflicts. Does not merge project rules or execute downloaded validators.
 """
 
 from __future__ import annotations
 
 import argparse
-import os
+import json
 from pathlib import Path
-import re
-import shutil
 import subprocess
 import sys
-from typing import List, Set, Tuple
 
 
 TEMPLATE_ROOT = Path(__file__).resolve().parents[1]
@@ -48,28 +45,6 @@ STANDARD_WORKFLOWS = [
 ]
 
 STANDARD_SKILLS += [Path(name).stem for name in STANDARD_WORKFLOWS]
-
-def new_skill_conflicts(target_dir: Path) -> List[str]:
-    """Do not claim newly reserved names over a target's custom skills."""
-    conflicts = []
-    for name in ["usage-pacing"] + [Path(path).stem for path in STANDARD_WORKFLOWS]:
-        for tree in (".agents/skills", ".claude/skills", ".cline/skills"):
-            target = target_dir / tree / name
-            source = TEMPLATE_ROOT / ".agents/skills" / name
-            if target.exists() or target.is_symlink():
-                if target.is_symlink() or not target.is_dir():
-                    conflicts.append(f"{tree}/{name}")
-                    continue
-                # Compare text to tolerate Git's platform line-ending conversion.
-                files = list(target.rglob("*"))
-                if any(path.is_symlink() for path in files):
-                    conflicts.append(f"{tree}/{name}")
-                    continue
-                actual = [path for path in files if path.is_file()]
-                if (len(actual) != 1 or actual[0].name != "SKILL.md"
-                        or actual[0].read_text(encoding="utf-8") != (source / "SKILL.md").read_text(encoding="utf-8")):
-                    conflicts.append(f"{tree}/{name}")
-    return conflicts
 
 STANDARD_ADAPTER_FILES = [
     "GEMINI.md",
@@ -120,12 +95,10 @@ STANDARD_HOOK_FILES = [
     "scripts/hooks/fixtures/gemini-shell-safe.json",
     "scripts/hooks/fixtures/codex-push.json",
     "scripts/hooks/fixtures/codex-shell-safe.json",
-    ".claude/settings.json",
     ".codex/hooks.example.json",
     ".gemini/settings.example.json",
     ".codex/config.example.toml",
     ".agents/hooks.json",
-    ".vscode/tasks.json",
 ]
 
 STANDARD_SCRIPTS = [
@@ -134,6 +107,7 @@ STANDARD_SCRIPTS = [
     "scripts/new-project.py",
     "scripts/detach-remote.py",
     "scripts/benchmark-context.py",
+    "scripts/transcribe_local_large_v3.py",
     "scripts/usage-pacing.py",
     "scripts/verify-usage-pacing.py",
     "scripts/validate-schemas.py",
@@ -149,6 +123,8 @@ STANDARD_SCRIPTS = [
     "schemas/boundary-inspection.schema.json",
     "schemas/adapter-capabilities.json",
     "scripts/upgrade-target.py",
+    "scripts/template_upgrade.py",
+    "scripts/verify-upgrade.py",
     "scripts/README.md",
 ]
 
@@ -158,6 +134,12 @@ STANDARD_BENCHMARKS = [
 ]
 
 STANDARD_DOCS = [
+    "assets/LLM_PROJECT_HARNESS.md",
+    "docs/prompts.md",
+    "workflows/build-graph.md",
+    "workflows/calibrate.md",
+    "workflows/critic-review.md",
+    "docs/court-skill-assessment.md",
     "docs/antigravity-master-prompt.md",
     "docs/agent-skill-ecosystem.md",
     "docs/agent-compatibility.md",
@@ -185,282 +167,101 @@ STANDARD_DOCS = [
 ]
 
 
-def copy_file_safe(src: Path, dst: Path, dry_run: bool = False) -> bool:
-    """Copy a file, creating parent directories as needed. Returns True if changed."""
-    if not src.exists():
-        return False
-    
-    if dst.exists():
-        src_bytes = src.read_bytes()
-        dst_bytes = dst.read_bytes()
-        if src_bytes == dst_bytes:
-            return False
-    
-    if not dry_run:
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src, dst)
-    return True
+from template_upgrade import (apply_plan, checked_path, load_state,
+                              plan_upgrade, source_tree, with_baseline)
 
 
-def extract_custom_rules_from_target(target_content: str) -> str:
-    """Extract domain-specific custom rules from target AGENTS.md."""
-    # 1. Explicit ### Custom Rules section
-    custom_rules_match = re.search(r"### Custom Rules\s*\n(.*?)(?=\n## |\n### |\Z)", target_content, re.DOTALL)
-    if custom_rules_match and custom_rules_match.group(1).strip():
-        return custom_rules_match.group(1).strip()
-    
-    # 2. Check for custom bullet points under Core rules
-    core_match = re.search(r"## Core rules\s*\n(.*?)(?=\n## |\Z)", target_content, re.DOTALL)
-    if not core_match:
-        return ""
-    
-    core_text = core_match.group(1)
-    raw_bullets = re.findall(r"(?:^|\n)(-\s+.*?)(?=(?:\n-\s+)|\n###|\n##|\Z)", core_text, re.DOTALL)
-    
-    standard_keywords = [
-        "This project is local-only until",
-        "Never push, publish, or sync",
-        "One project, one repository",
-        "Confidential material never enters",
-        ".gitignore is not a security control",
-        "Do not invent facts",
-        "Do not expose or edit secrets",
-        "Ask before destructive commands",
-        "Prefer small, reviewable changes",
-        "Keep Memory Bank updates",
-        "Do not re-read files already read",
-        "Proactive Tool Suggestion",
-    ]
-    
-    custom_bullets = []
-    for bullet in raw_bullets:
-        cleaned = bullet.strip()
-        if not cleaned:
-            continue
-        if not any(kw in cleaned for kw in standard_keywords):
-            custom_bullets.append(cleaned)
-            
-    return "\n".join(custom_bullets).strip()
+def candidates_from(source):
+    """Explicit template surface, never application manifests or active configs."""
+    files = {}
+    paths = ["AGENTS.md", *STANDARD_ADAPTER_FILES, *STANDARD_REVIEWER_FILES,
+             *STANDARD_HOOK_FILES, *STANDARD_SCRIPTS, *STANDARD_BENCHMARKS, *STANDARD_DOCS]
+    for relative in paths:
+        path = checked_path(source, relative)
+        if path.is_file():
+            files[relative] = path.read_bytes()
+    for tree in ("workflows", ".agents/workflows", ".clinerules/workflows"):
+        for name in STANDARD_WORKFLOWS:
+            path = checked_path(source, "workflows/" + name)
+            if path.is_file():
+                files[tree + "/" + name] = path.read_bytes()
+    for name in STANDARD_SKILLS:
+        directory = checked_path(source, ".agents/skills/" + name)
+        for path in sorted(directory.rglob("*")) if directory.is_dir() else []:
+            if "__pycache__" in path.parts or path.suffix == ".pyc":
+                continue
+            checked_path(source, path.relative_to(source).as_posix())
+            if path.is_file():
+                for tree in (".agents/skills", ".claude/skills", ".cline/skills"):
+                    files[tree + "/" + name + "/" + path.relative_to(directory).as_posix()] = path.read_bytes()
+    # Initialize missing project context with neutral stubs, never template history.
+    for name in ("startup", "handoff", "projectbrief", "activeContext", "progress", "techContext"):
+        files["memory-bank/" + name + ".md"] = ("# " + name + "\n\nProject context: TBD.\n").encode()
+    for name in ("00-index.md", "reminders.md", "model-routing.md"):
+        path = checked_path(source, "memory-bank/" + name)
+        if path.is_file():
+            files["memory-bank/" + name] = path.read_bytes()
+    return files
 
 
-def merge_agents_md(src_agents: Path, dst_agents: Path, dry_run: bool = False) -> bool:
-    """Merge template AGENTS.md with target AGENTS.md, preserving custom rules."""
-    template_content = src_agents.read_text(encoding="utf-8")
-    
-    if not dst_agents.exists():
-        if not dry_run:
-            dst_agents.write_text(template_content, encoding="utf-8")
-        return True
-    
-    target_content = dst_agents.read_text(encoding="utf-8")
-    if target_content == template_content:
-        return False
-    
-    custom_rules = extract_custom_rules_from_target(target_content)
-    if custom_rules:
-        if "### Custom Rules" not in template_content:
-            replacement = f"### Custom Rules\n\n{custom_rules}\n\n### General"
-            template_content = template_content.replace("### General", replacement, 1)
-        else:
-            template_content = re.sub(
-                r"### Custom Rules\s*\n.*?(?=\n### General)",
-                f"### Custom Rules\n\n{custom_rules}\n\n",
-                template_content,
-                flags=re.DOTALL,
-            )
-    
-    if not dry_run:
-        dst_agents.write_text(template_content, encoding="utf-8")
-    return True
+def upgrade_project(target_dir, dry_run=False, verbose=False, source=None,
+                    metadata=None, apply_safe=False, baseline=None, backup_parent=None):
+    target = target_dir.resolve()
+    source = (source or TEMPLATE_ROOT).resolve()
+    if not target.is_dir() or target == source:
+        return 1, ["Target must be an existing directory distinct from source; no files changed"]
+    state = load_state(target)
+    if baseline is not None:
+        state = with_baseline(state, candidates_from(baseline))
+    candidates = candidates_from(source)
+    plan = plan_upgrade(target, candidates, state)
+    if dry_run:
+        return 0, [json.dumps({"source": metadata or {"kind": "local"}, "plan": plan}, indent=2)]
+    return apply_plan(target, candidates, state, plan, metadata or {"kind": "local"}, apply_safe, backup_parent)
 
 
-def upgrade_project(target_dir: Path, dry_run: bool = False, verbose: bool = False) -> Tuple[int, List[str]]:
-    """Execute the project upgrade."""
-    target_dir = target_dir.resolve()
-    if not target_dir.exists():
-        print(f"Error: Target directory does not exist: {target_dir}", file=sys.stderr)
-        return 1, []
-
-    conflicts = new_skill_conflicts(target_dir)
-    if conflicts:
-        return 1, ["New template skill names conflict with existing target content; no files changed: "
-                   + ", ".join(conflicts)]
-    
-    actions = []
-    print(f"[{'DRY-RUN' if dry_run else 'UPGRADE'}] Target: {target_dir}")
-    print(f"Source template: {TEMPLATE_ROOT}")
-    
-    # 1. Update AGENTS.md
-    if merge_agents_md(TEMPLATE_ROOT / "AGENTS.md", target_dir / "AGENTS.md", dry_run=dry_run):
-        actions.append("Updated AGENTS.md (preserved custom rules)")
-    
-    # 2. Multi-Agent Adapters
-    for rel_path in STANDARD_ADAPTER_FILES:
-        src = TEMPLATE_ROOT / rel_path
-        dst = target_dir / rel_path
-        if copy_file_safe(src, dst, dry_run=dry_run):
-            actions.append(f"Synced adapter: {rel_path}")
-    
-    # 3. Workflows across 3 trees
-    workflow_trees = ["workflows", ".agents/workflows", ".clinerules/workflows"]
-    for tree in workflow_trees:
-        for wf in STANDARD_WORKFLOWS:
-            src = TEMPLATE_ROOT / "workflows" / wf
-            dst = target_dir / tree / wf
-            if copy_file_safe(src, dst, dry_run=dry_run):
-                actions.append(f"Synced workflow: {tree}/{wf}")
-    
-    # 4. Standard Skills across 3 trees
-    skill_trees = [".agents/skills", ".claude/skills", ".cline/skills"]
-    for tree in skill_trees:
-        for skill in STANDARD_SKILLS:
-            skill_src_dir = TEMPLATE_ROOT / ".agents/skills" / skill
-            skill_dst_dir = target_dir / tree / skill
-            if skill_src_dir.exists():
-                for root, _, files in os.walk(skill_src_dir):
-                    rel_root = Path(root).relative_to(skill_src_dir)
-                    for file in files:
-                        src_file = Path(root) / file
-                        dst_file = skill_dst_dir / rel_root / file
-                        if copy_file_safe(src_file, dst_file, dry_run=dry_run):
-                            actions.append(f"Synced skill file: {tree}/{skill}/{rel_root / file}")
-    
-    # 5. Reviewer Contracts
-    for rel_path in STANDARD_REVIEWER_FILES:
-        src = TEMPLATE_ROOT / rel_path
-        dst = target_dir / rel_path
-        if copy_file_safe(src, dst, dry_run=dry_run):
-            actions.append(f"Synced reviewer contract: {rel_path}")
-    
-    # 6. Safety Hooks & Examples
-    for rel_path in STANDARD_HOOK_FILES:
-        src = TEMPLATE_ROOT / rel_path
-        dst = target_dir / rel_path
-        if copy_file_safe(src, dst, dry_run=dry_run):
-            actions.append(f"Synced hook/config: {rel_path}")
-    
-    # 7. Standard Scripts & Benchmarks
-    for rel_path in STANDARD_SCRIPTS + STANDARD_BENCHMARKS:
-        src = TEMPLATE_ROOT / rel_path
-        dst = target_dir / rel_path
-        if copy_file_safe(src, dst, dry_run=dry_run):
-            actions.append(f"Synced script/benchmark: {rel_path}")
-    
-    # 8. Documentation
-    for rel_path in STANDARD_DOCS:
-        src = TEMPLATE_ROOT / rel_path
-        dst = target_dir / rel_path
-        if copy_file_safe(src, dst, dry_run=dry_run):
-            actions.append(f"Synced doc: {rel_path}")
-    
-    # 9. Memory Bank template schemas
-    mb_template_files = [
-        "memory-bank/00-index.md",
-        "memory-bank/startup.md",
-        "memory-bank/reminders.md",
-        "memory-bank/model-routing.md",
-    ]
-    for rel_path in mb_template_files:
-        src = TEMPLATE_ROOT / rel_path
-        dst = target_dir / rel_path
-        if copy_file_safe(src, dst, dry_run=dry_run):
-            actions.append(f"Synced memory-bank schema: {rel_path}")
-    
-    # Ensure handoff.md exists if missing
-    target_handoff = target_dir / "memory-bank/handoff.md"
-    if not target_handoff.exists():
-        if copy_file_safe(TEMPLATE_ROOT / "memory-bank/handoff.md", target_handoff, dry_run=dry_run):
-            actions.append("Initialized memory-bank/handoff.md")
-    
-    # 10. Required .gitignore safety patterns
-    target_gitignore = target_dir / ".gitignore"
-    if target_gitignore.exists():
-        gitignore_content = target_gitignore.read_text(encoding="utf-8")
-        needed_patterns = [".env", ".env.*", "!.env.example", ".agent-benchmarks/", ".agent-logs/"]
-        missing_patterns = [p for p in needed_patterns if p not in gitignore_content]
-        if missing_patterns:
-            new_content = gitignore_content.rstrip() + "\n\n# Agentic safety patterns\n" + "\n".join(missing_patterns) + "\n"
-            if not dry_run:
-                target_gitignore.write_text(new_content, encoding="utf-8")
-            actions.append(f"Added {len(missing_patterns)} missing safety patterns to .gitignore")
-    
-    # Install into Git's resolved hook path after synchronizing trusted scripts.
-    if not dry_run:
-        from push_backstop import install
-        try:
-            install(target_dir)
-            actions.append("Verified local-only pre-push backstop")
-        except (OSError, ValueError) as error:
-            actions.append("Push backstop conflict: " + str(error))
-            return 1, actions
-    else:
-        actions.append("Would verify/install local-only pre-push backstop")
-    return 0, actions
-
-
-def run_target_validation(target_dir: Path) -> int:
-    """Run check-template.py --fast in target project."""
-    check_script = target_dir / "scripts/check-template.py"
-    if not check_script.exists():
-        print("Warning: Target check-template.py not found, skipping validation.")
-        return 0
-    
-    print("\n--- Running Target Template Validation ---")
-    cmd = [sys.executable, str(check_script), "--fast"]
-    result = subprocess.run(cmd, cwd=str(target_dir))
-    return result.returncode
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Upgrade a target repository to the latest AI Agent Project Template standard."
-    )
-    parser.add_argument(
-        "--target",
-        "-t",
-        type=Path,
-        required=True,
-        help="Path to the target project directory to upgrade.",
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Preview changes without modifying any files.",
-    )
-    parser.add_argument(
-        "--skip-validation",
-        action="store_true",
-        help="Skip post-upgrade template verification in target.",
-    )
-    parser.add_argument(
-        "--verbose",
-        "-v",
-        action="store_true",
-        help="Print verbose details of all actions.",
-    )
-    
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--target", "-t", type=Path, required=True)
+    parser.add_argument("--source", help="Template repository HTTPS/SSH URL (GitHub/GitLab)")
+    parser.add_argument("--ref", help="Branch, tag or SHA; default HEAD or saved ref")
+    parser.add_argument("--expect-commit", help="Require the exact SHA printed by dry-run")
+    parser.add_argument("--baseline-ref", help="Known previous template tag/SHA for first upgrade of a legacy project")
+    parser.add_argument("--backup-dir", type=Path, help="Existing external directory for backup/report runs (default system temp)")
+    parser.add_argument("--skip-validation", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--apply-safe", action="store_true", help="Apply safe files; preserve and report conflicts (exit 2)")
+    parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
-    target_path = args.target.resolve()
-    
-    code, actions = upgrade_project(target_path, dry_run=args.dry_run, verbose=args.verbose)
-    if code != 0:
-        for action in actions:
-            print(action, file=sys.stderr)
+    try:
+        target = args.target.resolve()
+        if not target.is_dir():
+            raise ValueError("Target directory does not exist")
+        saved = load_state(target).get("source", {})
+        url = args.source or saved.get("url")
+        ref = args.ref or (saved.get("ref", "HEAD") if not args.source or args.source == saved.get("url") else "HEAD")
+        if url:
+            with source_tree(url, ref, args.expect_commit) as (source, metadata):
+                if args.baseline_ref:
+                    with source_tree(url, args.baseline_ref) as (baseline, old_metadata):
+                        metadata["baseline_commit"] = old_metadata["commit"]
+                        code, messages = upgrade_project(target, args.dry_run, args.verbose,
+                                                        source, metadata, args.apply_safe, baseline, args.backup_dir)
+                else:
+                    code, messages = upgrade_project(target, args.dry_run, args.verbose,
+                                                    source, metadata, args.apply_safe, backup_parent=args.backup_dir)
+        else:
+            if args.ref or args.expect_commit or args.baseline_ref:
+                raise ValueError("Git refs require a remote source")
+            code, messages = upgrade_project(target, args.dry_run, args.verbose,
+                                            apply_safe=args.apply_safe, backup_parent=args.backup_dir)
+        for message in messages:
+            print(message)
         return code
-    
-    print(f"\nUpgrade complete! Total modifications: {len(actions)}")
-    if args.verbose or args.dry_run:
-        for action in actions:
-            print(f"  - {action}")
-    
-    if not args.dry_run and not args.skip_validation:
-        val_code = run_target_validation(target_path)
-        if val_code != 0:
-            print("\nWarning: Target validation returned non-zero exit code.", file=sys.stderr)
-            return val_code
-        print("\nTarget validation passed cleanly.")
-    
-    return 0
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
+        # Avoid printing server/JSON payloads that may contain private data.
+        print("Upgrade failed: " + (str(error) if type(error) is ValueError else type(error).__name__), file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":

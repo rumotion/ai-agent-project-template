@@ -108,3 +108,13 @@ review/blocked backpressure, unknown or insufficient completion costs across
 all quota windows, the 50% estimate margin, context draining at 75%, stale or
 invalid boards, mismatched run/worker counts and early queue completion.
 These checks prove advisory decisions only, not native dispatch/cancellation.
+
+## Template upgrade preservation
+
+Run `python scripts/verify-upgrade.py` for temporary-project checks of domain
+file/rule/memory preservation, idempotence, known-release baselines, local edits,
+custom and retired skill helpers, external backups, rollback and concurrent
+edits. The suite also uses a real local Git fetch/archive, commit mismatch,
+archive traversal rejection and Windows junction redirection checks. A symlink
+case is skipped when the Windows account cannot create links. The suite runs in
+full template validation; it does not contact hosted GitHub/GitLab or use credentials.

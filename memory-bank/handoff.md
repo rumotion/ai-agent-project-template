@@ -1,17 +1,18 @@
 ---
-handoff_version: 18
+handoff_version: 19
 last_touched: 2026-10-31
 last_model: Codex
 to_model: Any
 branch: main
-status: v1.2.1 fixes under verification; v1.2.0 release is a draft
-task: Finish authorized English GitHub release
-next_action: Audit and publish correction; require four successful hosted jobs
+status: v1.2.1 published as Latest; four hosted CI jobs passed
+task: English release complete
+next_action: Use the upgrade guide when an existing-project update is requested
 blocking_issues: []
 ---
 
 # Handoff
 
-See activeContext.md and docs/releases/v1.2.1.md. Keep v1.2.0 tag unchanged.
-Fix canonical backup paths and pin Ubuntu 24.04 for Python 3.9.
-Retarget the existing draft to v1.2.1 after verification. Pacing OFF.
+Release 90509d9; CI run 41240580039 passed all four jobs.
+See docs/releases/v1.2.1.md and docs/upgrade-existing-project.md.
+Outgoing security/English review passed. Existing local push protection remains.
+Pacing OFF. Live private GitLab authentication remains untested.

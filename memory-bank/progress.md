@@ -1,5 +1,13 @@
 # Progress
 
+## v1.2.1 published - 2026-10-31
+
+- Released existing-project template upgrades as Latest at 90509d9.
+- Hosted run 41240580039 passed all four jobs after the path-alias and Ubuntu
+  compatibility fixes. Twenty-three upgrade scenarios run in full validation.
+- English release body includes a reusable upgrade prompt; the final source and
+  outgoing metadata passed security review. Local push protection is unchanged.
+
 ## v1.2.1 hosted compatibility correction - 2026-10-31
 
 - v1.2.0 main/tag published; its release stays a draft after hosted failures.

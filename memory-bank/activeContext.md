@@ -1,5 +1,21 @@
 # Active Context
 
+## v1.2.1 publication complete - 2026-10-31
+
+- Published main/tag v1.2.1 at 90509d9 and the English release as Latest.
+- Hosted run 41240580039 passed all four Ubuntu 24.04/Windows, Python 3.9/current
+  jobs. The earlier v1.2.0 tag remains unchanged; its draft was retargeted.
+- Final 298-file tree, all outgoing blobs/commit metadata and annotated tag
+  metadata passed content review for credentials, IPs, personal paths and
+  Cyrillic. Publishing used GitHub no-reply metadata and an exact two-ref gate.
+- Release body is 199 English words with a ready-to-paste existing-project
+  upgrade prompt. README overview and repository description are updated.
+- Published-tag smoke preserved application behavior and custom rules; the
+  earlier smoke also verified existing memory and a distinct application origin.
+- Local push protection/private refs remain preserved. No company project was
+  modified. Pacing stays OFF. Publication receipt is recorded locally.
+
+
 ## v1.2.1 hosted compatibility fix - 2026-10-31
 
 - v1.2.0 main/tag were published at 3888530 after local full/compatibility checks

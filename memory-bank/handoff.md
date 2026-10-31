@@ -1,18 +1,18 @@
 ---
-handoff_version: 16
+handoff_version: 17
 last_touched: 2026-10-31
 last_model: Codex
 to_model: Any
 branch: main
-status: Remote template upgrades verified locally
-task: GitHub/GitLab preservation upgrades
-next_action: Publish only on explicit request
+status: v1.2.0 publication authorized and in preparation
+task: English release and outgoing security review
+next_action: Audit, publish exact main/tag refs, verify hosted CI
 blocking_issues: []
 ---
 
 # Handoff
 
-See docs/upgrade-existing-project.md. Full validation and critic review pass.
-22 upgrade scenarios: one symlink skip; Windows junction test passes.
-GitHub preview at fc9d91b wrote no target files; live GitLab/private auth untested.
-Published version remains v1.1.1. No push authorized. Pacing OFF.
+See docs/releases/v1.2.0.md. Context and upgrade regressions pass.
+Full release validation and outgoing-object audit precede publication.
+Preserve local push protection/private refs. All distributed text is English.
+Pacing OFF. Latest published version is still v1.1.1 until upload succeeds.

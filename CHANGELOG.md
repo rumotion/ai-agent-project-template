@@ -4,12 +4,18 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 ## Unreleased
 
+_Nothing yet._
+
+## v1.2.0 - 2026-10-31 - Upgrade existing projects from your template
+
 ### Added
 
 - GitHub/GitLab template sources, commit-pinned previews, saved upstream/file
   hashes and optional known-release baselines for legacy projects.
 - Preservation/rollback regressions, external backups and JSON change reports.
 - A short upgrade prompt for existing projects and a court-skill source assessment.
+- Twenty-two upgrade regression scenarios, including legacy baselines, local
+  customizations, rollback, source pins and Windows junction redirection.
 
 ### Fixed
 
@@ -23,6 +29,7 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 - Critic guidance asks for opposing cases, evidence and conditions that would
   reverse a finding; a multi-agent jury remains optional.
+- Unicode regression fixtures use English text and Unicode symbols.
 
 ## v1.1.1 - 2026-10-29 - Completion-first agent pacing
 

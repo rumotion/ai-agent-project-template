@@ -1,5 +1,18 @@
 # Active Context
 
+## v1.2.0 publication preparation - 2026-10-31
+
+- User explicitly authorized a new GitHub release and English-only public material.
+- Scope: version/release notes, existing-project upgrade prompt, refreshed SVG
+  overview and source/content/metadata review before exact main/tag publication.
+- Public base: fc9d91b (v1.1.1). Local push protection and unrelated private refs
+  remain intact; publication uses an isolated repository and exact-ref gate.
+- Removed corrupted Cyrillic Unicode fixtures in favor of English text and
+  Unicode symbols. Context integrity and 22 upgrade scenarios still pass
+  (one unavailable Windows symlink case skipped; junction case passes).
+- Pending: full release checks, outgoing-object security audit and hosted CI.
+
+
 ## Remote preservation upgrades - 2026-10-31
 
 - Scope: GitHub/GitLab source reads, SHA-pinned previews, remembered file hashes,

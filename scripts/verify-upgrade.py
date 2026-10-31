@@ -228,7 +228,7 @@ class UpgradeTests(unittest.TestCase):
 
     def test_transport_urls(self):
         for url in ("https://github.com/owner/template", "https://gitlab.com/group/sub/template.git",
-                    "https://gitlab.example.com/group/template", "git@github.com:owner/template.git",
+                    "https://gitlab.example.com/group/template", "git@gitlab.example.com:owner/template.git",
                     "ssh://git@gitlab.example.com/group/template.git"):
             self.assertEqual(engine.validate_url(url), url)
         for url in ("https://user:password" + "@" + "github.com/o/r", "file:" + "/" * 3 + "repo", "ext::command",

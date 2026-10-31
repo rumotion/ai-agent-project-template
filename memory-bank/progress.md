@@ -1,5 +1,11 @@
 # Progress
 
+## v1.2.0 release preparation - 2026-10-31
+
+- User authorized English-only GitHub publication and a new version.
+- Prepared upgrade instructions, release notes and updated overview SVG.
+- Full checks, outgoing content/metadata review and hosted CI pending.
+
 ## 2026-10-31 - Remote template upgrades (local)
 
 - Implemented explicit-path hash updates, GitHub/GitLab reads, commit pins,

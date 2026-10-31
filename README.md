@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.1.1: shared instructions, durable memory, verified workflows, completion-first quota pacing and portable skill discovery" width="1200" />
+  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.2.0: upgrade existing projects from GitHub or GitLab with preserved customizations and verified workflows" width="1200" />
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@ instructions in one place, carry project context between sessions, and verify
 changes with dependency-free tooling.
 
 [Quick start](#quick-start) | [What is included](#what-is-included) |
-[What changed in v1.1](#what-changed-in-v11) | [Verification](#verification) |
+[What changed in v1.2](#what-changed-in-v12) | [Verification](#verification) |
 [Documentation](#documentation) | [Releases](https://github.com/rumotion/ai-agent-project-template/releases)
 
 [![Validate template](https://github.com/rumotion/ai-agent-project-template/actions/workflows/validate.yml/badge.svg)](https://github.com/rumotion/ai-agent-project-template/actions/workflows/validate.yml)
@@ -60,9 +60,9 @@ and deliberate authorization.
 python scripts/upgrade-target.py --target ../existing-project --dry-run
 ```
 
-Review the preview before applying it. The upgrader preserves domain rules and
-custom skills and reports conflicting existing hooks instead of replacing them
-silently. See [Upgrade an existing project](docs/upgrade-existing-project.md).
+Review the preview before applying it. The upgrader preserves domain rules,
+custom skills and local modifications. GitHub/GitLab sources, commit pins and
+external backups support repeatable upgrades. See [Upgrade an existing project](docs/upgrade-existing-project.md).
 
 ## What is included
 
@@ -84,7 +84,25 @@ not establish that every client consumes hook events. The
 [capability inventory](schemas/adapter-capabilities.json) distinguishes candidate
 mappings from missing live-client evidence.
 
-## What changed in v1.1
+## What changed in v1.2
+
+- **Upgrade existing projects:** point your agent at the current template on
+  GitHub or GitLab, even if the project has no upgrade skill installed yet.
+- **Preserve customizations:** installed-file hashes and optional legacy-release
+  baselines identify safe updates. Unknown or locally edited files stay intact
+  for a scoped agent merge. Existing project memory and active settings are kept.
+- **Preview and recover:** commit SHA pins keep preview and apply on the same
+  source. External backups and JSON reports record each apply; ordinary write
+  failures roll back completed file changes.
+- **Repeat with a short prompt:** the first remote upgrade remembers its source.
+  Later requests can use the saved template URL.
+- **Verification:** 22 upgrade scenarios cover preservation, retired custom
+  helpers, local Git transport, source pins, rollback and Windows junctions.
+  Application checks still determine compatibility in each project.
+
+Release: [v1.2.0 - Upgrade existing projects from your template](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.2.0).
+
+### Earlier improvements in v1.1
 
 - **v1.1.1 pacing fix:** new dispatch requires a fresh completion board and
   resources for the whole required work package, including integration.
@@ -108,7 +126,7 @@ confirmation, stop conditions and native-goal integration. The
 decisions and limits; [local agent mail](docs/local-agent-mail.md) is an
 assessment, not an installed messaging system.
 
-Release: [v1.1.1 - Completion-first agent pacing](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.1.1).
+Previous release: [v1.1.1 - Completion-first agent pacing](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.1.1).
 
 ## Core verification features
 

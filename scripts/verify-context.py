@@ -30,9 +30,9 @@ with tempfile.TemporaryDirectory(prefix="context-proposal-") as tmp:
         ("self", [("a", "risk", "1", "a", "one")], True),
         ("missing", [("a", "risk", "1", "missing", "one")], True),
         ("type-change", [("a", "decision", "1", "b", "one"), ("b", "fact", "1", "", "two")], True),
-        ("unicode-priority", [("a", "risk", "Р’в„–", "", "one")], True),
+        ("unicode-priority", [("a", "risk", "\u00b2", "", "one")], True),
         ("preserve-full-decision", [("a", "decision", "1", "", "x" * 401 + " NEVER PUBLISH")], False),
-        ("bom-unicode", [("a", "risk", "1", "", "Р№СћРЃР№С™Р„СЂСџв„ўвЂљ")], False),
+        ("bom-unicode", [("a", "risk", "1", "", "English context \u2713 \U0001f9ea")], False),
         ("protected-over-budget", [("a", "decision", "1", "", "x" * 7000)], True),
     ]:
         for path in records.glob("*.md"):

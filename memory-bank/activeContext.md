@@ -1,5 +1,21 @@
 # Active Context
 
+## v1.2.1 hosted compatibility fix - 2026-10-31
+
+- v1.2.0 main/tag were published at 3888530 after local full/compatibility checks
+  and a clean 297-file/33-blob outgoing audit. Release remains a draft.
+- Hosted run 41240230952 found two independent issues: ubuntu-latest moved to
+  Ubuntu 26.04 without Python 3.9 builds; Windows temporary-path aliases exposed
+  a direct engine API comparison between resolved and unresolved paths.
+- Refuted hypothesis: local checks plus Python 3.9 grammar implied hosted matrix
+  compatibility. A focused alias regression fails the old engine and passes
+  after canonicalizing both sides. Python build manifest confirms Ubuntu 24.04.
+- Keep the published v1.2.0 tag unchanged; publish the correction as v1.2.1 and
+  retarget the draft. Existing-project smoke passed against the v1.2.0 tag,
+  preserving app checks, custom rules, memory and a distinct application origin.
+- Pending: corrected full checks, audit and all four hosted jobs before Latest.
+
+
 ## v1.2.0 publication preparation - 2026-10-31
 
 - User explicitly authorized a new GitHub release and English-only public material.

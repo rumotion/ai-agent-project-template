@@ -6,6 +6,16 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 _Nothing yet._
 
+## v1.2.1 - 2026-10-31 - Hosted compatibility and backup path checks
+
+### Fixed
+
+- Canonicalize the target directory before comparing backup locations, including
+  path aliases and redirected temporary directories on Windows.
+- Pin Linux CI to Ubuntu 24.04, which provides the Python 3.9 build needed by the
+  compatibility matrix. Newer ubuntu-latest images no longer provide that build.
+- Add a regression that reproduces the path-alias issue before the fix.
+
 ## v1.2.0 - 2026-10-31 - Upgrade existing projects from your template
 
 ### Added

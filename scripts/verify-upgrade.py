@@ -149,6 +149,16 @@ class UpgradeTests(unittest.TestCase):
                               backup_parent=str(self.target))
         self.assertEqual(self.snapshot(), {})
 
+    def test_backup_guard_resolves_both_sides_of_path_comparison(self):
+        alias = self.target / ".." / self.target.name
+        state = engine.load_state(self.target)
+        candidates = {"AGENTS.md": b"rules"}
+        plan = engine.plan_upgrade(alias, candidates, state)
+        with self.assertRaisesRegex(ValueError, "outside target"):
+            engine.apply_plan(alias, candidates, state, plan, {"kind": "local"},
+                              backup_parent=str(self.target.resolve()))
+        self.assertEqual(self.snapshot(), {})
+
     @unittest.skipUnless(os.name == "nt", "Windows junction regression")
     def test_windows_junction_cannot_redirect_within_project(self):
         real = self.target / "application"

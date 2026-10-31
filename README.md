@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.2.0: upgrade existing projects from GitHub or GitLab with preserved customizations and verified workflows" width="1200" />
+  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.2.1: upgrade existing projects from GitHub or GitLab with preserved customizations and verified workflows" width="1200" />
 </p>
 
 <p align="center">
@@ -96,11 +96,11 @@ mappings from missing live-client evidence.
   failures roll back completed file changes.
 - **Repeat with a short prompt:** the first remote upgrade remembers its source.
   Later requests can use the saved template URL.
-- **Verification:** 22 upgrade scenarios cover preservation, retired custom
+- **Verification:** 23 upgrade scenarios cover preservation, retired custom
   helpers, local Git transport, source pins, rollback and Windows junctions.
   Application checks still determine compatibility in each project.
 
-Release: [v1.2.0 - Upgrade existing projects from your template](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.2.0).
+Release: [v1.2.1 - Upgrade existing projects from your template](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.2.1).
 
 ### Earlier improvements in v1.1
 

@@ -209,6 +209,7 @@ def atomic_write(path, data):
 
 
 def apply_plan(target, candidates, state, plan, source, apply_safe=False, backup_parent=None):
+    target = target.resolve()
     conflicts = [p for p in plan if p["action"] == "conflict"]
     if conflicts and not apply_safe:
         return 1, ["Conflicts; no files changed: " + ", ".join(p["path"] for p in conflicts)]

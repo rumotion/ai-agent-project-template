@@ -1,5 +1,12 @@
 # Progress
 
+## v1.2.1 hosted compatibility correction - 2026-10-31
+
+- v1.2.0 main/tag published; its release stays a draft after hosted failures.
+- Reproduced and fixed backup checks for aliased paths; 23 upgrade scenarios
+  now pass locally (one unavailable Windows symlink case skipped).
+- Pin Ubuntu 24.04 to retain Python 3.9 builds; revalidate before Latest release.
+
 ## v1.2.0 release preparation - 2026-10-31
 
 - User authorized English-only GitHub publication and a new version.

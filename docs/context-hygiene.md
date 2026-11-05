@@ -38,7 +38,8 @@ Good: "Run tests, show only failures and the first error line."
 
 Patterns:
 
-- Tests: `npm test 2>&1 | grep -E "FAIL|✗|Error"` (or framework's `--reporter=min`).
+- Tests: prefer the framework's concise reporter. Preserve its exit code and
+  retain complete diagnostics for any failure; filtering must not hide failure.
 - Search: ripgrep with `--files-with-matches` first, then read specific files.
 - Logs: `tail -n 50` or `grep -A 3 ERROR`.
 - Git: `git log --oneline -n 10`, not full log.
@@ -67,7 +68,9 @@ When in doubt: `/compact` after a passing test run, before switching feature.
 
 ## 5. Cache ordering — stable prefix, dynamic tail
 
-Prompt caching costs ~90% less and is much faster, but caching works **top-down** and breaks at the first changed byte.
+Stable prompt prefixes can support provider cache reuse. Eligibility, retention,
+billing and subscription-quota effects depend on the model and client. Measure
+supported telemetry before claiming a saving.
 
 Order from top to bottom:
 
@@ -82,11 +85,15 @@ Anti-patterns that silently kill the cache:
 - Editing the system prompt mid-session to "change the date" or "enter plan mode" — use system-reminder messages instead.
 - Bytewise-edits to `AGENTS.md` / `startup.md` / `00-index.md` / adapter files (see `memory-bank/model-routing.md` cache-stable list).
 
-Note: prompt cache TTL is **5 minutes** (idle conversations cool fast). Caches are per-model and per-workspace.
+There is no universal cache TTL or scope. See the current provider reference
+and `memory-bank/model-routing.md`; API cache billing does not establish
+subscription-quota savings.
 
 ## 6. Reasoning effort — match the task
 
-Modern models support hidden-thinking budgets. "High" on everything wastes 20s and ~10x cost for a one-line rename.
+Supported effort controls depend on model and client. Match effort to task
+difficulty and measured verification outcomes; avoid universal timing or cost
+multipliers.
 
 | Task class | Reasoning effort |
 |---|---|
@@ -99,7 +106,9 @@ See per-model knobs in `memory-bank/model-routing.md`.
 
 ## 7. MCP discipline — disconnect what you aren't using
 
-Every connected MCP server contributes tool schemas to every request — even if you never call them this session.
+MCP discovery may load tool schemas eagerly or defer them. Inspect the actual
+client context and tool discovery behavior instead of assuming every connected
+tool is included in every request.
 
 - Treat MCP servers like phone apps: keep the ones you use today; disconnect the rest.
 - Don't leave `.mcp/` configs pointing at servers you've stopped using.
@@ -116,9 +125,10 @@ Roles map: `memory-bank/model-routing.md`.
 
 ## 9. When NOT to optimize
 
-Skip filters and budgets during:
+Preserve necessary diagnostic evidence during:
 
-- **Production incidents** — give the agent full logs, full history, all tools. Token cost is irrelevant when downtime costs more.
+- **Production incidents** — expand relevant diagnostics without dropping
+  confidentiality, authorization or explicit user hard limits.
 - **Security review** — filtering may hide the exact byte an attacker exploits.
 - **New architecture design** — "noise" often carries the business-logic context that matters.
 
@@ -140,4 +150,5 @@ Skip filters and budgets during:
 - Last attempt failed, want to retry without the noise → `/rewind`.
 - Want to try an alternative path without losing the current one → `/fork`.
 - Need 50 files summarized → cheap model or subagent, not the senior session.
-- Production on fire → ignore everything above. Optimize after.
+- Production incident → prioritize relevant evidence and recovery within the
+  incident's authorized scope; measure optimization after stabilization.

@@ -68,9 +68,11 @@ Keep fixtures outside the repository or restore them before full validation.
 
 ## CI and native smoke checks
 
-CI runs fast, full, compatibility, startup benchmark, and context-harness
-self-test modes on Windows and Linux with Python 3.9 and the current Python 3.x
-release.
+CI runs fast, full and startup benchmark modes on Windows and Linux with
+Python 3.9 and current Python 3.x. The full gate already includes compatibility
+contracts and the context-harness self-test; CI does not repeat them through
+`--compat` or another self-test invocation. The standalone commands remain
+available for targeted local checks.
 
 Before a tagged release, use the manual checklist in
 [`agent-compatibility.md`](agent-compatibility.md) with installed Gemini CLI,

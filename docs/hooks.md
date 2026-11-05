@@ -32,7 +32,7 @@ mapping calls `scripts/hooks/log-writes.py`. Gemini maps the same roles to
 | `guard-sensitive-paths.py` | Block writes to secrets | Denies; reason never echoes the path |
 | `guard-remote-ops.py` | Block unauthorized publishing | Denies; reason never echoes the command |
 | `log-writes.py` | Passive write audit | Appends metadata only to `.agent-logs/` |
-| `session-context.py` | Startup injection / compaction flush | Emits `additionalContext`; never blocks |
+| `session-context.py` | Startup projection / compaction notice | Emits context or diagnostics; does not save model state |
 | `git/pre-push` (sh) | Local accident prevention | Denies all ordinary pushes |
 
 ### Advisory shell guards
@@ -83,8 +83,10 @@ of partial context. The compiler is loaded from the trusted hook's sibling
 script, never from an event-selected workspace. The maximum injected output is
 8,000 characters; the compiler's default projection cap is 6,000.
 
-`PreCompact` reminds the parent to persist handoff, active context, decisions and
-risks. Lifecycle injection is best-effort and exits zero. Other clients retain
+The shipped `PreCompact` notice does not persist handoff, active context,
+decisions or risks. Its delivery to the model is not verified; do not depend
+on it for a checkpoint. Save state at meaningful task transitions while the
+model can act. Lifecycle injection is best-effort and exits zero. Other clients retain
 the documented manual FAST_INIT path until native lifecycle behavior is verified.
 Injected context is validated project data; current user instructions take
 precedence. Injected bytes still consume model context and are not free tokens.
@@ -97,13 +99,13 @@ precedence. Injected bytes still consume model context and are not free tokens.
 | Check before a shell command | `PreToolUse` | `BeforeTool` | `PreToolUse` |
 | Log after a write | `PostToolUse` | `AfterTool` | `PostToolUse` |
 | Inject startup context | `SessionStart` | (no verified equivalent in shipped adapter) | Available upstream; not wired/tested here |
-| Persist state before compaction | `PreCompact` | (no verified equivalent in shipped adapter) | Check current client; not wired/tested here |
+| Compaction notice (no persistence) | `PreCompact`; delivery unverified | (no verified equivalent in shipped adapter) | Check current client; not wired/tested here |
 
 `SessionStart` and `PreCompact` wiring is currently Claude-only in this template. The
 portable fallback is unchanged: `AGENTS.md` still instructs every agent to read
 `memory-bank/startup.md` first and to update `handoff.md` on pause or switch.
-The hooks make that deterministic where the client supports it; they never
-become the only mechanism.
+The compiler deterministically renders project data; native delivery and
+consumption require a separate live check. Hooks are never the only mechanism.
 
 Checked 2026-10-26: current Antigravity documents `SessionStart` and
 `PreToolUse` with `conversationId`/`toolCall` payloads, unlike the shipped

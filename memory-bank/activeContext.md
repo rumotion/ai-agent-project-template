@@ -1,5 +1,14 @@
 # Active Context
 
+## Continuity implementation: phase 1 - 2026-11-05
+
+- User authorized phased implementation and broader research. Nine primary
+  sources and limitations are mapped in docs/agentic-engineering-evidence.md.
+- Corrected context/cache/durability claims and the historical hook guarantee;
+  CI schedules the full gate once, retaining its compatibility and self-tests.
+- Full gate and CI schedule/coverage assertions passed. No runtime activation.
+- Next: strict restoration diagnostics; state in docs/continuity-workplan.md.
+
 ## Phase summary: continuity audit and plan - 2026-11-05
 
 - Outcome: COMPLETE for audit/planning; runtime implementation not started.

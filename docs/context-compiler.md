@@ -5,18 +5,15 @@ instead of a set of prose files each agent re-reads in its own order.
 
 ## Why
 
-Every client reads `AGENTS.md` natively, then models re-read memory files in a
-model-dependent order. That means: non-deterministic prefix order (worse
-prompt-cache hit rates), per-client double-loading of duplicated rules, and
-no hard cap on injected context size. The compiler fixes all three
-mechanically:
+Clients load project instructions through their supported adapters. The
+compiler provides deterministic, bounded project data for startup and recovery:
 
 1. **Deterministic output** — the same memory compiles to the same bytes
-   (`sha256` reported on stderr / in `--json`), so repeated sessions hit the
-   same prompt-cache prefix instead of paying for re-read variance.
+   (`sha256` reported on stderr / in `--json`). Stable bytes permit prefix
+   reuse; actual provider cache hits and savings still need measurement.
 2. **Per-client dedup notes** — each blob's header tells that client which
-   files are already loaded (`AGENTS.md`, rules adapters) so it stops
-   re-reading them.
+   files its adapter should have loaded. This is a deduplication hint, not
+   proof that the native client loaded them or followed the hint.
 3. **Hard budget with safe distillation** — over-budget blobs drop droppable
    records (preferences first, then facts, highest priority number first);
    **decision, risk, and status records are never dropped**; `--check` fails
@@ -33,8 +30,8 @@ type: decision                      # fact | decision | risk | preference
 priority: 1                         # 1 = keep-alive ... 5 = drop first
 superseded_by:                      # optional: id of the replacing record
 ---
-One concise sentence or paragraph. Long bodies are whitespace-normalized
-and capped at 400 characters in the blob.
+One concise sentence or paragraph. Complete bodies are whitespace-normalized;
+the projection budget applies to the whole result, without body truncation.
 ```
 
 ## Usage
@@ -51,11 +48,11 @@ Clients: `claude`, `gemini`, `codex`, `cline`, `cursor`, `antigravity`,
 
 ```
 # Compiled project context (for <client>)   + dedup note
-## Status        <- memory-bank/handoff.md front-matter (status, task, next_action, blocking_issues)
 ## Decisions     <- typed records, p1 first
 ## Risks
 ## Facts
 ## Preferences
+## Status        <- memory-bank/handoff.md front-matter (status, task, next_action, blocking_issues)
 ```
 
 ## When to write a record vs. a Memory Bank file

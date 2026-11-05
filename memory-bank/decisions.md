@@ -271,7 +271,7 @@ Related files: `scripts/hooks/guard-remote-ops.py`, `.claude/settings.json`,
 
 ### 2026-09-05 — Make FAST_INIT deterministic via SessionStart
 
-Status: Accepted
+Status: Historical implementation; continuity guarantees corrected 2026-11-05
 
 Context: The startup path depended on the model choosing to read
 `memory-bank/startup.md`. Anthropic's context-engineering guidance favors
@@ -282,11 +282,10 @@ Decision: Add `scripts/hooks/session-context.py`. `SessionStart` injects the
 startup path (plus `handoff.md` when resuming); `PreCompact` reminds the agent
 to flush durable state before the transcript is summarized away.
 
-Consequences: Startup context is loaded without spending model reasoning on
-remembering to do it, and continuity survives compaction. Injection is
-size-capped (4k/file, 8k total) so it cannot defeat the FAST_INIT budget. The
-hooks are Claude-only today; the prose instructions remain the portable
-fallback and were not removed.
+Correction: The current hook renders a budget-capped typed projection, not
+4k source-file slices. Delivery still requires native evidence. PreCompact
+does not persist state or guarantee model action before compaction. Use
+milestone checkpoints and the manual recovery path; see docs/hooks.md.
 
 Related files: `scripts/hooks/session-context.py`, `.claude/settings.json`,
 `docs/hooks.md`

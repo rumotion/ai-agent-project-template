@@ -30,25 +30,29 @@ Never let provider or MCP memory override repository evidence.
 
 ## Durability: what survives a model switch
 
-Only committed files survive. This is the trap worth naming explicitly:
+Local persistence, discoverability and transfer to another machine are separate
+properties. Uncommitted and ignored files can survive a model switch on the
+same filesystem. A Git commit alone does not transfer data to another computer:
 
 | Store | Survives model switch? | Survives fresh clone? |
 |---|---|---|
-| `memory-bank/*.md` | Yes — committed | Yes |
-| MCP `memory` server (`.mcp/memory.json`) | **No** — gitignored | **No** |
-| Provider-native memory | No — account/machine-local | No |
-| Conversation context | No | No |
+| `memory-bank/*.md` | Yes, if read from the same worktree | Only committed content included in the clone |
+| MCP `memory` server (`.mcp/memory.json`) | Possible with deliberately shared local access; not automatic | No |
+| Provider-native memory | Client/account-dependent; not a portable contract | Not supplied by Git |
+| Conversation context | Only through supported session resume; not portable | No |
 
 No active MCP config ships by default. If you opt into the `memory` server
 (`@modelcontextprotocol/server-memory`), it exposes inviting tool names
 (`create_entities`, `add_observations`). An agent told to "remember" something
 can reach for those instead of the Memory Bank. Its store,
-`.mcp/memory.json`, is listed in `.gitignore`, so state written there is
-invisible to every other model and lost on a fresh clone — silently defeating
-the cross-model continuity the Memory Bank exists to provide.
+`.mcp/memory.json`, is listed in `.gitignore`. A fresh clone will not contain
+it, and other clients do not automatically discover or load it. Local access
+does not establish a portable continuity contract.
 
 **Rule:** the MCP memory graph is session scratch. Anything that must outlive
-the session goes in `memory-bank/` and gets committed. Never re-add the
+the session goes through the reviewed project-memory workflow. Commit only
+material suitable for the repository's confidentiality classification. Private
+runtime state belongs outside public repositories. Never re-add the
 `memory` server as a default; if it is ever enabled, removing it must not
 break startup, validation, or handoff. Do not automatically
 copy secrets, credentials, personal data, absolute machine paths, raw prompts,

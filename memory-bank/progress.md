@@ -1,5 +1,13 @@
 # Progress
 
+## Continuity implementation phases 1-2 - 2026-11-05
+
+- Broader nine-source research, corrected contracts and deduplicated CI.
+- Private checkpoint/doctor, strict source parsing and redacted hook failures
+  implemented; new-project and preservation-upgrade integration included.
+- Full 171-file validation, 18 restore cases and isolated review pass. Native
+  lifecycle measurements remain pending. Next: record capture and projection.
+
 ## Continuity audit and implementation plan - 2026-11-05
 
 - Completed an evidence-backed deep audit of the supplied harness article.

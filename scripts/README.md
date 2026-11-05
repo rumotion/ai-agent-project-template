@@ -31,6 +31,8 @@ It will:
 | `usage-pacing.py` | Optional confirmed quota plans, numeric telemetry and worker-count advice; no API calls or launching. See `docs/usage-pacing.md`. |
 | `verify-usage-pacing.py` | Temporary SQLite and simulated-time pacing regressions. Included in full validation. |
 | `ctx.py` | Context Compiler: deterministic, budget-capped startup blob from typed `memory-bank/records/` (`compile --for <client>`, `self-test`). |
+| `continuity.py` | Local ready/degraded/blocked inspection and private milestone checkpoints; no model calls. See `docs/continuity.md`. |
+| `verify-continuity.py` | Disposable restoration, scope, interleaved-edit and redacted-failure regressions; included in the full gate. |
 | `hooks/log-writes.py` | Passive write event logger (writes metadata to `.agent-logs/session.jsonl`). |
 | `hooks/guard-sensitive-paths.py` | Client-aware path guard with verified Claude, Gemini, and Codex denial outputs; also inspects shell redirection/copy targets. |
 | `hooks/guard-remote-ops.py` | Client-aware publishing guard; blocks git/gh publishing incl. plumbing and interpreter indirection. |

@@ -1,5 +1,17 @@
 # Active Context
 
+## Continuity implementation: phase 2 - 2026-11-05
+
+- Outcome: COMPLETE locally. Added strict bounded source parsing, private
+  checkpoint/doctor CLI, visible hook failures and manual recovery guidance.
+- Removed the unverified active PreCompact notice; no native delivery claim.
+- Checks: 18 restoration tests, 15 compiler cases, hooks, full 171-file gate,
+  Python 3.9 syntax and new-project smoke. Reviewer accepted after one repair.
+- Refuted hypothesis: matching hashes imply complete resume state. Reviewer
+  found empty collections, interleaved writes and malformed-event fallback;
+  regressions reproduce the gaps and pass after correction.
+- Next: phase 3 record writes and task projections; docs/continuity-workplan.md.
+
 ## Continuity implementation: phase 1 - 2026-11-05
 
 - User authorized phased implementation and broader research. Nine primary

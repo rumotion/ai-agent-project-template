@@ -88,6 +88,9 @@ boundary refusal, adversarial shell and generated-adapter checks. Individual
 commands are `scripts/verify-context.py`, `scripts/verify-contracts.py`,
 `scripts/verify-backstop.py`, `scripts/verify-boundary.py`,
 `scripts/hooks/verify-hardening.py`, and `scripts/gen-adapters.py --check`.
+The full gate also runs `scripts/verify-continuity.py`: private checkpoint,
+cross-client restore, dirty-input and branch changes, corrupt/scalar handoff,
+interleaved edits, writer-lock refusal and visible hook-failure regressions.
 After editing canonical skills/workflows, run `scripts/gen-adapters.py --write`
 and review the generated diff. Tracked discovery files remain available in
 fresh clones. Live client denials, Linux execution, actual Python 3.9 execution,

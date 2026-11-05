@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Inject validated typed context; remind the parent to persist before compaction.
+"""Inject validated typed context with visible, redacted failure diagnostics.
 
 Lifecycle injection is best-effort and never blocks a session. Invalid or
 oversized projections emit a diagnostic rather than truncated source records.
@@ -37,8 +37,10 @@ def parse_event(raw_input: str) -> Dict[str, object]:
     try:
         data = json.loads(raw_input)
     except (TypeError, ValueError):
-        return {}
-    return data if isinstance(data, dict) else {}
+        raise ValueError("malformed lifecycle event") from None
+    if not isinstance(data, dict):
+        raise ValueError("lifecycle event must be an object")
+    return data
 
 
 def resolve_root(event: Dict[str, object], override: Optional[str]) -> Path:
@@ -61,7 +63,9 @@ def build_startup_context(root: Path, source: str) -> str:
     result = compiler.compile_context(root, "claude", compiler.DEFAULT_MAX_CHARS)
     if result["malformed"] or result["over_budget"]:
         return "Compiled context is invalid. Run scripts/ctx.py compile --for claude --check before using Memory Bank context."
-    note = "Sources: memory-bank/records/ and memory-bank/handoff.md; replaces repeated memory-bank/startup.md reads."
+    note = ("Sources: memory-bank/records/ and memory-bank/handoff.md; replaces repeated memory-bank/startup.md reads. "
+            "Continuity: projection only; native consumption and resume state are not certified. "
+            "Run python scripts/continuity.py doctor --mode legacy for manual recovery.")
     context = result["blob"] + "\n" + note
     if len(context) > MAX_TOTAL_CHARS:
         return "Compiled context exceeds injection budget; run the context validator."
@@ -82,7 +86,10 @@ def emit(event_name: str, context: str) -> None:
 
 def main(event_kind: str, root_override: Optional[str]) -> int:
     try:
-        event = parse_event(sys.stdin.read())
+        raw = sys.stdin.read(65_537)
+        if len(raw) > 65_536:
+            raise ValueError("event exceeds limit")
+        event = parse_event(raw)
         root = resolve_root(event, root_override)
 
         if event_kind == "session-start":
@@ -92,8 +99,10 @@ def main(event_kind: str, root_override: Optional[str]) -> int:
         else:
             emit("PreCompact", PRE_COMPACT_NOTICE)
     except Exception:
-        # Context injection is best-effort and must never break a session.
-        pass
+        # Fail visibly without leaking exception text, paths or source contents.
+        emit("SessionStart" if event_kind == "session-start" else "PreCompact",
+             "continuity_unavailable: startup context could not be loaded. "
+             "Recover with scripts/continuity.py doctor before dependent edits.")
     return 0
 
 

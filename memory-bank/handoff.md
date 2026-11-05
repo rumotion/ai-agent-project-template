@@ -1,17 +1,17 @@
 ---
-handoff_version: 21
+handoff_version: 22
 last_touched: 2026-11-05
 last_model: Codex
 to_model: Any
 branch: main
-status: phase 1 complete; phase 2 in progress
+status: phases 1-2 complete; phase 3 in progress
 task: Implement continuity plan
-next_action: Add strict restoration diagnostics
+next_action: Add record receipts and task projections
 blocking_issues: []
 ---
 
 # Handoff
 
 Plan/evidence: docs/continuity-workplan.md.
-Full gate and CI coverage checks passed. Native recovery unverified.
+Full gate, 18 restore tests and review passed. Native delivery unverified.
 Pacing OFF; local-only. Latest published version: v1.2.1.

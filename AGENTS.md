@@ -6,7 +6,7 @@ Canonical instructions for all agents in this repo. Client adapters point here.
 
 1. Read this file.
 2. Read `memory-bank/startup.md`.
-3. If resuming work or switching models, also read `memory-bank/handoff.md`.
+3. If resuming or switching models, read `memory-bank/handoff.md`; run `python scripts/continuity.py doctor --mode legacy` and reconcile its status.
 4. Read `memory-bank/00-index.md` only to choose additional files.
 5. Load source/docs/workflows/skills only when the task requires them.
 

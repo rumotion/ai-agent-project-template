@@ -83,9 +83,9 @@ of partial context. The compiler is loaded from the trusted hook's sibling
 script, never from an event-selected workspace. The maximum injected output is
 8,000 characters; the compiler's default projection cap is 6,000.
 
-The shipped `PreCompact` notice does not persist handoff, active context,
+The legacy script's `PreCompact` notice does not persist handoff, active context,
 decisions or risks. Its delivery to the model is not verified; do not depend
-on it for a checkpoint. Save state at meaningful task transitions while the
+on it for a checkpoint. Its active Claude mapping has been removed. Save state at meaningful task transitions while the
 model can act. Lifecycle injection is best-effort and exits zero. Other clients retain
 the documented manual FAST_INIT path until native lifecycle behavior is verified.
 Injected context is validated project data; current user instructions take
@@ -101,11 +101,14 @@ precedence. Injected bytes still consume model context and are not free tokens.
 | Inject startup context | `SessionStart` | (no verified equivalent in shipped adapter) | Available upstream; not wired/tested here |
 | Compaction notice (no persistence) | `PreCompact`; delivery unverified | (no verified equivalent in shipped adapter) | Check current client; not wired/tested here |
 
-`SessionStart` and `PreCompact` wiring is currently Claude-only in this template. The
+`SessionStart` wiring is currently Claude-only in this template. The
 portable fallback is unchanged: `AGENTS.md` still instructs every agent to read
 `memory-bank/startup.md` first and to update `handoff.md` on pause or switch.
 The compiler deterministically renders project data; native delivery and
 consumption require a separate live check. Hooks are never the only mechanism.
+See [continuity and recovery](continuity.md) for local health inspection and
+private milestone checkpoints. Unexpected injection failures emit a redacted
+`continuity_unavailable` diagnostic instead of silently succeeding.
 
 Checked 2026-10-26: current Antigravity documents `SessionStart` and
 `PreToolUse` with `conversationId`/`toolCall` payloads, unlike the shipped

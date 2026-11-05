@@ -16,6 +16,13 @@ Use when pausing, switching models, or resuming work. Keeps context coherent acr
 3. Continue from "Next concrete step".
 4. After meaningful progress, refresh `handoff.md`.
 
+Use `python scripts/continuity.py doctor --mode legacy` to validate and explicitly
+label existing state before manual reconciliation. After saving a meaningful
+checkpoint, use `checkpoint --task-id ID --input RELATIVE_FILE` and inspect with
+`doctor --mode resume`; see `docs/continuity.md`. Checkpoints belong outside the
+repository. A ready local receipt does not prove native model consumption or
+grant authority. Preserve unfinished work on every failure path.
+
 ## Rules
 
 - `handoff.md` is volatile and ephemeral. `activeContext.md` is durable.

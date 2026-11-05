@@ -38,6 +38,7 @@ import argparse
 import hashlib
 import json
 import re
+import stat
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -73,22 +74,65 @@ def parse_front_matter(text: str) -> Tuple[Dict[str, str], str]:
         raise ValueError('unterminated front matter')
     fields: Dict[str, str] = {}
     for line in lines[1:closing]:
-        if ":" in line:
-            key, value = line.split(":", 1)
-            key = key.strip()
-            if key in fields:
-                raise ValueError('duplicate front-matter key')
-            fields[key] = value.strip()
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        if line != line.lstrip() or ":" not in line:
+            raise ValueError("front matter supports single-line scalars only")
+        key, value = line.split(":", 1)
+        key, value = key.strip(), value.strip()
+        if not re.fullmatch(r"[a-z][a-z0-9_]*", key) or key in fields:
+            raise ValueError("invalid or duplicate front-matter key")
+        quoted = value.startswith(("\"", "'"))
+        if value.startswith('"'):
+            value = json.loads(value)
+            if not isinstance(value, str):
+                raise ValueError("front matter requires scalar strings")
+        elif value.startswith("'"):
+            if len(value) < 2 or not value.endswith("'"):
+                raise ValueError("unterminated scalar quote")
+            value = value[1:-1].replace("''", "'")
+        if any(ord(c) < 32 for c in value):
+            raise ValueError("control character in metadata")
+        empty_optional_list = value == "[]" and key in ("files_modified", "blocking_issues")
+        if not quoted and value.startswith(("|", ">", "[", "{", "&", "*", "!")) and not empty_optional_list:
+            raise ValueError("unsupported front-matter structure")
+        fields[key] = value
     body = "\n".join(lines[closing + 1:]).strip()
     return fields, body
+
+
+def read_source_bytes(root: Path, relative: str, max_bytes: int = MAX_SOURCE_BYTES) -> bytes:
+    """Bound reads and reject linked sources, including Windows junctions."""
+    root = root.resolve()
+    path = root / relative
+    path.resolve().relative_to(root)
+    cursor = root
+    for part in Path(relative).parts:
+        cursor = cursor / part
+        attrs = cursor.lstat()
+        if cursor.is_symlink() or getattr(attrs, "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400):
+            raise ValueError("linked context source")
+    if not stat.S_ISREG(attrs.st_mode):
+        raise ValueError("context source must be a regular file")
+    with path.open("rb") as handle:
+        data = handle.read(max_bytes + 1)
+    if len(data) > max_bytes:
+        raise ValueError("context source exceeds byte limit")
+    return data
+
+
+def read_source(root: Path, relative: str) -> str:
+    return read_source_bytes(root, relative).decode("utf-8-sig")
 
 
 def load_handoff_status(root: Path) -> Dict[str, str]:
     handoff = root / "memory-bank" / "handoff.md"
     status: Dict[str, str] = {}
-    if not handoff.is_file():
+    if not handoff.exists() and not handoff.is_symlink():
         return status
-    fields, _ = parse_front_matter(handoff.read_text(encoding="utf-8-sig"))
+    fields, _ = parse_front_matter(read_source(root, "memory-bank/handoff.md"))
+    if not fields or not fields.get("status", "").strip():
+        raise ValueError("handoff requires scalar status")
     for key in ("status", "task", "next_action", "blocking_issues"):
         value = fields.get(key, "").strip()
         if value and value.lower() not in ("[]", "none", "tbd"):
@@ -105,9 +149,7 @@ def load_records(root: Path) -> Tuple[List[Dict[str, Any]], List[str]]:
         return records, ['missing memory-bank/records directory']
     for path in sorted(records_dir.glob("*.md")):
         try:
-            if path.is_symlink() or path.stat().st_size > MAX_SOURCE_BYTES:
-                raise ValueError("record is a symlink or exceeds source byte limit")
-            fields, body = parse_front_matter(path.read_text(encoding="utf-8-sig"))
+            fields, body = parse_front_matter(read_source(root, path.relative_to(root).as_posix()))
         except (OSError, ValueError):
             errors.append("{}: unreadable or malformed record".format(path.relative_to(root).as_posix()))
             continue
@@ -265,6 +307,8 @@ def compile_context(root: Path, client: str, max_chars: int) -> Dict[str, Any]:
         "dropped": [r["id"] for r in dropped],
         "superseded": [r["id"] for r in superseded],
         "malformed": errors, "over_budget": over_budget,
+        "continuity_state": "blocked" if errors or over_budget else "degraded",
+        "continuity_note": "Projection validation is not a resume receipt; use continuity.py doctor.",
     }
 
 

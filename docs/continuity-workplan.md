@@ -12,8 +12,8 @@ Research: [primary-source evidence](agentic-engineering-evidence.md).
 |---|---|---|
 | Research extension | Complete | Nine primary sources with limitations and explicit implementation implications |
 | 1: contract and CI | Complete locally | Full gate passed; one full invocation retains compatibility and self-test coverage |
-| 2: restoration integrity | In progress | Invalid resume cannot look healthy; visible diagnostics and a manual fallback |
-| 3: decision projection | Pending | Atomic record receipt, task selection, 1,000-record archive checks |
+| 2: restoration integrity | Complete locally | 18 behavioral cases, 15 compiler checks, full gate and isolated review passed |
+| 3: decision projection | In progress | Atomic record receipt, task selection, 1,000-record archive checks |
 | 4: durable task state | Pending | Open work survives restart; stale evidence/results cannot imply acceptance |
 | 5: cost awareness | Pending | Optional measurements remain distinct; pacing remains OFF by default |
 | 6: recovery pilot | Pending | Offline scenarios plus named native evidence; no fabricated live passes |
@@ -54,3 +54,22 @@ failure tests, compiler regression checks and preservation-upgrade checks.
 
 Each later phase receives its frozen implementation specification before edits.
 Verified work is committed locally; no push or release is authorized.
+
+Phase 2 evidence: full 171-file gate; hook fixtures; Python 3.9 syntax;
+disposable new-project smoke; isolated reviewer accepted after one repair round.
+Refuted assumption: nonempty metadata plus matching hashes suffices. Empty
+collections, interleaved writes and independent resume completeness now have
+behavioral regressions. Native delivery remains unverified.
+
+## Phase 3 specification
+
+Objective: make an intentionally recorded decision recoverable with provenance
+without injecting the entire archive. Owned: compiler/record CLI and tests,
+memory-write workflows/skill mirrors, context guide and upgrade/test manifests.
+Non-goals: embeddings, transcript capture, automatic private-data export or a
+worker fleet. Preserve legacy records as global scope and existing budgets.
+Acceptance: atomic create with read-back hash, explicit category/source/scope,
+required-ID selection, full retrieval by ID, no required record dropped, and a
+bounded projection over a 1,000-record synthetic archive. Missing/superseded
+required IDs and invalid scopes fail visibly. Verify cross-process roundtrip,
+budget refusal, collision preservation and schema/mirror compatibility.

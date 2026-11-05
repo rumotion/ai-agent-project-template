@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Private local continuity receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "task_id", "revision", "created_at", "inputs", "source_sha256", "git"],
+  "properties": {
+    "schema_version": {"type": "integer", "enum": [1]},
+    "project_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "task_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,63}$"},
+    "revision": {"type": "integer", "minimum": 1},
+    "created_at": {"type": "string", "minLength": 1, "maxLength": 64},
+    "inputs": {"type": "array", "maxItems": 64, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 240}},
+    "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "git": {
+      "type": "object", "additionalProperties": false, "required": ["branch", "head"],
+      "properties": {
+        "branch": {"type": "string", "maxLength": 240},
+        "head": {"type": "string", "maxLength": 240}
+      }
+    }
+  }
+}

@@ -1,18 +1,18 @@
 ---
-handoff_version: 19
-last_touched: 2026-10-31
+handoff_version: 20
+last_touched: 2026-11-05
 last_model: Codex
 to_model: Any
 branch: main
-status: v1.2.1 published as Latest; four hosted CI jobs passed
-task: English release complete
-next_action: Use the upgrade guide when an existing-project update is requested
+status: audit complete; implementation pending
+task: Context continuity audit
+next_action: Implement proposed phases 1-3 when requested
 blocking_issues: []
 ---
 
 # Handoff
 
-Release 90509d9; CI run 41240580039 passed all four jobs.
-See docs/releases/v1.2.1.md and docs/upgrade-existing-project.md.
-Outgoing security/English review passed. Existing local push protection remains.
-Pacing OFF. Live private GitLab authentication remains untested.
+Audit, plan and evidence: docs/audits/context-continuity-2026-11/.
+Full checks and static review passed. Runtime unchanged.
+Native recovery/savings unverified. Pacing OFF; local-only.
+Latest published version: v1.2.1.

@@ -1,5 +1,13 @@
 # Progress
 
+## Continuity audit and implementation plan - 2026-11-05
+
+- Completed an evidence-backed deep audit of the supplied harness article.
+- Delivered 12 findings, eight proposed phases and a temporary-fixture probe
+  under docs/audits/context-continuity-2026-11/. Runtime behavior is unchanged.
+- Full validation and isolated static review passed; no native client recovery
+  or provider savings claim. Next: proposed phases 1-3; pacing remains OFF.
+
 ## v1.2.1 published - 2026-10-31
 
 - Released existing-project template upgrades as Latest at 90509d9.

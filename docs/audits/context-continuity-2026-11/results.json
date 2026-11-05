@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-05",
+  "baseline_commit": "88cb0b9",
+  "kind": "audit_observations_not_acceptance_tests",
+  "full_template_validation": {
+    "command": "python scripts/check-template.py",
+    "exit_code": 0,
+    "required_files": 167,
+    "adapters": 10,
+    "skills": 22,
+    "discovery_trees": 3,
+    "context_budgets": 17
+  },
+  "startup": {
+    "fast_init_chars": 8511,
+    "hard_cap_chars": 9500,
+    "advisory_target_chars": 8500,
+    "codex_projection_chars": 1381,
+    "included_records": 3,
+    "measured_tokens": null,
+    "provider_quota_savings": null
+  },
+  "local_versions": {
+    "codex_cli": "0.142.0",
+    "claude_code": "2.1.116",
+    "gemini_cli": "0.52.0",
+    "python": "3.13.9",
+    "native_lifecycle_smoke": "not_run"
+  },
+  "inputs_sha256": {
+    "scripts/ctx.py": "1e5a3c876e0c9de50091b2a52a249ed2853443ff53c82eba4419f681ae560af2",
+    "scripts/hooks/log-writes.py": "bafc07a021ecafc008e97feb215821f3299f9d16c0c00884a961b278b9999e58",
+    "scripts/hooks/session-context.py": "010608ecd806fb8aeae4d3afd886d8062a3d6be1df4733df548bca10a0d13545"
+  },
+  "observations": {
+    "branch_and_freshness_not_validated": true,
+    "fifty_durable_decisions_exceed_projection_budget": true,
+    "handoff_exceeds_record_source_limit_without_rejection": true,
+    "missing_handoff_accepted_without_diagnostic": true,
+    "multiline_blocker_accepted_but_detail_omitted": true,
+    "over_budget_projected_chars": 9399,
+    "precompact_emits_reminder_without_persisting_files": true,
+    "prose_decision_absent_from_projection": true,
+    "prose_handoff_accepted_but_status_omitted": true,
+    "unexpected_startup_exception_exits_zero_silently": true,
+    "write_metadata_omits_session_identity": true
+  }
+}

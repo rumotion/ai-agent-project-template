@@ -1,5 +1,20 @@
 # Active Context
 
+## Phase summary: continuity audit and plan - 2026-11-05
+
+- Outcome: COMPLETE for audit/planning; runtime implementation not started.
+- Reviewed the supplied harness article against compiler, hooks, memory,
+  delegation, quota advice and CI; recorded 12 findings and eight phases in
+  docs/audits/context-continuity-2026-11/.
+- Refuted hypothesis: a green structural gate proves recovery. Temporary
+  probes reproduced silent status/decision gaps and a reminder-only checkpoint.
+- Checks: full gate passed before/after audit artifacts; ten Boolean probe
+  observations reproduced; saved hashes/results, Python 3.9 syntax and links
+  verified. Isolated static critic accepted; 302-file inventory unchanged.
+- Open: native lifecycle tests and provider cost measurements; no runtime fixes,
+  installs, quota activation, model calls for benchmarks or publication.
+- Next: implement proposed phases 1-3 when requested; retain local-only scope.
+
 ## v1.2.1 publication complete - 2026-10-31
 
 - Published main/tag v1.2.1 at 90509d9 and the English release as Latest.

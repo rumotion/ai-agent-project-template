@@ -98,6 +98,11 @@ budget refusal and failed writes. Native recall remains a separate smoke check.
 ignored explicit inputs, revision/attempt conflicts, parent-only acceptance,
 changed review artifacts, dependencies, WIP/ownership (including queued blockers),
 atomic failure preservation and bounded cross-process listing.
+`scripts/verify-task-metrics.py` covers ordinary-task arithmetic and hard-budget
+advice; it never activates pacing. `scripts/verify-recovery.py` combines required
+decisions, qualifiers, handoff, receipts and multiple open tasks across fresh
+processes and renderer switches. Its seven scenarios are synthetic; see
+`docs/recovery-pilot.md` for the separately observed native scope and open gates.
 After editing canonical skills/workflows, run `scripts/gen-adapters.py --write`
 and review the generated diff. Tracked discovery files remain available in
 fresh clones. Live client denials, Linux execution, actual Python 3.9 execution,

@@ -59,6 +59,9 @@ REQUIRED_FILES = [
     "scripts/usage_math.py",
     "scripts/verify-task-metrics.py",
     "docs/task-measurements.md",
+    "scripts/verify-recovery.py",
+    "benchmarks/context/recovery-scenarios.json",
+    "docs/recovery-pilot.md",
     "schemas/continuity-receipt.schema.json",
     "schemas/context-record.schema.json",
     "docs/continuity.md",
@@ -902,7 +905,7 @@ def check_git_backstop() -> list[str]:
 
 def check_hardening() -> list[str]:
     findings = []
-    for name in ("verify-context.py", "verify-continuity.py", "verify-records.py", "verify-tasks.py", "verify-task-metrics.py", "verify-backstop.py", "verify-boundary.py",
+    for name in ("verify-context.py", "verify-continuity.py", "verify-records.py", "verify-tasks.py", "verify-task-metrics.py", "verify-recovery.py", "verify-backstop.py", "verify-boundary.py",
                  "hooks/verify-hardening.py", "gen-adapters.py", "verify-usage-pacing.py", "verify-upgrade.py"):
         proc = subprocess.run([sys.executable, str(ROOT / "scripts" / name)],
                               capture_output=True, text=True, encoding="utf-8",

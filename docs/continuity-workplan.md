@@ -16,8 +16,8 @@ Research: [primary-source evidence](agentic-engineering-evidence.md).
 | 3: decision projection | Complete locally | 16 record tests, 1,000-record archive, full gate, new-project smoke and isolated review passed |
 | 4: durable task state | Complete locally | 22 lifecycle/preservation tests, full gate, fresh-project smoke and isolated acceptance |
 | 5: cost awareness | Complete locally | 17 metric tests, 34 pacing tests, full gate, new-project smoke and isolated acceptance |
-| 6: recovery pilot | Next | Offline scenarios plus named native evidence; no fabricated live passes |
-| 7: feedback closure | Pending | Feedback/task/decision/evidence links and explicit environment acceptance |
+| 6: recovery pilot | Offline complete; native partial | Seven integrated cases/full gate; Claude supplied-packet and SessionStart passed; Codex capability failures and untested lifecycle/savings remain explicit |
+| 7: feedback closure | Next | Feedback/task/decision/evidence links and explicit environment acceptance |
 | 8: concurrent runtime | Conditional | Measured need plus lease/cancellation tests before parallel expansion |
 
 ## Phase 1 specification
@@ -137,3 +137,28 @@ their scope. Attempt small supplied-context CLI probes using existing subscripti
 auth only, recording installed versions and observed outcomes. These probes do
 not establish native compaction/hook delivery, model quality across tasks or token
 savings; unavailable or untested surfaces remain explicit release limitations.
+
+Phase 6 evidence: seven integrated tests, five fresh-process restore cycles,
+full 184-file gate, Python 3.9 syntax, new-project recovery smoke and isolated
+acceptance. Claude Code 2.1.116 passed six supplied-packet checks and six real
+SessionStart checks with a unique marker/tools disabled. Codex 0.142.0 failed
+both its isolated default and configured-model requests; Gemini 0.52.0 was
+version-only. Native compaction/restart/denial checks and efficiency comparisons
+remain open, not waived. See docs/recovery-pilot.md for exact evidence scope.
+Refuted assumption: the installed CLI's default is the selected app model.
+Neither the default nor an explicit configured-model retry produced an answer.
+
+## Phase 7 specification - 2026-11-06
+
+Objective: close feedback and acceptance loops using existing records/envelopes,
+and route resume through the complete open-task ledger. Owned: optional feedback
+and environment-acceptance guides, planning/evaluation workflow mirrors, startup
+entry point, one integrated trace case, manifests and operational memory.
+Non-goals: mandatory product interview, deployment, a new feedback service,
+automatic promotion of examples to requirements or UI rules for non-UI projects.
+Acceptance: feedback source ID -> exact reviewed record -> task input -> parent
+verification/acceptance is reviewable; examples retain qualifiers; unresolved and
+rejected actions are checked before proposing repeats. Application-specific
+environment acceptance/rollback is explicit without implying deployment authority.
+Verify a disposable end-to-end trace, workflow mirrors and startup/full budgets.
+Resolve the conditional runtime phase explicitly without inventing fleet demand.

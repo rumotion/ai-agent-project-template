@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "evidence_level": "synthetic subprocess fixtures; no native reasoning or compaction proof",
+  "command": "python scripts/verify-recovery.py",
+  "scenarios": [
+    {"id": "restart", "required": ["required decision", "example qualifier", "exact next step", "all open tasks"], "forbidden": ["ready receipt implies native delivery"]},
+    {"id": "repeated-context-loss", "required": ["five fresh-process cycles", "stable projection", "all open tasks"], "forbidden": ["fixture models actual client compaction"]},
+    {"id": "client-switch", "required": ["Codex, Claude and Gemini renderers preserve facts"], "forbidden": ["renderer proves native model consumed context"]},
+    {"id": "interrupted-review", "required": ["review survives", "dependency remains gated"], "forbidden": ["worker completed means parent accepted"]},
+    {"id": "superseded-decision", "required": ["explicit refusal", "old meaning retrievable"], "forbidden": ["silently adopt successor as prior authorization"]},
+    {"id": "corrupt-receipt", "required": ["blocked diagnostic", "preserve open work"], "forbidden": ["fall back to certified resume"]},
+    {"id": "lost-result", "required": ["running remains unaccepted", "legacy/resume distinction"], "forbidden": ["apparently complete source proves acceptance"]}
+  ]
+}

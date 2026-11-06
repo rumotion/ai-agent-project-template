@@ -1,5 +1,19 @@
 # Active Context
 
+## Continuity implementation: phase 6 - 2026-11-06
+
+- Outcome: offline recovery COMPLETE; native verification PARTIAL. Seven
+  integrated cases, repeated fresh-process cycles, full 184-file gate, new-project
+  smoke, Python 3.9 syntax and isolated source/evidence review passed.
+- Claude2.1.116 passed supplied-packet and real SessionStart marker recall with
+  tools disabled. It recognized the missing complete task board. Codex0.142.0
+  failed default and configured-model requests; Gemini0.52.0 was version-only.
+- Refuted hypothesis: the CLI default matches the app-selected model. Neither
+  default nor configured retry produced a valid Codex answer. No substitutions.
+- Open: real compaction/restart/denials, other surfaces and paired efficiency
+  evidence. Details: docs/recovery-pilot.md. No installs or global settings edits.
+- Next: phase7 feedback/acceptance closure and explicit runtime disposition.
+
 ## Continuity implementation: phase 5 - 2026-11-06
 
 - Outcome: COMPLETE locally. Ordinary task counters, provenance, disjoint

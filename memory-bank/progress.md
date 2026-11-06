@@ -1,5 +1,19 @@
 # Progress
 
+## Codex Windows hook execution - 2026-11-06
+
+- Discovered-but-untrusted hooks did not run with the process flag alone.
+  A per-thread runtime override exposed exit1 from nested PowerShell commands;
+  native inert writes completed. Failed baselines are retained, not accepted.
+- Direct Windows bodies plus physical-CWD Git lookup fix variable expansion and
+  bracket-path startup. Native PreToolUse now blocks the inert apply_patch with
+  its exact policy reason; file absent. Model/effort and global defaults preserved.
+- Four Windows cases, full 189-file gate, fresh-project/upgrade smoke and Python 3.9
+  syntax passed. Isolated review accepted after one evidence/fixture repair;
+  all 327 frozen hashes unchanged. Downstream user-file hashes preserved.
+- Remaining native trust/model-switch/UI/tool-route gaps: docs/recovery-pilot.md.
+  Do not repeat passed probes. Pacing OFF; no publication.
+
 ## Antigravity customization-directory repair - 2026-11-06
 
 - Initial ancestor bootstrap passed shell-only checks but failed in the native

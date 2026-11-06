@@ -1,5 +1,12 @@
 # Risks
 
+A discovered enabled hook is not proof of execution. Codex 0.167 stdio needed a
+scoped per-thread trust override during the vetted probe; the process flag alone
+did not activate the tested thread. Nested PowerShell wrappers then exited1 and
+the native action proceeded. Test actual configured command bodies and consume
+native blocked decisions. Windows PowerShell provider CWD can differ from the
+physical process directory for bracket paths; anchor Git explicitly.
+
 Hook commands can start from `.agents` rather than project root. Use a file
 argument relative to that origin and keep one canonical tree. Shell-only tests
 missed a Windows runner splitting quoted `python -c` code into invalid Python;

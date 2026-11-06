@@ -39,6 +39,7 @@ to method/status, never retained as public identity/credential material.
 | Codex stdio app-server, fresh process and manual compaction | 0.167.0 | Passed six recall checks after restart and six after compaction | Same native thread; completed `contextCompaction` item observed; reported model `gpt-6-astra` |
 | Claude CLI fresh process and manual compaction | 2.1.116 | Native boundaries observed; initial recall 6/7, targeted full-body follow-up 7/7 | Original omitted marker sentence is retained as a failed exact-fidelity assertion |
 | Claude native sensitive-Write guard | 2.1.116 | Passed three assertions | Actual Write request, native hook denial and absent inert fixture file |
+| Codex native sensitive-apply_patch guard | 0.167.0 | Passed scoped Windows stdio trial after command repair | PreToolUse status `blocked`, specific policy reason and absent inert file; per-thread runtime trust bypass |
 | Gemini CLI | 0.52.0 | Version only; no model probe | Renderer fixtures do not establish native consumption |
 | Codex app / Antigravity / IDE lifecycle | TBD | Not probed | CLI observations cannot certify these orchestration modes |
 
@@ -114,7 +115,7 @@ remaining gaps for Claude/Codex. Offline validation checks declaration structure
 `boundary.py` still reports `tool_events_verified: false` for the current process.
 Historical observations cannot authenticate or certify a new runtime.
 
-The Codex hook attempt remains **unverified**. Two bounded CLI probes used the
+The earlier Codex CLI hook attempts remain **unverified**. Two bounded probes used the
 vetted shipped example with per-invocation hook-trust bypass in disposable
 fixtures (first read-only, then workspace-write). Files remained absent, but the
 exec JSON stream did not expose the specific native policy reason needed by the
@@ -126,6 +127,42 @@ same observability gap. The hook JSON's `commandWindows` key was separately
 checked against the official current
 [config schema](https://developers.openai.com/codex/config-schema.json); that is
 structural evidence.
+
+### Codex Windows hook follow-up - 2026-11-06
+
+The stdio follow-up separated discovery, trust and execution. Four enabled
+project handlers were discovered as untrusted; all sources and copied scripts
+were checked against the shipped fixture. Unrelated user MCP/plugin settings
+were replaced only in the probe process after one configuration-parse failure.
+
+| Observation | Native evidence | Outcome |
+|---|---|---|
+| Process-level trust-bypass flag alone | No hook event; completed fileChange and retained inert file | Failed activation baseline |
+| Explicit per-thread runtime trust bypass, original Windows commands | PreToolUse `failed`, `hook exited with code 1`; completed fileChange and retained inert payload | Failed command baseline |
+| Same runtime override, repaired Windows command bodies | PreToolUse `blocked` with the exact sensitive-path policy reason; inert file absent; turn completed | Passed sensitive-apply_patch route |
+
+For this installed version only, the second and third trials used
+`thread/start` with `config: {"bypass_hook_trust": true}` after vetting every
+discovered source. The process flag alone did not establish execution in the
+tested thread. This runtime override is a scoped probe input, not a persisted
+trust decision or a portable recommendation for other versions.
+
+The original nested PowerShell wrapper expanded `$root` before the inner command
+received it. Local execution reproduced four failures. Removing that wrapper
+and anchoring Git to the physical process directory also handles Windows
+PowerShell's bracket-path provider-location mismatch. Four configured-command
+cases now pass for benign calls, sensitive/publishing denials and logger output
+from root/config/nested directories in paths with spaces and brackets.
+
+Candidate source: `a98a7ab354a4abdb01a11599ccdcde075aee5b96`.
+Hook configuration SHA-256:
+`268dd76b65a0a3d11829092fc974c9a8e4d0064f886a23c556f48eeec8b47107`.
+Eight private reconciliation assertions retain both failed baselines and the
+repaired native result. The model remained `gpt-6-astra` with requested `xhigh`.
+No model calls were repeated to recheck saved evidence. The example remains
+inactive; interactive trust, native shell/logger routes and desktop/cloud
+orchestration are not certified. Hook failures allowed these synthetic writes;
+an error must never be treated as a successful policy denial.
 
 ## Repeatable manual pilot
 
@@ -165,7 +202,8 @@ login. Documentation alone does not prove the installed client's behavior.
 
 - Native model switching, interactive hook trust, other tool routes and app/IDE
   orchestration remain unverified. Actual restart/compaction now have bounded
-  Claude CLI and Codex stdio evidence; the sensitive-Write denial is Claude-only.
+  Claude CLI and Codex stdio evidence. Sensitive writes now have scoped Claude
+  Write and Codex apply_patch denial evidence; other native tool routes remain open.
   Startup delivery outside the single tested Claude CLI route is unverified.
   Manual recovery remains the portable fallback; listing open tasks is still
   required because the startup projection does not include the complete ledger.

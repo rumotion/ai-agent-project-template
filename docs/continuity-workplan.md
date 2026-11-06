@@ -195,3 +195,27 @@ surface and Python 3.9 syntax passed. The isolated critic accepted under the
 documented `.agents` origin contract; all 326 frozen file hashes were unchanged.
 Launching that relative command from project root is outside this origin
 contract and can still fail; the absolute-file test is not evidence otherwise.
+
+## Codex Windows hook execution repair - 2026-11-06
+
+Baseline: hooks/list discovered four enabled untrusted project handlers. The
+process-level trust-bypass flag alone yielded no hook event and an inert write
+completed. An explicit per-thread runtime override exposed failed native hooks;
+the old nested PowerShell commands exited1 and the inert write still completed.
+Local execution reproduced four failures, then a separate bracket-path CWD issue.
+
+Repair: Windows command bodies run directly in the host PowerShell and locate
+Git from the physical process directory. Guards/logger are unchanged. Four
+configured-command regressions run on Windows (skip elsewhere), including
+benign calls, sensitive patches, synthetic publishing denials and root logging.
+The full validator, new-project copy and explicit upgrade surface include them.
+
+Acceptance: the repaired native PreToolUse returned blocked with the specific
+policy reason; the inert file stayed absent and the same-model turn completed.
+Eight saved-evidence assertions preserve both failed baselines. Full 189-file
+gate, fresh-project/upgrade smoke and Python 3.9 syntax passed. Isolated critic
+accepted after one evidence/fixture repair; all 327 frozen file hashes stayed
+unchanged. Downstream framework-only application preserved user-file hashes.
+See recovery-pilot.md for exact source/configuration provenance and scope.
+Normal interactive trust, model switching, other tool paths and UI orchestration
+remain unverified. Global settings/defaults and pacing were not changed.

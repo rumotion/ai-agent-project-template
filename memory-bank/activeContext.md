@@ -1,5 +1,19 @@
 # Active Context
 
+## Codex Windows native hook repair - 2026-11-06
+
+- Discovered-but-untrusted hooks did not run with the process flag alone.
+  A per-thread runtime override exposed exit1 from nested PowerShell commands;
+  native inert writes completed. Failed baselines are retained, not accepted.
+- Direct Windows bodies plus physical-CWD Git lookup fix variable expansion and
+  bracket-path startup. Native PreToolUse now blocks the inert apply_patch with
+  its exact policy reason; file absent. Model/effort and global defaults preserved.
+- Four Windows cases, full 189-file gate, fresh-project/upgrade smoke and Python 3.9
+  syntax passed. Isolated review accepted after one evidence/fixture repair;
+  all 327 frozen hashes unchanged. Downstream user-file hashes preserved.
+- Remaining native trust/model-switch/UI/tool-route gaps: docs/recovery-pilot.md.
+  Do not repeat passed probes. Pacing OFF; no publication.
+
 ## Antigravity hook launch repair - 2026-11-06
 
 - Baseline reproduced: canonical hook command exits0 from project root but
@@ -20,7 +34,7 @@
 ## Native follow-up checkpoint - 2026-11-06
 
 - Scoped checks COMPLETE; broad native coverage remains PARTIAL. Approved isolated
-  Codex0.167.0 archive verified; configured gpt-6-astra/xhigh preserved. Six CLI,
+  Codex 0.167.0 archive verified; configured gpt-6-astra/xhigh preserved. Six CLI,
   six fresh-process stdio recall and six post-contextCompaction checks passed.
 - Claude2.1.116 real resume/compact observed; initial quotation omitted a second
   marker sentence (6/7). Full-body clarification after compaction passed7/7.
@@ -42,7 +56,7 @@
 - Native follow-up is in progress. Claude restart/compact boundary and Write
   denial observed; an initial exact-body marker omission required a focused
   full-source request, which passed. Detailed evidence will be recorded separately.
-- Human approved isolated Codex0.167.0; official archive SHA-256 verified.
+- Human approved isolated Codex 0.167.0; official archive SHA-256 verified.
   New catalog contains the existing configured model; no default/PATH edits.
 
 ## Continuity implementation: phase 7 and disposition - 2026-11-06

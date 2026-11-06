@@ -41,14 +41,15 @@
       "status": "live-smoke-partial",
       "live_evidence": "docs/recovery-pilot.md",
       "observed_at": "2026-11-06",
-      "source_revision": "72846ddfe8f8a7bf2d566a0d9b5d2ee5f9e7dfc9",
+      "source_revision": "a98a7ab354a4abdb01a11599ccdcde075aee5b96",
       "live_checks": [
         "Isolated CLI supplied-packet recovery with the configured model/effort",
         "Stdio app-server fresh-process resume preserves required facts and task states",
-        "Completed contextCompaction item and post-compaction recall"
+        "Completed contextCompaction item and post-compaction recall",
+        "Windows stdio PreToolUse sensitive apply_patch blocked after command repair; inert file absent; scoped per-thread trust bypass"
       ],
       "unverified_checks": [
-        "Native tool denial and automatic project startup context loading",
+        "Automatic project startup context loading, native shell/logger/MCP routes and publishing denial",
         "Interactive hook trust, app/IDE orchestration and native model switch",
         "External containment and provider efficiency"
       ],

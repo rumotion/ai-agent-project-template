@@ -1,14 +1,14 @@
 ---
-handoff_version: 32
+handoff_version: 33
 last_touched: 2026-11-06
 last_model: Codex
 to_model: Any
 branch: main
-status: Antigravity file-launch repair
+status: Codex Windows denial verified
 task: Continuity upgrade
 task_id: continuity-upgrade
 required_records: decision-phased-continuity
-next_action: Confirm native reload; remaining route checks
+next_action: Native trust/switch/UI gaps; no repeated probes
 blocking_issues: []
 ---
 

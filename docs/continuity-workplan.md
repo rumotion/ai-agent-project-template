@@ -13,8 +13,8 @@ Research: [primary-source evidence](agentic-engineering-evidence.md).
 | Research extension | Complete | Nine primary sources with limitations and explicit implementation implications |
 | 1: contract and CI | Complete locally | Full gate passed; one full invocation retains compatibility and self-test coverage |
 | 2: restoration integrity | Complete locally | 18 behavioral cases, 15 compiler checks, full gate and isolated review passed |
-| 3: decision projection | In progress | Atomic record receipt, task selection, 1,000-record archive checks |
-| 4: durable task state | Pending | Open work survives restart; stale evidence/results cannot imply acceptance |
+| 3: decision projection | Complete locally | 16 record tests, 1,000-record archive, full gate, new-project smoke and isolated review passed |
+| 4: durable task state | Next | Open work survives restart; stale evidence/results cannot imply acceptance |
 | 5: cost awareness | Pending | Optional measurements remain distinct; pacing remains OFF by default |
 | 6: recovery pilot | Pending | Offline scenarios plus named native evidence; no fabricated live passes |
 | 7: feedback closure | Pending | Feedback/task/decision/evidence links and explicit environment acceptance |
@@ -73,3 +73,10 @@ required-ID selection, full retrieval by ID, no required record dropped, and a
 bounded projection over a 1,000-record synthetic archive. Missing/superseded
 required IDs and invalid scopes fail visibly. Verify cross-process roundtrip,
 budget refusal, collision preservation and schema/mirror compatibility.
+
+Phase 3 evidence: 16 record-capture/selection regressions; 15 compiler cases;
+18 restoration tests in the full 173-file gate; new-project capture/restore;
+Python 3.9 syntax; generated mirrors; isolated acceptance after one repair.
+Capacity refusal is checked under the writer lock before publication. Global
+prefix stability is tested across task switches; provider cache gains remain
+unmeasured. The default scope for legacy records is unchanged.

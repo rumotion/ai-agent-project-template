@@ -23,6 +23,12 @@ checkpoint, use `checkpoint --task-id ID --input RELATIVE_FILE` and inspect with
 repository. A ready local receipt does not prove native model consumption or
 grant authority. Preserve unfinished work on every failure path.
 
+For a task-specific projection, add scalar `task_id: ID` and optional comma-separated
+`required_records: ID1,ID2` to the handoff header. Required records must exist and
+be active; they are never dropped to fit the budget. Store decisions through
+`workflows/update-memory-bank.md` before checkpointing. Retrieve full records
+with `python scripts/ctx.py show --id ID` instead of re-reading all history.
+
 ## Rules
 
 - `handoff.md` is volatile and ephemeral. `activeContext.md` is durable.

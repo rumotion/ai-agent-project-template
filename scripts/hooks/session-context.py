@@ -24,8 +24,8 @@ PRE_COMPACT_NOTICE = (
     "blocking_issues).\n"
     "2. Append any phase summary / refuted hypotheses to "
     "memory-bank/activeContext.md.\n"
-    "3. Record new decisions in memory-bank/decisions.md and new risks in "
-    "memory-bank/risks.md.\n"
+    "3. Persist reviewed durable decisions/risks through scripts/ctx.py record; "
+    "link their IDs from prose summaries.\n"
     "Treat the checked-in Memory Bank, not this transcript, as the source of "
     "truth after compaction."
 )

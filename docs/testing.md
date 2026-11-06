@@ -91,6 +91,9 @@ commands are `scripts/verify-context.py`, `scripts/verify-contracts.py`,
 The full gate also runs `scripts/verify-continuity.py`: private checkpoint,
 cross-client restore, dirty-input and branch changes, corrupt/scalar handoff,
 interleaved edits, writer-lock refusal and visible hook-failure regressions.
+`scripts/verify-records.py` covers read-back receipts, task selection over a
+1,000-record archive, qualifier retention, immutable IDs, supersession, required
+budget refusal and failed writes. Native recall remains a separate smoke check.
 After editing canonical skills/workflows, run `scripts/gen-adapters.py --write`
 and review the generated diff. Tracked discovery files remain available in
 fresh clones. Live client denials, Linux execution, actual Python 3.9 execution,

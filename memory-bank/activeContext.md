@@ -1,5 +1,19 @@
 # Active Context
 
+## Continuity implementation: phase 3 - 2026-11-05
+
+- Outcome: COMPLETE locally. Atomic record capture/read-back, task/archive
+  selection, explicit source/category and mandatory-ID protection are wired
+  into canonical memory workflows and generated mirrors.
+- Checks: 16 record tests (including 1,000-record archive), 15 compiler cases,
+  18 restore tests/full 173-file gate, new-project roundtrip and isolated review.
+- Refuted hypotheses: task-specific records could share the old prefix metric
+  (task-switch regression required a global-only prefix); post-write capacity
+  validation preserved usability (review caught overflow; refusal now precedes
+  publication and preserves every existing byte).
+- Next: phase 4 durable task manifests; docs/continuity-workplan.md. Remaining
+  core implementation is authorized; native measurements remain unverified.
+
 ## Continuity implementation: phase 2 - 2026-11-05
 
 - Outcome: COMPLETE locally. Added strict bounded source parsing, private

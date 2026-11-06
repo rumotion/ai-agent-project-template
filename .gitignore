@@ -44,6 +44,8 @@ graphify-out/
 
 # Agent runtime artifacts
 .agent-logs/
+memory-bank/records/.record-write.lock
+memory-bank/records/.record-*.tmp
 .agent-benchmarks/
 .agent-usage-pacing/
 pacing.sqlite3

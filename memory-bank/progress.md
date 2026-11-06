@@ -1,5 +1,13 @@
 # Progress
 
+## Continuity implementation phase 3 - 2026-11-05
+
+- Record capture now returns verified storage/inclusion receipts; explicit
+  task/archive selection scales to 1,000 fixture records within the context cap.
+- Examples/hypotheses retain category; mandatory IDs and qualifiers survive.
+- Full 173-file gate, 16 record tests, preservation cases and isolated review
+  passed. Remaining phases start with durable task manifests, not a fleet.
+
 ## Continuity implementation phases 1-2 - 2026-11-05
 
 - Broader nine-source research, corrected contracts and deduplicated CI.

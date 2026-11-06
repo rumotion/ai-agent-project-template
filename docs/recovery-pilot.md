@@ -40,6 +40,7 @@ to method/status, never retained as public identity/credential material.
 | Claude CLI fresh process and manual compaction | 2.1.116 | Native boundaries observed; initial recall 6/7, targeted full-body follow-up 7/7 | Original omitted marker sentence is retained as a failed exact-fidelity assertion |
 | Claude native sensitive-Write guard | 2.1.116 | Passed three assertions | Actual Write request, native hook denial and absent inert fixture file |
 | Codex native sensitive-apply_patch guard | 0.167.0 | Passed scoped Windows stdio trial after command repair | PreToolUse status `blocked`, specific policy reason and absent inert file; per-thread runtime trust bypass |
+| Codex automatic startup context | 0.167.0 | Passed 11 controls at startup, fresh-process resume and manual compaction | Newly persisted named records and next action arrived through SessionStart; no manual fact packet, model tools, reroute or global change |
 | Codex native model transition | 0.167.0 | Passed 13 assertions, gpt-6-astra to gpt-6.1-sol at xhigh | Same persisted thread; native switch warning and reported target model; exact facts/tasks/qualifier recovered without tools or reroute |
 | Codex hash trust and native tool controls | 0.167.0 | Hash-trusted denial, safe patch/logger and Bash sensitive-write controls passed | Hash state and approved persisted CLI trust, no bypass; changed definition reports modified; native patch/logger/Bash controls passed |
 | Gemini CLI | 0.52.0 | Version only; no model probe | Renderer fixtures do not establish native consumption |
@@ -219,6 +220,44 @@ only sanitized assertions enter this report. Global model/effort and PATH were
 not changed. These observations do not certify desktop/cloud orchestration,
 other tool/model routes, external containment or provider token savings.
 
+### Automatic Codex startup delivery - 2026-11-06
+
+Baseline regressions exposed two implementation gaps: the shared helper ignored
+--client and always rendered Claude context, and the inactive Codex example had
+no SessionStart mapping. Client-aware rendering and client-specific diagnostics
+now preserve explicit Claude behavior; unknown clients use generic notes.
+The Codex example adds synchronous startup/resume/clear/compact/fork mapping,
+explicit Git-root selection and additionalContextLimit 0 for the already-capped
+payload (6,000 projection characters; at most 8,000 with notes). This delivers
+full bounded text instead of a spill preview. Existing guards are unchanged.
+
+The native 0.167.0 trial copied the exact candidate into a synthetic Git project
+with spaces and brackets and started from a nested asset directory. Each phase
+introduced a new immutable required decision, unique marker and changed next
+action after the previous phase. Questions named the record ID but contained
+none of its body or marker. The observed SessionStart output and model answer
+both contained the full current body. All 11 controls passed independently at
+startup, same-thread fresh-process resume and after a completed native
+contextCompaction item. Model tool use, reroutes, invented acceptance and an
+invented complete task ledger were rejected. The model/effort stayed at the
+configured gpt-6-astra/xhigh. Native clear/fork delivery remains untested.
+
+Only per-invocation trust was used for the five handlers in this new fixture.
+The four previously approved persisted fixture trust records and all user
+configuration bytes remained unchanged. No real-project Codex hook file was
+activated. This restores last-persisted project facts; it does not save an
+unwritten conversation or inject the complete open-task ledger.
+
+Candidate source: `7fc3a1d9f50695b751498de354f2b95e4c71ac85`. Captured Windows
+artifact bytes match the Git source after line-ending normalization. Callback
+hashes and three exact read-backs were reconciled privately without repeating
+model calls. The baseline failures remain recorded. Local gates passed:
+21 continuity cases, five configured Windows cases, legacy hook fixtures,
+full 189-file validation, Python 3.9 syntax and fresh-project/upgrade-surface
+smoke. The isolated critic accepted with all 327 frozen file hashes unchanged.
+These observations establish one Windows stdio/model/effort route, not desktop
+or cloud orchestration.
+
 ## Repeatable manual pilot
 
 1. Use a disposable project with a required decision, an explicitly labeled
@@ -261,7 +300,8 @@ login. Documentation alone does not prove the installed client's behavior.
   Claude CLI and Codex stdio evidence. Sensitive writes now have scoped Claude
   Write and Codex apply_patch/Bash sensitive-write evidence; the allowed Codex
   patch logger was also observed. MCP and native publishing-denial routes remain open.
-  Startup delivery outside the single tested Claude CLI route is unverified.
+  Automatic startup delivery now has bounded Claude CLI and Codex stdio
+  startup/resume/compact evidence; other lifecycle surfaces remain unverified.
   Manual recovery remains the portable fallback; listing open tasks is still
   required because the startup projection does not include the complete ledger.
 - Antigravity UI journal inspection was attempted read-only. The driver reported

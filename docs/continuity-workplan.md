@@ -274,3 +274,13 @@ Use only per-invocation trust for the new fixture; preserve user configuration.
 Verification: continuity/Windows suites, full template gate, fresh-project and
 preservation smoke, bounded native observation, retained failures and isolated
 artifact-only review. Native observations apply only to the tested surface.
+
+Startup delivery acceptance: code revision `7fc3a1d9f50695b751498de354f2b95e4c71ac85`.
+Three native SessionStart callbacks delivered three new required bodies and next
+actions; 11 controls per phase passed at startup, new-process resume and completed
+manual compaction. Global configuration and the four approved trust records
+preserved. Renderer/mapping/diagnostic and Windows regressions were red before
+repair; 21 continuity and five Windows cases now pass. Full 189-file gate, legacy
+fixtures, Python 3.9 grammar, new-project and upgrade-surface smoke passed.
+Critic accepted; all 327 frozen hashes unchanged. Clear/fork delivery and desktop/
+cloud remain unverified; Codex stays opt-in. No conversation autosave is claimed.

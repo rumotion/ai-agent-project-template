@@ -1,5 +1,17 @@
 # Progress
 
+## Codex automatic startup delivery - 2026-11-06
+
+- Fixed ignored --client routing and added opt-in SessionStart mapping with
+  Git-root selection and full delivery of the capped projection.
+- Native startup/resume/compact each delivered a new required body and next
+  action without a manual packet or model tools; 11 controls per phase passed.
+- Global config and four approved trust records preserved. No real-project
+  activation or conversation autosave. Clear/fork and desktop/cloud remain open.
+- 21 continuity/five Windows cases, full 189-file gate, legacy hooks, fresh-project
+  and upgrade smoke, Python 3.9 syntax and isolated review passed (327 hashes stable).
+  Source/provenance: docs/recovery-pilot.md. Pacing OFF; local-only.
+
 ## Native transition and trusted tool controls - 2026-11-06
 
 - Native gpt-6-astra to gpt-6.1-sol transition at xhigh passed all 13 checks in

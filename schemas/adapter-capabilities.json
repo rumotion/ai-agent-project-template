@@ -41,7 +41,7 @@
       "status": "live-smoke-partial",
       "live_evidence": "docs/recovery-pilot.md",
       "observed_at": "2026-11-06",
-      "source_revision": "55d35c3f5802dd2b3f732e62ca96b6b76f83977a",
+      "source_revision": "7fc3a1d9f50695b751498de354f2b95e4c71ac85",
       "live_checks": [
         "Isolated CLI supplied-packet recovery with the configured model/effort",
         "Stdio app-server fresh-process resume preserves required facts and task states",
@@ -49,10 +49,11 @@
         "Windows stdio PreToolUse sensitive apply_patch blocked after command repair; inert file absent; scoped per-thread trust bypass",
         "Native same-thread model transition gpt-6-astra to gpt-6.1-sol at xhigh; 13 recovery/control assertions passed",
         "Hash-trusted execution; changed command reports modified; approved four-record CLI trust and fresh-process denial passed",
-        "Native safe apply_patch/PostToolUse logger and Bash sensitive-write denial with scoped hash trust"
+        "Native safe apply_patch/PostToolUse logger and Bash sensitive-write denial with scoped hash trust",
+        "SessionStart startup/resume/compact delivered fresh named required records and next action; no manual fact packet or model tools"
       ],
       "unverified_checks": [
-        "Automatic project startup context loading, native MCP and publishing-denial routes",
+        "Native clear/fork delivery, MCP and publishing-denial routes",
         "Desktop/IDE/cloud orchestration and other model transitions",
         "External containment and provider efficiency"
       ],

@@ -1,5 +1,17 @@
 # Active Context
 
+## Continuity implementation: phase 5 - 2026-11-06
+
+- Outcome: COMPLETE locally. Ordinary task counters, provenance, disjoint
+  actor/segment totals, unknown handling and hard-budget advice work with pacing
+  OFF. Benchmark supports inclusive reasoning without double counting cache.
+- Checks: 17 metric tests, 34 pacing tests, benchmark self-test, full 181-file
+  gate, fresh-project smoke, Python 3.9 syntax and isolated acceptance.
+- Refuted hypothesis: adjacent readings suffice to detect resets. Four red
+  regressions showed a null/omitted reading hid earlier known usage; per-field
+  high-water validation fixes this while preserving latest unknown totals.
+- Next: phase 6 integrated recovery and narrowly labeled native evidence.
+
 ## Continuity implementation: phase 4 - 2026-11-06
 
 - Outcome: COMPLETE locally. Private durable tasks preserve attempts, revisions,

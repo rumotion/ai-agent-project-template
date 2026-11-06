@@ -15,6 +15,8 @@ import sys
 import tempfile
 from typing import Any, Dict, List, Optional, Tuple
 
+from usage_math import token_total
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = ROOT / "benchmarks" / "context" / "scenarios.json"
@@ -143,7 +145,7 @@ def validate_run(run: Any, index: int) -> Dict[str, Any]:
         raise BenchmarkError(
             "usage run {} is missing fields: {}".format(index, ", ".join(missing))
         )
-    extra = sorted(set(run) - REQUIRED_RUN_FIELDS)
+    extra = sorted(set(run) - REQUIRED_RUN_FIELDS - {"thought_in_output"})
     if extra:
         raise BenchmarkError(
             "usage run {} contains unsupported fields: {}; "
@@ -179,9 +181,11 @@ def validate_run(run: Any, index: int) -> Dict[str, Any]:
         raise BenchmarkError(
             "usage run {} cached_tokens cannot exceed input_tokens".format(index)
         )
-    clean["total_tokens"] = (
-        clean["input_tokens"] + clean["output_tokens"] + clean["thought_tokens"]
-    )
+    try:
+        clean["total_tokens"] = token_total(clean["input_tokens"], clean["output_tokens"], clean["thought_tokens"], clean["cached_tokens"], run.get("thought_in_output", False))
+    except ValueError as err:
+        raise BenchmarkError(str(err))
+    clean["thought_in_output"] = run.get("thought_in_output", False)
     return clean
 
 
@@ -271,7 +275,7 @@ def build_result(
         "schema_version": 1,
         "policy": {
             "minimum_token_reduction_percent": 10,
-            "total_tokens_formula": "input_tokens + output_tokens + thought_tokens",
+            "total_tokens_formula": "input_tokens + output_tokens + (0 if thought_in_output else thought_tokens)",
         },
         "scenarios": measured,
         "comparison": comparison,

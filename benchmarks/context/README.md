@@ -68,8 +68,12 @@ Compare with:
 python scripts/benchmark-context.py --scenario fast-init --usage .agent-benchmarks/fast-init.json --candidate candidate
 ```
 
-`total_tokens` is input + output + thought tokens. Cached tokens are reported
-separately because they are normally a subset of input, not additional tokens.
+Legacy records define output as excluding thought tokens: `total_tokens` is
+input + output + thought. For inclusive provider output, set optional
+`thought_in_output: true`; total is then input + output, and thought must not
+exceed output. Normalize provider fields explicitly before importing. Cached
+tokens must already be included in input; they are not added again. Unknown
+counts cannot be represented by zero: omit the paired benchmark until complete.
 Tool calls and turns are comparison signals, not token estimates.
 
 The policy verdict is:

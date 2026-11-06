@@ -35,6 +35,7 @@ It will:
 | `verify-continuity.py` | Disposable restoration, scope, interleaved-edit and redacted-failure regressions; included in the full gate. |
 | `verify-records.py` | Record capture/read-back, task/archive selection, required constraints and write-preservation regressions. |
 | `tasks.py`, `verify-tasks.py` | Private task state, revision/attempt gates, inventory audit and parent acceptance; no native dispatch. |
+| `task_metrics.py`, `usage_math.py`, `verify-task-metrics.py` | Sanitized task cost/progress advice, explicit token semantics and hard-budget checks; pacing stays OFF. |
 | `hooks/log-writes.py` | Passive write event logger (writes metadata to `.agent-logs/session.jsonl`). |
 | `hooks/guard-sensitive-paths.py` | Client-aware path guard with verified Claude, Gemini, and Codex denial outputs; also inspects shell redirection/copy targets. |
 | `hooks/guard-remote-ops.py` | Client-aware publishing guard; blocks git/gh publishing incl. plumbing and interpreter indirection. |

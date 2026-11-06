@@ -141,7 +141,7 @@
     "tokens_used": {
       "type": "integer",
       "minimum": 0,
-      "description": "Worker's self-reported total. The parent aggregates this for fleet cost accounting."
+      "description": "Worker self-report only; never use as trusted billing or add to overlapping native/session totals. Unknown usage needs an explicit caveat."
     }
   }
 }

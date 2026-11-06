@@ -15,8 +15,8 @@ Research: [primary-source evidence](agentic-engineering-evidence.md).
 | 2: restoration integrity | Complete locally | 18 behavioral cases, 15 compiler checks, full gate and isolated review passed |
 | 3: decision projection | Complete locally | 16 record tests, 1,000-record archive, full gate, new-project smoke and isolated review passed |
 | 4: durable task state | Complete locally | 22 lifecycle/preservation tests, full gate, fresh-project smoke and isolated acceptance |
-| 5: cost awareness | Next | Optional measurements remain distinct; pacing remains OFF by default |
-| 6: recovery pilot | Pending | Offline scenarios plus named native evidence; no fabricated live passes |
+| 5: cost awareness | Complete locally | 17 metric tests, 34 pacing tests, full gate, new-project smoke and isolated acceptance |
+| 6: recovery pilot | Next | Offline scenarios plus named native evidence; no fabricated live passes |
 | 7: feedback closure | Pending | Feedback/task/decision/evidence links and explicit environment acceptance |
 | 8: concurrent runtime | Conditional | Measured need plus lease/cancellation tests before parallel expansion |
 
@@ -116,3 +116,24 @@ task cost; explicit hard budgets hold on missing evidence or projected overrun;
 completion stops useful work early. Preserve pacing confirmation/OFF semantics.
 Verify missing/stale measurements, resets/model switches, double counting,
 worker/main aggregation, hard limits, no-progress checkpoints and early completion.
+
+Phase 5 evidence: 17 metric regressions, benchmark self-test, unchanged 34 pacing
+regressions, full 181-file gate, Python 3.9 syntax and new-project smoke. Critic
+accepted after one repair: four red cases reproduced null/omission hiding a
+cumulative reset. Per-field high-water validation now survives unknown readings;
+latest unknown usage remains unknown for aggregation. Frozen 319-file inventories
+were unchanged during review. No quota plan, telemetry discovery or billing call.
+
+## Phase 6 specification - 2026-11-06
+
+Objective: exercise integrated recovery and identify the native evidence actually
+available on this workstation. Owned: offline recovery scenarios/tests, native
+pilot guide/report and test/preservation manifests. No global configuration,
+dependency installs, secrets, production data or additional paid API expenditure.
+Acceptance: separate processes recover required decisions, qualifiers, next action
+and all open work; interrupted review never becomes accepted, superseded/corrupt
+or missing state fails visibly. Repeat deterministic restore cycles and label
+their scope. Attempt small supplied-context CLI probes using existing subscription
+auth only, recording installed versions and observed outcomes. These probes do
+not establish native compaction/hook delivery, model quality across tasks or token
+savings; unavailable or untested surfaces remain explicit release limitations.

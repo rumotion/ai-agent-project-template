@@ -5,6 +5,9 @@ Antigravity/Gemini clients. It optimizes useful work within an agreed quota;
 exhausting tokens is never a completion condition. No background process,
 native goal or agent is started by loading these instructions.
 
+For ordinary authorized work without pacing, use [task measurements](task-measurements.md).
+They share numeric/token normalization rules, but cannot activate a pacing run.
+
 ## Contents
 
 - [Activation and confirmation](#activation-and-confirmation)

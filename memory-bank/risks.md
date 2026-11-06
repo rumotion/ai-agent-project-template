@@ -1,9 +1,10 @@
 # Risks
 
-Hook commands can start from the customization directory rather than project
-root. Relative `scripts/hooks/...` arguments then fail before policy evaluation
-and may block harmless tools. Test the actual launcher from both locations;
-keep one canonical hook tree and resolve code independently of event input.
+Hook commands can start from `.agents` rather than project root. Use a file
+argument relative to that origin and keep one canonical tree. Shell-only tests
+missed a Windows runner splitting quoted `python -c` code into invalid Python;
+test direct argv as well. Tool CWD in event data is not the hook process CWD
+and must never select executable code.
 
 ## High-risk areas
 

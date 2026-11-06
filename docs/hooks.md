@@ -15,7 +15,7 @@ records the first-party schemas last checked by this template.
 | Claude Code | `.claude/settings.json` | Active project guard and logger |
 | Gemini CLI | `.gemini/settings.example.json` | Inactive example; copy deliberately to `.gemini/settings.json` |
 | Codex | `.codex/hooks.example.json` | Inactive example; copy deliberately to `.codex/hooks.json` |
-| Antigravity (current App/CLI/IDE) | No native hook config shipped | Different payloads from legacy Gemini CLI; do not copy its example blindly |
+| Antigravity | `.agents/hooks.json` | Workspace Pre/Post guards and logger; native reload confirmation remains separate |
 
 The active Claude permissions deny secret-file access and publishing commands
 as a first safety layer. Its `PreToolUse` mapping calls
@@ -82,17 +82,28 @@ Unknown MCP coverage is explicit; adapter entries are not certified integrations
 Antigravity may start workspace hooks from its customization directory `.agents`.
 A command such as `python scripts/hooks/guard-remote-ops.py` then points at a
 nonexistent nested script and can block ordinary directory listing before the
-guard runs. The shipped launcher discovers the nearest project ancestor with
-`AGENTS.md` and the canonical dispatcher, then imports only sibling hook code.
-It never selects executable code from an event's workspace/path fields.
+guard runs. Commands are relative to the `.agents` customization directory:
+
+```text
+python ../scripts/hooks/antigravity-dispatch.py guard-remote-ops.py --client gemini
+```
+
+Use a direct file invocation. An earlier single-line `python -c` bootstrap passed
+shell-only checks but failed with `SyntaxError: unterminated string literal`
+when the Windows runner passed quoted code as split arguments. The current
+command has no inline code or quotes. It imports only sibling hook code and
+never selects executable code from event workspace/path fields.
 
 `scripts/hooks/antigravity-dispatch.py` preserves existing guard denials and emits
 an explicit `decision: allow` for benign checks, which defers to normal platform
 policy rather than auto-approving a tool. Post-tool logging returns `{}` and
 anchors its output at the project root. Do not duplicate the hook tree under
 `.agents/scripts`; keep one canonical source. Reload the project/session after
-changing hook configuration. Offline launch regressions cover root,
-customization and nested asset directories with spaces, plus deny behavior.
+changing hook configuration. Eight offline regressions exercise shell and
+direct-argv launches from `.agents` in a project path with spaces. Requested tool
+directories vary across root/customization/nested assets; they are distinct from
+the hook process directory. A separate absolute-file invocation check covers
+other process directories. Denials, JSON output and log placement remain tested.
 
 Schema reference: [Antigravity hooks](https://antigravity.google/docs/hooks).
 These launch tests do not certify every native interface or external containment.
@@ -135,7 +146,8 @@ private milestone checkpoints. Unexpected injection failures emit a redacted
 
 Checked 2026-10-26: current Antigravity documents `SessionStart` and
 `PreToolUse` with `conversationId`/`toolCall` payloads, unlike the shipped
-legacy Gemini CLI mapping. Its lifecycle adapter needs native fixtures and a
+legacy Gemini CLI mapping. Its lifecycle adapter (separate from the workspace
+Pre/Post guards above) needs native fixtures and a
 live smoke test before activation. Current Codex docs also distinguish local
 orchestration from cloud orchestration: local command hooks are not universal
 even when tool execution is local. Keep these adapters inactive until checked

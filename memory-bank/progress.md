@@ -2,13 +2,14 @@
 
 ## Antigravity customization-directory repair - 2026-11-06
 
-- Fixed an active hook launch path that failed from `.agents` and blocked normal
-  terminal listing before policy evaluation. Canonical scripts remain in one tree.
-- Six executed-command regressions preserve publish/sensitive denials, explicit
-  JSON, project-root logging and redacted failures across root/config/assets CWDs.
-- Full188-file validation, fresh-project/upgrade surface, Python3.9 syntax and
-  isolated review passed. Downstream application touched framework files only;
-  existing user work/assets were preserved. Native UI reload remains required.
+- Initial ancestor bootstrap passed shell-only checks but failed in the native
+  Windows runner. Direct-argv reproduction retained the same SyntaxError.
+- Replaced inline code with a quote-free file launch relative to `.agents`.
+  Eight regressions cover both launch modes, policy denials and project logging.
+  Downstream application touches framework files only; user hashes are preserved.
+  Native application reload confirmation remains separate from local tests.
+- Full 188-file gate, fresh-project/upgrade smoke and Python 3.9 syntax passed;
+  isolated review accepted with an unchanged 326-file frozen inventory.
 
 ## Scoped native follow-up - 2026-11-06
 
@@ -19,7 +20,7 @@
   omission remains a failed initial assertion, with focused full read-back passing.
 - Partial capability declarations now carry date/source revision/checked routes
   and gaps; CI accepts unknown defaults and rejects incomplete live declarations.
-- Full186-file gate, new-project smoke, Python3.9 syntax and independent review
+- Full186-file gate, new-project smoke, Python 3.9 syntax and independent review
   passed. Codex denial, interactive trust, model switch and other interfaces
   remain open. No global installation/PATH/model change or publication.
 

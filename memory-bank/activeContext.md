@@ -5,14 +5,15 @@
 - Baseline reproduced: canonical hook command exits0 from project root but
   exits2/missing-script from `.agents`; a relative script path blocks benign
   terminal calls before the policy code runs. Asset access was not prohibited.
-- Replaced CWD-dependent file arguments with ancestor discovery and one canonical
-  dispatcher. Explicit benign allow defers to platform policy; existing denials
-  remain. Executable imports never use event workspace/path fields.
-- Downstream repair changed only hook config and the new dispatcher. User work
-  and asset hashes were preserved; hook launches pass from root/.agents/assets.
-- COMPLETE locally: six launch regressions pass in template and repaired project;
-  full188-file gate, fresh-project/upgrade-candidate smoke, Python3.9 syntax and
-  isolated review accepted. Frozen326-file inventory stayed unchanged.
+- Refuted: a single-line inline bootstrap is portable after shell tests pass.
+  User runtime and direct-argv regression both produced an unterminated string.
+- Repair uses a quote-free file argument relative to `.agents`, with sibling
+  imports anchored at the dispatcher. Event CWD never selects executable code.
+  Existing denials and explicit benign deferral to platform policy remain.
+- Eight regressions now cover direct argv and shell launches, separate tool CWDs,
+  log placement and guard failures. Downstream user-file hashes are preserved.
+- Full 188-file gate, fresh-project/upgrade smoke and Python 3.9 syntax passed.
+  Isolated critic accepted; the frozen 326-file inventory stayed unchanged.
 - Native UI must reload the changed workspace hooks; no claim of automatic
   current-process containment. Do not repeat completed native lifecycle probes.
 
@@ -27,7 +28,7 @@
 - Codex denial remains unverified: bounded exec probes did not expose the required
   native policy reason. Trust-bypass warnings/file absence are not proof.
 - Checks: full186-file gate, fresh-project declaration/mirror/FAST smoke,
-  Python3.9 syntax and isolated review accepted after one documentation repair;
+  Python 3.9 syntax and isolated review accepted after one documentation repair;
   frozen324-file inventories unchanged. Unknown defaults remain valid in CI.
 - Native capability task parent-accepted against unchanged inventory. Remaining
   lifecycle task names model switch, denial/trust and untested interfaces; do
@@ -52,7 +53,7 @@
   verification/acceptance is documented and tested; examples stay qualified.
   Optional environment acceptance avoids mandatory product interviews/deployment.
 - Resume now lists every open-task page alongside handoff/doctor. Eight integrated
-  cases, full186-file gate, mirrors, Python3.9 syntax, new-project and upgrade
+  cases, full186-file gate, mirrors, Python 3.9 syntax, new-project and upgrade
   surface smoke passed; isolated review accepted with unchanged324-file inventory.
 - Open native evidence is queued privately as native-codex-capability and
   native-lifecycle-gates. No workers, installs, global edits or pacing activation.

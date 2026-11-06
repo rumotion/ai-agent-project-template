@@ -1,8 +1,8 @@
 """Run canonical hooks from the Antigravity customization directory.
 
-The inline launcher locates this file through trusted working-directory
-ancestors, never through event payloads. Existing Gemini-format guard decisions
-remain unchanged; benign calls explicitly defer to Antigravity's normal policy.
+The configured file path is relative to the customization directory. Handler
+imports use this file's directory, never event payloads. Existing Gemini-format
+guard decisions remain unchanged; benign calls defer to normal platform policy.
 """
 from contextlib import redirect_stdout
 import argparse

@@ -1,4 +1,4 @@
-"""Execute shipped hooks from root/customization/nested CWDs without models."""
+"""Execute configured file hooks with shell and direct-argv Windows launch paths."""
 import json
 from pathlib import Path
 import shutil
@@ -22,9 +22,14 @@ class HookPathTests(unittest.TestCase):
         self.config = json.loads((ROOT / ".agents/hooks.json").read_text(encoding="utf-8"))["boundary-guard"]
         self.cwds = (self.root, self.root / ".agents", self.root / "assets/nested")
 
-    def run_hook(self, command, cwd, event):
+    def run_hook(self, command, cwd, event, shell=False):
         # Command is trusted checked-in configuration; event strings stay stdin.
-        result = subprocess.run(command, cwd=cwd, input=json.dumps(event), shell=True,
+        event = json.loads(json.dumps(event))
+        event.setdefault("cwd", str(cwd))
+        if event.get("toolCall", {}).get("name") == "run_command":
+            event["toolCall"]["args"].setdefault("Cwd", str(cwd))
+        result = subprocess.run(command if shell else command.split(), cwd=self.root / ".agents",
+                                input=json.dumps(event), shell=shell,
                                 capture_output=True, text=True, encoding="utf-8", timeout=20)
         self.assertEqual(result.returncode, 0, result.stderr)
         return json.loads(result.stdout)
@@ -33,7 +38,24 @@ class HookPathTests(unittest.TestCase):
         event = {"toolCall": {"name": "run_command", "args": {"CommandLine": "dir assets"}}}
         for cwd in self.cwds:
             for hook in self.config["PreToolUse"][0]["hooks"]:
-                self.assertEqual(self.run_hook(hook["command"], cwd, event), {"decision": "allow"})
+                for shell in (False, True):
+                    self.assertEqual(self.run_hook(hook["command"], cwd, event, shell), {"decision": "allow"})
+
+    def test_configuration_has_no_inline_code_or_quoted_arguments(self):
+        for groups in self.config.values():
+            for group in groups:
+                for hook in group["hooks"]:
+                    command = hook["command"]
+                    self.assertNotIn("-c", command.split())
+                    self.assertFalse(any(char in command for char in '\r\n\"\''))
+
+    def test_canonical_file_launch_from_any_cwd(self):
+        script = self.root / "scripts/hooks/antigravity-dispatch.py"
+        for cwd in self.cwds:
+            result = subprocess.run([sys.executable, str(script), "guard-remote-ops.py", "--client", "gemini"],
+                                    cwd=cwd, input="{}", capture_output=True, text=True, timeout=20)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(result.stdout), {"decision": "allow"})
 
     def test_publishing_guard_still_denies_synthetic_event(self):
         event = {"toolCall": {"name": "run_command", "args": {"CommandLine": "git push origin main"}}}
@@ -66,7 +88,7 @@ class HookPathTests(unittest.TestCase):
     def test_missing_guard_reports_redacted_failure(self):
         (self.root / "scripts/hooks/guard-remote-ops.py").unlink()
         command = self.config["PreToolUse"][0]["hooks"][0]["command"]
-        result = subprocess.run(command, cwd=self.root / ".agents", input="{}", shell=True,
+        result = subprocess.run(command.split(), cwd=self.root / ".agents", input="{}", shell=False,
                                 capture_output=True, text=True, timeout=20)
         self.assertEqual(result.returncode, 1)
         self.assertEqual(result.stdout, "")

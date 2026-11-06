@@ -173,59 +173,25 @@ task pages; the final startup budget remains below the 8,500-character target.
 ## Antigravity launch-path correction - 2026-11-06
 
 Observed baseline: the same guard command exited0 from project root and exited2
-with a missing nested script from `.agents`. This prevented benign terminal
-listing; it was not an intentional asset-read restriction. Repair uses a
-working-directory-independent bootstrap and one canonical dispatcher, preserving
-denials and deferring benign requests to platform policy with explicit JSON.
-Event workspace fields never choose executable source code.
+with a missing nested script from `.agents`, blocking benign directory listing.
+The first repair used a single-line ancestor bootstrap. Six shell-only checks,
+full validation and review passed, but the native Windows runner then produced
+an unterminated-string SyntaxError. Direct-argv regression reproduced that
+failure (seven of eight tests failed). This refutes shell-only portability.
 
-Acceptance: six actual-command regressions passed in the template and a repaired
-downstream project, including root/customization/nested asset directories with
-spaces. Full188-file gate, fresh-project/upgrade-candidate smoke, Python3.9 syntax
-and isolated review passed; the frozen326-file inventory was unchanged. Hashes
-confirmed existing downstream user files/assets were preserved during repair.
-The native application must reload workspace hooks; end-to-end UI confirmation
-is separate from these local launch checks. No global settings or guards disabled.
+The revised configuration directly invokes the canonical dispatcher relative
+to `.agents`, without inline Python or quoted arguments. Imports are anchored
+to the dispatcher file. Event workspace fields never choose executable code;
+existing denials and explicit benign platform-policy deferral remain.
 
-## Conditional runtime disposition
+Acceptance: eight regressions pass in the template and repaired downstream
+project. They distinguish hook-process origin from requested tool CWD, exercise
+both shell and direct argv in a project path with spaces, and retain denial,
+logging and redacted-failure coverage. User-file hashes remain unchanged.
+Native reload confirmation is separate; no global settings or guards disabled.
 
-Do not implement phase 8 merely to increase agent count. This work provides a
-cooperative private ledger, not a native fleet supervisor. No measured backlog
-or integration result currently justifies expanding the default one worker/two
-open tasks. Reconsider only for ready independent tasks with measured benefit,
-after process-bound ownership, authenticated/coordinator authority, heartbeat,
-stop acknowledgement, stale/late results and crash/restart tests pass for one
-native adapter. Remote transport and cross-machine concurrency stay deferred.
-
-## Open evidence and operational handoff
-
-Native follow-up specification (2026-11-06): observe real Claude resume/manual
-compaction and one inert sensitive-Write refusal; retain every failed assertion.
-Record only dated, scoped development-workstation evidence in the adapter
-inventory. Offline validation must reject incomplete live declarations while
-runtime boundary inspection continues to report unverified tool events. Owned:
-recovery/context/hook guides, capability inventory, boundary regression and
-operational memory. No broad containment, alternate-client or savings claim.
-The human separately approved isolated Codex0.167.0 with official SHA-256
-verification; preserve the primary installation, PATH and selected model/effort.
-
-Follow-up acceptance: full186-file gate, targeted declaration/negative checks,
-fresh-project metadata/mirror/FAST smoke and Python3.9 syntax passed. Isolated
-critic accepted after one documentation repair distinguishing initial no-install/
-ephemeral probes from approved isolated installation and persisted lifecycle
-sessions. Frozen324-file inventories stayed unchanged. No negative result was
-converted into a pass. Exact routes and limits are in docs/recovery-pilot.md.
-
-Core implementation through phase 7 is complete locally. Follow-up observations
-now include real Claude CLI and Codex stdio restart/compaction, a Claude native
-sensitive-Write refusal, and a successful Codex0.167.0 supplied-packet turn using
-the existing model/effort. The earlier0.142.0 failures and Claude's first exact
-quotation failures remain recorded. The native capability task was separately
-submitted and parent-accepted against an unchanged inventory; the lifecycle follow-up retains untested model
-switch, hook trust/other tool routes and app/IDE surfaces. Run all pages of
-`tasks.py list` on resume; do not repeat passed probes or unchanged failures.
-
-Paired provider efficiency measurements remain optional until an efficiency
-technique is proposed; no savings claim or quota consumption plan was adopted.
-Only the separately approved isolated CLI install was added. No global
-model/configuration/PATH edits, production changes or publication.
+Full 188-file validation, fresh-project generation/FAST smoke, explicit upgrade
+surface and Python 3.9 syntax passed. The isolated critic accepted under the
+documented `.agents` origin contract; all 326 frozen file hashes were unchanged.
+Launching that relative command from project root is outside this origin
+contract and can still fail; the absolute-file test is not evidence otherwise.

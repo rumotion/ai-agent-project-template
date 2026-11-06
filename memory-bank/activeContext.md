@@ -1,5 +1,17 @@
 # Active Context
 
+## Automatic pre-turn compaction - 2026-11-06
+
+- Reduced invocation/thread threshold triggered automatic compaction without a
+  manual compact RPC. A new record written after the seed turn was delivered
+  by the fresh callback and read back exactly; 16 controls passed.
+- Resume callbacks are deferred until turn/start; the seed prevents earlier
+  injection from satisfying a fresh-data check. Saved-event replay/source match
+  passed without another model call. Global config/four trust records unchanged.
+- Remaining: default thresholds, mid-turn tool continuation, app/IDE/reset and
+  MCP/publishing-denial routes. No real-project activation or autosave claim.
+  Evidence: docs/recovery-pilot.md. Pacing OFF; local-only.
+
 ## Codex API clear/fork follow-up - 2026-11-06
 
 - Explicit API clear and persisted-thread fork delivered distinct new required

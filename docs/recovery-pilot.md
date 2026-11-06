@@ -41,6 +41,7 @@ to method/status, never retained as public identity/credential material.
 | Claude native sensitive-Write guard | 2.1.116 | Passed three assertions | Actual Write request, native hook denial and absent inert fixture file |
 | Codex native sensitive-apply_patch guard | 0.167.0 | Passed scoped Windows stdio trial after command repair | PreToolUse status `blocked`, specific policy reason and absent inert file; per-thread runtime trust bypass |
 | Codex automatic startup context | 0.167.0 | Passed 11 controls each at startup/resume/compact and 13 each for API clear/fork | Newly persisted named records and next action arrived through SessionStart; no manual fact packet, model tools, reroute or global change |
+| Codex automatic pre-turn compaction | 0.167.0 | Passed 16 controls under a reduced invocation/thread threshold | New required body created after seed turn; automatic compaction, fresh callback and exact read-back observed in order; no manual compact RPC |
 | Codex native model transition | 0.167.0 | Passed 13 assertions, gpt-6-astra to gpt-6.1-sol at xhigh | Same persisted thread; native switch warning and reported target model; exact facts/tasks/qualifier recovered without tools or reroute |
 | Codex hash trust and native tool controls | 0.167.0 | Hash-trusted denial, safe patch/logger and Bash sensitive-write controls passed | Hash state and approved persisted CLI trust, no bypass; changed definition reports modified; native patch/logger/Bash controls passed |
 | Gemini CLI | 0.52.0 | Version only; no model probe | Renderer fixtures do not establish native consumption |
@@ -289,6 +290,44 @@ and [app-server fork semantics](https://learn.chatgpt.com/docs/app-server).
 Installed schemas and actual events establish the tested version's behavior;
 the docs alone are not the acceptance evidence.
 
+### Automatic pre-turn compaction follow-up - 2026-11-06
+
+The exact candidate from source `3f235d3e150bd5560a335350fd8cc200f7496386`
+was exercised on the earlier synthetic fork, using the same nested Windows path
+and configured gpt-6-astra/xhigh. model_auto_compact_token_limit was reduced to
+1 only for the new process/thread. No thread/compact/start request was sent.
+This forces a small automatic-compaction trial without filling a real session
+or changing the user's default threshold.
+
+Preflight of the prior native trace refuted an immediate-callback assumption:
+resume SessionStart runs after turn/start. A short seed turn therefore confirmed
+the previous persisted body before a new immutable required decision and next
+action were written. The second prompt named that record but supplied none of
+its body or marker. The new body was absent from the seed events and every
+outbound request, preventing prior injection from satisfying the fresh-data check.
+
+All 16 controls passed. In the target turn, compaction started at event index 2,
+completed at 5, the fresh SessionStart callback completed at 7, and the exact
+model answer completed at 101. Both the required body and next action matched.
+The example remained an example, acceptance and ledger completeness were not
+invented, and there were no model tools or reroutes. The seed and target each
+had one completed automatic contextCompaction item. All global config bytes and
+four approved trust entries were preserved; the five fixture handlers used
+invocation-only hash trust. No implementation repair or project activation
+was needed.
+
+Replay reconciled the saved event lists as ordered subsequences of the raw
+native stream, the three captured requests, exact model answer and three
+candidate/source artifacts after line-ending normalization. No model call was
+repeated during reconciliation. This establishes reduced-threshold automatic
+pre-turn delivery on one Windows stdio route. Default thresholds, mid-turn tool
+continuation, IDE/desktop/cloud, autosave and complete task-ledger delivery
+remain unverified.
+
+References: [automatic-compaction configuration](https://learn.chatgpt.com/docs/config-file/config-reference)
+and [SessionStart compaction lifecycle](https://learn.chatgpt.com/docs/hooks).
+Native captures establish this scoped result; documentation alone does not.
+
 ## Repeatable manual pilot
 
 1. Use a disposable project with a required decision, an explicitly labeled
@@ -333,7 +372,8 @@ login. Documentation alone does not prove the installed client's behavior.
   patch logger was also observed. MCP and native publishing-denial routes remain open.
   Automatic startup delivery now has bounded Claude CLI and Codex stdio
   startup/resume/compact evidence, with the API clear/fork follow-up above.
-  Interactive reset, automatic compaction and other lifecycle surfaces remain unverified.
+  Reduced-threshold automatic pre-turn delivery is observed above. Interactive
+  reset, mid-turn tool continuation and other lifecycle surfaces remain unverified.
   Manual recovery remains the portable fallback; listing open tasks is still
   required because the startup projection does not include the complete ledger.
 - Antigravity UI journal inspection was attempted read-only. The driver reported

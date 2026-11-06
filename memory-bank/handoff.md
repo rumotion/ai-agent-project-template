@@ -1,14 +1,14 @@
 ---
-handoff_version: 37
+handoff_version: 38
 last_touched: 2026-11-06
 last_model: Codex
 to_model: Any
 branch: main
-status: Codex API lifecycle delivery verified
+status: Codex auto-compaction delivery verified
 task: Continuity upgrade
 task_id: continuity-upgrade
 required_records: decision-phased-continuity
-next_action: Desktop/IDE and remaining lifecycle gates
+next_action: Mid-turn continuation and app/IDE gates
 blocking_issues: []
 ---
 

@@ -312,3 +312,34 @@ reset, automatic compaction and MCP/publishing-denial gates remain open.
 | Package | Frozen criteria | Deterministic evidence | Critic isolation | Findings/repairs | Re-verification | Residual risk |
 |---|---|---|---|---|---|---|
 | API clear/fork delivery | Two current records via exact shipped handler; no manual packet or global change | 26 controls, saved-event replay, source-byte reconciliation | Frozen diff and sanitized evidence only; receipt retained privately | Review receipt is authoritative; no implementation repair | Boundary declarations, FAST budgets and diff hygiene | One Windows stdio/model route; remaining app/tool gates explicit |
+
+## Automatic compaction delivery specification - 2026-11-06
+
+Objective: observe automatic pre-turn compaction and delivery of a newly
+persisted required body on the installed Windows stdio 0.167.0 route.
+Reuse only the earlier synthetic fork thread, exact inactive handler and
+configured model/effort. Set a low compaction threshold per invocation/thread;
+do not modify user settings or call thread/compact/start. The captured native
+trace defers resume callbacks until turn/start. Complete one short seed turn before creating the new required decision and next action;
+then observe a second turn under the reduced threshold.
+Acceptance: automatic contextCompaction completion, a subsequent SessionStart
+callback with the new full body, then exact model read-back in that turn without
+tools, reroute, manual fact packet or false acceptance/ledger completeness.
+Capture requests and event order; preserve prior evidence, global config bytes
+and four approved trust records. One bounded trial; retain/classify failures.
+Owned: proof/capability docs and concise operational memory; private harness.
+Non-goals: no active project config, dependency install, persistent trust write,
+interactive reset, mid-turn tool continuation, production or external transport.
+Verify saved-event replay, candidate/source bytes, boundary/FAST declarations,
+diff hygiene and isolated artifact review before local acceptance.
+
+Automatic pre-turn acceptance: all 16 controls passed on the existing synthetic
+fork. Saved events establish compaction start -> completion -> fresh callback
+-> exact read-back; the new body/marker were absent from seed events and all
+requests. Source 3f235d3e150bd5560a335350fd8cc200f7496386; candidate bytes match.
+Global config and four trust entries were unchanged. No implementation repair
+was necessary. This does not establish default-threshold or mid-turn behavior.
+
+| Package | Frozen criteria | Deterministic evidence | Critic isolation | Findings/repairs | Re-verification | Residual risk |
+|---|---|---|---|---|---|---|---|
+| Automatic pre-turn delivery | New record after seed; no manual compact RPC or fact packet | 16 controls; ordered native replay and source reconciliation | Frozen diff and sanitized evidence only; receipt retained privately | Review receipt is authoritative; no implementation repair | Boundary declarations, FAST budgets and diff hygiene | Reduced threshold on one stdio route; mid-turn/default/UI/tool gates open |

@@ -1,5 +1,16 @@
 # Active Context
 
+## Native follow-up and record formatting - 2026-11-06
+
+- Fresh-project use exposed trailing whitespace in empty global-record task
+  metadata. Formatter now emits a clean empty scalar; 16 capture tests, 15
+  compiler checks and an actual staged Git whitespace gate pass.
+- Native follow-up is in progress. Claude restart/compact boundary and Write
+  denial observed; an initial exact-body marker omission required a focused
+  full-source request, which passed. Detailed evidence will be recorded separately.
+- Human approved isolated Codex0.167.0; official archive SHA-256 verified.
+  New catalog contains the existing configured model; no default/PATH edits.
+
 ## Continuity implementation: phase 7 and disposition - 2026-11-06
 
 - Outcome: core phases1-7 COMPLETE locally; native phase6 evidence PARTIAL;

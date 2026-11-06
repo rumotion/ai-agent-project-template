@@ -239,7 +239,7 @@ def store_record(root: Path, record_id: str, record_type: str, body: str,
               "scope": scope, "tasks": ",".join(task_ids or []),
               "category": category or record_type, "source_ref": source_ref}
     record_metadata(fields)
-    raw = ("---\n" + "\n".join(key + ": " + value for key, value in fields.items()) + "\n---\n" + body + ("" if body.endswith("\n") else "\n")).encode("utf-8")
+    raw = ("---\n" + "\n".join(key + ":" + (" " + value if value else "") for key, value in fields.items()) + "\n---\n" + body + ("" if body.endswith("\n") else "\n")).encode("utf-8")
     if len(raw) > MAX_SOURCE_BYTES:
         raise ValueError("record exceeds source byte limit")
     directory = root / "memory-bank/records"

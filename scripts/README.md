@@ -26,6 +26,7 @@ It will:
 | `upgrade-target.py` | Local/GitHub/GitLab framework upgrades with SHA pinning, saved hashes, preserved conflicts, backups and optional legacy baselines. |
 | `template_upgrade.py` | Standard-library Git transport, explicit-path planning and transactional file updates; no upstream code execution. |
 | `verify-upgrade.py` | Offline project-preservation, rollback and real local Git transport regressions; included in full validation. |
+| `verify-antigravity-hooks.py` | Actual configured hook launches from root/customization/assets CWDs, preserved denials and root-bounded logging. |
 | `check-template.py` | Template validator. Modes: `--fast` (lightweight), `--compat` (cross-agent contract), full (no flag), `--benchmark` (token cost only), `--check-remote` (remote audit). |
 | `benchmark-context.py` | Offline manifest-based context measurement and sanitized paired-usage comparison; supports `--json` and `--self-test`. |
 | `usage-pacing.py` | Optional confirmed quota plans, numeric telemetry and worker-count advice; no API calls or launching. See `docs/usage-pacing.md`. |

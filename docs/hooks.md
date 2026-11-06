@@ -77,6 +77,26 @@ gaps. They describe a development fixture; they do not certify a copied project'
 configuration or this process. Offline checks validate the declaration only.
 Unknown MCP coverage is explicit; adapter entries are not certified integrations.
 
+### Antigravity command location
+
+Antigravity may start workspace hooks from its customization directory `.agents`.
+A command such as `python scripts/hooks/guard-remote-ops.py` then points at a
+nonexistent nested script and can block ordinary directory listing before the
+guard runs. The shipped launcher discovers the nearest project ancestor with
+`AGENTS.md` and the canonical dispatcher, then imports only sibling hook code.
+It never selects executable code from an event's workspace/path fields.
+
+`scripts/hooks/antigravity-dispatch.py` preserves existing guard denials and emits
+an explicit `decision: allow` for benign checks, which defers to normal platform
+policy rather than auto-approving a tool. Post-tool logging returns `{}` and
+anchors its output at the project root. Do not duplicate the hook tree under
+`.agents/scripts`; keep one canonical source. Reload the project/session after
+changing hook configuration. Offline launch regressions cover root,
+customization and nested asset directories with spaces, plus deny behavior.
+
+Schema reference: [Antigravity hooks](https://antigravity.google/docs/hooks).
+These launch tests do not certify every native interface or external containment.
+
 ### Compiled startup context and continuity
 
 Claude's `SessionStart` hook compiles typed `memory-bank/records/` and handoff

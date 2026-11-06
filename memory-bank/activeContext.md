@@ -1,5 +1,21 @@
 # Active Context
 
+## Antigravity hook launch repair - 2026-11-06
+
+- Baseline reproduced: canonical hook command exits0 from project root but
+  exits2/missing-script from `.agents`; a relative script path blocks benign
+  terminal calls before the policy code runs. Asset access was not prohibited.
+- Replaced CWD-dependent file arguments with ancestor discovery and one canonical
+  dispatcher. Explicit benign allow defers to platform policy; existing denials
+  remain. Executable imports never use event workspace/path fields.
+- Downstream repair changed only hook config and the new dispatcher. User work
+  and asset hashes were preserved; hook launches pass from root/.agents/assets.
+- COMPLETE locally: six launch regressions pass in template and repaired project;
+  full188-file gate, fresh-project/upgrade-candidate smoke, Python3.9 syntax and
+  isolated review accepted. Frozen326-file inventory stayed unchanged.
+- Native UI must reload the changed workspace hooks; no claim of automatic
+  current-process containment. Do not repeat completed native lifecycle probes.
+
 ## Native follow-up checkpoint - 2026-11-06
 
 - Scoped checks COMPLETE; broad native coverage remains PARTIAL. Approved isolated

@@ -170,6 +170,23 @@ recovery/FAST smoke and explicit upgrade-candidate surface passed. Isolated crit
 accepted; the frozen 324-file inventory stayed unchanged. Resume lists all open
 task pages; the final startup budget remains below the 8,500-character target.
 
+## Antigravity launch-path correction - 2026-11-06
+
+Observed baseline: the same guard command exited0 from project root and exited2
+with a missing nested script from `.agents`. This prevented benign terminal
+listing; it was not an intentional asset-read restriction. Repair uses a
+working-directory-independent bootstrap and one canonical dispatcher, preserving
+denials and deferring benign requests to platform policy with explicit JSON.
+Event workspace fields never choose executable source code.
+
+Acceptance: six actual-command regressions passed in the template and a repaired
+downstream project, including root/customization/nested asset directories with
+spaces. Full188-file gate, fresh-project/upgrade-candidate smoke, Python3.9 syntax
+and isolated review passed; the frozen326-file inventory was unchanged. Hashes
+confirmed existing downstream user files/assets were preserved during repair.
+The native application must reload workspace hooks; end-to-end UI confirmation
+is separate from these local launch checks. No global settings or guards disabled.
+
 ## Conditional runtime disposition
 
 Do not implement phase 8 merely to increase agent count. This work provides a

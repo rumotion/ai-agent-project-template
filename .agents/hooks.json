@@ -5,10 +5,10 @@
         "matcher": "run_command",
         "hooks": [
           {
-            "command": "python scripts/hooks/guard-remote-ops.py --client gemini"
+            "command": "python -c \"from pathlib import Path; import runpy,sys; r=next(p for p in (Path.cwd(),*Path.cwd().parents) if (p/'AGENTS.md').is_file() and (p/'scripts/hooks/antigravity-dispatch.py').is_file()); p=r/'scripts/hooks/antigravity-dispatch.py'; sys.path.insert(0,str(p.parent)); runpy.run_path(str(p),run_name='__main__')\" guard-remote-ops.py --client gemini"
           },
           {
-            "command": "python scripts/hooks/guard-sensitive-paths.py --client gemini"
+            "command": "python -c \"from pathlib import Path; import runpy,sys; r=next(p for p in (Path.cwd(),*Path.cwd().parents) if (p/'AGENTS.md').is_file() and (p/'scripts/hooks/antigravity-dispatch.py').is_file()); p=r/'scripts/hooks/antigravity-dispatch.py'; sys.path.insert(0,str(p.parent)); runpy.run_path(str(p),run_name='__main__')\" guard-sensitive-paths.py --client gemini"
           }
         ]
       },
@@ -16,7 +16,7 @@
         "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
         "hooks": [
           {
-            "command": "python scripts/hooks/guard-sensitive-paths.py --client gemini"
+            "command": "python -c \"from pathlib import Path; import runpy,sys; r=next(p for p in (Path.cwd(),*Path.cwd().parents) if (p/'AGENTS.md').is_file() and (p/'scripts/hooks/antigravity-dispatch.py').is_file()); p=r/'scripts/hooks/antigravity-dispatch.py'; sys.path.insert(0,str(p.parent)); runpy.run_path(str(p),run_name='__main__')\" guard-sensitive-paths.py --client gemini"
           }
         ]
       }
@@ -26,7 +26,7 @@
         "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
         "hooks": [
           {
-            "command": "python scripts/hooks/log-writes.py --client gemini"
+            "command": "python -c \"from pathlib import Path; import runpy,sys; r=next(p for p in (Path.cwd(),*Path.cwd().parents) if (p/'AGENTS.md').is_file() and (p/'scripts/hooks/antigravity-dispatch.py').is_file()); p=r/'scripts/hooks/antigravity-dispatch.py'; sys.path.insert(0,str(p.parent)); runpy.run_path(str(p),run_name='__main__')\" log-writes.py --client gemini"
           }
         ]
       }

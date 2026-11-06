@@ -18,6 +18,10 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 ### Fixed
 
+- Resolve Antigravity hook code independently of the process working directory;
+  ordinary asset listing no longer fails because `.agents/scripts/hooks` is absent.
+  Keep canonical guard scripts in one location and test config-directory launches.
+
 - Duplicate full/compatibility benchmark work in CI; unsupported cache/continuity
   guarantees; invalid handoff fallback; cumulative token/counter double counting.
 - Resume now lists all open-task pages alongside the rolling handoff.

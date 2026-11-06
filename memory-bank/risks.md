@@ -1,5 +1,10 @@
 # Risks
 
+Hook commands can start from the customization directory rather than project
+root. Relative `scripts/hooks/...` arguments then fail before policy evaluation
+and may block harmless tools. Test the actual launcher from both locations;
+keep one canonical hook tree and resolve code independently of event input.
+
 ## High-risk areas
 
 - Tool-specific rules drifting away from `AGENTS.md`.

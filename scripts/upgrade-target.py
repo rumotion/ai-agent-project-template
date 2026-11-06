@@ -138,6 +138,8 @@ STANDARD_SCRIPTS = [
     "scripts/verify-contracts.py",
     "scripts/boundary.py",
     "scripts/verify-boundary.py",
+    "scripts/hooks/antigravity-dispatch.py",
+    "scripts/verify-antigravity-hooks.py",
     "scripts/gen-adapters.py",
     "schemas/boundary-inspection.schema.json",
     "schemas/adapter-capabilities.json",

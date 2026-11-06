@@ -101,12 +101,16 @@ atomic failure preservation and bounded cross-process listing.
 `scripts/verify-task-metrics.py` covers ordinary-task arithmetic and hard-budget
 advice; it never activates pacing. `scripts/verify-recovery.py` combines required
 decisions, qualifiers, handoff, receipts and multiple open tasks across fresh
-processes and renderer switches. Its seven scenarios are synthetic; see
+processes and renderer switches. Its eight scenarios are synthetic; see
 `docs/recovery-pilot.md` for the separately observed native scope and open gates.
-`scripts/verify-antigravity-hooks.py` executes the actual configured commands
-from root, `.agents` and nested asset directories. It checks harmless listing,
-preserved publish/sensitive-path denials, explicit JSON and root-bounded logging
-without model calls or any actual publishing operation.
+`scripts/verify-antigravity-hooks.py` executes the configured commands from
+`.agents` through shell and direct argv, with varied requested tool directories.
+It checks harmless listing, denials, explicit JSON and root-bounded logging.
+`scripts/verify-windows-hooks.py` executes Codex's configured PowerShell strings
+from root/config/nested process directories in paths with spaces and brackets.
+Four cases cover benign calls, sensitive patches, synthetic publishing denials
+and log placement. They run on Windows and skip on other operating systems.
+Neither suite calls a model or performs an actual publishing operation.
 After editing canonical skills/workflows, run `scripts/gen-adapters.py --write`
 and review the generated diff. Tracked discovery files remain available in
 fresh clones. Live client denials, Linux execution, actual Python 3.9 execution,

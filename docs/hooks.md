@@ -25,6 +25,25 @@ as a first safety layer. Its `PreToolUse` mapping calls
 mapping calls `scripts/hooks/log-writes.py`. Gemini maps the same roles to
 `BeforeTool` and `AfterTool`; Codex uses `PreToolUse` and `PostToolUse`.
 
+### Codex Windows commands
+
+`commandWindows` contains a PowerShell script body. Do not nest another
+`powershell -Command "..."` around it: the outer shell expands variables before
+the child receives them. The earlier example exited1 before the guard ran; a
+native observation confirmed the failed hook allowed an inert write to proceed.
+
+The shipped body uses `git -C ([Environment]::CurrentDirectory)` to locate the
+repository from the process directory. Windows PowerShell can start its provider
+location elsewhere when that directory contains brackets; plain `git rev-parse`
+then fails. File arguments use `Join-Path`; logging still receives the project
+root explicitly. `verify-windows-hooks.py` executes the configured strings on
+Windows; other operating systems report those cases as skipped.
+
+Hook discovery, feature enablement and trust are separate gates. Inspect the
+actual native process before relying on denials. The dated stdio observation in
+[recovery pilot](recovery-pilot.md) does not activate this inactive example or
+certify desktop/cloud orchestration. Hook errors can permit an action to proceed.
+
 ## Shipped hook scripts
 
 | Script | Role | Behavior on trigger |

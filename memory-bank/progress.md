@@ -1,5 +1,19 @@
 # Progress
 
+## Continuity implementation phases 4-7 - 2026-11-06
+
+- COMPLETE locally: durable private tasks/parent acceptance, ordinary task
+  measurements with pacing OFF, integrated recovery and optional feedback/
+  environment acceptance. Startup includes all open-task pages.
+- Checks: 22 task, 17 metric, eight integrated cases; existing 18 restore,
+  16 record, 15 compiler and 34 pacing checks remain in the full186-file gate.
+  Fresh-project, upgrade surface, mirrors and isolated phase reviews passed.
+- Native PARTIAL: Claude2.1.116 supplied context and real SessionStart passed;
+  Codex0.142.0 model requests failed; real compaction/restart/denials, other
+  surfaces and provider savings remain unverified. See docs/recovery-pilot.md.
+- Phase8 stays conditional/deferred. Two native follow-ups are queued privately;
+  no workers/pacing, installs, global settings edits, deployment or publication.
+
 ## Continuity implementation phase 3 - 2026-11-05
 
 - Record capture now returns verified storage/inclusion receipts; explicit

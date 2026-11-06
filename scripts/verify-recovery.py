@@ -32,7 +32,7 @@ def make_fixture(base):
     store = tasks.TaskStore(root, Path(base).resolve() / "private/tasks")
     def task(tid, owned):
         return {"task_id": tid, "objective": "Restore persisted work without inferring acceptance.", "owned_paths": [owned],
-                "read_only": False, "inputs": ["application.py"], "expected_output": NEXT,
+                "read_only": False, "inputs": ["application.py", "memory-bank/records/decision-boundary.md"], "expected_output": NEXT,
                 "isolation": {"context_policy": "envelope-only", "mask_secrets": True, "memory_bank_writes": "parent-only"},
                 "budget": {"max_turns": 10, "max_repairs": 2, "max_output_tokens": 1000}}
     store.create(task("restore-main", "application.py"))
@@ -126,6 +126,28 @@ class RecoveryTests(unittest.TestCase):
         self.assertEqual(continuity.doctor(self.root, "codex", "legacy", self.receipt)["status"], "degraded")
         (self.root / "application.py").write_text("sentinel = 'apparently done'\n", encoding="utf-8")
         self.assertEqual(self.board()[0]["state"], "running")
+
+    def test_feedback_decision_task_parent_acceptance_trace(self):
+        record = ctx.get_record(self.root, "decision-boundary")
+        task = self.store.read("restore-main")
+        self.assertEqual(record["source_ref"], "feedback-fixture")
+        self.assertIn("memory-bank/records/decision-boundary.md", task["task"]["inputs"])
+        (self.root / "application.py").write_text("sentinel = 'after'\n", encoding="utf-8")
+        code = "import runpy; assert runpy.run_path('application.py')['sentinel'] == 'after'"
+        def verify():
+            actual = subprocess.run([sys.executable, "-c", code], cwd=self.root, capture_output=True, text=True, timeout=15)
+            self.assertEqual(actual.returncode, 0, actual.stderr)
+            return {"task_id": "restore-main", "status": "completed", "summary": "Synthetic sentinel assertion passed.",
+                    "files_changed": [{"path": "application.py", "action": "modified"}],
+                    "verification_run": [{"command": "python -c \"" + code + "\"", "exit_code": actual.returncode}], "tokens_used": 0}
+        review = self.store.transition("restore-main", "submit", task["revision"], attempt_id=task["attempt_id"], result=verify())
+        self.assertEqual(review["state"], "review")
+        # The parent runs a separate observed check after submission.
+        accepted = self.store.transition("restore-main", "accept", review["revision"], attempt_id=review["attempt_id"], verification=verify())
+        self.assertEqual(accepted["state"], "accepted")
+        self.assertTrue(accepted["review_sha256"])
+        self.assertEqual(ctx.get_record(self.root, "example-violet")["category"], "example")
+        self.assertEqual(self.store.read("restore-next")["state"], "queued")
 
 
 if __name__ == "__main__":

@@ -176,6 +176,14 @@ advisory target. Token estimates use characters divided by four; they are not
 provider measurements. Stable prefix bytes make caching experiments possible,
 but this release claims no measured cache hit rate or token savings.
 
+Reviewed durable records can be captured with `scripts/ctx.py record` and
+retrieved by ID. For recovery, run `scripts/continuity.py doctor --mode legacy`
+and list every page of `scripts/tasks.py list`. Private checkpoints/task state
+live outside Git; worker submission and parent acceptance remain separate.
+See the [continuity guide](docs/continuity.md), [task ledger](docs/task-ledger.md)
+and [dated recovery evidence](docs/recovery-pilot.md). The current implementation
+status and primary-source research are in [the workplan](docs/continuity-workplan.md).
+
 ## Verification
 
 ```bash
@@ -232,6 +240,8 @@ Keep credentials outside Git. Ignored files are still local files, and
 | Assess cross-client mail | [Local mail assessment](docs/local-agent-mail.md) |
 | Review current AI tooling changes | [October 2026 review](docs/ai-market-review-2026-10.md) |
 | Inspect context | [Context compiler](docs/context-compiler.md) |
+| Measure ordinary task progress/cost | [Task measurements, pacing OFF](docs/task-measurements.md) |
+| Close feedback and product acceptance | [Feedback trace](docs/feedback-closure.md), [environment matrix](docs/product-acceptance.md) |
 | Publish a release | [Release checklist](docs/releasing.md) |
 | Review the public surface | [Public release review](docs/public-release-review.md) |
 

@@ -1,14 +1,14 @@
 ---
-handoff_version: 26
+handoff_version: 27
 last_touched: 2026-11-06
 last_model: Codex
 to_model: Any
 branch: main
-status: phases 1-6 local checks passed; phase 7 next
+status: core complete; native gates open
 task: Continuity upgrade
 task_id: continuity-upgrade
 required_records: decision-phased-continuity
-next_action: Close feedback and acceptance workflows
+next_action: Check queued native follow-ups
 blocking_issues: []
 ---
 

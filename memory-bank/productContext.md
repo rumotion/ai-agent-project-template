@@ -21,6 +21,8 @@ Provides a reusable, low-context repository template for AI-agent-assisted softw
 - Minimal startup context for agents (`AGENTS.md` + `memory-bank/startup.md`).
 - Clear documentation for setup, GitHub usage, safety, and file organization.
 - Predictable, deterministic validation via local script.
+- Optional feedback-to-acceptance trace without making examples requirements;
+  see `docs/feedback-closure.md` and `docs/product-acceptance.md`.
 
 ## Business/domain rules
 

@@ -4,7 +4,27 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 ## Unreleased
 
-_Nothing yet._
+### Added
+
+- Private checkpoint/doctor with strict resume integrity, bounded source parsing
+  and visible redacted lifecycle failures.
+- Reviewed record capture/read-back, task/archive projections and required-ID
+  protection, including a 1,000-record archive regression.
+- Private durable task attempts, revisions, scope inventories and separate
+  parent acceptance; ordinary-task measurements with pacing OFF.
+- Integrated recovery scenarios, dated native evidence and optional feedback/
+  environment-acceptance workflows. Research and phase status are documented in
+  `docs/continuity-workplan.md` and `docs/agentic-engineering-evidence.md`.
+
+### Fixed
+
+- Duplicate full/compatibility benchmark work in CI; unsupported cache/continuity
+  guarantees; invalid handoff fallback; cumulative token/counter double counting.
+- Resume now lists all open-task pages alongside the rolling handoff.
+
+Native evidence is scoped: Claude CLI startup passed; Codex CLI model requests
+failed; real compaction/restart, other surfaces and provider savings remain open.
+No release, global configuration change or quota-pacing activation is implied.
 
 ## v1.2.1 - 2026-10-31 - Hosted compatibility and backup path checks
 

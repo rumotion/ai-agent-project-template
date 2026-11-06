@@ -1,5 +1,20 @@
 # Active Context
 
+## Continuity implementation: phase 7 and disposition - 2026-11-06
+
+- Outcome: core phases1-7 COMPLETE locally; native phase6 evidence PARTIAL;
+  phase8 conditional/deferred without measured fleet need. No publication.
+- Feedback/source -> reviewed decision -> task input -> independent parent
+  verification/acceptance is documented and tested; examples stay qualified.
+  Optional environment acceptance avoids mandatory product interviews/deployment.
+- Resume now lists every open-task page alongside handoff/doctor. Eight integrated
+  cases, full186-file gate, mirrors, Python3.9 syntax, new-project and upgrade
+  surface smoke passed; isolated review accepted with unchanged324-file inventory.
+- Open native evidence is queued privately as native-codex-capability and
+  native-lifecycle-gates. No workers, installs, global edits or pacing activation.
+- Reference: docs/continuity-workplan.md and docs/recovery-pilot.md. Before any
+  native follow-up, inspect changed capabilities; do not repeat unchanged failures.
+
 ## Continuity implementation: phase 6 - 2026-11-06
 
 - Outcome: offline recovery COMPLETE; native verification PARTIAL. Seven

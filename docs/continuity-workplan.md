@@ -17,8 +17,8 @@ Research: [primary-source evidence](agentic-engineering-evidence.md).
 | 4: durable task state | Complete locally | 22 lifecycle/preservation tests, full gate, fresh-project smoke and isolated acceptance |
 | 5: cost awareness | Complete locally | 17 metric tests, 34 pacing tests, full gate, new-project smoke and isolated acceptance |
 | 6: recovery pilot | Offline complete; native partial | Seven integrated cases/full gate; Claude supplied-packet and SessionStart passed; Codex capability failures and untested lifecycle/savings remain explicit |
-| 7: feedback closure | Next | Feedback/task/decision/evidence links and explicit environment acceptance |
-| 8: concurrent runtime | Conditional | Measured need plus lease/cancellation tests before parallel expansion |
+| 7: feedback closure | Complete locally | Eight integrated cases, full gate, fresh-project/upgrade surface checks, mirrors and isolated acceptance |
+| 8: concurrent runtime | Deferred, conditional | No measured fleet need; native lease/cancellation prerequisites remain unimplemented |
 
 ## Phase 1 specification
 
@@ -153,7 +153,7 @@ Neither the default nor an explicit configured-model retry produced an answer.
 Objective: close feedback and acceptance loops using existing records/envelopes,
 and route resume through the complete open-task ledger. Owned: optional feedback
 and environment-acceptance guides, planning/evaluation workflow mirrors, startup
-entry point, one integrated trace case, manifests and operational memory.
+entry point/discovery docs, one integrated trace case, manifests and operational memory.
 Non-goals: mandatory product interview, deployment, a new feedback service,
 automatic promotion of examples to requirements or UI rules for non-UI projects.
 Acceptance: feedback source ID -> exact reviewed record -> task input -> parent
@@ -162,3 +162,34 @@ rejected actions are checked before proposing repeats. Application-specific
 environment acceptance/rollback is explicit without implying deployment authority.
 Verify a disposable end-to-end trace, workflow mirrors and startup/full budgets.
 Resolve the conditional runtime phase explicitly without inventing fleet demand.
+
+Phase 7 evidence: eight integrated tests, including a feedback/source/decision
+input trace with separately executed worker/parent assertions and preserved
+example category. Full 186-file gate, mirrors, Python 3.9 syntax, new-project
+recovery/FAST smoke and explicit upgrade-candidate surface passed. Isolated critic
+accepted; the frozen 324-file inventory stayed unchanged. Resume lists all open
+task pages; the final startup budget remains below the 8,500-character target.
+
+## Conditional runtime disposition
+
+Do not implement phase 8 merely to increase agent count. This work provides a
+cooperative private ledger, not a native fleet supervisor. No measured backlog
+or integration result currently justifies expanding the default one worker/two
+open tasks. Reconsider only for ready independent tasks with measured benefit,
+after process-bound ownership, authenticated/coordinator authority, heartbeat,
+stop acknowledgement, stale/late results and crash/restart tests pass for one
+native adapter. Remote transport and cross-machine concurrency stay deferred.
+
+## Open evidence and operational handoff
+
+Core template implementation through phase 7 is complete locally. Phase 6's
+native release gates remain partial: Codex CLI capability mismatch; actual
+compaction/restart and denial tests; untested clients/surfaces. These are not
+waived by the full gate or the successful Claude startup probe. The coordinator's
+private ledger queues `native-codex-capability` and `native-lifecycle-gates` with
+bounded next actions; no worker was started. Run all pages of `tasks.py list` on
+resume and reconcile fresh evidence before proceeding.
+
+Paired provider efficiency measurements remain optional until an efficiency
+technique is proposed; no savings claim or quota consumption plan was adopted.
+No global model/configuration edits, installs, production changes or publication.

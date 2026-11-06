@@ -85,6 +85,9 @@ compatibility notice only; it does not save state and is not a delivery claim.
 Save at task milestones rather than waiting for automatic compaction. Live
 startup/compaction behavior still requires a dated smoke receipt for each
 installed client and orchestration surface. Tests here are offline fixtures.
+The dated [recovery pilot](recovery-pilot.md) records the separately observed
+Claude CLI startup route and remaining native gates. On resume, list all pages
+of the [task ledger](task-ledger.md); the startup projection alone omits open work.
 
 Verification: `python scripts/verify-continuity.py` and
 `python scripts/verify-context.py`; both use disposable local fixtures.

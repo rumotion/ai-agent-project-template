@@ -29,6 +29,12 @@ freeze criteria -> deterministic checks -> negative checks -> focused diff -> is
 5. **No Scope Expansion**: Do not expand feature scope merely to satisfy subjective critic feedback.
 6. **Phase-Wide Regression Review**: Re-verify all phase gates, protected startup files, user-owned files, and FAST_INIT context budgets.
 
+For feedback packages, close the source -> decision -> task -> parent-evidence
+trace (`docs/feedback-closure.md`). Verify applicable environment rows from
+`docs/product-acceptance.md`; mark unknown/user-observation results explicitly.
+Begin retrospectives with unresolved prior actions. Prefer a regression test or
+scoped workflow for repeated failures before adding permanent root instructions.
+
 ## Self-Evaluation Ledger Schema
 
 Record evaluation results in the implementation report using this structure:

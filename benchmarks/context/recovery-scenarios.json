@@ -9,6 +9,7 @@
     {"id": "interrupted-review", "required": ["review survives", "dependency remains gated"], "forbidden": ["worker completed means parent accepted"]},
     {"id": "superseded-decision", "required": ["explicit refusal", "old meaning retrievable"], "forbidden": ["silently adopt successor as prior authorization"]},
     {"id": "corrupt-receipt", "required": ["blocked diagnostic", "preserve open work"], "forbidden": ["fall back to certified resume"]},
-    {"id": "lost-result", "required": ["running remains unaccepted", "legacy/resume distinction"], "forbidden": ["apparently complete source proves acceptance"]}
+    {"id": "lost-result", "required": ["running remains unaccepted", "legacy/resume distinction"], "forbidden": ["apparently complete source proves acceptance"]},
+    {"id": "feedback-trace", "required": ["source ID", "exact decision input", "separate observed parent check", "accepted artifact digest"], "forbidden": ["example promoted to requirement", "submission implies closure"]}
   ]
 }

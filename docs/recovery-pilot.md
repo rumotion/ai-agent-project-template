@@ -6,11 +6,14 @@ separate. No test establishes universal model reliability or a token-saving clai
 ## Deterministic recovery gate
 
 Run `python scripts/verify-recovery.py`. The portable scenario inventory is
-`benchmarks/context/recovery-scenarios.json`. Seven integration cases cover:
+`benchmarks/context/recovery-scenarios.json`. Eight integration cases cover:
 fresh-process recovery of required decisions, example qualifiers, the exact next
 step and all open tasks; five repeated projection/ledger process cycles; Codex,
 Claude and Gemini renderer switching; interrupted review/dependency gating;
 superseded required decisions; corrupted receipts; and missing receipts/results.
+The phase 7 trace additionally links feedback source, exact decision input and
+separately observed worker/parent checks to the accepted artifact digest while
+preserving the example category.
 
 These tests use disposable Git projects and synthetic facts. They exercise real
 file parsing, private receipts, task transitions and separate Python processes.

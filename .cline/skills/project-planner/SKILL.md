@@ -9,6 +9,10 @@ Follow `AGENTS.md` startup routing; load only Memory Bank files relevant to the
 requested plan. Identify the observable success check first. Scale detail to
 the task: a short plan for routine work, phases for complex changes.
 
+For ambiguous product outcomes, use the optional intake/environment matrix in
+`docs/product-acceptance.md`. Trace feedback through `docs/feedback-closure.md`;
+examples remain examples until an explicit reviewed decision changes their role.
+
 ## Output format
 
 Provide:

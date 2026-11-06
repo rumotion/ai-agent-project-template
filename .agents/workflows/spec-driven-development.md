@@ -19,6 +19,12 @@ Every work package or implementation task must define:
 5. **Verification Command**: Smallest deterministic check (`pytest`, `npm test`, `check-template.py`).
 6. **Expected Report Evidence**: Observable output, diff metrics, and token/character budgets.
 
+For applicable application routes, add the environment/trigger/expected-outcome
+matrix in `docs/product-acceptance.md`. Feedback packages link the reviewed
+record as a concrete task input; see `docs/feedback-closure.md`. Technical checks
+and observed user outcomes have separate evidence. Deployment authority is scoped
+independently of implementation acceptance; reuse existing authorization.
+
 ## Execution Rules
 
 - **Characterization Safety Net**: Before refactoring legacy or opaque code, write tests/assertions capturing *current baseline behavior* to immediately catch regressions.

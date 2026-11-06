@@ -1,5 +1,17 @@
 # Active Context
 
+## Native model/trust/tool follow-up - 2026-11-06
+
+- Native gpt-6-astra to gpt-6.1-sol transition at xhigh passed all 13 checks in
+  the same persisted thread; exact facts/tasks/qualifier recovered without tools.
+- Hash-trusted patch denial, allowed patch/root logger and Bash sensitive-write
+  controls passed without bypass. Changed command reports modified. Retain the
+  earlier ignored-key setup and incorrect-enum assertion; offline reconciliation.
+- Human approved four fixture trust records. Native CLI persisted exactly four;
+  fresh-process denial/trust passed nine checks without pins or bypass. Other
+  semantic user settings preserved. Current-process verification remains separate.
+- Open: remaining UI/model/tool routes; docs/recovery-pilot.md. Pacing OFF.
+
 ## Codex Windows native hook repair - 2026-11-06
 
 - Discovered-but-untrusted hooks did not run with the process flag alone.

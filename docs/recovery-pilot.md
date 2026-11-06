@@ -40,6 +40,8 @@ to method/status, never retained as public identity/credential material.
 | Claude CLI fresh process and manual compaction | 2.1.116 | Native boundaries observed; initial recall 6/7, targeted full-body follow-up 7/7 | Original omitted marker sentence is retained as a failed exact-fidelity assertion |
 | Claude native sensitive-Write guard | 2.1.116 | Passed three assertions | Actual Write request, native hook denial and absent inert fixture file |
 | Codex native sensitive-apply_patch guard | 0.167.0 | Passed scoped Windows stdio trial after command repair | PreToolUse status `blocked`, specific policy reason and absent inert file; per-thread runtime trust bypass |
+| Codex native model transition | 0.167.0 | Passed 13 assertions, gpt-6-astra to gpt-6.1-sol at xhigh | Same persisted thread; native switch warning and reported target model; exact facts/tasks/qualifier recovered without tools or reroute |
+| Codex hash trust and native tool controls | 0.167.0 | Hash-trusted denial, safe patch/logger and Bash sensitive-write controls passed | Hash state and approved persisted CLI trust, no bypass; changed definition reports modified; native patch/logger/Bash controls passed |
 | Gemini CLI | 0.52.0 | Version only; no model probe | Renderer fixtures do not establish native consumption |
 | Codex app / Antigravity / IDE lifecycle | TBD | Unverified; Antigravity UI inspection was inconclusive | Window geometry/capture binding failed; CLI observations cannot certify these orchestration modes |
 
@@ -160,9 +162,62 @@ Hook configuration SHA-256:
 Eight private reconciliation assertions retain both failed baselines and the
 repaired native result. The model remained `gpt-6-astra` with requested `xhigh`.
 No model calls were repeated to recheck saved evidence. The example remains
-inactive; interactive trust, native shell/logger routes and desktop/cloud
-orchestration are not certified. Hook failures allowed these synthetic writes;
+inactive. Those initial trials did not certify interactive trust, native
+shell/logger routes or desktop/cloud orchestration; later checks follow below.
+Hook failures allowed these synthetic writes;
 an error must never be treated as a successful policy denial.
+
+### Native model transition and hash-trust follow-up - 2026-11-06
+
+The next authorized follow-up intentionally selected two catalogued models for
+one synthetic transition. This was a model-switch test, not a fallback after a
+failed request. Both models advertised xhigh support. A gpt-6-astra seed turn
+completed; a new process resumed the exact thread with gpt-6.1-sol and xhigh.
+The native response reported the target model and emitted a model-switch warning.
+All 13 checks passed: same thread, reported transition, conversation marker, full
+required decision, exact next action, every open task, example qualifier, no
+invented acceptance/compaction, no tools, no reroute, completed target turn and
+unchanged global-config fingerprint. No tools were used to reconstruct recall.
+This establishes one pair and direction only; other transitions remain untested.
+
+A separate trial supplied vetted hashes through one per-invocation hooks.state
+TOML table. Four discovered handlers became trusted, including in the loaded
+thread. Native PreToolUse blocked the inert patch without a trust-bypass flag or
+runtime bypass override. Modifying one command changed its hash and produced
+trustStatus modified; the other three stayed trusted. The first harness expected
+untrusted instead of the installed schema's modified enum, so its failed report
+is retained. Offline reconciliation corrected the enum assertion against captured
+native metadata; it did not repeat a model call or erase that failed assertion.
+An earlier dotted-key override was also retained as a failed setup: the CLI
+warned that the path-like key was unrecognized. Passing the complete state table
+was recognized. Do not interpret an ignored setting as an approved hook.
+
+Two further native controls passed with the same scoped hash state: a safe patch
+created its exact inert line and completed PostToolUse logging at the project
+root; a shell write selected the Bash matcher branch and was denied by the
+sensitive-path guard. No publishing operation was attempted. The native logger
+contained metadata for the allowed patch, not file contents.
+
+The standard CLI startup review and hook browser were observed through a PTY:
+three PreToolUse handlers and one PostToolUse handler were installed, zero were
+active and all four required review without the invocation's hash pins. After
+explicit human approval, the native Trust all action persisted exactly four
+trusted_hash records for this fixture and the browser showed all four active.
+Before/after checks confirmed every other semantic user-config value unchanged.
+The initial PowerShell-based launcher had stripped quoted TOML arguments; its
+failed setup was replaced by structured subprocess argv before UI inspection.
+
+A fresh app-server process then discovered four trusted handlers with no hash
+state override and no trust-bypass flag or runtime override. All nine controls
+passed, including the loaded thread's trust state, native PreToolUse blocked
+reason, absent inert file, completed turn and no additional config change.
+This verifies the normal persisted CLI trust route for this fixture only; it
+does not activate hooks in another project or certify desktop/IDE orchestration.
+
+Source revision: `55d35c3f5802dd2b3f732e62ca96b6b76f83977a`. Raw logs and failed baselines remain private;
+only sanitized assertions enter this report. Global model/effort and PATH were
+not changed. These observations do not certify desktop/cloud orchestration,
+other tool/model routes, external containment or provider token savings.
 
 ## Repeatable manual pilot
 
@@ -200,10 +255,12 @@ login. Documentation alone does not prove the installed client's behavior.
 
 ## Remaining gates
 
-- Native model switching, interactive hook trust, other tool routes and app/IDE
-  orchestration remain unverified. Actual restart/compaction now have bounded
+- Other model transitions, remaining tool routes and app/IDE orchestration
+  remain unverified. Normal persisted CLI trust was verified after explicit
+  approval for four fixture records; other user-config values were preserved. Actual restart/compaction now have bounded
   Claude CLI and Codex stdio evidence. Sensitive writes now have scoped Claude
-  Write and Codex apply_patch denial evidence; other native tool routes remain open.
+  Write and Codex apply_patch/Bash sensitive-write evidence; the allowed Codex
+  patch logger was also observed. MCP and native publishing-denial routes remain open.
   Startup delivery outside the single tested Claude CLI route is unverified.
   Manual recovery remains the portable fallback; listing open tasks is still
   required because the startup projection does not include the complete ledger.
@@ -212,8 +269,9 @@ login. Documentation alone does not prove the installed client's behavior.
   different windows. No journal assertion, reload or native hook-consumption
   success is inferred. Recover a consistent target before further UI actions.
 - Use the approved isolated Codex 0.167.0 executable explicitly for these probes;
-  the main 0.142.0 installation remains unchanged. Global upgrades and model
-  substitutions were not authorized or performed. Re-check actual capability.
+  the main 0.142.0 installation remains unchanged. The separate synthetic model
+  transition above was intentional; global upgrades/default changes and silent
+  model substitutions were not performed. Re-check actual capability.
 - No matched baseline/candidate provider benchmark was run. Static character
   reduction is not token/cache savings. For efficiency adoption, retain the
   existing >=10% measured total-token policy without correctness/privacy regressions.

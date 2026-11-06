@@ -18,7 +18,7 @@ def inspect(root: Path, client: str, profile: str = "advisory") -> dict:
     resolved = installed = False
     limitations = [
         "Git hooks can be disabled or modified by the worker",
-        "Native tool events and consumed denials have no live-client evidence",
+        "Native tool events and consumed denials are unverified for this process",
         "No external egress or protected-path isolation is supplied",
         "Contained-local and release launchers are unsupported",
     ]

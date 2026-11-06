@@ -1,5 +1,13 @@
 # Risks
 
+Read native warnings and enum schemas before interpreting a trust result.
+The tested CLI ignored a dotted override whose hook key contained path dots;
+a complete hooks.state table was recognized. Changed trusted definitions report
+modified, distinct from first-seen untrusted. Retain a failed harness assertion
+and reconcile saved evidence explicitly instead of claiming a new native run.
+Fresh copies retain labeled historical declarations; do not invent a reset
+contract. Check that the new process still reports native verification unknown.
+
 A discovered enabled hook is not proof of execution. Codex 0.167 stdio needed a
 scoped per-thread trust override during the vetted probe; the process flag alone
 did not activate the tested thread. Nested PowerShell wrappers then exited1 and

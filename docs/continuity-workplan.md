@@ -219,3 +219,33 @@ unchanged. Downstream framework-only application preserved user-file hashes.
 See recovery-pilot.md for exact source/configuration provenance and scope.
 Normal interactive trust, model switching, other tool paths and UI orchestration
 remain unverified. Global settings/defaults and pacing were not changed.
+
+## Native transition, hash trust and tool controls - 2026-11-06
+
+Observed one intentional gpt-6-astra to gpt-6.1-sol transition at xhigh in the
+same persisted stdio thread. Native switch warning and reported target model
+were captured; all 13 recall/control assertions passed without tools or reroute.
+Global defaults were preserved. No source-code repair was needed for this route.
+
+Vetted per-invocation hash state established four trusted handlers without
+bypass. Native sensitive-patch denial, allowed patch/root logger and Bash
+sensitive-write denial passed. One changed command became modified while the
+other three remained trusted. Preserve both setup/harness failures: a dotted
+state key was ignored, and an initial enum assertion expected untrusted rather
+than the installed modified value. Reconciliation uses saved native events;
+it never reruns a model to hide a failure. After explicit human approval,
+native CLI review persisted four fixture trust records. A fresh process without
+hash pins or bypass passed nine denial/trust controls; all other semantic user
+settings were preserved. Detailed source/version/scope: recovery-pilot.md.
+Desktop/IDE binding and other model/tool interfaces remain unverified.
+The current-process boundary message now distinguishes unverified runtime events
+from historical source evidence; no enforcement flags changed. A fresh-project
+smoke retains labeled history while current native verification stays false.
+No pacing or publication was activated.
+
+Verification: full 189-file gate, native saved-evidence reconciliation, ten-client
+boundary checks and fresh-project historical-scope/FAST smoke passed. Isolated
+critic accepted with all 327 frozen file hashes unchanged. The first fresh-copy
+smoke incorrectly expected historical declarations to be reset; its replacement
+checks the existing labeled-history/current-process distinction. Downstream
+diagnostic wording was corrected without changing enforcement flags or user data.

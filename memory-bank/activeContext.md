@@ -1,5 +1,16 @@
 # Active Context
 
+## Codex API clear/fork follow-up - 2026-11-06
+
+- Explicit API clear and persisted-thread fork delivered distinct new required
+  bodies/next actions; 13 controls each passed. Fork ID/parent lineage observed.
+- Exact candidate/source bytes reconciled; global config/four approved trust
+  records unchanged. No implementation repair or real-project activation.
+- Antigravity restored-window observation was followed by a rejected off-screen
+  action and desktop capture; no native hook success inferred. Remaining:
+  stable app/IDE targeting, interactive reset, automatic compaction and MCP/
+  publishing-denial routes. Evidence: docs/recovery-pilot.md. Pacing OFF.
+
 ## Codex automatic startup delivery - 2026-11-06
 
 - Fixed ignored --client routing and added opt-in SessionStart mapping with

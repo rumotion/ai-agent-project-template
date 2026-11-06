@@ -40,7 +40,7 @@ to method/status, never retained as public identity/credential material.
 | Claude CLI fresh process and manual compaction | 2.1.116 | Native boundaries observed; initial recall 6/7, targeted full-body follow-up 7/7 | Original omitted marker sentence is retained as a failed exact-fidelity assertion |
 | Claude native sensitive-Write guard | 2.1.116 | Passed three assertions | Actual Write request, native hook denial and absent inert fixture file |
 | Codex native sensitive-apply_patch guard | 0.167.0 | Passed scoped Windows stdio trial after command repair | PreToolUse status `blocked`, specific policy reason and absent inert file; per-thread runtime trust bypass |
-| Codex automatic startup context | 0.167.0 | Passed 11 controls at startup, fresh-process resume and manual compaction | Newly persisted named records and next action arrived through SessionStart; no manual fact packet, model tools, reroute or global change |
+| Codex automatic startup context | 0.167.0 | Passed 11 controls each at startup/resume/compact and 13 each for API clear/fork | Newly persisted named records and next action arrived through SessionStart; no manual fact packet, model tools, reroute or global change |
 | Codex native model transition | 0.167.0 | Passed 13 assertions, gpt-6-astra to gpt-6.1-sol at xhigh | Same persisted thread; native switch warning and reported target model; exact facts/tasks/qualifier recovered without tools or reroute |
 | Codex hash trust and native tool controls | 0.167.0 | Hash-trusted denial, safe patch/logger and Bash sensitive-write controls passed | Hash state and approved persisted CLI trust, no bypass; changed definition reports modified; native patch/logger/Bash controls passed |
 | Gemini CLI | 0.52.0 | Version only; no model probe | Renderer fixtures do not establish native consumption |
@@ -258,6 +258,37 @@ smoke. The isolated critic accepted with all 327 frozen file hashes unchanged.
 These observations establish one Windows stdio/model/effort route, not desktop
 or cloud orchestration.
 
+### Codex API clear/fork follow-up - 2026-11-06
+
+The installed 0.167.0 schema supports thread/start sessionStartSource clear and
+thread/fork. A fresh synthetic project used the exact inactive example and
+canonical helper from source `5673283a40bb824ec3ad7d21115eac73b8b493f3`, with
+spaces/brackets in its path and a nested process directory. The first request
+explicitly selected clear. After that turn completed, a new required record and
+next action were persisted before forking the synthetic parent. The response
+reported a distinct child ID and the expected forkedFromId.
+
+Each boundary produced a completed native SessionStart callback containing the
+new full body and an exact model read-back; 13 controls per phase passed. Prompts
+named the required record but supplied neither its body nor unique marker.
+The model used no tools, reroute, invented acceptance or complete-ledger claim.
+Configured gpt-6-astra/xhigh, all global config bytes and the four previously
+approved fixture trust records were preserved. Trust for the five copied
+handlers was invocation-only. No implementation repair or real-project
+activation was necessary.
+
+Saved requests, responses and events were reconciled without another model
+call: two callbacks, two distinct exact bodies, the explicit clear request and
+fork lineage. Candidate bytes match the recorded Git source after line-ending
+normalization. This closes the API clear/fork delivery gap on this single
+Windows stdio route. It does not establish interactive /clear, IDE reset,
+automatic compaction, other providers or external containment.
+
+First-party references: [hook lifecycle sources](https://learn.chatgpt.com/docs/hooks)
+and [app-server fork semantics](https://learn.chatgpt.com/docs/app-server).
+Installed schemas and actual events establish the tested version's behavior;
+the docs alone are not the acceptance evidence.
+
 ## Repeatable manual pilot
 
 1. Use a disposable project with a required decision, an explicitly labeled
@@ -301,13 +332,18 @@ login. Documentation alone does not prove the installed client's behavior.
   Write and Codex apply_patch/Bash sensitive-write evidence; the allowed Codex
   patch logger was also observed. MCP and native publishing-denial routes remain open.
   Automatic startup delivery now has bounded Claude CLI and Codex stdio
-  startup/resume/compact evidence; other lifecycle surfaces remain unverified.
+  startup/resume/compact evidence, with the API clear/fork follow-up above.
+  Interactive reset, automatic compaction and other lifecycle surfaces remain unverified.
   Manual recovery remains the portable fallback; listing open tasks is still
   required because the startup projection does not include the complete ledger.
 - Antigravity UI journal inspection was attempted read-only. The driver reported
   unavailable input geometry, then screenshot and accessibility identified
   different windows. No journal assertion, reload or native hook-consumption
-  success is inferred. Recover a consistent target before further UI actions.
+  success is inferred. A later read-only attempt restored the minimized app
+  and initially matched screenshot/accessibility. An off-screen journal action
+  was rejected; the next screenshot showed the desktop instead. Further input
+  stopped. This is not native hook-consumption evidence; recover consistent
+  targeting before additional app actions.
 - Use the approved isolated Codex 0.167.0 executable explicitly for these probes;
   the main 0.142.0 installation remains unchanged. The separate synthetic model
   transition above was intentional; global upgrades/default changes and silent

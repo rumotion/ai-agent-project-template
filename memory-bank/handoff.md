@@ -1,10 +1,10 @@
 ---
-handoff_version: 36
+handoff_version: 37
 last_touched: 2026-11-06
 last_model: Codex
 to_model: Any
 branch: main
-status: Codex startup delivery verified
+status: Codex API lifecycle delivery verified
 task: Continuity upgrade
 task_id: continuity-upgrade
 required_records: decision-phased-continuity

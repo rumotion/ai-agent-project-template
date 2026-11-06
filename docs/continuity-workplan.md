@@ -284,3 +284,31 @@ repair; 21 continuity and five Windows cases now pass. Full 189-file gate, legac
 fixtures, Python 3.9 grammar, new-project and upgrade-surface smoke passed.
 Critic accepted; all 327 frozen hashes unchanged. Clear/fork delivery and desktop/
 cloud remain unverified; Codex stays opt-in. No conversation autosave is claimed.
+
+## Codex clear/fork delivery specification - 2026-11-06
+
+Objective: close the two unobserved lifecycle mappings on the installed Windows
+stdio 0.167.0 route. Use a new synthetic project, the exact inactive example,
+configured model/effort and per-invocation trust; preserve global config bytes.
+Invoke thread/start with the installed sessionStartSource clear enum, then fork
+that persisted synthetic thread after recording a new required body/next action.
+Each model prompt names the record but supplies none of its body or marker.
+Acceptance: completed native SessionStart output and exact model read-back;
+no tools, reroute, false acceptance, example promotion or complete-ledger claim.
+Retain the clear request/response and the fork's distinct ID and parent lineage.
+No interactive /clear, desktop/IDE, MCP or publishing coverage is inferred.
+On a failed assertion, retain captures and classify the failure before any retry.
+Verification: replay captured requests/events, source-byte reconciliation,
+capability/FAST checks and isolated artifact review. No new hook activation,
+dependency install, persistent trust write, settings change or publication.
+
+Clear/fork acceptance: 13 controls per phase passed; saved requests/events verify
+explicit API clear, two completed callbacks, two exact read-backs and distinct
+fork ID/parent lineage. Global bytes and four approved trust entries unchanged.
+Source: 5673283a40bb824ec3ad7d21115eac73b8b493f3; exact candidate reconciled.
+The Antigravity attempt did not establish native consumption; app/IDE, interactive
+reset, automatic compaction and MCP/publishing-denial gates remain open.
+
+| Package | Frozen criteria | Deterministic evidence | Critic isolation | Findings/repairs | Re-verification | Residual risk |
+|---|---|---|---|---|---|---|
+| API clear/fork delivery | Two current records via exact shipped handler; no manual packet or global change | 26 controls, saved-event replay, source-byte reconciliation | Frozen diff and sanitized evidence only; receipt retained privately | Review receipt is authoritative; no implementation repair | Boundary declarations, FAST budgets and diff hygiene | One Windows stdio/model route; remaining app/tool gates explicit |

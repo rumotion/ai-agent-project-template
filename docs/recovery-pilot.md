@@ -41,7 +41,7 @@ to method/status, never retained as public identity/credential material.
 | Claude native sensitive-Write guard | 2.1.116 | Passed three assertions | Actual Write request, native hook denial and absent inert fixture file |
 | Codex native sensitive-apply_patch guard | 0.167.0 | Passed scoped Windows stdio trial after command repair | PreToolUse status `blocked`, specific policy reason and absent inert file; per-thread runtime trust bypass |
 | Gemini CLI | 0.52.0 | Version only; no model probe | Renderer fixtures do not establish native consumption |
-| Codex app / Antigravity / IDE lifecycle | TBD | Not probed | CLI observations cannot certify these orchestration modes |
+| Codex app / Antigravity / IDE lifecycle | TBD | Unverified; Antigravity UI inspection was inconclusive | Window geometry/capture binding failed; CLI observations cannot certify these orchestration modes |
 
 Claude JSON reported model-usage keys `claude-haiku-4-5-20251001` and
 `claude-sonnet-4-6`; these are observed usage labels, not an inferred worker split.
@@ -207,6 +207,10 @@ login. Documentation alone does not prove the installed client's behavior.
   Startup delivery outside the single tested Claude CLI route is unverified.
   Manual recovery remains the portable fallback; listing open tasks is still
   required because the startup projection does not include the complete ledger.
+- Antigravity UI journal inspection was attempted read-only. The driver reported
+  unavailable input geometry, then screenshot and accessibility identified
+  different windows. No journal assertion, reload or native hook-consumption
+  success is inferred. Recover a consistent target before further UI actions.
 - Use the approved isolated Codex 0.167.0 executable explicitly for these probes;
   the main 0.142.0 installation remains unchanged. Global upgrades and model
   substitutions were not authorized or performed. Re-check actual capability.

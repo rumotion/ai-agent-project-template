@@ -13,6 +13,8 @@
   all 327 frozen hashes unchanged. Downstream user-file hashes preserved.
 - Remaining native trust/model-switch/UI/tool-route gaps: docs/recovery-pilot.md.
   Do not repeat passed probes. Pacing OFF; no publication.
+- Antigravity UI journal attempt is inconclusive: geometry unavailable, then
+  capture/accessibility window mismatch. Re-establish the target before input.
 
 ## Antigravity hook launch repair - 2026-11-06
 

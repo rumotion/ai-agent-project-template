@@ -1,5 +1,5 @@
 ---
-handoff_version: 33
+handoff_version: 34
 last_touched: 2026-11-06
 last_model: Codex
 to_model: Any
@@ -8,7 +8,7 @@ status: Codex Windows denial verified
 task: Continuity upgrade
 task_id: continuity-upgrade
 required_records: decision-phased-continuity
-next_action: Native trust/switch/UI gaps; no repeated probes
+next_action: Native trust/switch and reliable UI observation
 blocking_issues: []
 ---
 

@@ -16,6 +16,11 @@ Use when pausing, switching models, or resuming work. Keeps context coherent acr
 3. Continue from "Next concrete step".
 4. After meaningful progress, refresh `handoff.md`.
 
+For multi-task work, run `python scripts/tasks.py list`, follow all pages and
+reconcile open attempts before starting a replacement worker. Save each task's
+next action through `note`; see `docs/task-ledger.md`. A handoff never replaces
+the ledger, and a submitted result does not imply parent acceptance.
+
 Use `python scripts/continuity.py doctor --mode legacy` to validate and explicitly
 label existing state before manual reconciliation. After saving a meaningful
 checkpoint, use `checkpoint --task-id ID --input RELATIVE_FILE` and inspect with

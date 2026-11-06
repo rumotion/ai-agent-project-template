@@ -2,6 +2,10 @@
 
 This document defines the portable task delegation envelope and result schema shared across Gemini, Codex, Claude, Cline, Roo Code, Cursor, and other agent platforms.
 
+For cross-session work, use the [private task ledger](task-ledger.md) to persist
+attempts, revisions, next actions and separate parent acceptance. Its checks
+are cooperative local integrity checks; it does not launch or stop agents.
+
 ## Core Rules
 
 1. **Exclusive Path Ownership**: Only one worker agent may own a given file path for writing at any time.
@@ -135,14 +139,18 @@ cost checks in addition to quota advice (see `docs/usage-pacing.md`). This is
 an advisory gate over parent declarations. Normal delegation follows the same
 policy without requiring quota pacing or its activation.
 
-There is still no native dispatcher, durable task/attempt ledger, path lease
-service, heartbeat monitor, authenticated acceptance or automatic cancellation.
-The snapshot is not that runtime. The existing transaction-ledger proposal in
-`docs/audits/second-order/report.md` remains the basis for future work:
+`scripts/tasks.py` supplies a private durable ledger with dependency states,
+revision/attempt checks, conservative ownership admission and separate parent
+acceptance. It records coordinator declarations and audits a frozen local file
+inventory; see `docs/task-ledger.md` for coverage and bounds. The pacing snapshot
+does not replace this ledger. Neither helper supplies a native dispatcher,
+process-bound path lease, heartbeat monitor, authenticated acceptance or automatic
+cancellation. The transaction-ledger proposal in `docs/audits/second-order/report.md`
+remains background for the conditional runtime work:
 
 | Next bounded step | Acceptance check before expansion |
 |---|---|
-| Durable queue with dependency states, attempts, exclusive path leases and atomic claims | Two coordinators cannot claim the same task/path; dependencies cannot bypass parent acceptance; restart preserves open work |
+| Process-bound path leases and supervisor authority around the cooperative durable ledger | Two coordinators cannot claim the same task/path; a stopped or expired worker cannot retain write authority |
 | One tested native adapter with narrow context, progress events and stop acknowledgement | One worker completes and is independently accepted; a timed-out worker cannot keep writing after its paths are reassigned |
 | Small parallel pilot, then measured scaling | Two independent tasks finish, integrate and leave zero open work; crash/restart, stale-base and late-result tests pass before a larger fleet |
 

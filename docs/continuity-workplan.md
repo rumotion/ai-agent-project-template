@@ -14,8 +14,8 @@ Research: [primary-source evidence](agentic-engineering-evidence.md).
 | 1: contract and CI | Complete locally | Full gate passed; one full invocation retains compatibility and self-test coverage |
 | 2: restoration integrity | Complete locally | 18 behavioral cases, 15 compiler checks, full gate and isolated review passed |
 | 3: decision projection | Complete locally | 16 record tests, 1,000-record archive, full gate, new-project smoke and isolated review passed |
-| 4: durable task state | Next | Open work survives restart; stale evidence/results cannot imply acceptance |
-| 5: cost awareness | Pending | Optional measurements remain distinct; pacing remains OFF by default |
+| 4: durable task state | Complete locally | 22 lifecycle/preservation tests, full gate, fresh-project smoke and isolated acceptance |
+| 5: cost awareness | Next | Optional measurements remain distinct; pacing remains OFF by default |
 | 6: recovery pilot | Pending | Offline scenarios plus named native evidence; no fabricated live passes |
 | 7: feedback closure | Pending | Feedback/task/decision/evidence links and explicit environment acceptance |
 | 8: concurrent runtime | Conditional | Measured need plus lease/cancellation tests before parallel expansion |
@@ -80,3 +80,39 @@ Python 3.9 syntax; generated mirrors; isolated acceptance after one repair.
 Capacity refusal is checked under the writer lock before publication. Global
 prefix stability is tested across task switches; provider cache gains remain
 unmeasured. The default scope for legacy records is unchanged.
+
+## Phase 4 specification — 2026-11-06
+
+Objective: preserve open tasks and parent acceptance independently of one rolling
+handoff. Owned: private task-state CLI/library, schema/tests, preservation
+manifests, delegation/handoff documentation and concise operational memory.
+Non-goals: no worker launcher, remote transport, authenticated identities or
+automatic process cancellation. Reuse portable task/result envelopes.
+Acceptance: atomic private per-task documents; explicit revisions/attempt IDs;
+dependency and conservative ownership/WIP gates; content/inventory scope audit
+against an immutable attempt baseline; result submission distinct from parent
+acceptance; changed artifacts invalidate pending acceptance; restart and late
+result tests. Imported commands are never executed. Verification evidence is
+the coordinator's declared externally observed result, not a signed runtime
+attestation. Future native supervision remains phase 8.
+
+Phase 4 evidence: full 177-file gate, 22 task tests, Python 3.9 syntax and
+fresh-project ledger smoke. Critic accepted after one repair: queued blockers
+now pass the same open-capacity/ownership admission as other open work. Frozen
+315-file inventories were unchanged during both read-only reviews. The generator
+intentionally copies tracked files only; new artifacts were staged before its
+successful smoke. No native dispatcher or pacing run was activated.
+
+## Phase 5 specification - 2026-11-06
+
+Objective: support bounded ordinary-task cost/progress checkpoints without
+starting quota pacing. Owned: sanitized measurement helper/tests, benchmark
+token semantics, measurement docs and preservation/test manifests.
+Non-goals: provider billing enforcement, quota attribution from shared accounts,
+automatic telemetry discovery or changing model defaults.
+Acceptance: cumulative snapshots count once per actor/segment; reasoning/cache
+subsets never inflate totals; unknown/stale/session/account data cannot become
+task cost; explicit hard budgets hold on missing evidence or projected overrun;
+completion stops useful work early. Preserve pacing confirmation/OFF semantics.
+Verify missing/stale measurements, resets/model switches, double counting,
+worker/main aggregation, hard limits, no-progress checkpoints and early completion.

@@ -94,6 +94,10 @@ interleaved edits, writer-lock refusal and visible hook-failure regressions.
 `scripts/verify-records.py` covers read-back receipts, task selection over a
 1,000-record archive, qualifier retention, immutable IDs, supersession, required
 budget refusal and failed writes. Native recall remains a separate smoke check.
+`scripts/verify-tasks.py` covers private task restart, dirty/add/delete inventories,
+ignored explicit inputs, revision/attempt conflicts, parent-only acceptance,
+changed review artifacts, dependencies, WIP/ownership (including queued blockers),
+atomic failure preservation and bounded cross-process listing.
 After editing canonical skills/workflows, run `scripts/gen-adapters.py --write`
 and review the generated diff. Tracked discovery files remain available in
 fresh clones. Live client denials, Linux execution, actual Python 3.9 execution,

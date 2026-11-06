@@ -1,5 +1,17 @@
 # Active Context
 
+## Continuity implementation: phase 4 - 2026-11-06
+
+- Outcome: COMPLETE locally. Private durable tasks preserve attempts, revisions,
+  next actions and separate parent acceptance; dependencies and inventory scope
+  gates reject stale or mismatched evidence. Native supervision remains absent.
+- Checks: 22 task tests, full 177-file gate, Python 3.9 syntax, fresh-project
+  smoke and isolated acceptance; frozen review inventories remained unchanged.
+- Refuted hypothesis: limiting start transitions bounds open work. Critic found
+  queued blockers bypassing admission; both capacity and ownership now have
+  preservation regressions. New-project smoke requires tracked artifacts.
+- Next: phase 5 ordinary task measurements; pacing stays OFF.
+
 ## Continuity implementation: phase 3 - 2026-11-05
 
 - Outcome: COMPLETE locally. Atomic record capture/read-back, task/archive

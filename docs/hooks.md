@@ -71,7 +71,10 @@ Inspection reports six control booleans and bounded limitations, matching
 installed push hook. `contained-local` and `release` return failure: no external
 supervisor, egress isolation or protected-path isolation has been supplied.
 `schemas/adapter-capabilities.json` lists all ten clients, candidate tool names,
-configuration status, synthetic fixtures, and missing live evidence/version.
+configuration status, synthetic fixtures and dated partial live evidence/version.
+Live declarations name the template source revision, tested routes and remaining
+gaps. They describe a development fixture; they do not certify a copied project's
+configuration or this process. Offline checks validate the declaration only.
 Unknown MCP coverage is explicit; adapter entries are not certified integrations.
 
 ### Compiled startup context and continuity

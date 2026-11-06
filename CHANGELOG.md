@@ -22,8 +22,10 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
   guarantees; invalid handoff fallback; cumulative token/counter double counting.
 - Resume now lists all open-task pages alongside the rolling handoff.
 
-Native evidence is scoped: Claude CLI startup passed; Codex CLI model requests
-failed; real compaction/restart, other surfaces and provider savings remain open.
+Native evidence is scoped: Claude CLI startup/Write denial and Claude/Codex
+restart/compaction were observed. Codex0.142.0 model requests failed; an approved
+isolated0.167.0 retained the selected model/effort and passed. Initial Claude
+exact-quotation failures remain recorded; other surfaces and savings stay open.
 No release, global configuration change or quota-pacing activation is implied.
 
 ## v1.2.1 - 2026-10-31 - Hosted compatibility and backup path checks

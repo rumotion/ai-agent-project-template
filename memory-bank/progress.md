@@ -1,5 +1,18 @@
 # Progress
 
+## Scoped native follow-up - 2026-11-06
+
+- Codex capability gap resolved using a human-approved isolated0.167.0, verified
+  official archive and the same configured model/effort. CLI packet recovery,
+  stdio process restart and completed native compaction recall all passed.
+- Claude native resume/compact and sensitive-Write denial observed; exact-body
+  omission remains a failed initial assertion, with focused full read-back passing.
+- Partial capability declarations now carry date/source revision/checked routes
+  and gaps; CI accepts unknown defaults and rejects incomplete live declarations.
+- Full186-file gate, new-project smoke, Python3.9 syntax and independent review
+  passed. Codex denial, interactive trust, model switch and other interfaces
+  remain open. No global installation/PATH/model change or publication.
+
 ## Continuity implementation phases 4-7 - 2026-11-06
 
 - COMPLETE locally: durable private tasks/parent acceptance, ordinary task

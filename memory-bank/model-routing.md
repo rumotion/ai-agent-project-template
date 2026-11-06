@@ -25,6 +25,13 @@ treat a product/plan name (Codex, Antigravity, Ultra) as a model ID. Use FAST_IN
 on every model; a larger window is not a reason for eager repository reads.
 Use observed context percentage for handoff, not fixed 150k/250k thresholds.
 
+Before a native CLI call, inspect its actual version/catalog and preserve the
+selected model/effort. A stale CLI can expose retired defaults; a catalog alone
+does not prove account entitlement. If an isolated executable was approved,
+invoke that verified path explicitly and keep the location private. Do not
+silently fall back to another model or assume PATH now uses the isolated copy.
+See `docs/recovery-pilot.md` for dated observations, including a completed turn.
+
 ## Reasoning effort / adaptive thinking
 
 Thinking/effort controls and accepted values depend on model, API and client.

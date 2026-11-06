@@ -3,6 +3,13 @@
 The Context Compiler turns the Memory Bank into a **compiled context artifact**
 instead of a set of prose files each agent re-reads in its own order.
 
+Native recall is not an exact source read-back. A model can quote the main
+decision while omitting a second sentence even when both were delivered. When
+literal text or a qualifier matters, retrieve `ctx.py show --id ID`, inspect the
+complete `raw_body`/`source_sha256`, and verify it against the saved source before
+acceptance. For native probes, request the complete raw body including every
+sentence/marker; keep failed assertions rather than relaxing an equality check.
+
 ## Why
 
 Clients load project instructions through their supported adapters. The

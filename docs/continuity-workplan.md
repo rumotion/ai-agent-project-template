@@ -16,7 +16,7 @@ Research: [primary-source evidence](agentic-engineering-evidence.md).
 | 3: decision projection | Complete locally | 16 record tests, 1,000-record archive, full gate, new-project smoke and isolated review passed |
 | 4: durable task state | Complete locally | 22 lifecycle/preservation tests, full gate, fresh-project smoke and isolated acceptance |
 | 5: cost awareness | Complete locally | 17 metric tests, 34 pacing tests, full gate, new-project smoke and isolated acceptance |
-| 6: recovery pilot | Offline complete; native partial | Seven integrated cases/full gate; Claude supplied-packet and SessionStart passed; Codex capability failures and untested lifecycle/savings remain explicit |
+| 6: recovery pilot | Offline complete; native partial | Current integrated gate passes; Claude/Codex restart and compaction observed; remaining routes and exact-fidelity limits stay explicit |
 | 7: feedback closure | Complete locally | Eight integrated cases, full gate, fresh-project/upgrade surface checks, mirrors and isolated acceptance |
 | 8: concurrent runtime | Deferred, conditional | No measured fleet need; native lease/cancellation prerequisites remain unimplemented |
 
@@ -182,14 +182,33 @@ native adapter. Remote transport and cross-machine concurrency stay deferred.
 
 ## Open evidence and operational handoff
 
-Core template implementation through phase 7 is complete locally. Phase 6's
-native release gates remain partial: Codex CLI capability mismatch; actual
-compaction/restart and denial tests; untested clients/surfaces. These are not
-waived by the full gate or the successful Claude startup probe. The coordinator's
-private ledger queues `native-codex-capability` and `native-lifecycle-gates` with
-bounded next actions; no worker was started. Run all pages of `tasks.py list` on
-resume and reconcile fresh evidence before proceeding.
+Native follow-up specification (2026-11-06): observe real Claude resume/manual
+compaction and one inert sensitive-Write refusal; retain every failed assertion.
+Record only dated, scoped development-workstation evidence in the adapter
+inventory. Offline validation must reject incomplete live declarations while
+runtime boundary inspection continues to report unverified tool events. Owned:
+recovery/context/hook guides, capability inventory, boundary regression and
+operational memory. No broad containment, alternate-client or savings claim.
+The human separately approved isolated Codex0.167.0 with official SHA-256
+verification; preserve the primary installation, PATH and selected model/effort.
+
+Follow-up acceptance: full186-file gate, targeted declaration/negative checks,
+fresh-project metadata/mirror/FAST smoke and Python3.9 syntax passed. Isolated
+critic accepted after one documentation repair distinguishing initial no-install/
+ephemeral probes from approved isolated installation and persisted lifecycle
+sessions. Frozen324-file inventories stayed unchanged. No negative result was
+converted into a pass. Exact routes and limits are in docs/recovery-pilot.md.
+
+Core implementation through phase 7 is complete locally. Follow-up observations
+now include real Claude CLI and Codex stdio restart/compaction, a Claude native
+sensitive-Write refusal, and a successful Codex0.167.0 supplied-packet turn using
+the existing model/effort. The earlier0.142.0 failures and Claude's first exact
+quotation failures remain recorded. The native capability task was separately
+submitted and parent-accepted against an unchanged inventory; the lifecycle follow-up retains untested model
+switch, hook trust/other tool routes and app/IDE surfaces. Run all pages of
+`tasks.py list` on resume; do not repeat passed probes or unchanged failures.
 
 Paired provider efficiency measurements remain optional until an efficiency
 technique is proposed; no savings claim or quota consumption plan was adopted.
-No global model/configuration edits, installs, production changes or publication.
+Only the separately approved isolated CLI install was added. No global
+model/configuration/PATH edits, production changes or publication.

@@ -1,13 +1,27 @@
 {
   "version": 1,
-  "coverage": "advisory; synthetic fixtures do not prove live consumption",
+  "coverage": "advisory; dated development-workstation smoke evidence is partial and does not certify the current project or process",
   "adapters": [
     {
       "client": "claude",
-      "version": null,
+      "version": "2.1.116",
       "config": ".claude/settings.json",
-      "status": "synthetic-only",
-      "live_evidence": null,
+      "status": "live-smoke-partial",
+      "live_evidence": "docs/recovery-pilot.md",
+      "observed_at": "2026-11-06",
+      "source_revision": "8a57d199c5778c342f2a18827df9e759a834f970",
+      "live_checks": [
+        "SessionStart unique-marker delivery",
+        "Fresh-process resume: conversation marker, next action and task states",
+        "Manual compact_boundary and full-source read-back after explicit clarification",
+        "PreToolUse sensitive Write denied; inert fixture file absent"
+      ],
+      "unverified_checks": [
+        "Unprompted exact recall: initial second-sentence marker omitted",
+        "Bash remote-operation denial and Edit/Read permission routes",
+        "Other clients, interfaces and future processes",
+        "External containment and provider efficiency"
+      ],
       "shell_tools": [
         "Bash"
       ],
@@ -22,10 +36,22 @@
     },
     {
       "client": "codex",
-      "version": null,
+      "version": "0.167.0",
       "config": ".codex/hooks.example.json",
-      "status": "synthetic-only",
-      "live_evidence": null,
+      "status": "live-smoke-partial",
+      "live_evidence": "docs/recovery-pilot.md",
+      "observed_at": "2026-11-06",
+      "source_revision": "72846ddfe8f8a7bf2d566a0d9b5d2ee5f9e7dfc9",
+      "live_checks": [
+        "Isolated CLI supplied-packet recovery with the configured model/effort",
+        "Stdio app-server fresh-process resume preserves required facts and task states",
+        "Completed contextCompaction item and post-compaction recall"
+      ],
+      "unverified_checks": [
+        "Native tool denial and automatic project startup context loading",
+        "Interactive hook trust, app/IDE orchestration and native model switch",
+        "External containment and provider efficiency"
+      ],
       "shell_tools": [
         "exec_command",
         "write_stdin"

@@ -1,5 +1,22 @@
 # Active Context
 
+## Native follow-up checkpoint - 2026-11-06
+
+- Scoped checks COMPLETE; broad native coverage remains PARTIAL. Approved isolated
+  Codex0.167.0 archive verified; configured gpt-6-astra/xhigh preserved. Six CLI,
+  six fresh-process stdio recall and six post-contextCompaction checks passed.
+- Claude2.1.116 real resume/compact observed; initial quotation omitted a second
+  marker sentence (6/7). Full-body clarification after compaction passed7/7.
+  Native Write attempt/deny/absent-file checks passed. Original failures retained.
+- Codex denial remains unverified: bounded exec probes did not expose the required
+  native policy reason. Trust-bypass warnings/file absence are not proof.
+- Checks: full186-file gate, fresh-project declaration/mirror/FAST smoke,
+  Python3.9 syntax and isolated review accepted after one documentation repair;
+  frozen324-file inventories unchanged. Unknown defaults remain valid in CI.
+- Native capability task parent-accepted against unchanged inventory. Remaining
+  lifecycle task names model switch, denial/trust and untested interfaces; do
+  not repeat passed probes. No global PATH/model edits, pacing or publication.
+
 ## Native follow-up and record formatting - 2026-11-06
 
 - Fresh-project use exposed trailing whitespace in empty global-record task

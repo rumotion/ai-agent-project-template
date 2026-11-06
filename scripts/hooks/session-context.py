@@ -54,15 +54,16 @@ def resolve_root(event: Dict[str, object], override: Optional[str]) -> Path:
     return Path(__file__).resolve().parents[2]
 
 
-def build_startup_context(root: Path, source: str) -> str:
+def build_startup_context(root: Path, source: str, client: str = "claude") -> str:
     # Import the trusted hook's sibling compiler, never code from event.cwd.
     script = Path(__file__).resolve().parents[1] / "ctx.py"
     spec = importlib.util.spec_from_file_location("context_compiler", script)
     compiler = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(compiler)
-    result = compiler.compile_context(root, "claude", compiler.DEFAULT_MAX_CHARS)
+    client = client if client in compiler.CLIENT_NOTES else "generic"
+    result = compiler.compile_context(root, client, compiler.DEFAULT_MAX_CHARS)
     if result["malformed"] or result["over_budget"]:
-        return "Compiled context is invalid. Run scripts/ctx.py compile --for claude --check before using Memory Bank context."
+        return "Compiled context is invalid. Run scripts/ctx.py compile --for " + client + " --check before using Memory Bank context."
     note = ("Sources: memory-bank/records/ and memory-bank/handoff.md; replaces repeated memory-bank/startup.md reads. "
             "Continuity: projection only; native consumption and resume state are not certified. "
             "Run python scripts/continuity.py doctor --mode legacy for manual recovery.")
@@ -84,7 +85,7 @@ def emit(event_name: str, context: str) -> None:
     sys.stdout.write(json.dumps(payload, sort_keys=True) + "\n")
 
 
-def main(event_kind: str, root_override: Optional[str]) -> int:
+def main(event_kind: str, root_override: Optional[str], client: str = "claude") -> int:
     try:
         raw = sys.stdin.read(65_537)
         if len(raw) > 65_536:
@@ -95,7 +96,7 @@ def main(event_kind: str, root_override: Optional[str]) -> int:
         if event_kind == "session-start":
             source = event.get("source")
             source = source.lower() if isinstance(source, str) else "startup"
-            emit("SessionStart", build_startup_context(root, source))
+            emit("SessionStart", build_startup_context(root, source, client))
         else:
             emit("PreCompact", PRE_COMPACT_NOTICE)
     except Exception:
@@ -131,4 +132,4 @@ def parse_args() -> argparse.Namespace:
 
 if __name__ == "__main__":
     arguments = parse_args()
-    sys.exit(main(arguments.event, arguments.workspace_root))
+    sys.exit(main(arguments.event, arguments.workspace_root, arguments.client))

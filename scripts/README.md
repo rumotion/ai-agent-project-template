@@ -33,6 +33,7 @@ It will:
 | `usage-pacing.py` | Optional confirmed quota plans, numeric telemetry and worker-count advice; no API calls or launching. See `docs/usage-pacing.md`. |
 | `verify-usage-pacing.py` | Temporary SQLite and simulated-time pacing regressions. Included in full validation. |
 | `ctx.py` | Context Compiler: deterministic, budget-capped startup blob from typed `memory-bank/records/` (`compile --for <client>`, `self-test`). |
+| `hooks/session-context.py` | Client-aware bounded SessionStart projection; active Claude wiring and an opt-in Codex example. Does not save conversation-only state. |
 | `continuity.py` | Local ready/degraded/blocked inspection and private milestone checkpoints; no model calls. See `docs/continuity.md`. |
 | `verify-continuity.py` | Disposable restoration, scope, interleaved-edit and redacted-failure regressions; included in the full gate. |
 | `verify-records.py` | Record capture/read-back, task/archive selection, required constraints and write-preservation regressions. |

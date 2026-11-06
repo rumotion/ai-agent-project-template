@@ -129,18 +129,27 @@ These launch tests do not certify every native interface or external containment
 
 ### Compiled startup context and continuity
 
-Claude's `SessionStart` hook compiles typed `memory-bank/records/` and handoff
-status through the same compiler used by CLI validation. Durable records precede
+Claude's active `SessionStart` hook and the opt-in Codex example compile typed
+`memory-bank/records/` and handoff through the same client-aware compiler used by
+CLI validation. Durable records precede
 volatile status. Invalid or oversized projections produce a diagnostic instead
 of partial context. The compiler is loaded from the trusted hook's sibling
 script, never from an event-selected workspace. The maximum injected output is
 8,000 characters; the compiler's default projection cap is 6,000.
 
+The Codex example resolves the Git root explicitly, including nested working
+directories and Windows paths with spaces/brackets. Its synchronous matcher
+covers startup, resume, clear, compact and fork. `additionalContextLimit: 0`
+delivers the complete already-capped context rather than a spill preview. This
+setting depends on the helper's strict cap; it is not a general hook default.
+The shared helper honors `--client`; unknown clients use the generic renderer.
+
 The legacy script's `PreCompact` notice does not persist handoff, active context,
 decisions or risks. Its delivery to the model is not verified; do not depend
 on it for a checkpoint. Its active Claude mapping has been removed. Save state at meaningful task transitions while the
-model can act. Lifecycle injection is best-effort and exits zero. Other clients retain
-the documented manual FAST_INIT path until native lifecycle behavior is verified.
+model can act. Lifecycle injection is best-effort and exits zero. It restores
+persisted records; it does not save conversation-only facts. Unsupported
+interfaces retain the documented manual FAST_INIT path.
 Injected context is validated project data; current user instructions take
 precedence. Injected bytes still consume model context and are not free tokens.
 
@@ -151,17 +160,22 @@ precedence. Injected bytes still consume model context and are not free tokens.
 | Check before a write | `PreToolUse` | `BeforeTool` | `PreToolUse` |
 | Check before a shell command | `PreToolUse` | `BeforeTool` | `PreToolUse` |
 | Log after a write | `PostToolUse` | `AfterTool` | `PostToolUse` |
-| Inject startup context | `SessionStart` | (no verified equivalent in shipped adapter) | Available upstream; not wired/tested here |
+| Inject startup context | `SessionStart` | (no verified equivalent in shipped adapter) | Opt-in `SessionStart`; startup/resume/compact observed on stdio 0.167.0 |
 | Compaction notice (no persistence) | `PreCompact`; delivery unverified | (no verified equivalent in shipped adapter) | Check current client; not wired/tested here |
 
-`SessionStart` wiring is currently Claude-only in this template. The
-portable fallback is unchanged: `AGENTS.md` still instructs every agent to read
+Claude wiring is active; Codex wiring remains an inactive example until a
+project deliberately enables and reviews its hooks. Codex clear/fork matchers
+have offline coverage only. Native stdio evidence does not certify desktop or
+cloud orchestration; see [recovery pilot](recovery-pilot.md). The portable
+fallback is unchanged: `AGENTS.md` still instructs every agent to read
 `memory-bank/startup.md` first and to update `handoff.md` on pause or switch.
 The compiler deterministically renders project data; native delivery and
 consumption require a separate live check. Hooks are never the only mechanism.
 See [continuity and recovery](continuity.md) for local health inspection and
 private milestone checkpoints. Unexpected injection failures emit a redacted
 `continuity_unavailable` diagnostic instead of silently succeeding.
+
+Codex lifecycle/output reference: [SessionStart and bounded additional context](https://learn.chatgpt.com/docs/hooks).
 
 Checked 2026-10-26: current Antigravity documents `SessionStart` and
 `PreToolUse` with `conversationId`/`toolCall` payloads, unlike the shipped

@@ -3,6 +3,7 @@ from contextlib import redirect_stdout
 import importlib.util
 import io
 import json
+import re
 import runpy
 from pathlib import Path
 import subprocess
@@ -172,6 +173,43 @@ class ContinuityTests(unittest.TestCase):
         payload = json.loads(output.getvalue())
         self.assertIn("continuity_unavailable", json.dumps(payload))
         self.assertNotIn("private detail", output.getvalue())
+
+    def test_lifecycle_hook_uses_requested_renderer(self):
+        for client in ("claude", "codex", "gemini", "unknown"):
+            proc = subprocess.run([sys.executable, str(HERE / "hooks/session-context.py"),
+                                   "--event", "session-start", "--client", client,
+                                   "--workspace-root", str(self.root)],
+                                  input="{}", capture_output=True, text=True)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            context = json.loads(proc.stdout)["hookSpecificOutput"]["additionalContext"]
+            expected = client if client != "unknown" else "generic"
+            self.assertIn(continuity.compiler.CLIENT_NOTES[expected], context)
+            self.assertLessEqual(len(context), 8000)
+
+    def test_codex_hook_example_covers_startup_boundaries(self):
+        config = json.loads((HERE.parent / ".codex/hooks.example.json").read_text(encoding="utf-8"))
+        groups = config["hooks"].get("SessionStart", [])
+        self.assertEqual(len(groups), 1)
+        for source in ("startup", "resume", "clear", "compact", "fork"):
+            self.assertIsNotNone(re.search(groups[0]["matcher"], source))
+        hook = groups[0]["hooks"][0]
+        self.assertEqual(hook["additionalContextLimit"], 0)
+        self.assertFalse(hook.get("async", False))
+        for name in ("command", "commandWindows"):
+            self.assertIn("--event session-start", hook[name])
+            self.assertIn("--client codex", hook[name])
+            self.assertIn("--workspace-root", hook[name])
+
+    def test_codex_invalid_context_diagnostic_uses_codex_command(self):
+        (self.root / "memory-bank/handoff.md").write_text("---\ninvalid\n---\n", encoding="utf-8")
+        proc = subprocess.run([sys.executable, str(HERE / "hooks/session-context.py"),
+                               "--event", "session-start", "--client", "codex",
+                               "--workspace-root", str(self.root)],
+                              input="{}", capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        context = json.loads(proc.stdout)["hookSpecificOutput"]["additionalContext"]
+        self.assertIn("--for codex --check", context)
+        self.assertNotIn("--for claude", context)
 
     def test_malformed_hook_event_never_loads_fallback_project(self):
         for raw in ("not json", "null", "[]"):

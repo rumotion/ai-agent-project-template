@@ -111,6 +111,11 @@ from root/config/nested process directories in paths with spaces and brackets.
 Four cases cover benign calls, sensitive patches, synthetic publishing denials
 and log placement. They run on Windows and skip on other operating systems.
 Neither suite calls a model or performs an actual publishing operation.
+The continuity suite also checks client-specific startup renderers, diagnostic
+commands and Codex lifecycle mapping. The Windows suite executes its startup
+command from nested directories against a required-record fixture. Native
+startup/resume/compact read-back is a separate bounded pilot, never a CI model
+call; its markers are introduced after the previous turn to reject stale recall.
 After editing canonical skills/workflows, run `scripts/gen-adapters.py --write`
 and review the generated diff. Tracked discovery files remain available in
 fresh clones. Live client denials, Linux execution, actual Python 3.9 execution,

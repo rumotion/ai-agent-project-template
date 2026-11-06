@@ -783,6 +783,7 @@ def check_hook_examples() -> list[str]:
             ".codex/hooks.example.json",
             "codex",
             {
+                "SessionStart": "session-context.py",
                 "PreToolUse": "guard-sensitive-paths.py",
                 "PostToolUse": "log-writes.py",
             },

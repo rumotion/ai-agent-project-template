@@ -249,3 +249,28 @@ critic accepted with all 327 frozen file hashes unchanged. The first fresh-copy
 smoke incorrectly expected historical declarations to be reset; its replacement
 checks the existing labeled-history/current-process distinction. Downstream
 diagnostic wording was corrected without changing enforcement flags or user data.
+
+## Codex automatic startup delivery specification - 2026-11-06
+
+Objective: opt-in native Codex sessions load the bounded current handoff and
+required records without manually supplying their content in a prompt.
+Owned: session-context.py, the inactive Codex hook example, existing continuity
+and Windows command tests, adapter validation, related docs/capability metadata
+and concise operational memory. Preserve existing Claude behavior and guards.
+Non-goals: no active real-project Codex config, dependency install, global model
+change or additional persisted trust records; the four approved fixture records
+remain scoped to their existing project. No GUI automation or publishing.
+
+Baseline: session-context.py accepts --client but hard-codes the Claude renderer;
+the Codex example has no SessionStart mapping. Expected: explicit client routing,
+a synchronous startup/resume/clear/compact/fork handler, Git-root selection from
+nested process directories and full delivery of the helper's capped output.
+Acceptance: renderer and diagnostic regressions fail before repair then pass;
+configured Windows commands preserve required facts from root/config/nested
+paths with spaces/brackets. Native 0.167 stdio startup, process resume and manual
+compaction must each deliver a newly persisted synthetic marker and exact full
+record body, observed hook completion and model read-back without model tools.
+Use only per-invocation trust for the new fixture; preserve user configuration.
+Verification: continuity/Windows suites, full template gate, fresh-project and
+preservation smoke, bounded native observation, retained failures and isolated
+artifact-only review. Native observations apply only to the tested surface.

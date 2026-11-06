@@ -27,7 +27,8 @@ class WindowsHookTests(unittest.TestCase):
         self.cwds = (self.root, self.root / ".codex", self.root / "assets/nested")
 
     def run_hook(self, hook, event, cwd):
-        event = dict(event, cwd=str(self.root))
+        event = dict(event)
+        event.setdefault("cwd", str(self.root))
         result = subprocess.run([self.shell, "-NoLogo", "-NoProfile", "-NonInteractive", "-Command", hook["commandWindows"]],
                                 cwd=cwd, input=json.dumps(event), capture_output=True,
                                 text=True, encoding="utf-8", timeout=20)
@@ -71,6 +72,28 @@ class WindowsHookTests(unittest.TestCase):
         self.assertTrue(all(record["path"] == "docs/note.md" for record in records))
         for cwd in self.cwds[1:]:
             self.assertFalse((cwd / ".agent-logs").exists())
+
+    def test_startup_command_uses_git_root_from_nested_directories(self):
+        shutil.copyfile(ROOT / "scripts/ctx.py", self.root / "scripts/ctx.py")
+        records = self.root / "memory-bank/records"
+        records.mkdir(parents=True)
+        body = "Bootstrap the current root context. Keep the marker sentence complete."
+        (records / "decision-bootstrap.md").write_text(
+            "---\nid: decision-bootstrap\ntype: decision\npriority: 1\nscope: task\n"
+            "tasks: windows-startup\ncategory: decision\nsource_ref: windows-fixture\n---\n" + body + "\n", encoding="utf-8")
+        (self.root / "memory-bank/handoff.md").write_text(
+            "---\nstatus: testing\ntask: Windows startup\ntask_id: windows-startup\n"
+            "required_records: decision-bootstrap\nnext_action: Verify current startup context.\n---\n", encoding="utf-8")
+        hook = self.config["SessionStart"][0]["hooks"][0]
+        for cwd in self.cwds:
+            event = {"hook_event_name": "SessionStart", "source": "startup", "cwd": str(cwd)}
+            output = self.run_hook(hook, event, cwd)["hookSpecificOutput"]
+            self.assertEqual(output["hookEventName"], "SessionStart")
+            self.assertIn(body, output["additionalContext"])
+            self.assertIn("Verify current startup context.", output["additionalContext"])
+            self.assertIn("AGENTS.md is already loaded; do not re-read it.", output["additionalContext"])
+            self.assertNotIn("CLAUDE.md", output["additionalContext"])
+            self.assertLessEqual(len(output["additionalContext"]), 8000)
 
 
 if __name__ == "__main__":

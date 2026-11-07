@@ -1,6 +1,7 @@
 """Execute configured file hooks with shell and direct-argv Windows launch paths."""
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -69,6 +70,40 @@ class HookPathTests(unittest.TestCase):
         for cwd in self.cwds:
             self.assertEqual(self.run_hook(command, cwd, event)["decision"], "deny")
         self.assertFalse((self.root / "token.json").exists())
+
+    def test_native_cli_write_alias_is_mapped_without_losing_old_names(self):
+        names = ("write_file", "write_to_file", "replace_file_content", "multi_replace_file_content")
+        for event in ("PreToolUse", "PostToolUse"):
+            for name in names:
+                self.assertTrue(any(re.fullmatch(group["matcher"], name) for group in self.config[event]), name)
+
+    def test_native_cli_path_field_denies_sensitive_and_allows_benign(self):
+        command = self.config["PreToolUse"][1]["hooks"][0]["command"]
+        for cwd in self.cwds:
+            event = {"toolCall": {"name": "write_file", "args": {"Path": str(self.root / "inert/token.json"), "Content": "private-fixture"}}}
+            self.assertEqual(self.run_hook(command, cwd, event)["decision"], "deny")
+            event["toolCall"]["args"]["Path"] = str(self.root / "docs/note.md")
+            self.assertEqual(self.run_hook(command, cwd, event), {"decision": "allow"})
+
+    def test_native_cli_logger_preserves_role_path_and_redaction(self):
+        command = self.config["PostToolUse"][0]["hooks"][0]["command"]
+        for cwd in self.cwds:
+            event = {"toolCall": {"name": "write_file", "args": {"Path": str(self.root / "docs/note.md"), "Content": "never-log-this-body"}},
+                     "workspacePaths": [str(self.root)]}
+            self.assertEqual(self.run_hook(command, cwd, event), {})
+        raw = (self.root / ".agent-logs/session.jsonl").read_text(encoding="utf-8")
+        records = [json.loads(line) for line in raw.splitlines()]
+        self.assertEqual(len(records), 3)
+        self.assertTrue(all(r["tool"] == "write_file" and r["event"] == "post_tool_use" and r["path"] == "docs/note.md" and r["action"] == "write" for r in records))
+        self.assertNotIn("never-log-this-body", raw)
+        self.assertNotIn(str(self.root), raw)
+
+    def test_conflicting_path_alias_cannot_hide_sensitive_target(self):
+        command = self.config["PreToolUse"][1]["hooks"][0]["command"]
+        for args in ({"Path": "inert/token.json", "file_path": "docs/note.md"},
+                     {"Path": "docs/note.md", "file_path": "inert/token.json"}):
+            event = {"toolCall": {"name": "write_file", "args": args}}
+            self.assertEqual(self.run_hook(command, self.root, event)["decision"], "deny")
 
     def test_logger_returns_json_and_uses_project_root(self):
         event = {"tool_name": "write_to_file", "hook_event_name": "PostToolUse", "cwd": str(self.root),

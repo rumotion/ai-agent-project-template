@@ -62,7 +62,7 @@ def extract_paths(event: Dict[str, object]) -> List[str]:
         tool_input = {}
 
     paths: List[str] = []
-    for key in ("file_path", "path", "TargetFile", "target_file", "AbsolutePath", "absolute_path"):
+    for key in ("file_path", "path", "Path", "TargetFile", "target_file", "AbsolutePath", "absolute_path"):
         value = tool_input.get(key)
         if isinstance(value, str) and value:
             paths.append(value)
@@ -73,7 +73,7 @@ def extract_paths(event: Dict[str, object]) -> List[str]:
         paths.extend(PATCH_PATH_RE.findall(command))
 
     if not paths:
-        for key in ("file_path", "path", "TargetFile", "target_file"):
+        for key in ("file_path", "path", "Path", "TargetFile", "target_file"):
             value = event.get(key)
             if isinstance(value, str) and value:
                 paths.append(value)

@@ -13,7 +13,7 @@
         ]
       },
       {
-        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "matcher": "write_to_file|write_file|replace_file_content|multi_replace_file_content",
         "hooks": [
           {
             "command": "python ../scripts/hooks/antigravity-dispatch.py guard-sensitive-paths.py --client gemini"
@@ -23,7 +23,7 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "matcher": "write_to_file|write_file|replace_file_content|multi_replace_file_content",
         "hooks": [
           {
             "command": "python ../scripts/hooks/antigravity-dispatch.py log-writes.py --client gemini"

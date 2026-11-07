@@ -24,7 +24,23 @@ def dispatch(handler):
         output = io.StringIO()
         with redirect_stdout(output):
             if handler == "log-writes.py":
-                code = module.main("gemini", workspace_root=str(HERE.parents[1]))
+                try:
+                    event = json.loads(sys.stdin.read())
+                except (TypeError, ValueError):
+                    event = {}
+                if not isinstance(event, dict):
+                    event = {}
+                event["hook_event_name"] = "PostToolUse"
+                event.setdefault("cwd", str(HERE.parents[1]))
+                tool_call = event.get("toolCall")
+                if isinstance(tool_call, dict):
+                    event.setdefault("tool_name", tool_call.get("name"))
+                original_stdin = sys.stdin
+                try:
+                    sys.stdin = io.StringIO(json.dumps(event))
+                    code = module.main("gemini", workspace_root=str(HERE.parents[1]))
+                finally:
+                    sys.stdin = original_stdin
             else:
                 code = module.main("gemini")
         if code not in (None, 0):

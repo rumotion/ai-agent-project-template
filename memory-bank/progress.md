@@ -1,5 +1,15 @@
 # Progress
 
+## Follow-up packages - 2026-11-07
+
+- Native App/Gemini fixture prepared; awaiting manual workspace trust.
+- Adaptive routing feasibility researched against official sources; architecture
+  and bounded pilot plan drafted. No router, model defaults or new service enabled.
+- Shared index reduced 1,534 -> 619 characters; Home FAST 9,282 -> 8,367, seven
+  compiler results and protected project files unchanged. Native token savings
+  and conditional concurrency remain unclaimed. Full 191-file validation,
+  fresh/preservation packaging and isolated artifact review passed.
+
 ## Late native/packaging repairs - 2026-11-07
 
 - Native Antigravity CLI 1.1.8/Claude Sonnet exposed write_file/Path gaps; fixed

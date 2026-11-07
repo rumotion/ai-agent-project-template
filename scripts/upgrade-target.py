@@ -126,6 +126,8 @@ STANDARD_SCRIPTS = [
     "scripts/verify-recovery.py",
     "benchmarks/context/recovery-scenarios.json",
     "docs/recovery-pilot.md",
+    "docs/adaptive-model-routing.md",
+    "docs/continuity-followup-plan.md",
     "docs/feedback-closure.md",
     "docs/product-acceptance.md",
     "schemas/continuity-receipt.schema.json",

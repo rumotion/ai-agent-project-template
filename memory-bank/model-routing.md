@@ -90,6 +90,10 @@ Set per-model knobs (Claude `thinking`, OpenAI `reasoning_effort`, Gemini equiva
 
 ## Cascade routing (cheapest-capable first)
 
+For native advisor support, IDE/CLI integration and the proposed deterministic
+coordinator, see [adaptive routing](../docs/adaptive-model-routing.md).
+This is an assessment; no automatic router or provider activation is implied.
+
 For a task of uncertain complexity, start with the cheapest capable model and escalate only on a real signal:
 
 1. Try the cheap/fast tier first (Haiku-class, OpenRouter, local model).

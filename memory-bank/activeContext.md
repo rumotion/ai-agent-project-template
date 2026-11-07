@@ -1,5 +1,19 @@
 # Active Context
 
+## Native follow-up and adaptive routing - 2026-11-07
+
+- App/Gemini fixture is open in installed Antigravity IDE; manual folder trust
+  is pending. No native App success inferred; no security prompt bypassed.
+- Official advisor/subagent/API research and a staged implementation proposal
+  cover Claude, Codex, Gemini and Antigravity. Installed Claude 2.1.116 is older
+  than documented Haiku 5.5 requirements; no update/default/service activation.
+- Shared index saves 915 characters; Home FAST 8,367/9,500, all seven compiled
+  results identical and other project files unchanged. Provider savings unknown.
+- Plan: docs/continuity-followup-plan.md; architecture: docs/adaptive-model-routing.md.
+  Native follow-ups/paired measurements remain open. Pacing OFF; local-only.
+- Full 191-file gate, fresh/preservation packaging and isolated review passed;
+  final acceptance updates only this operational note and progress summary.
+
 ## Late native/packaging repairs - 2026-11-07
 
 - Native Antigravity CLI 1.1.8/Claude Sonnet exposed write_file/Path gaps; fixed

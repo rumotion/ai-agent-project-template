@@ -1,5 +1,16 @@
 # Progress
 
+## Handoff budgets and source freshness - 2026-11-06
+
+- Writer guidance now matches the 1,200-character validator cap, reconciles
+  stale required records and checks FAST/compiler output before checkpointing.
+- Downstream budget had already been shortened by another client. Replaced
+  its obsolete initial fact through explicit supersession; original body and
+  domain documents/assets preserved. Seven renderers and FAST pass.
+- Generic smoke covers line/character mismatch and stale required-ID refusal.
+  No compiler/validator behavior or native-delivery claims changed. Details:
+  docs/continuity-workplan.md. Pacing OFF; local-only.
+
 ## Automatic pre-turn compaction - 2026-11-06
 
 - Reduced invocation/thread threshold triggered automatic compaction without a

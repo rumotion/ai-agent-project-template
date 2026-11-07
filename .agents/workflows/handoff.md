@@ -5,9 +5,20 @@ Use when pausing, switching models, or resuming work. Keeps context coherent acr
 ## On pause / model switch
 
 1. Update `memory-bank/handoff.md` (timestamp, model, branch, current task, last action, next step, files touched, blockers).
-2. Keep it under 30 lines. Overwrite, do not append history.
-3. Update `memory-bank/activeContext.md` only if durable project knowledge changed.
-4. Commit if work is in a clean state.
+2. Keep it under 30 lines and at most 1,200 characters (the existing validator
+   limit). Leave headroom; link to authoritative documents instead of copying
+   detailed history. Preserve facts in their source documents or typed records.
+3. Reconcile status, next action, startup notes and required records with current
+   sources. An initial not-started/TBD record can become stale even when syntax
+   checks pass. Preserve its body, mark it superseded by a new same-type record,
+   and update required IDs; never leave a superseded ID required.
+4. Update `memory-bank/activeContext.md` only if durable project knowledge changed.
+5. Run `python scripts/check-template.py --fast` and
+   `python scripts/ctx.py compile --for generic --check` before checkpointing.
+   If a budget fails, shorten the summary while retaining source links and facts;
+   do not relax the validator or truncate evidence merely to pass.
+6. Commit if work is in a clean state. Preserve concurrent edits; refresh a stale
+   snapshot before writing, and checkpoint only the reconciled final state.
 
 ## On resume
 

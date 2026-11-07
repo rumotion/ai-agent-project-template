@@ -1,10 +1,10 @@
 ---
-handoff_version: 38
+handoff_version: 39
 last_touched: 2026-11-06
 last_model: Codex
 to_model: Any
 branch: main
-status: Codex auto-compaction delivery verified
+status: Handoff source freshness reconciled
 task: Continuity upgrade
 task_id: continuity-upgrade
 required_records: decision-phased-continuity

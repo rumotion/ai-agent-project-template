@@ -343,3 +343,47 @@ was necessary. This does not establish default-threshold or mid-turn behavior.
 | Package | Frozen criteria | Deterministic evidence | Critic isolation | Findings/repairs | Re-verification | Residual risk |
 |---|---|---|---|---|---|---|---|
 | Automatic pre-turn delivery | New record after seed; no manual compact RPC or fact packet | 16 controls; ordered native replay and source reconciliation | Frozen diff and sanitized evidence only; receipt retained privately | Review receipt is authoritative; no implementation repair | Boundary declarations, FAST budgets and diff hygiene | Reduced threshold on one stdio route; mid-turn/default/UI/tool gates open |
+
+## Handoff budget and source freshness specification - 2026-11-06
+
+Baseline: the handoff workflow prescribes fewer than 30 lines but omits the
+validator's 1,200-character cap. A downstream handoff exceeded that cap; another
+client shortened it before this repair. The latest projection still required an
+initial not-started/TBD fact despite the handoff reporting completed research.
+Objective: align the writer workflow with existing budgets and require source
+freshness reconciliation before checkpointing. Preserve facts and historical
+record bodies; supersede obsolete metadata and update required IDs together.
+Owned: canonical handoff workflow/two mirrors, this report and operational
+memory; downstream workflow copies and reviewed memory reconciliation only.
+No validator relaxation, new dependency, native-model call or external action.
+Acceptance: mirrors agree; downstream stale fact is excluded, its body remains
+retrievable, the new required fact is included, and status/next action retain
+the active task. Existing private documents/assets stay byte-identical. FAST,
+compiler checks and a local checkpoint pass; native consumption remains unknown.
+Verify frozen inventories, source/record read-back, scope-limited artifact
+review and a generic synthetic supersession case. Private details stay outside
+the template repository; only sanitized outcomes enter this work log.
+
+Handoff reconciliation evidence: the downstream budget was already repaired by
+another client (965 characters) before this step. Required-source reconciliation
+then excluded the obsolete initial fact, retained its original body for lookup,
+and included a reviewed replacement while preserving current task/status/next
+action. The final handoff is 968/1,200 characters; all seven renderer projections
+and downstream FAST pass (9,080/9,500 aggregate). Existing domain documents and
+assets remain byte-identical. No external action or native consumption inferred.
+
+The writer workflow now states both line and character limits, source freshness,
+required-ID reconciliation and pre-checkpoint checks. Both mirrors agree. A
+generic smoke confirms a 25-line/1,250-character handoff violates the existing
+cap, a superseded required ID fails visibly, and switching to the new ID restores
+all seven renderers while keeping the historical body retrievable. No validator
+or compiler behavior was changed; workflow guidance uses existing mechanisms.
+
+| Package | Frozen criteria | Deterministic evidence | Critic isolation | Findings/repairs | Re-verification | Residual risk |
+|---|---|---|---|---|---|---|---|
+| Handoff budgets/freshness | Consistent writer limits; current required sources; preserved history | Generic supersession smoke; seven downstream renderers; scoped inventory audit | Frozen public diff and sanitized outcomes only | Review receipt retained privately | Mirrors, FAST, compiler and local receipt | Freshness requires source review; native delivery remains separate |
+
+Review repair: two unchanged downstream prose lines acquired mojibake during
+implicit Windows decoding. Restored them from the private UTF-8 baseline and
+compared all untouched startup, handoff and active-context text exactly. FAST
+passes after repair; no domain document or historical record body changed.

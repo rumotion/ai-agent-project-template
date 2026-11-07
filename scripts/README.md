@@ -26,7 +26,7 @@ It will:
 | `upgrade-target.py` | Local/GitHub/GitLab framework upgrades with SHA pinning, saved hashes, preserved conflicts, backups and optional legacy baselines. |
 | `template_upgrade.py` | Standard-library Git transport, explicit-path planning and transactional file updates; no upstream code execution. |
 | `verify-upgrade.py` | Offline project-preservation, rollback and real local Git transport regressions; included in full validation. |
-| `verify-antigravity-hooks.py` | Shell/direct-argv launches from `.agents`, varied requested tool directories, preserved denials and root-bounded logging. |
+| `verify-antigravity-hooks.py` | 12 shell/direct-argv cases, native CLI write_file/Path aliases, preserved denials and root-bounded private logging. |
 | `verify-windows-hooks.py` | Executes shipped Codex PowerShell commands from root/config/nested directories, including spaces/brackets, denials and log placement; skips on other operating systems. |
 | `check-template.py` | Template validator. Modes: `--fast` (lightweight), `--compat` (cross-agent contract), full (no flag), `--benchmark` (token cost only), `--check-remote` (remote audit). |
 | `benchmark-context.py` | Offline manifest-based context measurement and sanitized paired-usage comparison; supports `--json` and `--self-test`. |
@@ -70,3 +70,7 @@ Full mode enforces:
 - Ask before adding scripts that call paid APIs or modify external systems.
 
 Regenerate tracked skill/workflow mirrors with `python scripts/gen-adapters.py --write`; verify with `--check`. Inspect advisory boundaries with `python scripts/boundary.py inspect --client codex --json`. Stronger containment/release profiles are unsupported and fail verification. Full template validation includes the second-order regression scripts.
+
+New Windows projects enable repository-local Git long-path support during
+bootstrap. A failed git add is reported before commit; no global Git setting
+is changed. The backstop suite exercises both cases.

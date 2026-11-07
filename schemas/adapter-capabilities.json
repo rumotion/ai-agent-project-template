@@ -41,7 +41,7 @@
       "status": "live-smoke-partial",
       "live_evidence": "docs/recovery-pilot.md",
       "observed_at": "2026-11-06",
-      "source_revision": "3f235d3e150bd5560a335350fd8cc200f7496386",
+      "source_revision": "3e66d1caa7e8b111b091933b60085a4e4cb95740",
       "live_checks": [
         "Isolated CLI supplied-packet recovery with the configured model/effort",
         "Stdio app-server fresh-process resume preserves required facts and task states",
@@ -49,11 +49,11 @@
         "Windows stdio PreToolUse sensitive apply_patch blocked after command repair; inert file absent; scoped per-thread trust bypass",
         "Native same-thread model transition gpt-6-astra to gpt-6.1-sol at xhigh; 13 recovery/control assertions passed",
         "Hash-trusted execution; changed command reports modified; approved four-record CLI trust and fresh-process denial passed",
-        "Native safe apply_patch/PostToolUse logger and Bash sensitive-write denial with scoped hash trust",
-        "SessionStart startup/resume/manual-compact, API clear/fork and automatic pre-turn compact restored fresh bodies/next action; no manual fact packet or tools"
+        "Native safe patch/logger/Bash and explicit fixture-only MCP matcher: allow plus sensitive/publishing denials; shipped defaults unchanged",
+        "SessionStart startup/resume/manual compact, API clear/fork and reduced-threshold pre-/mid-turn auto compact restored fresh bodies/next action"
       ],
       "unverified_checks": [
-        "Native MCP/publishing-denial routes, interactive clear/reset, default-threshold and mid-turn automatic compaction",
+        "Default MCP mapping, native Bash publishing-denial, interactive clear/reset and default compaction thresholds",
         "Desktop/IDE/cloud orchestration and other model transitions",
         "External containment and provider efficiency"
       ],
@@ -167,22 +167,35 @@
     },
     {
       "client": "antigravity",
-      "version": null,
+      "version": "1.1.8",
       "config": ".agents/hooks.json",
-      "status": "unverified-active",
-      "live_evidence": null,
+      "status": "live-smoke-partial",
+      "live_evidence": "docs/recovery-pilot.md",
       "shell_tools": [
         "run_command"
       ],
       "write_tools": [
         "write_to_file",
+        "write_file",
         "replace_file_content",
         "multi_replace_file_content"
       ],
       "mcp_tools": [],
       "payload_extractor": "scripts/hooks/shell_events.py",
       "denial_format": "decision:deny",
-      "fixture": null
+      "fixture": null,
+      "observed_at": "2026-11-06",
+      "source_revision": "516e0e615f89e99fc160d9917009899ebb783b42",
+      "live_checks": [
+        "Windows CLI with explicit Claude Sonnet pin: literal listing, exact text and PNG read, benign write",
+        "Native pre-tool sensitive Path denial; inert file absent; normalized private root write audit",
+        "write_file and legacy aliases preserved; CLI settings unchanged; failed baseline retained"
+      ],
+      "unverified_checks": [
+        "App/Gemini and IDE orchestration; other model/tool routes",
+        "Native publishing denial and default terminal CWD",
+        "External containment and provider efficiency"
+      ]
     }
   ]
 }

@@ -105,7 +105,8 @@ processes and renderer switches. Its eight scenarios are synthetic; see
 `docs/recovery-pilot.md` for the separately observed native scope and open gates.
 `scripts/verify-antigravity-hooks.py` executes the configured commands from
 `.agents` through shell and direct argv, with varied requested tool directories.
-It checks harmless listing, denials, explicit JSON and root-bounded logging.
+Its 12 cases check harmless listing, denials, explicit JSON, write_file/Path
+aliases, conflicting-path protection and root-bounded metadata-only logging.
 `scripts/verify-windows-hooks.py` executes Codex's configured PowerShell strings
 from root/config/nested process directories in paths with spaces and brackets.
 Four cases cover benign calls, sensitive patches, synthetic publishing denials
@@ -116,6 +117,9 @@ commands and Codex lifecycle mapping. The Windows suite executes its startup
 command from nested directories against a required-record fixture. Native
 startup/resume/compact read-back is a separate bounded pilot, never a CI model
 call; its markers are introduced after the previous turn to reject stale recall.
+The dated native pilot also covers one reduced-threshold mid-turn tool
+continuation and an explicit inert MCP mapping. Those are scoped manual
+observations, not CI model calls or default MCP activation; see recovery-pilot.md.
 After editing canonical skills/workflows, run `scripts/gen-adapters.py --write`
 and review the generated diff. Tracked discovery files remain available in
 fresh clones. Live client denials, Linux execution, actual Python 3.9 execution,
@@ -148,3 +152,8 @@ edits. The suite also uses a real local Git fetch/archive, commit mismatch,
 archive traversal rejection and Windows junction redirection checks. A symlink
 case is skipped when the Windows account cannot create links. The suite runs in
 full template validation; it does not contact hosted GitHub/GitLab or use credentials.
+
+Windows bootstrap checks also cover a real long-path initial commit and an
+explicit failed-add result that prevents a misleading commit attempt. New
+Windows repositories enable local core.longpaths; existing/global settings are
+preserved. See the dated native/packaging follow-ups in recovery-pilot.md.

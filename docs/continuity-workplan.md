@@ -16,9 +16,13 @@ Research: [primary-source evidence](agentic-engineering-evidence.md).
 | 3: decision projection | Complete locally | 16 record tests, 1,000-record archive, full gate, new-project smoke and isolated review passed |
 | 4: durable task state | Complete locally | 22 lifecycle/preservation tests, full gate, fresh-project smoke and isolated acceptance |
 | 5: cost awareness | Complete locally | 17 metric tests, 34 pacing tests, full gate, new-project smoke and isolated acceptance |
-| 6: recovery pilot | Offline complete; native partial | Current integrated gate passes; Claude/Codex restart and compaction observed; remaining routes and exact-fidelity limits stay explicit |
+| 6: recovery pilot | Complete for declared local scope; native evidence partial | Deterministic recovery and scoped Claude/Codex receipts; unverified surfaces and fidelity limits explicitly excluded |
 | 7: feedback closure | Complete locally | Eight integrated cases, full gate, fresh-project/upgrade surface checks, mirrors and isolated acceptance |
 | 8: concurrent runtime | Deferred, conditional | No measured fleet need; native lease/cancellation prerequisites remain unimplemented |
+
+Local closeout: [completion report](audits/context-continuity-2026-11/completion-report.md).
+No publication is authorized. Deferred/unsupported surfaces are not silently
+promoted to verified support.
 
 ## Phase 1 specification
 
@@ -387,3 +391,55 @@ Review repair: two unchanged downstream prose lines acquired mojibake during
 implicit Windows decoding. Restored them from the private UTF-8 baseline and
 compared all untouched startup, handoff and active-context text exactly. FAST
 passes after repair; no domain document or historical record body changed.
+
+## Final native-route and packaging closeout - 2026-11-06
+
+One reduced-threshold mid-turn tool continuation passed all 16 controls using
+the exact inactive example: a fresh record written by the single synthetic tool
+arrived after automatic compaction within the same user turn; no repeated tool,
+manual fact packet, false acceptance or model reroute. An explicitly mapped
+inert MCP fixture allowed one call and natively denied sensitive/publishing
+payloads. Its initial item-count/reason assumptions failed and were retained;
+canonical constants and stored code-mode calls reconciled the observations
+without another model call. Shipped MCP defaults and global config/trust stayed
+unchanged. Scoped recipe and limits are in hooks.md and recovery-pilot.md.
+
+Original-plan review found no unconditional remaining implementation defect in
+the frozen evidence. Full 189-file validation passed. A fresh generated project
+passed FAST with neutral records/no remote. The disposable preservation upgrade
+kept custom instructions, legacy handoff, active config and a dirty tracked app
+file while updating a known managed document; conflicts returned 2 explicitly.
+Backups were external; no public/private remote or publication was used.
+
+A long-running downstream session restored an older handoff and superseded ID;
+the compiler refused it. Reconciliation preserved the latest task/status/action
+and all normalized body words/numbers, restored the current required ID, and
+passed FAST. The resume workflow now explicitly refreshes cached instructions/
+required references and coordinates one Memory Bank writer. No native fencing
+or cancellation guarantee is claimed.
+
+Minimum planned delivery is complete locally. Phase 8 remains conditional and
+out of the minimum release; provider savings adoption, default-threshold stress
+and unverified native surfaces remain explicit future work. Completion boundary:
+docs/audits/context-continuity-2026-11/completion-report.md. No publication or
+background worker fleet was activated.
+
+## Late native-client and bootstrap acceptance - 2026-11-07
+
+A newly discovered installed Antigravity CLI 1.1.8 route used an explicit
+available Claude Sonnet model; App/Gemini was not substituted or certified.
+Native baseline exposed write_file/Path bypassing old matcher/path extraction
+and missing normalized audit metadata. Three regressions failed before repair;
+12 now pass, including conflicting aliases. Fixed native listing/text/PNG,
+benign write/audit and exact pre-tool sensitive denial are privately reconciled.
+CLI settings stayed unchanged; no model call was repeated for reconciliation.
+
+The packaging fixture also exposed a 262-character Git path: add failed and
+its exit was ignored. New Windows repos now receive local long-path support;
+existing/global config is preserved and add failure stops before commit. The
+failed diagnostic regression became green; 13 bootstrap/backstop checks, Python
+3.9 grammar, full 189-file validation, fresh generation and preservation upgrade
+passed. Functional source: 516e0e615f89e99fc160d9917009899ebb783b42. Isolated runtime critic accepted.
+Original failed fixtures remain retained. Additional narrative checks and
+source normalization link these receipts to the code commits; no new public
+release or global installation was performed.

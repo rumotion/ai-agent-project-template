@@ -24,8 +24,11 @@ Use when pausing, switching models, or resuming work. Keeps context coherent acr
 
 1. Read `memory-bank/handoff.md` first (after `AGENTS.md` and `memory-bank/startup.md`).
 2. Verify branch and last action match `git status` / `git log -1`.
-3. Continue from "Next concrete step".
-4. After meaningful progress, refresh `handoff.md`.
+3. Reconcile current required-record IDs before writing. Long-running sessions
+   may retain earlier instructions or handoffs; refresh sources rather than
+   restoring cached text, and coordinate one Memory Bank writer.
+4. Continue from "Next concrete step".
+5. After meaningful progress, refresh `handoff.md`.
 
 For multi-task work, run `python scripts/tasks.py list`, follow all pages and
 reconcile open attempts before starting a replacement worker. Save each task's

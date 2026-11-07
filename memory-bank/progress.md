@@ -1,5 +1,30 @@
 # Progress
 
+## Late native/packaging repairs - 2026-11-07
+
+- Native Antigravity CLI 1.1.8/Claude Sonnet exposed write_file/Path gaps; fixed
+  mapping, denial and private audit metadata. Listing/text/PNG and sensitive
+  denial now observed; App/Gemini/IDE remain unverified.
+- Fixed failed-add diagnostics and new-Windows-repo local long-path support.
+  12 adapter/five Windows cases, 13 backstop checks, legacy/hardening, full
+  189-file gate and fresh/preservation packaging passed. Failed baselines retained.
+- Runtime review accepted; code 516e0e615f89e99fc160d9917009899ebb783b42. Globals unchanged;
+  no dependency install/publishing. Final scoped report remains authoritative.
+
+## Phase summary: original plan local closeout - 2026-11-06
+
+- Outcome: COMPLETE for the declared minimum scope; native support stays partial.
+- Mid-turn auto continuation passed 16 controls. Explicit inert MCP mapping
+  observed allow/two canonical denials; original harness failures retained and
+  reconciled offline. No shipped default/global config activation.
+- Full 189-file gate and fresh/preservation packaging passed. Existing domain
+  files/assets preserved. Old-session handoff rollback was detected and repaired;
+  one-writer/source refresh guidance added. No native fencing claimed.
+- Phase 8 and efficiency adoption remain conditional; app/IDE/default routes
+  explicitly unverified. Report: docs/audits/context-continuity-2026-11/completion-report.md.
+- Next: use the verified template; extend support only with a scoped new task.
+  Pacing OFF; local-only. No background worker or publication.
+
 ## Handoff budgets and source freshness - 2026-11-06
 
 - Writer guidance now matches the 1,200-character validator cap, reconciles

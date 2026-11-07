@@ -118,14 +118,53 @@ an explicit `decision: allow` for benign checks, which defers to normal platform
 policy rather than auto-approving a tool. Post-tool logging returns `{}` and
 anchors its output at the project root. Do not duplicate the hook tree under
 `.agents/scripts`; keep one canonical source. Reload the project/session after
-changing hook configuration. Eight offline regressions exercise shell and
+changing hook configuration. Twelve offline regressions exercise shell and
 direct-argv launches from `.agents` in a project path with spaces. Requested tool
 directories vary across root/customization/nested assets; they are distinct from
 the hook process directory. A separate absolute-file invocation check covers
 other process directories. Denials, JSON output and log placement remain tested.
 
+The installed CLI also emits `write_file` with capitalized `Path`, even when
+its advertised tool catalog uses `write_to_file`. Both names are mapped. The
+sensitive guard checks every recognized path alias so a conflicting benign
+field cannot conceal a sensitive target. The adapter supplies the trusted
+PostToolUse role/tool metadata and root for the passive logger; only normalized
+relative-path metadata is retained, never file contents or absolute paths.
+
+Antigravity CLI 1.1.8 was observed with an explicit available
+claude-sonnet-5-5-medium pin in a synthetic project. A native transcript recorded
+the canonical pre-tool denial; the sensitive inert file stayed absent and the
+benign write produced one normalized audit record. Text/PNG reads and absolute
+literal directory listing succeeded. CLI settings were unchanged. This does
+not certify the App/Gemini route. A relative PowerShell listing initially ran
+from a system directory; use explicit paths (and tool CWD where supported), not
+an assumed provider location. Hook location and requested tool CWD are separate.
+
 Schema reference: [Antigravity hooks](https://antigravity.google/docs/hooks).
 These launch tests do not certify every native interface or external containment.
+
+### Deliberate MCP mapping
+
+The inactive Codex example has no default MCP matcher. For a known MCP tool,
+copy the example's shell PreToolUse group (the two canonical publishing and
+sensitive-path commands) and replace its matcher with the exact tool name,
+for example `^mcp__fixture__operation$`. Review/trust the resulting definition
+in the intended project before relying on it. Do not activate a server or
+change global configuration merely by copying this recipe.
+
+A local inert stdio fixture verified this explicit mapping on Codex 0.167.0:
+one allowed operation reached the server; sensitive-path and publishing-payload
+attempts produced the canonical native denials and never reached it. The server
+only returned audit labels; it could not execute the command string or open its
+path argument. Denied attempts did not produce completed MCP items on this
+route; inspect native hook feedback and the server audit, not item count alone.
+The original harness's two interpretation failures remain recorded in
+[recovery pilot](recovery-pilot.md).
+
+These guards recognize explicit path/command fields. Opaque/nested arguments,
+connector actions, hosted tools and arbitrary server implementations remain
+outside that demonstrated coverage. This recipe does not certify all MCP tools
+or change the shipped defaults/current-process inspection flags.
 
 ### Compiled startup context and continuity
 

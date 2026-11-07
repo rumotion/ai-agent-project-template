@@ -4,6 +4,20 @@ Use this guide when you have an empty folder and want to create a new app, websi
 
 This guide is intentionally outside the default startup path. Agents should read it only when a user asks how to begin a new project.
 
+## Local creation from an existing template
+
+Run the generator from the template root into a dedicated project directory:
+
+```bash
+python scripts/new-project.py ../my-new-project --name MyProject
+```
+
+It copies tracked framework files, resets project memory/records and creates a
+separate local repository without a remote. It excludes untracked scratch and
+the template's Git history. Prefer this over copying the full working folder.
+New Windows repositories get local Git long-path support; existing/global Git
+settings are preserved. Initialization stops on an add failure before committing.
+
 ## 1. Get the template
 
 Recommended GitHub path:
@@ -17,13 +31,14 @@ Alternative paths:
 
 - `git clone https://github.com/<owner>/<repo>.git my-new-project`
 - GitHub **Code > Download ZIP** if you want files without Git history.
-- Local folder copy if you already have the template on disk.
+- The local generator above if you already have the template on disk.
 
 See `docs/use-from-github.md` for details. **Important**: If cloning the template directly, the folder inherits the template's Git remotes. Run `python scripts/init-fast.py` to automatically detach the template remote and secure repository boundaries.
 
 ## 2. Check the template files
 
-Create or open your new project folder, then copy this template's contents into it.
+Create the local project with the generator above, or open your separately
+created repository. Keep the template repository and its working memory separate.
 
 Your folder should contain files like:
 

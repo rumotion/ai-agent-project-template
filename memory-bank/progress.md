@@ -1,5 +1,15 @@
 # Progress
 
+## Bounded follow-up closeout - 2026-11-07
+
+- Completed offline policy, integrated two-model checkpoint and CLI process
+  recovery observations. No native dispatcher/global settings activation.
+- Completed 30-run/15-pair packet pilot; retained six strict-oracle failures and
+  explicit semantic reconciliation. Production efficiency adoption remains
+  INSUFFICIENT_EVIDENCE; native version/cache/quality boundaries are documented.
+- Original minimum plus scoped follow-up verified locally. Conditional fleet,
+  transport, Jev and unsupported native permutations remain separate future work.
+
 ## R1 offline escalation policy - 2026-11-07
 
 - Implemented local worker/advisor/retry/hold/parent-review advice with explicit

@@ -1,5 +1,17 @@
 # Active Context
 
+## Follow-up local closeout - 2026-11-07
+
+- R1 policy integrated with native Flash writer/Argon advisor: six parent tests,
+  stable 1.5.3 executable/hash/settings, advisor -> parent_review; no auto-accept.
+- Thirty packet runs/15 pairs completed. Initial 24/30 exact matches and separate
+  30/30 semantic state-label reconciliation retained. Native counter median was
+  19.2% lower in fixtures; version/cache/quality limits keep adoption insufficient.
+- New CLI process resumed an own conversation and read fresh exact file/action.
+  No cold IDE/backend/default-threshold/standalone certification or fleet enabled.
+- Bounded follow-up packages complete locally; unsupported/conditional extensions
+  remain explicit in docs/continuity-followup-plan.md. No publication/pacing.
+
 ## R1 offline routing policy - 2026-11-07
 
 - Added stdlib-only routing advice: mandatory material plan/completion review,

@@ -1,14 +1,14 @@
 ---
-handoff_version: 45
+handoff_version: 46
 last_touched: 2026-11-07
 last_model: Codex
 to_model: Any
 branch: main
-status: R1 verified; matched pilot and CLI resume being reconciled
+status: Scoped follow-up implementation and measurements verified locally
 task: Native validation and adaptive routing assessment
 task_id: continuity-upgrade
 required_records: decision-phased-continuity
-next_action: Reconcile bounded measurements and remaining lifecycle support declarations
+next_action: Use verified template; scope unsupported native or supervisor expansion separately
 blocking_issues: []
 ---
 

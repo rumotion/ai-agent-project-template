@@ -63,6 +63,66 @@ support or savings. It is a bounded experiment before implementing the offline
 policy package. See [architecture](adaptive-model-routing.md). Matched strong-only,
 fast-only and advised comparisons remain unmeasured.
 
+## Additional follow-up observations - 2026-11-07
+
+### Additional CLI process resume - 2026-11-07
+
+An own persisted Flash Medium conversation was resumed in a new CLI process.
+The CLI reported 1.5.3, preserved the conversation ID and selected model, and
+read a newly written synthetic file's full body and next-action marker exactly.
+Only native file reads occurred and settings bytes stayed unchanged. Source:
+`22393ef557fc7fdc7c12627bdadd748df9f7d4ab`. This is an explicit file-read recovery
+path; it does not establish automatic Memory Bank injection, cold IDE/backend
+restart or default-threshold compaction. Other active user workspaces were not
+closed to manufacture a cold-app test.
+
+### Integrated policy/advisor checkpoint - 2026-11-07
+
+Source `478d83c7b800bd29f6325e3930185eec58cfbdc2` was exercised with the shipped
+offline policy and two native CLI actors. After Flash Medium's change passed
+six parent tests, the policy returned advisor. Argon High accepted the frozen
+artifact hash with zero tools/writes; the matching receipt then produced
+parent_review with acceptance_performed false. The 1.5.3 executable's full-path
+identity, SHA-256 and version remained unchanged across this attempt; settings
+bytes also matched. Native dispatch belonged to the isolated test harness,
+not the policy module. No production routing service was activated.
+
+### Matched context packet pilot - 2026-11-07
+
+Five synthetic context task types each ran three alternating baseline/candidate
+pairs: 30 one-turn CLI calls, model gemini-3.8-flash-medium, no native tools or
+model retries. Baseline contained all 64 fixture records; candidate used the
+existing bounded compiler over the same current required facts and archive.
+This tests packet use, not representative production editing or all agent costs.
+
+| Observation | Result |
+|---|---|
+| Initial exact-object oracle | 24/30 matches; six retained handoff-state mismatches |
+| Explicit post-hoc semantic check | 30/30; only in review -> review normalization, other fields unchanged |
+| Native reported-total reduction, paired median | 19.2%; range 16.1%–23.8% in these fixtures |
+| Captured cache-read counters | Zero for all pilot runs; no controlled cold/warm comparison |
+| Usage integrity | Every total equals reported input + output; thinking is retained separately and not added again |
+| Global CLI settings | Byte-identical; no default model change |
+| Efficiency-adoption verdict | INSUFFICIENT_EVIDENCE |
+
+The original six strict failures are retained. The question did not prescribe
+a canonical state label, so the exploratory semantic normalization is not a
+replacement for the original oracle. No model was rerun to improve the result.
+The harness's 1.5.2 label was assumed from an earlier observation; a later probe
+observed 1.5.3, and per-run versions were not captured. The timing of that change
+is unknown. A concurrent read-only resume probe can also affect descriptive
+latency. Raw runs, the original report and the separate reconciliation are
+private. No financial/quota saving or general coding-quality result is inferred.
+
+Future efficiency adoption must use a frozen question/oracle, per-run executable
+version/hash, controlled or explicitly stratified cache conditions and complete
+accepted-task costs/quality. The integrated checkpoint above demonstrates a
+version/hash check; it does not retroactively repair the earlier pilot. Native
+usage fields are not automatically interchangeable with normalized metrics:
+the CLI's reported total excludes its separate cache-read count. Preserve raw
+fields and verify inclusion semantics before importing them into task totals.
+See the [official headless schema](https://antigravity.google/docs/cli/headless/).
+
 ## Deterministic recovery gate
 
 Run `python scripts/verify-recovery.py`. The portable scenario inventory is

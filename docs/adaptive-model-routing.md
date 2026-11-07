@@ -50,7 +50,7 @@ establish semantic accuracy. No latency or savings figure is adopted here.
 | Codex IDE surface | Subagent activity is documented across the app, CLI and IDE | Prefer native roles when exposed. A repository cannot grant a missing model-selection parameter or control an unrelated active session. |
 | Gemini CLI | Model routing and per-subagent model configuration | A Flash-class worker with a stronger reviewer is feasible. Verify the installed 0.52.0 route separately; current documentation is not a native receipt. |
 | Antigravity App / IDE | Custom subagents document model tiers `inherit`, `flash`, `pro` | This can provide a fast worker and stronger advisor without replacing the main chat model. Tier names are not a promise of any exact Gemini version. Native IDE file tools/new conversation passed with UI-selected Argon High; native subagent routing and standalone App remain unverified. |
-| Antigravity CLI / SDK | Session model flags, subagents, SDK and ACP | A CLI/SDK coordinator can select separate roles. ACP lets compatible editors host the agent; it does not automatically implement this routing policy. The CLI currently reports 1.5.2; historical 1.1.8 receipts remain historical. |
+| Antigravity CLI / SDK | Session model flags, subagents, SDK and ACP | A CLI/SDK coordinator can select separate roles. ACP lets compatible editors host the agent; it does not automatically implement this routing policy. Dated probes observed 1.5.2 and later 1.5.3; historical 1.1.8 receipts remain historical. |
 | One workflow across vendors | Separate provider adapters | Feasible through an external coordinator. Subscription authentication, model availability and data boundaries remain per-provider. No subscription is assumed interchangeable with API credit. |
 
 Sources: [Claude subagents](https://code.claude.com/docs/en/sub-agents),
@@ -207,3 +207,12 @@ Input is bounded to 32 KiB and duplicate JSON keys are refused. Invalid input
 returns a redacted hold with exit 2; valid advice, including hold, returns 0.
 No raw source or paths are echoed. Changing policy files or adding them to an
 existing project does not switch that project's active model or enable routing.
+
+The R1 integration pilot used this exact decision function between two native
+CLI calls: completion observation -> advisor -> verified artifact receipt ->
+parent_review. Six parent tests passed and the advisor ran no tools. Executable
+version/hash and settings bytes remained stable during that 1.5.3 attempt.
+This is an isolated coordinator demonstration; the module still performs no
+dispatch or acceptance. The separate 30-call context packet pilot is descriptive
+and retains INSUFFICIENT_EVIDENCE for production savings; see the dated
+[measurements and limitations](recovery-pilot.md).

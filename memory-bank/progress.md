@@ -1,5 +1,13 @@
 # Progress
 
+## R1 offline escalation policy - 2026-11-07
+
+- Implemented local worker/advisor/retry/hold/parent-review advice with explicit
+  non-authority. Review receipts bind task revision, attempt, artifact, checkpoint
+  and latest repeated-error event. No native dispatch or model-default changes.
+- 24 behavioral/CLI checks, Python 3.9 grammar, full 193-file gate, fresh project,
+  preservation upgrade and isolated review passed. Paired pilot remains separate.
+
 ## Native follow-up acceptance - 2026-11-07
 
 - IDE 1.107.0 with UI-selected Gemini 4 Argon High passed native file reads/PNG,

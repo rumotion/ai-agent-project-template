@@ -13,7 +13,7 @@ certify additional interfaces or activate optional services.
 | 3: paired efficiency | Not measured | Reuse the existing benchmark/metrics helpers. Five task types, initially three alternating pairs where budget permits; matched settings/artifacts, independent correctness, complete usage or explicit unknown. No savings adoption before evidence. |
 | 4: startup overhead | Complete locally | Shared index reduced from 1,534 to 619 characters. Home startup changed from 9,282 to 8,367/9,500; every navigation target, all seven compiled results and other project files remained unchanged. Both FAST checks pass. |
 | 5: parallel supervisor | Conditional | Remains an independent substantial runtime package. Prove ownership, native stop, stale-result rejection and recovery with one writer before two tasks or cross-machine transport. |
-| Routing assessment | Assessed; one scripted CLI pilot passed | Flash Medium wrote one synthetic file; Argon High reviewed its frozen artifact without tools. Six independent parent tests passed; globals unchanged. [Architecture](adaptive-model-routing.md). Offline policy, automatic difficulty routing and matched savings remain unimplemented/unmeasured. |
+| Routing assessment | R1 implemented locally; native feasibility passed | Offline policy has 24 behavior/CLI checks and no dispatch authority. Flash Medium wrote one synthetic file; Argon High reviewed its frozen artifact without tools. Six parent tests passed; globals unchanged. [Architecture](adaptive-model-routing.md). Automatic dispatch and matched savings remain separate. |
 
 ## Native fixture and failure classification
 

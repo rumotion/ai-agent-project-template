@@ -39,6 +39,7 @@ It will:
 | `verify-records.py` | Record capture/read-back, task/archive selection, required constraints and write-preservation regressions. |
 | `tasks.py`, `verify-tasks.py` | Private task state, revision/attempt gates, inventory audit and parent acceptance; no native dispatch. |
 | `task_metrics.py`, `usage_math.py`, `verify-task-metrics.py` | Sanitized task cost/progress advice, explicit token semantics and hard-budget checks; pacing stays OFF. |
+| `routing_policy.py`, `verify-routing-policy.py` | Offline worker/advisor/checkpoint advice with 24 behavior/CLI checks; no dispatch, model change or action authority. See `docs/adaptive-model-routing.md`. |
 | `verify-recovery.py` | Integrated synthetic restore scenarios across fresh processes and client renderers; never launches a model. |
 | `hooks/log-writes.py` | Passive write event logger (writes metadata to `.agent-logs/session.jsonl`). |
 | `hooks/guard-sensitive-paths.py` | Client-aware path guard with verified Claude, Gemini, and Codex denial outputs; also inspects shell redirection/copy targets. |

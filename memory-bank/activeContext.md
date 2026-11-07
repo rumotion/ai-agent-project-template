@@ -1,5 +1,14 @@
 # Active Context
 
+## R1 offline routing policy - 2026-11-07
+
+- Added stdlib-only routing advice: mandatory material plan/completion review,
+  repeated logic-error escalation, bounded transient retry and explicit holds.
+- Receipts bind task revision/attempt/artifact/checkpoint and latest error event;
+  old error advice cannot release a new failure or replace completion review.
+- 24 targeted checks, full 193-file gate, fresh/preservation packaging and
+  isolated review pass. No native dispatcher, permission grant or default change.
+
 ## Native IDE and CLI advisor pilot - 2026-11-07
 
 - User granted fixture trust manually. Native IDE file-tool denial/audit and a

@@ -122,6 +122,8 @@ STANDARD_SCRIPTS = [
     "scripts/task_metrics.py",
     "scripts/usage_math.py",
     "scripts/verify-task-metrics.py",
+    "scripts/routing_policy.py",
+    "scripts/verify-routing-policy.py",
     "docs/task-measurements.md",
     "scripts/verify-recovery.py",
     "benchmarks/context/recovery-scenarios.json",

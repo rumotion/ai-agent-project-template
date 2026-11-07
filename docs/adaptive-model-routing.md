@@ -1,6 +1,7 @@
 # Adaptive model routing: feasibility and proposed architecture
 
 Research date: 2026-11-07. Status: assessed; no automatic router activated.
+The R1 offline advisory policy is implemented; native dispatch remains separate.
 This extends [model routing](../memory-bank/model-routing.md) and the conditional
 runtime work. It does not change the selected model, install clients or send
 project content to a new provider. Provider features and installed versions are
@@ -148,3 +149,61 @@ be counted twice. Until matched data exists, verdict: `INSUFFICIENT_EVIDENCE`.
 Rollback is per-project: stop the coordinator, reconcile unfinished attempts,
 disable the opt-in route and resume the existing single-model/manual path. Never
 reassign a running writer merely because its heartbeat or result is missing.
+
+## R1 offline interface
+
+Run `python scripts/routing_policy.py observation.json` or import `decide`.
+Run `python scripts/verify-routing-policy.py` for the 24 behavioral checks, also
+included in the full template gate. No client hook, MCP service or provider is
+activated. The helper never imports a native client, runs a command, writes state
+or selects an actual model ID. It advises a coordinator that already owns the
+task, permissions, metrics, evidence and native lifecycle.
+
+Minimal observation (replace the synthetic fingerprint with the current one):
+
+```json
+{
+  "schema_version": 1,
+  "task_id": "example", "task_revision": 1, "attempt_id": "attempt-one",
+  "artifact_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "checkpoint": "routine", "material": true,
+  "permission": "allowed", "evidence_current": true,
+  "model_available": true, "advisor_available": true,
+  "budget": "unknown", "hard_budget": false,
+  "verification": "unknown", "retry_count": 0, "errors": []
+}
+```
+
+All fields above are required. Only optional `advisor_requested` (boolean) and
+`advisor_receipts` (at most eight objects) are additionally accepted. Checkpoints
+are `routine|plan|completion`; permission `allowed|denied|unknown`; budget
+`ready|hold|unknown`; verification `passed|failed|unknown`. Use task-metrics advice
+for the budget declaration; no second usage parser or spending controller exists.
+Unknown budget is allowed only without a declared hard budget.
+
+`errors` is an ordered list of at most 32 events. Each has `task_id`, positive
+integer `task_revision`, `attempt_id`, unique `event_id`, `kind` (`logic`,
+`transient` or `permission`) and a 64-character SHA-256 `signature` of the
+coordinator-normalized failure. Never include raw commands, logs or secret text.
+Only current task/revision/attempt events participate. Duplicate event identities
+are invalid. Two matching logic failures require advice. A latest transient
+failure gets bounded backoff (three retries maximum); permission denial holds.
+
+Each receipt has matching task/revision/attempt/artifact fields, `checkpoint`
+(`plan|completion|error|requested`) and `verdict` (`accept|revise`). Error receipts
+also require `error_signature`, `error_count` and the latest `error_event_id`.
+Another failure invalidates the old review even when a bounded history has the
+same length. An error review and a completion review are separate requirements;
+multiple receipts can satisfy both. A current revise verdict routes to the worker.
+
+Routes are `worker`, `advisor`, `retry`, `hold`, or `parent_review`. Material plan
+and completion checkpoints require advice even if the worker does not request it.
+A receipt never replaces passing completion checks, and parent_review never
+means accepted. Every output declares `advisory_only: true`, no action authority,
+no dispatch and no acceptance. Coordinator-supplied facts/receipts are declarations,
+not authenticated proof; the actual supervisor must verify their origin.
+
+Input is bounded to 32 KiB and duplicate JSON keys are refused. Invalid input
+returns a redacted hold with exit 2; valid advice, including hold, returns 0.
+No raw source or paths are echoed. Changing policy files or adding them to an
+existing project does not switch that project's active model or enable routing.

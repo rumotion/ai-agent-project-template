@@ -1,14 +1,14 @@
 ---
-handoff_version: 43
+handoff_version: 45
 last_touched: 2026-11-07
 last_model: Codex
 to_model: Any
 branch: main
-status: Scoped IDE and CLI advisor pilots verified
+status: R1 verified; matched pilot and CLI resume being reconciled
 task: Native validation and adaptive routing assessment
 task_id: continuity-upgrade
 required_records: decision-phased-continuity
-next_action: Implement offline routing policy before broader native or paired trials
+next_action: Reconcile bounded measurements and remaining lifecycle support declarations
 blocking_issues: []
 ---
 

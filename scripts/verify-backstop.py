@@ -8,11 +8,16 @@ from pathlib import Path
 import subprocess
 import shutil
 import tempfile
+from types import SimpleNamespace
+from unittest.mock import patch
 
 HERE = Path(__file__).resolve().parent
 spec = importlib.util.spec_from_file_location("backstop", HERE / "push_backstop.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
+bootstrap_spec = importlib.util.spec_from_file_location("bootstrap", HERE / "new-project.py")
+bootstrap = importlib.util.module_from_spec(bootstrap_spec)
+bootstrap_spec.loader.exec_module(bootstrap)
 passed = []
 with tempfile.TemporaryDirectory(prefix="backstop-proposal-") as tmp:
     root = Path(tmp) / "repo"
@@ -79,4 +84,28 @@ with tempfile.TemporaryDirectory(prefix="backstop-proposal-") as tmp:
     assert (worktree / ".git").is_file()
     assert module.install(worktree) == hook.resolve()
     passed.append("linked-worktree")
+    # A failed index update must be reported before attempting a misleading commit.
+    ok = SimpleNamespace(returncode=0, stdout="", stderr="")
+    failed_add = SimpleNamespace(returncode=1, stdout="", stderr="synthetic add failure")
+    failed_commit = SimpleNamespace(returncode=1, stdout="nothing staged", stderr="")
+    with patch.object(bootstrap.subprocess, "run", side_effect=[ok, failed_add, failed_commit]) as runner:
+        failure = bootstrap.git_init(root, False)
+        assert failure.startswith("git add failed:"), failure
+        assert runner.call_count == 2, "Commit attempted after failed add"
+    passed.append("bootstrap-add-failure-is-explicit")
+    deep = Path(tmp) / "bootstrap project [case]"
+    deep.resolve().relative_to(Path(tmp).resolve())
+    data = deep / ("nested-" + "a" * 70) / ("nested-" + "b" * 70) / ("nested-" + "c" * 70) / "fixture.txt"
+    data.parent.mkdir(parents=True)
+    data.write_text("synthetic long-path fixture\n", encoding="utf-8")
+    identity = {"GIT_AUTHOR_NAME": "Fixture", "GIT_AUTHOR_EMAIL": "fixture@example.com",
+                "GIT_COMMITTER_NAME": "Fixture", "GIT_COMMITTER_EMAIL": "fixture@example.com"}
+    with patch.dict(os.environ, identity):
+        assert bootstrap.git_init(deep, False) is None
+    tracked = subprocess.check_output(["git", "ls-files"], cwd=deep).decode().splitlines()
+    assert data.relative_to(deep).as_posix() in tracked
+    assert not subprocess.check_output(["git", "remote", "-v"], cwd=deep).strip()
+    if os.name == "nt":
+        assert subprocess.check_output(["git", "config", "--local", "--get", "core.longpaths"], cwd=deep).strip() == b"true"
+    passed.append("bootstrap-long-path-local-repository")
 print(json.dumps({"backstop_checks_passed": passed, "POSIX_mode_runtime_verified": os.name != "nt"}))

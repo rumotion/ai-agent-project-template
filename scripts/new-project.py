@@ -371,8 +371,12 @@ def git_init(target: Path, dry_run: bool) -> Optional[str]:
     """Initialize a local repository. Never adds a remote."""
     if dry_run:
         return None
+    # New Windows repositories need this local setting for template skill paths
+    # beyond Git's legacy 260-character limit. Existing repo/global settings stay intact.
+    configure_longpaths = os.name == "nt" and not (target / ".git").exists()
+    git_command = ["git"] + (["-c", "core.longpaths=true"] if configure_longpaths else [])
     init = subprocess.run(
-        ["git", "init", "-b", "main"],
+        git_command + ["init", "-b", "main"],
         cwd=target,
         capture_output=True,
         text=True,
@@ -382,7 +386,7 @@ def git_init(target: Path, dry_run: bool) -> Optional[str]:
     if init.returncode != 0:
         # Older git without -b support.
         init = subprocess.run(
-            ["git", "init"],
+            git_command + ["init"],
             cwd=target,
             capture_output=True,
             text=True,
@@ -391,9 +395,17 @@ def git_init(target: Path, dry_run: bool) -> Optional[str]:
         )
         if init.returncode != 0:
             return "git init failed: {}".format(init.stderr.strip())
-    subprocess.run(["git", "add", "-A"], cwd=target, capture_output=True)
+    if configure_longpaths:
+        setting = subprocess.run(git_command + ["config", "--local", "core.longpaths", "true"],
+                                 cwd=target, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        if setting.returncode:
+            return "git local long-path configuration failed: {}".format(setting.stderr.strip())
+    added = subprocess.run(git_command + ["add", "-A"], cwd=target, capture_output=True,
+                           text=True, encoding="utf-8", errors="replace")
+    if added.returncode:
+        return "git add failed: {}".format(added.stderr.strip() or added.stdout.strip())
     commit = subprocess.run(
-        ["git", "commit", "-m", "chore: initial project from AI Agent Project Template"],
+        git_command + ["commit", "-m", "chore: initial project from AI Agent Project Template"],
         cwd=target,
         capture_output=True,
         text=True,
@@ -401,7 +413,7 @@ def git_init(target: Path, dry_run: bool) -> Optional[str]:
         errors="replace",
     )
     if commit.returncode != 0:
-        return "git commit failed (configure user.name/user.email): {}".format(
+        return "git commit failed: {}".format(
             commit.stderr.strip() or commit.stdout.strip()
         )
     return None

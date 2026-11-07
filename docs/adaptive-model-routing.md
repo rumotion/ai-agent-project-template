@@ -6,6 +6,13 @@ runtime work. It does not change the selected model, install clients or send
 project content to a new provider. Provider features and installed versions are
 separate evidence.
 
+Local feasibility follow-up: CLI 1.5.2 ran one Flash Medium writer and one Argon
+High tool-free advisor through a scripted completion checkpoint; six parent
+tests and the advisor's artifact hash passed. Settings stayed unchanged. This
+is a small experiment, not implementation of the proposed routing policy or a
+cost comparison. Native IDE file-tool/new-conversation observations also passed.
+Exact models, versions, failures and limits: [pilot receipts](recovery-pilot.md).
+
 ## What the supplied post establishes
 
 Anthropic documents a native advisor, including Haiku/Opus pairings. Consultation
@@ -41,7 +48,7 @@ establish semantic accuracy. No latency or savings figure is adopted here.
 | Codex CLI / custom client | Custom agents accept model/effort settings; App Server supports per-turn model selection | Use a read-only advisor child, or separate advisor thread and resume the worker after a checked result. Verify the actual runtime model; names alone are not evidence. |
 | Codex IDE surface | Subagent activity is documented across the app, CLI and IDE | Prefer native roles when exposed. A repository cannot grant a missing model-selection parameter or control an unrelated active session. |
 | Gemini CLI | Model routing and per-subagent model configuration | A Flash-class worker with a stronger reviewer is feasible. Verify the installed 0.52.0 route separately; current documentation is not a native receipt. |
-| Antigravity App / IDE | Custom subagents document model tiers `inherit`, `flash`, `pro` | This can provide a fast worker and stronger advisor without replacing the main chat model. Tier names are not a promise of any exact Gemini version. Native App/Gemini acceptance remains pending. |
+| Antigravity App / IDE | Custom subagents document model tiers `inherit`, `flash`, `pro` | This can provide a fast worker and stronger advisor without replacing the main chat model. Tier names are not a promise of any exact Gemini version. Native IDE file tools/new conversation passed with UI-selected Argon High; native subagent routing and standalone App remain unverified. |
 | Antigravity CLI / SDK | Session model flags, subagents, SDK and ACP | A CLI/SDK coordinator can select separate roles. ACP lets compatible editors host the agent; it does not automatically implement this routing policy. The CLI currently reports 1.5.2; historical 1.1.8 receipts remain historical. |
 | One workflow across vendors | Separate provider adapters | Feasible through an external coordinator. Subscription authentication, model availability and data boundaries remain per-provider. No subscription is assumed interchangeable with API credit. |
 

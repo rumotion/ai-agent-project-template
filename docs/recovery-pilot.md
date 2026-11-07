@@ -1,7 +1,67 @@
 # Recovery evidence and native pilot
 
-Verification date: 2026-11-06. The following evidence levels are deliberately
+Latest follow-up: 2026-11-07; historical observations retain their dates below.
+The following evidence levels are deliberately
 separate. No test establishes universal model reliability or a token-saving claim.
+
+## Native IDE/Gemini file tools and fresh conversation - 2026-11-07
+
+After manual user approval of the disposable workspace, the installed Windows
+Antigravity IDE manifest 1.107.0, commit
+`9e3a5da5d6731effd57d47d88bbe5df14ac6ccdd`, displayed Gemini 4 Argon High.
+The user confirmed trust; automation did not approve a security request. An
+initial capture mismatch was corrected by activating the exact fixture window.
+An off-screen details click was rejected; fresh observation and scrolling
+recovered the target before further input.
+
+Two distinct native conversations passed saved-event replay against source
+`6b44740c029398480933be6296183b5051690798`; the four hook artifact hashes match
+the current template. The first made seven read_file and two write_file calls:
+exact decision/next-action read-back, PNG read with a native media result, exact
+note-marker write and one sensitive-path attempt. Its actual native error was
+`tool call denied by pre-tool hook: Access to a sensitive path is denied by repository policy.`
+The inert file remained absent. One normalized private audit names the benign
+write; it contains neither note contents nor the absolute project path.
+
+The coordinator then stored a new fact/example and next-action marker, absent
+from both user prompts. A fresh conversation performed six native reads and
+returned both full record bodies, the new next action and the example's lack of
+implementation authority. No write or other tool ran in that second conversation.
+Original framework/record bodies were unchanged; fixture handoff and new record
+changes belonged to the coordinator. All seven compiler renderers remained valid.
+
+Retained fixture-setup mistakes: example category with decision type was refused;
+a space in the documented ID1,ID2 field was refused. Corrected data used the
+existing fact/example and no-space contracts without weakening validators.
+The first replay incorrectly compared JSON-encoded native argument strings as
+decoded paths; offline decoding corrected the comparison without another model
+call. Raw synthetic traces and unique markers remain private outside Git.
+
+Scope: native file tools and a new conversation within the existing IDE process.
+The saved transcript does not expose an independent serving-model ID; the UI
+selection is the observed model label. Terminal/directory listing, cold app or
+backend restart, compaction, other models and the standalone App are unverified.
+The test explicitly prohibited shell execution through UI automation. These
+results supersede the earlier inconclusive IDE inspection only for this scope;
+they do not certify the current downstream project/process or containment.
+
+## Fast worker plus strong CLI advisor feasibility - 2026-11-07
+
+Installed CLI 1.5.2 exposed the chosen models. One isolated synthetic task used
+`gemini-3.8-flash-medium` as the sole writer, then `gemini-4-argon-high` as a
+tool-free advisor. Each native stream's init model matched its explicit session
+selection. The baseline failed; six parent-run tests passed after the worker's
+single batches.py write, including invalid inputs and large-integer boundaries.
+Tests and hook sources stayed unchanged. The worker requested completion review;
+the coordinator supplied a frozen source/test packet, and the advisor accepted
+the exact artifact hash. It ran zero tools and changed zero files. CLI settings
+bytes were unchanged. No production router was activated.
+
+This proves a scripted completion checkpoint on one task, not automatic
+difficulty classification, the full three-trigger policy, native Claude advisor
+support or savings. It is a bounded experiment before implementing the offline
+policy package. See [architecture](adaptive-model-routing.md). Matched strong-only,
+fast-only and advised comparisons remain unmeasured.
 
 ## Deterministic recovery gate
 

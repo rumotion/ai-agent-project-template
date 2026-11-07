@@ -1,5 +1,15 @@
 # Progress
 
+## Native follow-up acceptance - 2026-11-07
+
+- IDE 1.107.0 with UI-selected Gemini 4 Argon High passed native file reads/PNG,
+  exact write/private audit, canonical denial and a fresh qualified-record recall.
+- CLI 1.5.2 Flash Medium -> Argon High scripted completion review passed; six
+  parent tests, preserved hooks/tests and zero advisor tools/writes. No globals
+  changed, automatic router activated or provider savings inferred.
+- Terminal/cold restart/compaction, standalone App, offline policy and matched
+  efficiency remain open. Details and retained corrections: recovery-pilot.md.
+
 ## Follow-up packages - 2026-11-07
 
 - Native App/Gemini fixture prepared; awaiting manual workspace trust.

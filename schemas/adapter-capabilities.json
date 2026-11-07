@@ -167,7 +167,7 @@
     },
     {
       "client": "antigravity",
-      "version": "1.1.8",
+      "version": "1.107.0",
       "config": ".agents/hooks.json",
       "status": "live-smoke-partial",
       "live_evidence": "docs/recovery-pilot.md",
@@ -184,17 +184,18 @@
       "payload_extractor": "scripts/hooks/shell_events.py",
       "denial_format": "decision:deny",
       "fixture": null,
-      "observed_at": "2026-11-06",
-      "source_revision": "516e0e615f89e99fc160d9917009899ebb783b42",
+      "observed_at": "2026-11-07",
+      "source_revision": "6b44740c029398480933be6296183b5051690798",
       "live_checks": [
-        "Windows CLI with explicit Claude Sonnet pin: literal listing, exact text and PNG read, benign write",
-        "Native pre-tool sensitive Path denial; inert file absent; normalized private root write audit",
-        "write_file and legacy aliases preserved; CLI settings unchanged; failed baseline retained"
+        "Historical CLI 1.1.8/Claude Sonnet: literal listing, text/PNG, benign write/audit and sensitive Path denial",
+        "IDE 1.107.0, UI-selected Gemini 4 Argon High: seven reads, PNG media, exact write/private audit and canonical denial",
+        "Distinct IDE conversation: six reads restore fresh full bodies/next action; example not promoted; no writes",
+        "CLI 1.5.2: Flash Medium writer and tool-free Argon High advisor; six parent tests and exact artifact hash passed"
       ],
       "unverified_checks": [
-        "App/Gemini and IDE orchestration; other model/tool routes",
-        "Native publishing denial and default terminal CWD",
-        "External containment and provider efficiency"
+        "Independent IDE serving-model ID; cold app/backend restart, compaction, other model routes and standalone App",
+        "IDE terminal/directory listing, native publishing denial and default terminal CWD",
+        "Production adaptive routing, matched provider savings and external containment"
       ]
     }
   ]

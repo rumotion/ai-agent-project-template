@@ -1,5 +1,18 @@
 # Active Context
 
+## Native IDE and CLI advisor pilot - 2026-11-07
+
+- User granted fixture trust manually. Native IDE file-tool denial/audit and a
+  distinct conversation's fresh full-body/example/next-action recovery passed.
+  UI model: Gemini 4 Argon High; serving ID absent from trace. No cold-restart,
+  terminal, compaction, standalone App or universal native claim.
+- CLI 1.5.2 Flash Medium fixed one synthetic file; Argon High reviewed the frozen
+  artifact with zero tools/writes. Six parent tests passed; settings unchanged.
+  Scripted completion checkpoint only; no production router or savings claim.
+- Reports: docs/recovery-pilot.md and docs/continuity-followup-plan.md. Raw own
+  traces/setup corrections remain private; no household data used. Next: offline
+  routing policy, then separately bounded native/paired trials. Pacing OFF.
+
 ## Native follow-up and adaptive routing - 2026-11-07
 
 - App/Gemini fixture is open in installed Antigravity IDE; manual folder trust

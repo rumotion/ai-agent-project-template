@@ -1,30 +1,14 @@
 # Memory Bank Index
 
-Use this file only to choose what to read next. Start with `startup.md`; lazy-load everything else.
+Read startup.md first; on resume read handoff.md. Load only what the task needs.
 
-| File | Use when |
-|---|---|
-| `startup.md` | Every task; tiny current snapshot |
-| `handoff.md` | Resuming work, switching models, or pausing |
-| `reminders.md` | New phase / pre-deploy / model switch (prospective memory) |
-| `projectbrief.md` | Goals, users, scope, constraints |
-| `activeContext.md` | Current task/branch details |
-| `progress.md` | Done/next/known issues |
-| `systemPatterns.md` | Architecture, modules, boundaries |
-| `techContext.md` | Stack, commands, tooling |
-| `productContext.md` | Product/UX/domain requirements |
-| `userPreferences.md` | User communication style, habits, and workflow quirks |
-| `decisions.md` | Important decisions and rationale |
-| `risks.md` | Security, migration, performance risks |
-| `records/` | Typed records compiled by `scripts/ctx.py` |
-| `glossary.md` | Domain terms |
-| `model-routing.md` | Agent/model/provider setup |
-| `../docs/agent-loop.md` | Execution rules: budgets, errors, phase summary |
-| `../docs/hooks.md` | Claude Code hooks for memory automation |
-| `../docs/toolbox.md` | Optional power-ups (Graphify, Prompts, etc.) |
-| `../docs/context-hygiene.md` | Slow or "dumb" session triage |
-| `../docs/third-party-integrations.md` | Optional plugins and MCP configs |
-| `../graphify-out/GRAPH_REPORT.md` | (Optional) Graphify knowledge graph summary |
+- Scope: projectbrief.md, productContext.md, userPreferences.md.
+- Current work: activeContext.md, progress.md, reminders.md.
+- Engineering: systemPatterns.md, techContext.md, model-routing.md.
+- Evidence: decisions.md, risks.md, records/; terms: glossary.md.
+- Execution: ../docs/agent-loop.md; hooks: ../docs/hooks.md.
+- Tools: ../docs/toolbox.md, ../docs/third-party-integrations.md.
+- Context: ../docs/context-hygiene.md.
+- Optional graph: ../graphify-out/GRAPH_REPORT.md.
 
-
-Update only files whose facts changed. Keep entries concise; link to `docs/` for detail.
+Keep updates scoped to changed facts.

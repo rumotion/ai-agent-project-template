@@ -42,6 +42,8 @@ STANDARD_WORKFLOWS = [
     "spec-driven-development.md",
     "self-evaluate.md",
     "upgrade-project.md",
+    "bootstrap-context.md",
+    "drift-report.md",
 ]
 
 STANDARD_SKILLS += [Path(name).stem for name in STANDARD_WORKFLOWS]
@@ -162,6 +164,7 @@ STANDARD_BENCHMARKS = [
 STANDARD_DOCS = [
     "assets/LLM_PROJECT_HARNESS.md",
     "docs/prompts.md",
+    "docs/peanuts-and-hay.md",
     "workflows/build-graph.md",
     "workflows/calibrate.md",
     "workflows/critic-review.md",

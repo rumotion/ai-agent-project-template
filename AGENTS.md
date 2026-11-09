@@ -59,7 +59,7 @@ Start in `FAST_INIT`. Escalate only when required facts cannot be verified from 
 - Keep Memory Bank updates concise and operational.
 - Do not re-read files already read in the current task unless they changed.
 - **HARD RULE — anything the user sends under their own name must read as human-written.** Apply `.agents/skills/human-voice-drafting/SKILL.md`; repo files are exempt.
-- **Proactive Tool Suggestion:** If codebase is too large for standard file search, suggest Graphify (`workflows/build-graph.md`). If frequent style corrections occur, suggest Calibration (`workflows/calibrate.md`).
+- **Proactive Tool Suggestion:** If codebase is too large for standard file search, suggest Graphify (`workflows/build-graph.md`) or Peanuts & Hay contracts (`workflows/bootstrap-context.md`). If frequent style corrections occur, suggest Calibration (`workflows/calibrate.md`).
 
 ## Engineering and execution
 
@@ -80,6 +80,7 @@ If asked to maximize tokens/quota or pace agents, read `docs/usage-pacing.md`. E
 
 - Agent execution loop (budgets, errors, phase summary): `docs/agent-loop.md`
 - Subagent delegation contract: `docs/subagent-contract.md`
+- Codebase contracts & drift (Peanuts & Hay / EGM): `docs/peanuts-and-hay.md`, `workflows/drift-report.md`
 - Prompts: `docs/prompts.md`
 - Antigravity/Cline master setup: `docs/antigravity-master-prompt.md`
 - Skills/plugins: `docs/agent-skill-ecosystem.md`

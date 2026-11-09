@@ -12,10 +12,11 @@ their canonical source with SHA-256 so an adapter cannot silently drift.
 
 Each skill lives in a named directory with a `SKILL.md` entry point. Keep the
 YAML front matter valid and limited to the portable `name` and `description`
-fields; put operational instructions in the Markdown body. Load only the
-selected `SKILL.md` first, then follow links to scripts, references, or assets
-only when the active task requires them. This progressive disclosure keeps
-normal startup context small while preserving richer, task-specific guidance.
+fields; keep the instruction body within the 24,000-byte cross-client load limit
+(enforced by `scripts/check-template.py`). Load only the selected `SKILL.md`
+first, then follow links to scripts, references, or assets only when the active
+task requires them. This progressive disclosure keeps normal startup context
+small while preserving richer, task-specific guidance.
 
 ## Selection rule
 
@@ -36,10 +37,10 @@ Add skills/plugins only when they clearly:
 ## Useful patterns
 
 - **Skill creator/factory:** turn repeatable SOPs into small auditable skills.
-- **Skill chaining:** break workflows into atomic skills and chain them sequentially (for example, `project-planner` -> `karpathy-engineer` -> `code-reviewer`).
-- **Senior-dev workflow:** plan, test, implement, review, and verify instead of rushing code.
-- **Clean context execution:** use subagents or isolated contexts for broad research/risky work when supported.
-- **Review gates:** run local review for normal changes and stronger review for auth, payments, migrations, security, or large refactors.
+- **Skill chaining:** break workflows into atomic skills and chain them sequentially (for example, `project-planner` -> `karpathy-engineer` -> `code-reviewer` -> `drift-report`).
+- **Elephant-Goldfish separation:** draft specifications and code with full project context ("Elephant"), then verify them in a fresh read-only subagent session ("Goldfish") using `workflows/critic-review.md` and `docs/reviewer-role.md`.
+- **Peanuts & Hay context hierarchy:** use `bootstrap-context` (`docs/peanuts-and-hay.md`) to maintain bottom-up module contracts so agents can navigate codebases in 1-2 reads without loading raw source files.
+- **Drift auditing:** run `drift-report` (`workflows/drift-report.md`) to detect silent divergence between specifications/Memory Bank contracts and actual source code.
 - **Context hygiene:** summarize noisy tool output; keep raw logs out of the main context.
 - **Durable memory:** store concise decisions and project facts; retrieve only what is relevant.
 - **Design polish:** use frontend/design skills only for UI or visual deliverables.
@@ -65,17 +66,18 @@ Add skills/plugins only when they clearly:
 - `storm-research` — 4-phase adversarial multi-perspective research briefing with verified citations and HTML deliverable
 - `usage-pacing` — explicit-request quota planning; activation requires separate human confirmation
 
-The ten canonical `workflows/*.md` also have thin skill entry points using
-their workflow names. These preserve current Antigravity slash discovery
-after its October 19, 2026 workflow migration; they link to the original
-procedures instead of duplicating them. `gen-adapters.py` maintains their
-Claude/Cline mirrors. Existing legacy workflow mirrors remain for older clients.
-The upgrader refuses before writing if one of these newly reserved names (or
-`usage-pacing`) collides with differing custom skill content. Resolve the
-naming conflict deliberately; custom project instructions must be preserved.
-[Google migration guide](https://antigravity.google/docs/migration/workflows-to-skills/).
+The twelve canonical `workflows/*.md` (including `bootstrap-context` and
+`drift-report`) also have thin skill entry points using their workflow names.
+These preserve current Antigravity slash discovery after its October 19, 2026
+workflow migration; they link to the original procedures instead of duplicating
+them. `gen-adapters.py` maintains their Claude/Cline mirrors. Existing legacy
+workflow mirrors remain for older clients. The upgrader refuses before writing
+if one of these reserved names collides with differing custom skill content.
+Resolve the naming conflict deliberately; custom project instructions must be
+preserved. [Google migration guide](https://antigravity.google/docs/migration/workflows-to-skills/).
 
 
 ## Recommended third-party integrations
 
 - **Graphify**: `uv tool install graphifyy && graphify .` for generating a structural knowledge graph of the codebase (`GRAPH_REPORT.md`).
+- **Elephant-Goldfish Model (EGM)**: core mechanisms (`Paraphrase-First`, `Zero-Decision Rule`, `Zoom-Out Reuse Check`, `Peanuts & Hay`, and `Drift Report`) are built into this template; the upstream plugin is available at `https://github.com/google/elephant-goldfish-model`.

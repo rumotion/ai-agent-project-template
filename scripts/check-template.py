@@ -72,6 +72,7 @@ REQUIRED_FILES = [
     "schemas/context-record.schema.json",
     "docs/continuity.md",
     "docs/context-compiler.md",
+    "docs/peanuts-and-hay.md",
     "docs/reviewer-role.md",
     "docs/context-memory-bridges.md",
     "docs/protocol-watch.md",
@@ -122,6 +123,8 @@ REQUIRED_FILES = [
     ".agents/skills/local-media-transcription/SKILL.md",
     ".agents/skills/sharepoint-teams-video-transcript-downloader/SKILL.md",
     ".agents/skills/storm-research/SKILL.md",
+    ".agents/skills/bootstrap-context/SKILL.md",
+    ".agents/skills/drift-report/SKILL.md",
     ".claude/skills/project-planner/SKILL.md",
     ".claude/skills/karpathy-engineer/SKILL.md",
     ".claude/skills/code-reviewer/SKILL.md",
@@ -133,6 +136,8 @@ REQUIRED_FILES = [
     ".claude/skills/local-media-transcription/SKILL.md",
     ".claude/skills/sharepoint-teams-video-transcript-downloader/SKILL.md",
     ".claude/skills/storm-research/SKILL.md",
+    ".claude/skills/bootstrap-context/SKILL.md",
+    ".claude/skills/drift-report/SKILL.md",
     ".cline/skills/project-planner/SKILL.md",
     ".cline/skills/karpathy-engineer/SKILL.md",
     ".cline/skills/code-reviewer/SKILL.md",
@@ -144,6 +149,8 @@ REQUIRED_FILES = [
     ".cline/skills/local-media-transcription/SKILL.md",
     ".cline/skills/sharepoint-teams-video-transcript-downloader/SKILL.md",
     ".cline/skills/storm-research/SKILL.md",
+    ".cline/skills/bootstrap-context/SKILL.md",
+    ".cline/skills/drift-report/SKILL.md",
 
     "workflows/plan-task.md",
     "workflows/handoff.md",
@@ -152,6 +159,8 @@ REQUIRED_FILES = [
     "workflows/pre-edit-check.md",
     "workflows/spec-driven-development.md",
     "workflows/self-evaluate.md",
+    "workflows/bootstrap-context.md",
+    "workflows/drift-report.md",
     ".agents/workflows/plan-task.md",
     ".agents/workflows/implement-task.md",
     ".agents/workflows/debug-issue.md",
@@ -161,6 +170,8 @@ REQUIRED_FILES = [
     ".agents/workflows/pre-edit-check.md",
     ".agents/workflows/spec-driven-development.md",
     ".agents/workflows/self-evaluate.md",
+    ".agents/workflows/bootstrap-context.md",
+    ".agents/workflows/drift-report.md",
     ".clinerules/workflows/plan-task.md",
     ".clinerules/workflows/implement-task.md",
     ".clinerules/workflows/debug-issue.md",
@@ -170,6 +181,8 @@ REQUIRED_FILES = [
     ".clinerules/workflows/pre-edit-check.md",
     ".clinerules/workflows/spec-driven-development.md",
     ".clinerules/workflows/self-evaluate.md",
+    ".clinerules/workflows/bootstrap-context.md",
+    ".clinerules/workflows/drift-report.md",
     "scripts/hooks/log-writes.py",
     "scripts/hooks/guard-sensitive-paths.py",
     "scripts/hooks/verify-fixtures.py",
@@ -294,6 +307,8 @@ WORKFLOW_FILES = [
     "spec-driven-development.md",
     "self-evaluate.md",
     "upgrade-project.md",
+    "bootstrap-context.md",
+    "drift-report.md",
 ]
 
 SKILL_CANONICAL = ".agents/skills"
@@ -315,6 +330,7 @@ SKILL_NAMES = [
 
 
 FAST_INIT_MAX_CHARS = 9_500
+SKILL_MAX_BYTES = 24_000
 SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LAST_VERIFIED_RE = re.compile(r"(?m)^last_verified:\s*\d{4}-\d{2}-\d{2}\s*$")
 REVIEWER_MARKER = "reviewer-contract: v1"
@@ -527,6 +543,10 @@ def check_skill_schema() -> list[str]:
             findings.append(f"{rel}: description must be 1-1024 characters")
         if not body:
             findings.append(f"{rel}: instruction body is empty")
+        elif len(body.encode("utf-8")) > SKILL_MAX_BYTES:
+            findings.append(
+                f"{rel}: instruction body exceeds {SKILL_MAX_BYTES}-byte load limit"
+            )
     return findings
 
 
@@ -572,6 +592,7 @@ def check_reviewer_contract() -> list[str]:
             "reviewer_contract: v1",
             "read-only",
             "frozen artifact",
+            "paraphrase:",
             "severity:",
             "location:",
             "evidence:",

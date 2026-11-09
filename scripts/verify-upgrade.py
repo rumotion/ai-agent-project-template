@@ -137,7 +137,11 @@ class UpgradeTests(unittest.TestCase):
     def test_inventory_includes_referenced_framework_dependencies(self):
         candidates = upgrade.candidates_from(upgrade.TEMPLATE_ROOT)
         for relative in ("scripts/transcribe_local_large_v3.py", "assets/LLM_PROJECT_HARNESS.md",
-                         "docs/prompts.md", "workflows/build-graph.md", "workflows/calibrate.md"):
+                         "docs/prompts.md", "docs/peanuts-and-hay.md", "workflows/build-graph.md",
+                         "workflows/calibrate.md", "workflows/bootstrap-context.md",
+                         "workflows/drift-report.md", ".agents/skills/bootstrap-context/SKILL.md",
+                         ".claude/skills/bootstrap-context/SKILL.md", ".agents/skills/drift-report/SKILL.md",
+                         ".claude/skills/drift-report/SKILL.md"):
             self.assertIn(relative, candidates)
 
     def test_backup_inside_target_is_rejected_before_writing(self):

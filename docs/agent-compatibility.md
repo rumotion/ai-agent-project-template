@@ -1,5 +1,5 @@
 ---
-last_verified: 2026-09-05
+last_verified: 2026-11-09
 ---
 
 # Gemini, Codex, and Claude Compatibility
@@ -14,8 +14,9 @@ fork:
 
 - `AGENTS.md` for repository rules
 - `memory-bank/` for durable shared context
-- `workflows/` for on-demand procedures
-- `.agents/skills/*/SKILL.md` as the canonical skill source
+- `workflows/` for on-demand procedures (including `bootstrap-context`, `drift-report`, `critic-review`, and `spec-driven-development`)
+- `.agents/skills/*/SKILL.md` as the canonical skill source (capped at 24,000 UTF-8 body bytes per skill for cross-client compatibility)
+- `docs/peanuts-and-hay.md` and `docs/reviewer-role.md` for module contracts and zero-context ("Goldfish") review
 - `.mcp/` as documentation and logical MCP starter examples
 
 Native adapters only expose that core through a client's discovery or
@@ -25,7 +26,7 @@ below is not necessarily shipped or enabled; see the Status row.
 Current interoperability statuses and adoption gates are tracked separately in
 `docs/protocol-watch.md`; no protocol runtime is installed by the template.
 
-### Current Google surface — documentation checked 2026-10-26
+### Current Google surface — documentation checked 2026-11-09
 
 The matrix below describes the shipped **legacy Gemini CLI** adapter, not a
 certified current Antigravity hook integration. Antigravity App/CLI/IDE have
@@ -38,12 +39,12 @@ gaps are documented in [the October review](ai-market-review-2026-10.md),
 
 ## Compatibility matrix
 
-| Capability | Gemini CLI | Codex | Claude Code |
+| Capability | Gemini CLI / Antigravity | Codex | Claude Code |
 |---|---|---|---|
-| Instructions | `GEMINI.md` imports `@AGENTS.md` | Reads root `AGENTS.md` natively | `CLAUDE.md` imports `@AGENTS.md` |
+| Instructions | `GEMINI.md` imports `@AGENTS.md` | Reads root `AGENTS.md` natively (`.codex/AGENTS.md` pointer also ships) | `CLAUDE.md` imports `@AGENTS.md` |
 | Project skills | `.agents/skills/<name>/SKILL.md` alias | `.agents/skills/<name>/SKILL.md` | `.claude/skills/<name>/SKILL.md` mirror |
 | Project MCP | `.gemini/settings.json`, `mcpServers` | `.codex/config.toml`, `[mcp_servers.<name>]` | Root `.mcp.json`, `mcpServers` |
-| Project hooks (client-native) | `.gemini/settings.example.json` (inactive example) | `.codex/hooks.example.json` (inactive example) | `.claude/settings.json` (active) |
+| Project hooks (client-native) | `.gemini/settings.example.json` (inactive example); `.agents/hooks.json` for Antigravity | `.codex/hooks.example.json` (inactive example) | `.claude/settings.json` (active) |
 | Project subagents | `.gemini/agents/reviewer.md` | `.codex/agents/reviewer.toml` | `.claude/agents/reviewer.md` |
 | Reviewer restriction | Read/search tool allowlist | `sandbox_mode = "read-only"` | Read/search tool allowlist plus `permissionMode: plan` |
 | Status in this template | Instructions, canonical skills, and one reviewer adapter ship; MCP and hooks have inactive native examples | Instructions, canonical skills, and one reviewer adapter ship; MCP and hooks have inactive native examples | Instructions, skill mirrors, one reviewer adapter, and active sensitive-path/write-log hooks ship; MCP is opt-in (no active config) |
@@ -55,16 +56,18 @@ Important distinctions:
   the repository-boundary hooks. Opt in per client via `.mcp/README.md`.
 - `.mcp/` contains reusable documentation and examples; clients do not load
   that directory automatically.
-- `.agents/skills` is canonical. Claude's `.claude/skills` copies are
-  SHA-256-validated mirrors, not a second source of truth.
+- `.agents/skills` is canonical. Claude's `.claude/skills` and Cline's
+  `.cline/skills` copies are SHA-256-validated mirrors, not a second source of
+  truth.
 - Hook event names and payloads differ by client. Shared hook behavior may be
   implemented in portable scripts, but each client still needs a native
   mapping.
 - Native subagent definitions are optional adapters. Durable project rules
   remain in `AGENTS.md`, not in provider-specific agent files.
 - `docs/reviewer-role.md` is the canonical contract for the only shipped
-  specialist role. Validator checks prove structure and restrictions are
-  declared; they do not prove runtime behavior.
+  specialist role (including the Paraphrase-First and Zoom-Out Reuse checks).
+  Validator checks prove structure and restrictions are declared; they do not
+  prove runtime behavior.
 - Shared scripts normalize the portable behavior, while native files retain
   each client's verified event names, matcher shape, and denial response.
 - Gemini and Codex examples are opt-in. Copying an example to its active native
@@ -85,7 +88,8 @@ gemini
 ```
 
 Confirm that `/memory show` includes the imported root `AGENTS.md` content and
-that `/skills list` discovers `.agents/skills`.
+that `/skills list` discovers `.agents/skills` (including `bootstrap-context`
+and `drift-report`).
 
 ### Codex
 
@@ -97,7 +101,7 @@ Summarize the active repository instructions and name their source file.
 ```
 
 Confirm that Codex names root `AGENTS.md` and discovers the project skills from
-`.agents/skills`.
+`.agents/skills` (including `bootstrap-context` and `drift-report`).
 
 ### Claude Code
 
@@ -109,15 +113,17 @@ claude
 ```
 
 Confirm that `/context` shows `CLAUDE.md` and its `AGENTS.md` import, `/skills`
-shows the `.claude/skills` mirrors, and `/mcp` shows only the servers you
-have deliberately opted into (none ship by default).
+shows the `.claude/skills` mirrors (including `bootstrap-context` and
+`drift-report`), and `/mcp` shows only the servers you have deliberately opted
+into (none ship by default).
 
 ### Reviewer pilot status
 
 The shared frozen-diff pilot is pending for Gemini, Codex, and Claude. No model
 session is launched by validation or CI. When a maintainer runs a pilot, record
-whether the reviewer found the correctness defect, ignored the harmless style
-issue, preserved the worktree, and followed `docs/reviewer-role.md`.
+whether the reviewer produced the `paraphrase:` block, found the correctness
+defect, ignored the harmless style issue, preserved the worktree, and followed
+`docs/reviewer-role.md`.
 
 ## Additional agents (verified 2026-09-05)
 

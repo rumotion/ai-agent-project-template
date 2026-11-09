@@ -2,6 +2,18 @@
 
 Record important project decisions here.
 
+### 2026-11-09 — Integrate Elephant-Goldfish Model (EGM) context contracts, review gates, and drift auditing
+
+Status: Accepted
+
+Context: Google released `google/elephant-goldfish-model` (EGM), separating deep-context specification authoring ("Elephant") from zero-context subagent review ("Goldfish") and introducing bottom-up directory contracts ("Peanuts & Hay"), paraphrase-first comprehension checks, the Zero-Decision Rule, spec-to-code drift detection, and skill body load-limit tests.
+
+Decision: Integrate EGM's core architectural mechanisms natively into the template across Gemini/Antigravity, Claude Code, Codex, and Cline: (1) `docs/peanuts-and-hay.md` and `workflows/bootstrap-context.md` (`bootstrap-context` skill) for bottom-up module contracts; (2) `workflows/drift-report.md` (`drift-report` skill) for doc/contract-to-code divergence auditing; (3) `Paraphrase-First` (`paraphrase:`) and `Zoom-Out` reuse search in `docs/reviewer-role.md` and `workflows/critic-review.md`; (4) the `Zero-Decision Rule` and persistent `Open Questions` in `workflows/spec-driven-development.md` and `workflows/plan-task.md`; (5) the `Contradiction Gate` in `.agents/rules/30-cognitive-harness.md`; and (6) a 24,000-byte skill body cap and `paraphrase:` contract assertion in `scripts/check-template.py`.
+
+Consequences: Agents can bootstrap compact module maps without bloating `FAST_INIT`, catch unstated conversational assumptions via paraphrase-first zero-context reviews, detect documentation drift systematically, and guarantee skill body compatibility across all three primary platforms.
+
+Related files: `AGENTS.md`, `memory-bank/00-index.md`, `docs/peanuts-and-hay.md`, `docs/reviewer-role.md`, `workflows/bootstrap-context.md`, `workflows/drift-report.md`, `workflows/critic-review.md`, `workflows/spec-driven-development.md`, `workflows/plan-task.md`, `.agents/rules/30-cognitive-harness.md`, `scripts/check-template.py`, `scripts/upgrade-target.py`
+
 ### 2026-08-20 — Build Automated Target Project Upgrader tool and modernize Spec-Driven Development (SDD)
 
 Status: Accepted

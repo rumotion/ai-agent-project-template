@@ -1,5 +1,14 @@
 # Active Context
 
+## Phase summary: Elephant-Goldfish Model (EGM) integration - 2026-11-09
+
+- Outcome: COMPLETE locally across Gemini/Antigravity, Claude Code, Codex, and Cline surfaces.
+- Key decisions: Adopted six high-signal EGM mechanisms (`Peanuts & Hay` bottom-up module contracts, `Paraphrase-First` comprehension gate, `Zero-Decision Rule` for plans/specs, `Zoom-Out` mandatory codebase reuse search, `Contradiction Gate` in cognitive harness, `drift-report` workflow, and 24,000-byte skill body cap) natively into the template without external plugin dependencies.
+- Refuted hypotheses: Expanding `.agents/rules/30-cognitive-harness.md` with verbose prose would fit the 1,800-char budget (measured 1,820 chars; tightened to 1,731 chars).
+- Files modified: `AGENTS.md`, `memory-bank/00-index.md`, `docs/peanuts-and-hay.md`, `docs/reviewer-role.md`, `docs/agent-skill-ecosystem.md`, `docs/agent-compatibility.md`, `workflows/critic-review.md`, `workflows/spec-driven-development.md`, `workflows/plan-task.md`, `workflows/bootstrap-context.md`, `workflows/drift-report.md`, `.agents/rules/30-cognitive-harness.md`, skill/workflow mirrors across `.agents/`, `.claude/`, `.cline/`, `.clinerules/`, `scripts/check-template.py`, `scripts/upgrade-target.py`, `scripts/verify-upgrade.py`.
+- Open items: Live interactive verification in Claude Code and Codex CLI sessions.
+- Next: Run the Claude Code and Codex verification prompts; keep repository local-only until publication is requested. Pacing OFF.
+
 ## v1.3.1 publication complete - 2026-11-09
 
 - Published `main` and annotated tag `v1.3.1` at `e5e0c17` and set `v1.3.1` as

@@ -22,12 +22,27 @@ finding. Treat the repository as read-only:
 
 ## Review priorities
 
+Before listing findings on a specification, plan, architecture doc, or handoff
+artifact, perform a **Paraphrase-First check (`comprehension` lens)**:
+
+- State in 2-4 sentences under `paraphrase:` (a) what the artifact proposes and
+  (b) how the affected system currently works according to the artifact.
+- Evaluate with zero conversational history ("Goldfish isolation"). If a section
+  cannot be paraphrased from the frozen artifact and cited repository files
+  without guessing prior chat context, report a `high` finding.
+- When an artifact proposes a new helper, module, or abstraction, run a
+  read-only codebase search (`Zoom-Out reuse check`) to verify whether an
+  existing utility or contract already covers the need, and flag YAGNI or
+  premature low-level weeds.
+
 Look for, in order:
 
-1. correctness defects and broken requirements;
+1. correctness defects, broken requirements, and unstated assumptions exposed by
+   the paraphrase check;
 2. security, privacy, permission, and secret-handling risks;
-3. regressions and cross-component contract violations;
-4. missing or ineffective tests for changed behavior;
+3. regressions, cross-component contract violations, and missed codebase reuse;
+4. missing or ineffective tests and violations of the Zero-Decision Rule in
+   implementation plans;
 5. maintainability problems that can cause a concrete defect.
 
 Ignore style-only preferences unless they obscure behavior or hide a defect.
@@ -39,6 +54,9 @@ evidence. Do not report hidden reasoning.
 Return findings in descending severity:
 
 ```text
+paraphrase:
+  proposes: "<2-3 sentence summary of proposed change>"
+  current_system: "<2-3 sentence summary of current behavior per artifact>"
 findings:
   - severity: high | medium | low
     location: "<path:line or artifact section>"

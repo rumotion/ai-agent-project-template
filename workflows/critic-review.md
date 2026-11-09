@@ -1,22 +1,35 @@
 # Workflow: Critic Review
 
-Run a separate-context critic over an artifact (plan, code change, architecture decision, Memory Bank entry) before accepting it. Works with any model; the key is that the critic does **not** see the generator's reasoning, only the artifact + a rubric. That separation is what prevents a model from rubber-stamping its own work.
+Run a separate-context critic ("Goldfish") over a frozen artifact (plan, spec, code change, architecture decision, or Memory Bank handoff) produced by the primary context-rich session ("Elephant") before accepting it. Works across Gemini, Claude, Codex, and other clients; the key is that the critic does **not** see the generator's conversational history, only the frozen artifact + a rubric. That separation prevents confirmation bias and self-validation.
 
 ## When to use
 
 - Before merging a non-trivial change.
-- Before committing a plan for a risky or ambiguous task.
+- Before committing a plan or specification for a risky or ambiguous task.
+- Before switching models or handing off complex multi-phase work.
 - When a decision is hard to reverse (schema, public API, security-relevant code).
+
+## Review lenses (Goldfish stages)
+
+Select the smallest lens set that fits the artifact (or run all four for major specs):
+
+1. **Zoom-Out (`zoom-out`)**: Check simplicity, YAGNI, and altitude. Perform a mandatory read-only codebase search (`grep`/`rg`) to verify whether proposed helpers, modules, or abstractions duplicate existing repository utilities. Flag premature implementation details ("weeds").
+2. **Comprehension (`comprehension`)**: Paraphrase first as a naive project reader with zero chat history. Write 2-4 sentences stating *what the artifact proposes* and *how the existing system works per the artifact*. Any section that cannot be paraphrased without guessing unstated chat context is a `high` blocker.
+3. **Design & Contradiction Critic (`critic`)**: Verify that viable alternatives were evaluated with concrete trade-offs, failure modes and scale/quota risks are mitigated, and no false architectural compromise was accepted without declaring secondary operational liabilities.
+4. **Implementation Readiness (`readiness`)**: Enforce the **Zero-Decision Rule** — a fresh engineer or agent session must be able to execute the plan on the first attempt without making independent choices about schemas, API routes, dependencies, or edge cases. Confirm explicit `owned_paths` and deterministic verification commands.
 
 ## Steps
 
-1. **Freeze the artifact.** Identify exactly what is being reviewed (a diff, a file, a plan section). Do not include the chain of reasoning that produced it.
-2. **Pick the rubric.** Default dimensions: correctness, simplicity, security, matches existing style, meets the stated success criteria. For security-sensitive work, use `SECURITY.md`.
-3. **Run the critic in a fresh context.** A subagent, a second session, or a different model. Give it only the artifact + rubric + Task Envelope (`read_only: true` per `docs/subagent-contract.md`).
-4. **Require structured output matching the portable result envelope:**
+1. **Freeze the artifact.** Identify exactly what is being reviewed (a diff, a file, a plan section). Write long drafts to workspace files rather than dumping them into chat; never pass the generator's reasoning chain.
+2. **Pick the rubric and lenses.** Default dimensions: comprehension paraphrase, zoom-out reuse/YAGNI, correctness, security (`SECURITY.md` when relevant), and implementation readiness.
+3. **Run the critic in a fresh context.** Use a read-only subagent (`reviewer` adapter in `.gemini/agents/reviewer.md`, `.claude/agents/reviewer.md`, or `.codex/agents/reviewer.toml`), a second session, or a different model. Give it only the artifact + rubric + Task Envelope (`read_only: true` per `docs/subagent-contract.md`).
+4. **Require structured output matching `docs/reviewer-role.md` and the portable result envelope:**
    ```yaml
    task_id: <id>
    status: completed | partial | blocked
+   paraphrase:
+     proposes: <2-3 sentences>
+     current_system: <2-3 sentences>
    verdict: accept | revise
    findings:
      - severity: high | medium | low
@@ -41,7 +54,8 @@ verdict never substitutes for application checks. Use the smallest review that
 resolves the decision; a full multi-agent jury is an explicit optional exercise,
 not a default requirement for code changes or template upgrades.
 
-This approach is informed by [court-skill](https://github.com/alexyc9381/court-skill).
+This approach is informed by [court-skill](https://github.com/alexyc9381/court-skill)
+and [google/elephant-goldfish-model](https://github.com/google/elephant-goldfish-model).
 See the [assessment](../docs/court-skill-assessment.md) for scope and tradeoffs.
 
 ## Notes

@@ -13,11 +13,14 @@ specify -> characterization safety net -> task breakdown -> implement with falsi
 Every work package or implementation task must define:
 
 1. **Objective**: Precise description of the change and business intent.
-2. **Owned Paths**: Exact list of files/directories to be edited (exclusive ownership).
+2. **Owned Paths**: Exact list of repository-relative files/directories to be created or edited (exclusive ownership; no opportunistic adjacent edits).
 3. **Explicit Non-Goals**: Out-of-scope items, forbidden file edits, and architectural boundaries.
-4. **Acceptance Criteria**: Verifiable conditions required for completion (e.g. exit codes, API schemas).
-5. **Verification Command**: Smallest deterministic check (`pytest`, `npm test`, `check-template.py`).
-6. **Expected Report Evidence**: Observable output, diff metrics, and token/character budgets.
+4. **Alternatives & Trade-offs**: For non-trivial features, document at least one rejected alternative and the concrete technical reason it was rejected.
+5. **Zero-Decision Implementation Plan**: Precise API signatures, data/schema contracts, error handling, and edge-case behaviors. The spec fails if the implementer must guess parameter defaults or make independent architectural choices during coding.
+6. **Open Questions (Persistent)**: Unresolved technical unknowns kept in the spec across sessions so future sessions do not re-ask answered questions; remove items as they are resolved.
+7. **Acceptance Criteria**: Verifiable conditions required for completion (e.g. exit codes, API schemas).
+8. **Verification Command**: Smallest deterministic check (`pytest`, `npm test`, `check-template.py`).
+9. **Expected Report Evidence**: Observable output, diff metrics, and token/character budgets.
 
 For applicable application routes, add the environment/trigger/expected-outcome
 matrix in `docs/product-acceptance.md`. Feedback packages link the reviewed

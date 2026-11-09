@@ -6,6 +6,16 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 _Nothing yet._
 
+## v1.3.1 - 2026-11-09 - Canonicalize Windows runner path aliases in write logger
+
+### Fixed
+
+- Resolve existing ancestor paths (`resolve_path`) in `scripts/hooks/log-writes.py`
+  before comparing `cwd`, `workspace_root` and target paths, fixing `<outside-workspace>`
+  mismatches when Windows temporary directories use 8.3 short paths (`RUNNER~1`)
+  or junctions alongside resolved workspace roots.
+- Add a Windows path-alias regression in `scripts/verify-antigravity-hooks.py`.
+
 ## v1.3.0 - 2026-11-09 - Verifiable context continuity and advisor routing
 
 ### Added

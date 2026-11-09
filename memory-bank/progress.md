@@ -1,5 +1,14 @@
 # Progress
 
+## v1.3.1 hosted Windows path-alias correction - 2026-11-09
+
+- `v1.3.0` published at `772661d`; Ubuntu 24.04 CI jobs passed, while Windows
+  runners exposed 8.3 short-path (`RUNNER~1`) vs resolved `workspace_root`
+  comparisons in `scripts/hooks/log-writes.py`.
+- Fixed ancestor path canonicalization in `log-writes.py`, added a Windows
+  alias regression in `verify-antigravity-hooks.py`, and prepared `v1.3.1`.
+  Full 193-file validation and outgoing security audit pass. Pacing OFF.
+
 ## v1.3.0 release preparation - 2026-11-09
 
 - Updated `VERSION` to `1.3.0`, promoted `CHANGELOG.md`, added `docs/releases/v1.3.0.md`,

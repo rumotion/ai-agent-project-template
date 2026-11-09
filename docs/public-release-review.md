@@ -1,5 +1,22 @@
 # Public release reviews
 
+## v1.3.1 Windows runner path-alias fix — 2026-11-09
+
+Scope: `scripts/hooks/log-writes.py` ancestor path canonicalization (`resolve_path`),
+Windows path-alias regression in `scripts/verify-antigravity-hooks.py`, and
+version/release metadata promotion to `1.3.1` (`docs/releases/v1.3.1.md`).
+
+- Hosted CI run `42685239684` on `v1.3.0` (`772661d`) passed both `ubuntu-24.04`
+  jobs (`py3.9` and `py3.x`) and exposed a Windows temporary-directory 8.3
+  short-path mismatch (`RUNNER~1` vs resolved `runneradmin`) in `log-writes.py`
+  when `antigravity-dispatch.py` or `git rev-parse --show-toplevel` supplied a
+  resolved `--workspace-root` alongside an un-resolved `TEMP` event path.
+- `resolve_path` in `scripts/hooks/log-writes.py` resolves the deepest existing
+  ancestor directory before comparing `commonpath`. Existing published tag
+  `v1.3.0` remains unchanged; the correction ships as `v1.3.1`.
+- Outgoing content, commit/tag metadata and full 193-file validation pass with
+  zero sensitive findings. Optional quota pacing remains OFF.
+
 ## v1.3.0 release preparation — 2026-11-09
 
 Scope: version/changelog promotion to `1.3.0`, refreshed README and SVG hero

@@ -1,5 +1,17 @@
 # Active Context
 
+## v1.3.1 hosted Windows path-alias fix - 2026-11-09
+
+- Published `v1.3.0` at `772661d`. Hosted run `42685239684` passed both Ubuntu
+  24.04 jobs (`py3.9`/`py3.x`) and exposed a Windows 8.3 short-path alias
+  mismatch (`RUNNER~1` vs `runneradmin`) in `scripts/hooks/log-writes.py`.
+- Added `resolve_path` in `scripts/hooks/log-writes.py` to resolve the deepest
+  existing ancestor directory before `commonpath` checks, plus a Windows junction
+  alias regression in `scripts/verify-antigravity-hooks.py`.
+- Keep published tag `v1.3.0` unchanged; promoted `VERSION`, `CHANGELOG.md`,
+  `README.md`, `assets/images/hero-template.svg` and `docs/releases/v1.3.1.md`
+  to `1.3.1`. Full 193-file validation and security audit pass. Pacing OFF.
+
 ## v1.3.0 release preparation and security audit - 2026-11-09
 
 - Promoted `VERSION` and `CHANGELOG.md` to `1.3.0`; added `docs/releases/v1.3.0.md`

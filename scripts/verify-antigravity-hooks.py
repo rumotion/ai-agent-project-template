@@ -97,6 +97,15 @@ class HookPathTests(unittest.TestCase):
         self.assertTrue(all(r["tool"] == "write_file" and r["event"] == "post_tool_use" and r["path"] == "docs/note.md" and r["action"] == "write" for r in records))
         self.assertNotIn("never-log-this-body", raw)
         self.assertNotIn(str(self.root), raw)
+        self.assertNotIn(str(self.root.resolve()), raw)
+        if sys.platform == "win32":
+            alias = Path(self.temp.name) / "RUNNERTEMP~1"
+            subprocess.run(["cmd", "/c", "mklink", "/J", str(alias), str(self.root)],
+                           check=True, capture_output=True)
+            event = {"toolCall": {"name": "write_file", "args": {"Path": str(alias / "docs/note.md"), "Content": "secret"}}}
+            self.assertEqual(self.run_hook(command, alias, event), {})
+            latest = json.loads((self.root / ".agent-logs/session.jsonl").read_text(encoding="utf-8").splitlines()[-1])
+            self.assertEqual(latest["path"], "docs/note.md")
 
     def test_conflicting_path_alias_cannot_hide_sensitive_target(self):
         command = self.config["PreToolUse"][1]["hooks"][0]["command"]

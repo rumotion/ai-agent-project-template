@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.3.0: verifiable context continuity, durable task ledger, advisor model routing and safe project upgrades" width="1200" />
+  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.3.1: verifiable context continuity, durable task ledger, advisor model routing and safe project upgrades" width="1200" />
 </p>
 
 <p align="center">
@@ -125,7 +125,7 @@ You can also upgrade directly from GitHub or GitLab with a pinned ref:
 ```bash
 python scripts/upgrade-target.py --target ../existing-project \
   --source https://github.com/rumotion/ai-agent-project-template \
-  --ref v1.3.0 --dry-run
+  --ref v1.3.1 --dry-run
 ```
 
 If you modified a framework file locally, the upgrader marks it as a `conflict`
@@ -177,7 +177,7 @@ mappings from missing live-client evidence.
   hardening/recovery suites. Scoped native evidence is recorded in
   [docs/recovery-pilot.md](docs/recovery-pilot.md).
 
-Release: [v1.3.0 - Verifiable context continuity and advisor routing](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.3.0).
+Release: [v1.3.1 - Verifiable context continuity and advisor routing](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.3.1).
 
 ### Earlier improvements in v1.2
 

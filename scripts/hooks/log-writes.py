@@ -14,6 +14,7 @@ import argparse
 import datetime
 import json
 import os
+from pathlib import Path
 import re
 import sys
 from typing import Dict, List, Optional
@@ -81,6 +82,21 @@ def extract_paths(event: Dict[str, object]) -> List[str]:
     return paths
 
 
+def resolve_path(raw_path: str) -> str:
+    candidate = Path(os.path.abspath(raw_path))
+    missing: List[str] = []
+    while not candidate.exists() and candidate.parent != candidate:
+        missing.append(candidate.name)
+        candidate = candidate.parent
+    try:
+        resolved = candidate.resolve()
+    except OSError:
+        resolved = candidate
+    for part in reversed(missing):
+        resolved = resolved / part
+    return os.path.abspath(str(resolved))
+
+
 def normalize_and_redact_path(
     raw_path: Optional[str],
     cwd: str,
@@ -96,9 +112,9 @@ def normalize_and_redact_path(
         return "<sensitive-path>"
 
     try:
-        absolute_cwd = os.path.abspath(cwd)
-        absolute_root = os.path.abspath(workspace_root)
-        absolute_target = os.path.abspath(os.path.join(absolute_cwd, raw_path))
+        absolute_cwd = resolve_path(cwd)
+        absolute_root = resolve_path(workspace_root)
+        absolute_target = resolve_path(os.path.join(absolute_cwd, raw_path))
         common = os.path.commonpath([absolute_root, absolute_target])
         if os.path.normcase(common) != os.path.normcase(absolute_root):
             return "<outside-workspace>"

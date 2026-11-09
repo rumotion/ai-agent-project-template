@@ -1,5 +1,17 @@
 # Active Context
 
+## v1.3.0 release preparation and security audit - 2026-11-09
+
+- Promoted `VERSION` and `CHANGELOG.md` to `1.3.0`; added `docs/releases/v1.3.0.md`
+  and refreshed `README.md`, `assets/images/hero-template.svg` and
+  `docs/public-release-review.md`.
+- Outgoing security audit covered all 333 tracked files, 30 outgoing commits
+  since `v1.2.1` (`90509d9`) and 264+ outgoing Git blobs. Zero credentials,
+  private keys, tokens, personal paths, local file URIs, non-noreply emails or
+  Cyrillic strings found. All outgoing commits use `rumotion` GitHub no-reply.
+- Full 193-file template validation, 10 adapters, 17 context budgets, 22 skills
+  across 3 trees, and 15 hardening/recovery suites pass. Pacing remains OFF.
+
 ## Follow-up local closeout - 2026-11-07
 
 - R1 policy integrated with native Flash writer/Argon advisor: six parent tests,

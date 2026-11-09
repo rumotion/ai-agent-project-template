@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.2.1: upgrade existing projects from GitHub or GitLab with preserved customizations and verified workflows" width="1200" />
+  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.3.0: verifiable context continuity, durable task ledger, advisor model routing and safe project upgrades" width="1200" />
 </p>
 
 <p align="center">
@@ -10,13 +10,16 @@
 
 # AI Agent Project Template
 
-A starter repository for software projects built with AI coding agents. Keep
-instructions in one place, carry project context between sessions, and verify
-changes with dependency-free tooling.
+A starter repository and upgrade framework for software projects built with AI
+coding agents (Claude Code, OpenAI Codex, Google Gemini / Antigravity, Cline,
+Cursor, Copilot, Windsurf, and Aider). Keep instructions in one canonical file,
+carry verified project context across sessions and models, and upgrade existing
+projects safely with dependency-free Python standard-library tooling.
 
-[Quick start](#quick-start) | [What is included](#what-is-included) |
-[What changed in v1.2](#what-changed-in-v12) | [Verification](#verification) |
-[Documentation](#documentation) | [Releases](https://github.com/rumotion/ai-agent-project-template/releases)
+[How to use](#quick-start) | [Upgrade existing projects](#upgrade-an-existing-project) |
+[What is included](#what-is-included) | [What changed in v1.3](#what-changed-in-v13) |
+[Verification](#verification) | [Documentation](#documentation) |
+[Releases](https://github.com/rumotion/ai-agent-project-template/releases)
 
 [![Validate template](https://github.com/rumotion/ai-agent-project-template/actions/workflows/validate.yml/badge.svg)](https://github.com/rumotion/ai-agent-project-template/actions/workflows/validate.yml)
 [![Python standard library](https://img.shields.io/badge/Tooling-Python_standard_library-3776ab)](scripts/README.md)
@@ -24,13 +27,13 @@ changes with dependency-free tooling.
 
 ## Quick start
 
-**Requirements:** Python 3.9 or newer and Git. Configure your Git name and email
-before creating the initial project commit. Template validation needs no package
-installation; your application will have its own dependencies.
+**Requirements:** Python 3.9 or newer and Git. Template scripts use the Python
+standard library only and need no package installation.
 
-### Create a separate local project
+### 1. Create a new local project
 
-From a local copy of this template:
+From a local clone of this template, bootstrap a clean project in a separate
+directory:
 
 ```bash
 python scripts/new-project.py ../my-project --name "My Project"
@@ -38,31 +41,96 @@ cd ../my-project
 python scripts/init-fast.py
 ```
 
-The creator copies tracked template files, resets project memory, initializes a
-new local Git repository, and installs a blocking pre-push hook. It creates no
-remote. Choose an empty directory outside the template; use `--dry-run` to preview.
+What this does automatically:
+- Copies only tracked framework files (no template scratch or logs).
+- Resets `memory-bank/`, `README.md`, `VERSION`, and `CHANGELOG.md` to clean project stubs.
+- Initializes a fresh local Git repository with no upstream remote and installs a local-only `pre-push` safety hook.
 
-Open the new project in your editor, paste the FAST_INIT prompt printed by the
-bootstrap, and describe what you want to build. Unknown requirements stay `TBD`
-until they are established. Full setup: [Start a new project](docs/start-new-project.md).
+Open `../my-project` in your AI coding agent and start the session with:
 
-### Start on GitHub
-
-Select **[Use this template](https://github.com/rumotion/ai-agent-project-template/generate)**
-to create your own repository, clone it, and run `python scripts/init-fast.py`.
-A direct clone of the upstream template is detached from inherited template
-remotes by the bootstrap. Publishing a derived project requires its own repository
-and deliberate authorization.
-
-### Upgrade an existing project
-
-```bash
-python scripts/upgrade-target.py --target ../existing-project --dry-run
+```text
+FAST_INIT (default mode per AGENTS.md).
 ```
 
-Review the preview before applying it. The upgrader preserves domain rules,
-custom skills and local modifications. GitHub/GitLab sources, commit pins and
-external backups support repeatable upgrades. See [Upgrade an existing project](docs/upgrade-existing-project.md).
+Then describe what you want to build. Unknown stack details stay `TBD` until you
+decide them. Full guide: [Start a new project](docs/start-new-project.md).
+
+### 2. Start from GitHub ("Use this template")
+
+Select **[Use this template](https://github.com/rumotion/ai-agent-project-template/generate)**
+on GitHub to create a new repository, clone it locally, and run:
+
+```bash
+python scripts/init-fast.py
+```
+
+If you cloned this template repository directly instead of generating from it,
+`init-fast.py` automatically detaches the inherited template `origin` so you
+never push private code back to the template.
+
+### 3. Daily multi-model workflow
+
+- **Start a session:** the agent reads `AGENTS.md` and `memory-bank/startup.md` (`FAST_INIT`, ~1,900 tokens).
+- **Pause or switch models (Claude <-> Codex <-> Gemini/Antigravity):** ask the agent to run the `handoff` workflow, or run:
+  ```bash
+  python scripts/continuity.py checkpoint --task-id <task-id> --client <client>
+  ```
+- **Resume work:** the next model reads `memory-bank/handoff.md` and runs:
+  ```bash
+  python scripts/continuity.py doctor --mode legacy
+  python scripts/tasks.py list
+  ```
+
+## Upgrade an existing project
+
+You can install or update this AI agent framework in **any existing project**
+(whether it was created from an older version of this template or started from
+scratch) without losing your application code, custom domain rules in
+`AGENTS.md`, custom skills, or `memory-bank/` history.
+
+### Option A: Ask your AI agent (fastest)
+
+Open your existing project in Claude Code, Codex, or Antigravity and paste:
+
+```text
+Upgrade this project's AI framework from
+https://github.com/rumotion/ai-agent-project-template using its latest upgrade
+workflow. Preserve application code, tests, settings, custom rules, skills and
+project memory. Preview changes, resolve conflicts and run the project's checks.
+Do not push or deploy.
+```
+
+**Even faster on future updates:** the first upgrade saves the template URL and
+installed file hashes in `.template-upstream.json`. Next time, just tell your agent:
+
+```text
+Update this project from its saved AI template source and verify the result locally.
+```
+
+### Option B: Run the CLI upgrader directly
+
+From a local checkout of this template (or inside a project that already has
+`scripts/upgrade-target.py`):
+
+```bash
+# 1. Preview changes safely (writes zero files)
+python scripts/upgrade-target.py --target ../existing-project --dry-run
+
+# 2. Apply the upgrade (creates an external backup and JSON report automatically)
+python scripts/upgrade-target.py --target ../existing-project
+```
+
+You can also upgrade directly from GitHub or GitLab with a pinned ref:
+
+```bash
+python scripts/upgrade-target.py --target ../existing-project \
+  --source https://github.com/rumotion/ai-agent-project-template \
+  --ref v1.3.0 --dry-run
+```
+
+If you modified a framework file locally, the upgrader marks it as a `conflict`
+and preserves your file untouched so you or your agent can merge it selectively.
+Full details: [Upgrade an existing project](docs/upgrade-existing-project.md).
 
 ## What is included
 
@@ -71,8 +139,10 @@ external backups support repeatable upgrades. See [Upgrade an existing project](
 | [AGENTS.md](AGENTS.md) | Canonical agent instructions, startup rules, and repository boundaries |
 | [Memory Bank](memory-bank/00-index.md) | Indexed project facts and a handoff for the next session or model |
 | [Context compiler](docs/context-compiler.md) | Typed records compiled into validated, bounded context |
+| [Continuity & task ledger](docs/continuity.md) | Private checkpoints, resume doctor, and durable task state (`scripts/tasks.py`) |
+| [Advisor model routing](docs/adaptive-model-routing.md) | Offline R1 escalation policy (`scripts/routing_policy.py`) for writer + senior advisor |
 | [Portable subagent contracts](docs/subagent-contract.md) | Task/result schemas with path scopes, pairing, and report limits |
-| [Workflows](workflows/) | Planning, implementation, debugging, review, and handoff procedures |
+| [Workflows](workflows/) | Planning, implementation, debugging, review, upgrade, and handoff procedures |
 | [22 skills and workflow entry points](.agents/skills/) | Canonical skills with tracked Claude/Cline discovery mirrors |
 | [Shared hooks](docs/hooks.md) | Advisory shell/write guards, metadata logging, and lifecycle context |
 | [Project tools](scripts/README.md) | Creation, upgrades, initialization, validation, and adapter generation |
@@ -84,7 +154,32 @@ not establish that every client consumes hook events. The
 [capability inventory](schemas/adapter-capabilities.json) distinguishes candidate
 mappings from missing live-client evidence.
 
-## What changed in v1.2
+## What changed in v1.3
+
+- **Verifiable context continuity:** `scripts/continuity.py` adds private
+  checkpoints, strict resume diagnostics (`doctor`) and visible redacted hook
+  failure logs. `scripts/ctx.py` captures reviewed durable records, protects
+  required IDs and scales to 1,000 archived records within the startup ceiling.
+- **Durable task ledger and parent acceptance:** `scripts/tasks.py` tracks
+  task attempts, revisions, dependency gates and file-scope inventories. Worker
+  submissions stay separate from parent acceptance. `scripts/task_metrics.py`
+  records ordinary task progress and token counters with quota pacing OFF.
+- **Offline advisor model routing (R1):** `scripts/routing_policy.py` implements
+  deterministic escalation between a fast implementation model and a read-only
+  senior advisor for material plans, completion checks and repeated logic errors.
+  Review receipts bind task revision, attempt, artifact hash and error events.
+- **Smaller startup and native hook repairs:** compacted `memory-bank/00-index.md`
+  from 1,534 to 619 characters (`FAST_INIT` ~7,710/9,500 chars). Fixed
+  Antigravity CWD-independent hook dispatch and `write_file`/`Path` aliases,
+  Codex Windows PowerShell hook execution, and Windows `core.longpaths` setup.
+- **Verification:** full validation now checks **193 required files**, 10
+  instruction adapters, 17 context budgets, 22 skills across 3 trees, and 15
+  hardening/recovery suites. Scoped native evidence is recorded in
+  [docs/recovery-pilot.md](docs/recovery-pilot.md).
+
+Release: [v1.3.0 - Verifiable context continuity and advisor routing](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.3.0).
+
+### Earlier improvements in v1.2
 
 - **Upgrade existing projects:** point your agent at the current template on
   GitHub or GitLab, even if the project has no upgrade skill installed yet.
@@ -100,33 +195,10 @@ mappings from missing live-client evidence.
   helpers, local Git transport, source pins, rollback and Windows junctions.
   Application checks still determine compatibility in each project.
 
-Release: [v1.2.1 - Upgrade existing projects from your template](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.2.1).
-
-### Earlier improvements in v1.1
-
-- **v1.1.1 pacing fix:** new dispatch requires a fresh completion board and
-  resources for the whole required work package, including integration.
-  Default limits are one worker and two open tasks; pending reviews, blockers
-  and 75% lead context pause new dispatch.
-- **Confirmed quota pacing:** a local, opt-in adviser for approved useful work.
-  Default OFF; a concrete plan and separate human confirmation are required.
-  Claude statusline input and manual Codex/Google readings are supported.
-  The tool never reads credentials, calls an API or launches agents.
-- **Current Antigravity discovery:** ten thin skill entry points link to the
-  canonical workflows; procedures are maintained in one place. Current main
-  has 22 skills with generated Claude/Cline mirrors.
-- **Smaller startup and proportional planning:** choose an observable success
-  check first, keep routine plans short, and use phases when complexity needs it.
-- **Regression coverage:** 34 pacing/integration tests run in full validation;
-  the upgrader preserves custom skills by refusing new-name conflicts.
-
-Read [usage pacing](docs/usage-pacing.md) for commands, state/telemetry formats,
-confirmation, stop conditions and native-goal integration. The
-[October tooling review](docs/ai-market-review-2026-10.md) explains adoption
-decisions and limits; [local agent mail](docs/local-agent-mail.md) is an
-assessment, not an installed messaging system.
-
-Previous release: [v1.1.1 - Completion-first agent pacing](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.1.1).
+Read [usage pacing](docs/usage-pacing.md) for optional confirmed quota pacing
+commands, state/telemetry formats and stop conditions. Previous releases:
+[v1.2.1 - Upgrade existing projects](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.2.1)
+| [v1.1.1 - Completion-first agent pacing](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.1.1).
 
 ## Core verification features
 
@@ -144,21 +216,6 @@ Previous release: [v1.1.1 - Completion-first agent pacing](https://github.com/ru
 
 Details: [Changelog](CHANGELOG.md) |
 [Implementation and verification](docs/audits/second-order/implementation.md).
-
-## Upgrade an older project
-
-Inside that project, ask your agent:
-
-```text
-Upgrade this project's AI framework from
-https://github.com/rumotion/ai-agent-project-template using the latest upgrade
-workflow. Preserve the application, custom rules, skills and project memory;
-preview, resolve conflicts, and verify locally. Do not push or deploy.
-```
-
-GitHub and GitLab sources are supported. The upgrader remembers the source and
-installed hashes, preserves conflicting local changes and creates external
-backups. [Upgrade guide](docs/upgrade-existing-project.md).
 
 ## How project memory works
 
@@ -193,9 +250,9 @@ python scripts/benchmark-context.py --self-test
 python scripts/gen-adapters.py --check
 ```
 
-Full validation checks the required file manifest, 10 instruction adapters, 17 context
-budgets, schemas, mirrors, context integrity, hook fixtures, and the adversarial
-regressions. [Testing guide](docs/testing.md) documents the individual checks.
+Full validation checks the 193-file manifest, 10 instruction adapters, 17 context
+budgets, schemas, mirrors, context integrity, hook fixtures, and the 15 hardening
+and recovery suites. [Testing guide](docs/testing.md) documents the individual checks.
 
 After changing canonical workflows or skills:
 
@@ -240,6 +297,7 @@ Keep credentials outside Git. Ignored files are still local files, and
 | Assess cross-client mail | [Local mail assessment](docs/local-agent-mail.md) |
 | Review current AI tooling changes | [October 2026 review](docs/ai-market-review-2026-10.md) |
 | Inspect context | [Context compiler](docs/context-compiler.md) |
+| Route writer and advisor models | [Adaptive model routing](docs/adaptive-model-routing.md) |
 | Measure ordinary task progress/cost | [Task measurements, pacing OFF](docs/task-measurements.md) |
 | Close feedback and product acceptance | [Feedback trace](docs/feedback-closure.md), [environment matrix](docs/product-acceptance.md) |
 | Publish a release | [Release checklist](docs/releasing.md) |

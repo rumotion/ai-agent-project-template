@@ -4,33 +4,54 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 ## Unreleased
 
+_Nothing yet._
+
+## v1.3.0 - 2026-11-09 - Verifiable context continuity and advisor routing
+
 ### Added
 
-- Private checkpoint/doctor with strict resume integrity, bounded source parsing
-  and visible redacted lifecycle failures.
-- Reviewed record capture/read-back, task/archive projections and required-ID
-  protection, including a 1,000-record archive regression.
-- Private durable task attempts, revisions, scope inventories and separate
-  parent acceptance; ordinary-task measurements with pacing OFF.
-- Integrated recovery scenarios, dated native evidence and optional feedback/
-  environment-acceptance workflows. Research and phase status are documented in
-  `docs/continuity-workplan.md` and `docs/agentic-engineering-evidence.md`.
+- Private checkpoint/doctor (`scripts/continuity.py`) with strict resume integrity,
+  bounded source parsing and visible redacted lifecycle failures.
+- Reviewed record capture/read-back (`scripts/ctx.py`), task/archive projections
+  and required-ID protection, including a 1,000-record archive regression.
+- Private durable task ledger (`scripts/tasks.py`) with attempts, revisions,
+  scope inventories and separate parent acceptance; ordinary-task measurements
+  (`scripts/task_metrics.py`) with pacing OFF.
+- Offline R1 advisor escalation and routing policy (`scripts/routing_policy.py`,
+  `docs/adaptive-model-routing.md`) binding review receipts to task revision,
+  attempt, artifact hash, checkpoint and latest repeated error event.
+- Integrated recovery scenarios (`scripts/verify-recovery.py`), dated native
+  pilot evidence (`docs/recovery-pilot.md`, `docs/continuity-followup-plan.md`)
+  and optional feedback/environment-acceptance workflows (`docs/feedback-closure.md`,
+  `docs/product-acceptance.md`).
+
+### Changed
+
+- Compacted shared startup index (`memory-bank/00-index.md`) from 1,534 to 619
+  characters, reducing aggregate `FAST_INIT` startup size while preserving all
+  navigation targets and compiled context outputs.
+- Expanded full template validation (`scripts/check-template.py`) to 193 required
+  files and 15 hardening/verification suites.
 
 ### Fixed
 
-- Resolve Antigravity hook code independently of the process working directory;
-  ordinary asset listing no longer fails because `.agents/scripts/hooks` is absent.
-  Keep canonical guard scripts in one location and test config-directory launches.
+- Resolve Antigravity hook code independently of the process working directory
+  (`scripts/hooks/antigravity-dispatch.py`) and support `write_file`/`Path`
+  aliases in `guard-sensitive-paths.py` and `log-writes.py`.
+- Execute Codex Windows hook bodies directly (`scripts/verify-windows-hooks.py`),
+  deliver client-aware Codex startup projections and enable local Git
+  `core.longpaths` on Windows during new-project bootstrap.
+- Align handoff writer budgets with the 1,200-character validator cap and verify
+  stale required-record reconciliation before checkpointing.
+- Deduplicate full/compatibility benchmark work in CI, remove unsupported
+  cache/continuity claims and prevent cumulative token/counter double counting.
+- Resume workflow now lists all open-task pages alongside the rolling handoff.
 
-- Duplicate full/compatibility benchmark work in CI; unsupported cache/continuity
-  guarantees; invalid handoff fallback; cumulative token/counter double counting.
-- Resume now lists all open-task pages alongside the rolling handoff.
-
-Native evidence is scoped: Claude CLI startup/Write denial and Claude/Codex
-restart/compaction were observed. Codex0.142.0 model requests failed; an approved
-isolated0.167.0 retained the selected model/effort and passed. Initial Claude
-exact-quotation failures remain recorded; other surfaces and savings stay open.
-No release, global configuration change or quota-pacing activation is implied.
+Native evidence is scoped: Antigravity IDE (Gemini 4 Argon High) and CLI, Claude
+CLI and Codex CLI startup/resume/compaction and sensitive-write denials were
+verified in bounded fixtures (`docs/recovery-pilot.md`). Unverified cold-restart,
+standalone-app and automatic fleet surfaces remain explicit future work. No
+global configuration change or quota-pacing activation is implied.
 
 ## v1.2.1 - 2026-10-31 - Hosted compatibility and backup path checks
 

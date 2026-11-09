@@ -1,5 +1,13 @@
 # Progress
 
+## v1.3.0 release preparation - 2026-11-09
+
+- Updated `VERSION` to `1.3.0`, promoted `CHANGELOG.md`, added `docs/releases/v1.3.0.md`,
+  and refreshed `README.md`, `assets/images/hero-template.svg` and
+  `docs/public-release-review.md`.
+- Completed full tracked-tree and outgoing-blob security/metadata audit since
+  `v1.2.1` with zero sensitive findings. Full 193-file gate passes. Pacing OFF.
+
 ## Bounded follow-up closeout - 2026-11-07
 
 - Completed offline policy, integrated two-model checkpoint and CLI process

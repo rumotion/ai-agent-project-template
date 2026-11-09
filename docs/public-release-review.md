@@ -1,5 +1,24 @@
 # Public release reviews
 
+## v1.3.0 release preparation — 2026-11-09
+
+Scope: version/changelog promotion to `1.3.0`, refreshed README and SVG hero
+(`assets/images/hero-template.svg`), `docs/releases/v1.3.0.md` release notes,
+and operational Memory Bank alignment for the continuity, task-ledger, R1
+advisor-routing and native-hook updates since `v1.2.1` (`90509d9`).
+
+- Audited all tracked files, all outgoing commits since `v1.2.1`, and all
+  outgoing UTF-8/binary blobs for private keys, API tokens, secret assignments,
+  non-noreply email addresses, local user paths, local file URIs, IP addresses
+  and non-English/Cyrillic repository text. Zero sensitive findings or binary
+  blobs were present; all outgoing commits use GitHub no-reply author and committer metadata.
+- Verified `.gitignore` coverage and confirmed that ignored local directories
+  (`.agent-logs/`, `tmp/`, `__pycache__/`, `docs/proposals/historical/`) are
+  untracked and excluded from Git transmission.
+- Full local validation (`python scripts/check-template.py`, 193 required files,
+  10 adapters, 17 context budgets, 22 skills across 3 trees, and 15 hardening
+  suites) passes before commit and tag creation. Optional quota pacing remains OFF.
+
 ## v1.1.0 release preparation — 2026-10-26
 
 Scope: version/changelog metadata, README, English release notes and the feature

@@ -1,18 +1,18 @@
 ---
-handoff_version: 46
-last_touched: 2026-11-07
-last_model: Codex
+handoff_version: 47
+last_touched: 2026-11-09
+last_model: Gemini 4 Argon High
 to_model: Any
 branch: main
-status: Scoped follow-up implementation and measurements verified locally
-task: Native validation and adaptive routing assessment
+status: v1.3.0 release artifacts and outgoing security audit prepared locally
+task: Prepare v1.3.0 release, visuals, docs and security audit
 task_id: continuity-upgrade
 required_records: decision-phased-continuity
-next_action: Use verified template; scope unsupported native or supervisor expansion separately
+next_action: Commit v1.3.0 release locally, then push main and v1.3.0 tag to GitHub
 blocking_issues: []
 ---
 
 # Handoff
 
-Plan: docs/continuity-followup-plan.md. Original minimum scope complete.
+Release: docs/releases/v1.3.0.md. Outgoing security audit clean.
 Routing: docs/adaptive-model-routing.md. Pacing OFF; local-only.

@@ -16,6 +16,10 @@ version/release metadata promotion to `1.3.1` (`docs/releases/v1.3.1.md`).
   `v1.3.0` remains unchanged; the correction ships as `v1.3.1`.
 - Outgoing content, commit/tag metadata and full 193-file validation pass with
   zero sensitive findings. Optional quota pacing remains OFF.
+- Publication receipt: [v1.3.1](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.3.1)
+  is the latest release, tagged at `e5e0c17d363695b4be21fa1a15e8c0b2ec32c7be`.
+  [Hosted run 42687265436](https://github.com/rumotion/ai-agent-project-template/actions/runs/42687265436)
+  passed all four `ubuntu-24.04` and `windows-latest` (`py3.9` and `py3.x`) jobs.
 
 ## v1.3.0 release preparation — 2026-11-09
 

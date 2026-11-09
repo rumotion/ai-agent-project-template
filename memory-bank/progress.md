@@ -1,5 +1,13 @@
 # Progress
 
+## v1.3.1 published - 2026-11-09
+
+- Published `v1.3.1` as Latest at `e5e0c17`. Hosted run `42687265436` passed all
+  four Ubuntu 24.04 and Windows (`py3.9`/`py3.x`) jobs.
+- Updated repository description, SVG overview (`RELEASE 1.3.1`), `README.md`
+  and release notes with quick-start and existing-project upgrade instructions.
+  Local push backstop preserved; pacing stays OFF.
+
 ## v1.3.1 hosted Windows path-alias correction - 2026-11-09
 
 - `v1.3.0` published at `772661d`; Ubuntu 24.04 CI jobs passed, while Windows

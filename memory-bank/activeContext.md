@@ -1,5 +1,14 @@
 # Active Context
 
+## v1.3.1 publication complete - 2026-11-09
+
+- Published `main` and annotated tag `v1.3.1` at `e5e0c17` and set `v1.3.1` as
+  the Latest GitHub release (`docs/releases/v1.3.1.md`).
+- Hosted CI run `42687265436` passed all four `ubuntu-24.04` and `windows-latest`
+  (`py3.9` and `py3.x`) jobs.
+- Repository description, README, SVG hero (`RELEASE 1.3.1`) and upgrade guides
+  are live. Local push backstop and private archive refs remain intact. Pacing OFF.
+
 ## v1.3.1 hosted Windows path-alias fix - 2026-11-09
 
 - Published `v1.3.0` at `772661d`. Hosted run `42685239684` passed both Ubuntu

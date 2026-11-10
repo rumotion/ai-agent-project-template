@@ -2,12 +2,15 @@
 
 ## Phase summary: Elephant-Goldfish Model (EGM) integration - 2026-11-09
 
-- Outcome: COMPLETE locally across Gemini/Antigravity, Claude Code, Codex, and Cline surfaces.
-- Key decisions: Adopted six high-signal EGM mechanisms (`Peanuts & Hay` bottom-up module contracts, `Paraphrase-First` comprehension gate, `Zero-Decision Rule` for plans/specs, `Zoom-Out` mandatory codebase reuse search, `Contradiction Gate` in cognitive harness, `drift-report` workflow, and 24,000-byte skill body cap) natively into the template without external plugin dependencies.
+- Outcome: Local adapters, mirrors, and deterministic checks pass for Gemini/Antigravity, Claude Code, and Codex; Cline mirrors also pass. These checks do not establish native runtime delivery.
+- Key decisions: Adopted EGM mechanisms (`Peanuts & Hay` bottom-up module contracts, `Paraphrase-First` comprehension gate, `Zero-Decision Rule` for plans/specs, `Zoom-Out` mandatory codebase reuse search, `Contradiction Gate` in cognitive harness, `drift-report` workflow, and 24,000-byte skill body cap) natively into the template without external plugin dependencies. Source: `decision-egm-context-contracts`.
 - Refuted hypotheses: Expanding `.agents/rules/30-cognitive-harness.md` with verbose prose would fit the 1,800-char budget (measured 1,820 chars; tightened to 1,731 chars).
 - Files modified: `AGENTS.md`, `memory-bank/00-index.md`, `docs/peanuts-and-hay.md`, `docs/reviewer-role.md`, `docs/agent-skill-ecosystem.md`, `docs/agent-compatibility.md`, `workflows/critic-review.md`, `workflows/spec-driven-development.md`, `workflows/plan-task.md`, `workflows/bootstrap-context.md`, `workflows/drift-report.md`, `.agents/rules/30-cognitive-harness.md`, skill/workflow mirrors across `.agents/`, `.claude/`, `.cline/`, `.clinerules/`, `scripts/check-template.py`, `scripts/upgrade-target.py`, `scripts/verify-upgrade.py`.
-- Open items: Live interactive verification in Claude Code and Codex CLI sessions.
-- Next: Run the Claude Code and Codex verification prompts; keep repository local-only until publication is requested. Pacing OFF.
+- Verification (Codex, 2026-11-09): Full `check-template.py` passed (206 files, 10 adapters, 24 skills across 3 trees); `verify-upgrade.py` passed (23 tests, 1 skipped); `gen-adapters.py --check` and `ctx.py compile --for gemini/claude/codex --check` passed. Codex discovery pointers, read-only reviewer sandbox, and both canonical EGM skills are present.
+- Contract exercise: Peanuts Re-Implementation Standard and both Zero-Decision workflows are present. `scripts/README.md` is an inventory rather than a complete contract: CLI defaults, error semantics, invariants, and side effects need explicit coverage. The grounded example is chat-only; source documentation was not edited.
+- Continuity: Legacy doctor returned the expected degraded status; task inventory was empty with no further pages. Handoff reconciled from Claude to Codex/Any; private receipts stay outside the repository.
+- Open items: Prior Claude reviewer emitted `paraphrase:` and four medium doc findings (drift-report default scope, categories, report path; README links in CONTEXT mode). Those findings remain unedited. Offline checks do not replace live client delivery evidence.
+- Next: Review the documentation findings when requested; keep repository local-only. Pacing OFF.
 
 ## v1.3.1 publication complete - 2026-11-09
 

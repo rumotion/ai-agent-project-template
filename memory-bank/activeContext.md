@@ -1,5 +1,16 @@
 # Active Context
 
+## Phase summary: Production-readiness simulation Stage 2 (Codex) - 2026-11-09
+
+- Status: Production upgrade & EGM drift simulation verified. Cleanup remains blocked by tool policy; this is not an unconditional completion sign-off.
+- Reconciliation: No Git remotes; tracked worktree initially clean at `7af6c6d`. Legacy continuity doctor reported `degraded` (no validated resume receipt); task list was empty with no further pages.
+- Peanuts review: `scripts/README.md` accepted under `docs/reviewer-role.md` and `.codex/agents/reviewer.toml`; Paraphrase-First completed, all five required sections checked against source, no findings. The documented fixture link resolves.
+- Preservation: Compared current SHA-256 hashes with `pre-upgrade-hashes.json`. All five requested custom files (`README.md`, `src/auth/README.md`, `config/app-settings.json`, `memory-bank/projectbrief.md`, `AGENTS.md`) are byte-identical. The saved local-source report records 259 additions, two preserved files, and `AGENTS.md` as the sole preserved conflict. Seven of nine baseline files still match; auth/billing source differs after drift seeding. All three `./<subdir>/CONTEXT.md` links resolve; child contracts are leaves.
+- Blind drift audit: Read four contracts sequentially and inspected source without running their Verification commands or changing fixtures. Missing Feature: `AuthService.rotate_token` is absent (`src/auth/service.py:35-90`). Logic Shortcut: `login` counts failures but never enforces lockout (`service.py:58-66`). Incomplete Model: `Invoice.due_date` is absent from both fields and `to_dict` (`src/billing/invoice.py:47-53,82-96`). Architectural Divergence: `finalize` invokes `_audit`, reading `LEDGER_AUDIT_LOG` and appending timestamped JSON to disk (`invoice.py:34-43,75`); this also violates `src/CONTEXT.md`. `src/api/CONTEXT.md`: `No drift detected.` Four distinct seeded discrepancies, five document-level findings; report emitted in chat first.
+- Validation: Full `python scripts/check-template.py` passed (206 required files, 10 adapters, 24 skills across three trees); `python scripts/verify-upgrade.py` passed (23 tests, one skipped); `ctx.py compile --for gemini/claude/codex --check` and post-update `check-template.py --fast` passed. Root checks ran with the ignored simulation directories still present because cleanup was denied.
+- Cleanup limitation: Both `.agent-logs/prod-sim-target` and `.agent-logs/prod-sim-backups` remain. Absolute paths were verified inside this workspace, with no reparse points. Automatic approval review rejected both the guarded deletion and explicit-literal-path retry as `blocked by policy`; no further deletion workaround attempted.
+- Next: Remove the two simulation directories when policy permits. No source fixes, remote actions, dependency installs, or inline Python commands. Local-only; Pacing OFF.
+
 ## Phase summary: Production-readiness simulation Stage 1 (Claude) - 2026-11-09
 
 - Outcome: The 4 prior reviewer findings are confirmed resolved. Three reviewer passes (`revise`, `revise`, `accept`) raised 14 new findings (4 medium, 10 low), all fixed in `scripts/README.md` and `workflows/drift-report.md` plus mirrors. Full record: `docs/audits/prod-readiness-2026-11/stage1-review.md`.

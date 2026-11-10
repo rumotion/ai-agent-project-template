@@ -1,21 +1,23 @@
 ---
-handoff_version: 55
+handoff_version: 56
 last_touched: 2026-11-09
-last_model: Claude
-to_model: Codex
+last_model: Codex
+to_model: Any
 branch: main
-status: Prod-readiness simulation Stage 1 done, review fixes accepted; Stage 2 pending
+status: Production upgrade & EGM drift simulation verified
 task: Two-model production-readiness and upgrade simulation
 task_id: continuity-upgrade
 required_records: decision-phased-continuity
-next_action: Codex runs workflows/drift-report.md blind on .agent-logs/prod-sim-target/src
-blocking_issues: []
+next_action: Remove the two prod-sim directories when tool policy permits
+blocking_issues: Simulation cleanup rejected by tool policy
 ---
 
 # Handoff
 
-Stage 1 (Claude): 4 prior findings resolved. Reviewer raised 14 more (4 medium, 10 low) in `scripts/README.md` and `workflows/drift-report.md`; all fixed, final verdict `accept`. Read `docs/audits/prod-readiness-2026-11/stage1-review.md` for every finding and fix.
+Stage 2: Peanuts review accepted. Five named custom files hash-identical; three CONTEXT links valid. Evidence: activeContext.md.
 
-Upgrade sim on `.agent-logs/prod-sim-target` passed: apply-safe exit 2, `AGENTS.md` sole conflict, 9 custom files hash-identical.
+Blind drift: auth lacks rotate_token and lockout enforcement; billing lacks due_date and adds environment-driven disk logging (also violates root). API: No drift detected. Fixtures unchanged; report emitted in chat first.
 
-`CONTEXT.md` contracts exist under `src/`. 4 drifts (one per category) seeded afterwards in `auth` and `billing`; `api` is the clean control. Drifts deliberately unlisted. Use the root `workflows/drift-report.md`; audit read-only, chat-first. Pacing OFF; local-only.
+Full check-template, verify-upgrade (23 tests, one skipped), Gemini/Claude/Codex compile checks, and post-update fast gate passed.
+
+Cleanup incomplete: `.agent-logs/prod-sim-target` and `.agent-logs/prod-sim-backups` remain; tool policy rejected bounded deletion. Local-only; Pacing OFF.

@@ -4,7 +4,8 @@
 
 - Integrated `docs/peanuts-and-hay.md`, `workflows/bootstrap-context.md`, and `workflows/drift-report.md` with canonical skills in `.agents/skills/` and SHA-256-verified mirrors in `.claude/skills/`, `.cline/skills/`, `.agents/workflows/`, and `.clinerules/workflows/`.
 - Added `Paraphrase-First` (`paraphrase:`) and `Zoom-Out` reuse checks to `docs/reviewer-role.md` and `workflows/critic-review.md`, the `Zero-Decision Rule` to `workflows/spec-driven-development.md` and `workflows/plan-task.md`, and the `Contradiction Gate` to `.agents/rules/30-cognitive-harness.md`.
-- Enforced the 24,000-byte skill body load limit and `paraphrase:` reviewer contract check in `scripts/check-template.py`; updated `scripts/upgrade-target.py` and `scripts/verify-upgrade.py` (23 upgrade tests, 206 required files, 24 skills across 3 trees). Pacing OFF; local-only.
+- Enforced the 24,000-byte skill body load limit and `paraphrase:` reviewer contract check in `scripts/check-template.py`; updated `scripts/upgrade-target.py` and `scripts/verify-upgrade.py` (23 upgrade tests, 206 required files, 24 skills across 3 trees).
+- Verified across Gemini, Claude Code, and Codex; resolved all 4 Claude reviewer doc findings in `docs/peanuts-and-hay.md` and `workflows/drift-report.md` and upgraded `scripts/README.md` into a full `Peanuts` module contract. Pacing OFF; local-only.
 
 ## v1.3.1 published - 2026-11-09
 

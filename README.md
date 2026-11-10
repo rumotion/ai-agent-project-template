@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.3.1: verifiable context continuity, durable task ledger, advisor model routing and safe project upgrades" width="1200" />
+  <img src="assets/images/hero-template.svg" alt="AI Agent Project Template v1.4.0: Peanuts and Hay context contracts, spec-to-code drift auditing, Paraphrase-First review gates, verifiable context continuity and safe project upgrades" width="1200" />
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@ carry verified project context across sessions and models, and upgrade existing
 projects safely with dependency-free Python standard-library tooling.
 
 [How to use](#quick-start) | [Upgrade existing projects](#upgrade-an-existing-project) |
-[What is included](#what-is-included) | [What changed in v1.3](#what-changed-in-v13) |
+[What is included](#what-is-included) | [What changed in v1.4](#what-changed-in-v14) |
 [Verification](#verification) | [Documentation](#documentation) |
 [Releases](https://github.com/rumotion/ai-agent-project-template/releases)
 
@@ -125,7 +125,7 @@ You can also upgrade directly from GitHub or GitLab with a pinned ref:
 ```bash
 python scripts/upgrade-target.py --target ../existing-project \
   --source https://github.com/rumotion/ai-agent-project-template \
-  --ref v1.3.1 --dry-run
+  --ref v1.4.0 --dry-run
 ```
 
 If you modified a framework file locally, the upgrader marks it as a `conflict`
@@ -138,12 +138,13 @@ Full details: [Upgrade an existing project](docs/upgrade-existing-project.md).
 |---|---|
 | [AGENTS.md](AGENTS.md) | Canonical agent instructions, startup rules, and repository boundaries |
 | [Memory Bank](memory-bank/00-index.md) | Indexed project facts and a handoff for the next session or model |
+| [Peanuts & Hay contracts](docs/peanuts-and-hay.md) | Bottom-up module boundaries (`README.md` or `CONTEXT.md`) under the Re-Implementation Standard |
 | [Context compiler](docs/context-compiler.md) | Typed records compiled into validated, bounded context |
 | [Continuity & task ledger](docs/continuity.md) | Private checkpoints, resume doctor, and durable task state (`scripts/tasks.py`) |
 | [Advisor model routing](docs/adaptive-model-routing.md) | Offline R1 escalation policy (`scripts/routing_policy.py`) for writer + senior advisor |
 | [Portable subagent contracts](docs/subagent-contract.md) | Task/result schemas with path scopes, pairing, and report limits |
-| [Workflows](workflows/) | Planning, implementation, debugging, review, upgrade, and handoff procedures |
-| [22 skills and workflow entry points](.agents/skills/) | Canonical skills with tracked Claude/Cline discovery mirrors |
+| [Workflows](workflows/) | Planning, implementation, debugging, review, bootstrap-context, drift-report, upgrade, and handoff |
+| [24 skills and workflow entry points](.agents/skills/) | Canonical skills (24 KB load ceiling) with tracked Claude/Cline discovery mirrors |
 | [Shared hooks](docs/hooks.md) | Advisory shell/write guards, metadata logging, and lifecycle context |
 | [Project tools](scripts/README.md) | Creation, upgrades, initialization, validation, and adapter generation |
 | [GitHub Actions](.github/workflows/validate.yml) | Windows/Linux validation on Python 3.9 and current Python |
@@ -154,7 +155,32 @@ not establish that every client consumes hook events. The
 [capability inventory](schemas/adapter-capabilities.json) distinguishes candidate
 mappings from missing live-client evidence.
 
-## What changed in v1.3
+## What changed in v1.4
+
+- **Bottom-up module context contracts (`docs/peanuts-and-hay.md`, `workflows/bootstrap-context.md`):**
+  adapted from Google's Elephant-Goldfish Model (EGM), leaf component contracts
+  (**Peanuts**: `Overview`, `Interface`, `Invariants`, `Side Effects`,
+  `Verification`) and subsystem blueprints (**Hay**) let fresh sessions navigate
+  module boundaries in 1-2 file reads without inflating `FAST_INIT`. Supports
+  both `README.md` and `CONTEXT.md` modes with a mandatory `> 15` directory gate.
+- **Read-only spec and contract drift auditing (`workflows/drift-report.md`):**
+  sequentially audits specifications, `Peanuts & Hay` module contracts, and
+  Memory Bank architecture docs against current source code across four categories
+  (`Missing Features`, `Incomplete Models`, `Logic Shortcuts`, `Architectural
+  Divergence`), verified in a two-model (Claude + Codex) blind drift simulation.
+- **Paraphrase-First, Zoom-Out, Zero-Decision, and Contradiction gates:**
+  reviewers (`docs/reviewer-role.md`, `workflows/critic-review.md`) must emit a
+  `paraphrase:` comprehension summary before findings and check for codebase reuse
+  (`Zoom-Out`); specs/plans enforce the **Zero-Decision Rule**; the cognitive
+  harness (`.agents/rules/30-cognitive-harness.md`) adds a **Contradiction Gate**.
+- **24,000-byte skill load cap & full `scripts/README.md` Peanuts contract:**
+  `scripts/check-template.py` enforces `SKILL_MAX_BYTES = 24_000` across all 24
+  skills, validates the `paraphrase:` reviewer marker, and checks **206 required
+  files** across 10 adapters and 3 skill discovery trees.
+
+Release: [v1.4.0 - Elephant-Goldfish context contracts, drift auditing, and Paraphrase-First review gates](https://github.com/rumotion/ai-agent-project-template/releases/tag/v1.4.0).
+
+### Earlier improvements in v1.3
 
 - **Verifiable context continuity:** `scripts/continuity.py` adds private
   checkpoints, strict resume diagnostics (`doctor`) and visible redacted hook
@@ -250,7 +276,7 @@ python scripts/benchmark-context.py --self-test
 python scripts/gen-adapters.py --check
 ```
 
-Full validation checks the 193-file manifest, 10 instruction adapters, 17 context
+Full validation checks the 206-file manifest, 10 instruction adapters, 17 context
 budgets, schemas, mirrors, context integrity, hook fixtures, and the 15 hardening
 and recovery suites. [Testing guide](docs/testing.md) documents the individual checks.
 
@@ -289,6 +315,8 @@ Keep credentials outside Git. Ignored files are still local files, and
 |---|---|
 | Create a project | [Start a new project](docs/start-new-project.md) |
 | Update a project | [Upgrade guide](docs/upgrade-existing-project.md) |
+| Bootstrap module contracts | [Peanuts & Hay guide](docs/peanuts-and-hay.md), [Bootstrap workflow](workflows/bootstrap-context.md) |
+| Audit spec-to-code drift | [Drift report workflow](workflows/drift-report.md) |
 | Choose an integration | [Compatibility](docs/agent-compatibility.md) | [Per-tool setup](docs/per-tool-setup.md) |
 | Resume with another model | [Handoff workflow](workflows/handoff.md) |
 | Understand the hooks | [Hook behavior and limitations](docs/hooks.md) |

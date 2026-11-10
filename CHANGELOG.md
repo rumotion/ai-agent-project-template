@@ -6,6 +6,33 @@ This project follows Semantic Versioning. See [the release checklist](docs/relea
 
 _Nothing yet._
 
+## v1.4.0 - 2026-11-09 - Elephant-Goldfish context contracts, drift auditing, and Paraphrase-First review gates
+
+### Added
+
+- **Bottom-up module context contracts (`docs/peanuts-and-hay.md`, `workflows/bootstrap-context.md`, `.agents/skills/bootstrap-context/SKILL.md`):**
+  - Leaf component contracts (**Peanuts**: `Overview`, `Interface`, `Invariants`, `Side Effects`, `Verification`) and parent/root blueprints (**Hay**) following the Re-Implementation (Zero-Assumption) Standard.
+  - Supports both `README.md` (default) and `CONTEXT.md` (when preserving existing human-facing `README.md` files), with incremental BFS discovery and a mandatory `> 15` directory confirmation gate.
+- **Spec & contract drift auditing (`workflows/drift-report.md`, `.agents/skills/drift-report/SKILL.md`):**
+  - Sequential, read-only document-to-code audit comparing specs, `Peanuts & Hay` contracts, and Memory Bank architecture docs against current source code across four drift categories (`Missing Features`, `Incomplete Models`, `Logic Shortcuts`, `Architectural Divergence`).
+  - Includes a bounded default baseline, a `> 10` document confirmation gate, static verification command checks, and chat-first read-only report output.
+- **Elephant-Goldfish Model (EGM) review and planning gates:**
+  - `Paraphrase-First` (`paraphrase:`) comprehension gate and `Zoom-Out` codebase reuse check in `docs/reviewer-role.md` and `workflows/critic-review.md`.
+  - `Zero-Decision Rule` in `workflows/spec-driven-development.md` and `workflows/plan-task.md`.
+  - `Contradiction Gate` in `.agents/rules/30-cognitive-harness.md`.
+- **Stage 1 & Stage 2 production-upgrade and blind drift audit record (`docs/audits/prod-readiness-2026-11/stage1-review.md`):**
+  - Documented three-pass reviewer audit and two-model (Claude + Codex) blind drift simulation results.
+
+### Changed
+
+- Upgraded `scripts/README.md` into a full `Peanuts` module contract documenting CLI flags, exit semantics, hook exit payloads, state locations, invariants, side effects, and verification commands across the entire `scripts/` directory.
+- Enforced a `24,000`-byte skill body load ceiling (`SKILL_MAX_BYTES`) and `paraphrase:` reviewer contract marker check in `scripts/check-template.py`.
+- Expanded `scripts/upgrade-target.py`, `scripts/verify-upgrade.py`, and full template validation to **206 required files**, **10 instruction adapters**, **17 startup/context budgets**, and **24 skills across 3 discovery trees** (`.agents/skills/`, `.claude/skills/`, `.cline/skills/`).
+
+### Fixed
+
+- Resolved 18 reviewer findings across `docs/peanuts-and-hay.md`, `workflows/drift-report.md` (plus `.agents/workflows/` and `.clinerules/workflows/` mirrors), and `scripts/README.md`, aligning every documented script interface row with its exact `argparse` definition.
+
 ## v1.3.1 - 2026-11-09 - Canonicalize Windows runner path aliases in write logger
 
 ### Fixed

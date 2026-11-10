@@ -1,5 +1,10 @@
 # Progress
 
+## v1.4.0 release preparation - 2026-11-09
+
+- Cleaned up `.agent-logs/prod-sim-*` fixtures, promoted `VERSION` and `CHANGELOG.md` to `1.4.0`, added `docs/releases/v1.4.0.md`, and refreshed `README.md`, `assets/images/hero-template.svg`, and `docs/public-release-review.md`.
+- Full 206-file validation gate, 24 skills across 3 trees, and 23 upgrade scenarios pass; committed and tagged `v1.4.0` locally for GitHub publication. Pacing OFF.
+
 ## Elephant-Goldfish Model (EGM) integration - 2026-11-09
 
 - Integrated `docs/peanuts-and-hay.md`, `workflows/bootstrap-context.md`, and `workflows/drift-report.md` with canonical skills in `.agents/skills/` and SHA-256-verified mirrors in `.claude/skills/`, `.cline/skills/`, `.agents/workflows/`, and `.clinerules/workflows/`.

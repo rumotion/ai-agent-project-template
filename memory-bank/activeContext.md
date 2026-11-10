@@ -1,5 +1,11 @@
 # Active Context
 
+## v1.4.0 release preparation and simulation cleanup - 2026-11-09
+
+- Removed `.agent-logs/prod-sim-target` and `.agent-logs/prod-sim-backups` after Stage 1 (Claude) and Stage 2 (Codex) production-upgrade and blind drift verification completed.
+- Promoted `VERSION` and `CHANGELOG.md` to `1.4.0`, added `docs/releases/v1.4.0.md`, and updated `README.md`, `assets/images/hero-template.svg` (`RELEASE 1.4.0`), and `docs/public-release-review.md` with direct GitHub project upgrade instructions (`--ref v1.4.0`).
+- Full 206-file template validation, 10 adapters, 17 context budgets, 24 skills across 3 trees, and 23 upgrade preservation tests pass. Pacing remains OFF.
+
 ## Phase summary: Production-readiness simulation Stage 2 (Codex) - 2026-11-09
 
 - Status: Production upgrade & EGM drift simulation verified. Cleanup remains blocked by tool policy; this is not an unconditional completion sign-off.

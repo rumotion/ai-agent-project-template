@@ -1,5 +1,25 @@
 # Public release reviews
 
+## v1.4.0 Elephant-Goldfish context contracts, drift auditing, and review gates — 2026-11-09
+
+Scope: version/changelog promotion to `1.4.0`, `docs/peanuts-and-hay.md`,
+`workflows/bootstrap-context.md`, `workflows/drift-report.md`, canonical and
+mirrored skills (`bootstrap-context`, `drift-report`), `Paraphrase-First` and
+`Zoom-Out` review gates in `docs/reviewer-role.md` and `workflows/critic-review.md`,
+`Zero-Decision Rule` in `workflows/spec-driven-development.md` and `workflows/plan-task.md`,
+`Contradiction Gate` in `.agents/rules/30-cognitive-harness.md`, full `Peanuts`
+contract in `scripts/README.md`, 24,000-byte skill load cap in `scripts/check-template.py`,
+`docs/releases/v1.4.0.md`, and refreshed `README.md` + `assets/images/hero-template.svg`.
+
+- Verified across Gemini/Antigravity, Claude Code, and OpenAI Codex, including a
+  three-pass read-only reviewer audit (`docs/audits/prod-readiness-2026-11/stage1-review.md`)
+  and a two-model production-upgrade and blind drift simulation (`.agent-logs/prod-sim-*`
+  removed before release commit).
+- Full local validation (`python scripts/check-template.py`, 206 required files,
+  10 adapters, 17 context budgets, 24 skills across 3 trees, and 15 hardening/recovery
+  suites) and 23 upgrade preservation tests (`python scripts/verify-upgrade.py`)
+  pass with zero sensitive findings. Optional quota pacing remains OFF.
+
 ## v1.3.1 Windows runner path-alias fix — 2026-11-09
 
 Scope: `scripts/hooks/log-writes.py` ancestor path canonicalization (`resolve_path`),

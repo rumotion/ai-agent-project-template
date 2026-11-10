@@ -1,5 +1,14 @@
 # Active Context
 
+## Phase summary: Production-readiness simulation Stage 1 (Claude) - 2026-11-09
+
+- Outcome: The 4 prior reviewer findings are confirmed resolved. Three reviewer passes (`revise`, `revise`, `accept`) raised 14 new findings (4 medium, 10 low), all fixed in `scripts/README.md` and `workflows/drift-report.md` plus mirrors. Full record: `docs/audits/prod-readiness-2026-11/stage1-review.md`.
+- Key corrections: eight `scripts/README.md` interface rows listed nonexistent flags/subcommands; the no-network invariant ignored the template `git fetch`; guard hooks exit `0` with a JSON deny payload, not `2`; `ctx.py record` does not update `00-index.md`; continuity/task/pacing state lives under the home directory, not `.agent-logs/`. `drift-report` now checks `Verification` commands statically and defines its default contract baseline.
+- Upgrade simulation: `upgrade-target.py --apply-safe` on `.agent-logs/prod-sim-target` exited 2 with `AGENTS.md` the only conflict; 259 files added; all 9 custom files SHA-256 identical before and after (`.agent-logs/prod-sim-backups/pre-upgrade-hashes.json`).
+- Refuted hypothesis: "commit `2d20606` leaves the three docs approvable" (reviewer returned `revise` on `scripts/README.md`).
+- Verification: full `check-template.py` exit 0; `gen-adapters.py --check` passes.
+- Next: Stage 2, Codex runs `workflows/drift-report.md` blind on `.agent-logs/prod-sim-target/src`. Seeded drifts are intentionally unrecorded. Local-only; Pacing OFF.
+
 ## Phase summary: Elephant-Goldfish Model (EGM) integration - 2026-11-09
 
 - Outcome: Local adapters, mirrors, and deterministic checks pass for Gemini/Antigravity, Claude Code, and Codex; Cline mirrors also pass. These checks do not establish native runtime delivery.

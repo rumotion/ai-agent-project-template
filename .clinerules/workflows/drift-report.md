@@ -11,13 +11,14 @@ Compare checked-in design specifications, `Peanuts & Hay` module contracts (`doc
 ## Rules
 
 - **Read-Only Audit First**: Do not create or edit tracked repository files (source code or documentation) during the scan. Present the drift report in chat first (or write to a repository file only when the user explicitly requests saving it) so the human or an authorized follow-up task decides whether to update the doc or fix the code.
+- **Static Verification Check**: Do not execute `Verification` commands during the audit. Treat one as non-functional only when its entry point, referenced paths, or flags do not exist in the working tree; run it only if the user explicitly asks.
 - **Signal Only**: Report **only discrepancies**. Do not list features or files that match. If a document matches the codebase completely, output `No drift detected.` for that document.
 
 ## Steps
 
 1. **Identify Target Documents & Scope Gate**:
    - If the user specifies target files or directories, audit only those paths.
-   - If no path is provided, default to the bounded baseline set: `memory-bank/systemPatterns.md`, `memory-bank/techContext.md`, and root/top-level module contracts (`README.md` or `CONTEXT.md`).
+   - If no path is provided, default to the bounded baseline set: `memory-bank/systemPatterns.md`, `memory-bank/techContext.md`, and the module contracts (`README.md` or `CONTEXT.md`) at the repository root and in its first-level directories. A file counts as a contract only if it follows the `Peanuts & Hay` section structure; skip human-facing `README.md` files that do not.
    - **Scope Safety Gate**: If target resolution exceeds 10 documents (for example, auditing all of `docs/` plus nested contracts), pause and ask the user to confirm full-scan execution or narrow the target path before reading source trees.
 2. **Sequential Document-to-Code Verification**:
    - Process target documents sequentially so tool output buffers stay small:
